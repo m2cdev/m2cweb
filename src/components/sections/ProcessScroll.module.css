@@ -1,0 +1,204 @@
+.scrollContainer {
+  height: 300vh; /* Expanded animation length as requested */
+  background: var(--bg-primary);
+  position: relative;
+}
+
+.stickyWrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  min-height: 650px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.content {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Ensure contents stay centered */
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+  width: 100%;
+  z-index: 10;
+  flex-shrink: 0; /* Prevent shrinking overlap */
+}
+
+.title {
+  display: inline-block;
+  background: var(--surface-2);
+  padding: 1rem 3rem;
+  border-radius: 100px;
+  border: 1px solid var(--surface-border);
+  backdrop-filter: blur(10px);
+}
+
+.visualWindow {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 480px;
+  flex-shrink: 0; /* Prevent shrinking overlap */
+  margin-top: 2rem;
+}
+
+.sceneLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+  pointer-events: none;
+  background: transparent;
+}
+
+.sceneText {
+  text-align: center;
+  max-width: 500px;
+  background: var(--surface-2);
+  padding: 1.5rem 3rem;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.sceneText h3 {
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.diagramArea {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* SVG Elements */
+.pathBroken {
+  fill: none;
+  stroke: var(--accent-highlight);
+  stroke-width: 2;
+  stroke-dasharray: 4, 4;
+  opacity: 0.5;
+}
+
+.pathConnecting {
+  fill: none;
+  stroke: var(--accent-secondary);
+  stroke-width: 3;
+  stroke-dasharray: 8, 8;
+  animation: marchingAnts 1s linear infinite;
+}
+
+.pathSolid {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.1);
+  stroke-width: 4;
+}
+
+.pathFlow {
+  fill: none;
+  stroke: var(--accent-primary);
+  stroke-width: 4;
+  filter: drop-shadow(0 0 8px rgba(0, 255, 194, 0.5));
+}
+
+.nodeChaotic {
+  fill: var(--bg-secondary);
+  stroke: var(--accent-highlight);
+  stroke-width: 2;
+}
+
+.nodeNeutral {
+  fill: var(--bg-secondary);
+  stroke: var(--accent-secondary);
+  stroke-width: 2;
+}
+
+.nodeOrganized {
+  fill: var(--bg-secondary);
+  stroke: var(--accent-primary);
+  stroke-width: 2;
+}
+
+.nodeClosedWon {
+  fill: rgba(0, 255, 194, 0.1);
+  stroke: var(--accent-primary);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 15px rgba(0, 255, 194, 0.4));
+}
+
+@keyframes marchingAnts {
+  to { stroke-dashoffset: -16; }
+}
+
+/* Overlay UI */
+.overlayGrid {
+  position: absolute;
+  inset: -50px;
+  border: 1px solid rgba(0, 255, 194, 0.2);
+  border-radius: 24px;
+  background: rgba(0, 255, 194, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlayLineH {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 255, 194, 0.3);
+}
+
+.overlayLineV {
+  position: absolute;
+  height: 100%;
+  width: 1px;
+  background: rgba(0, 255, 194, 0.3);
+}
+
+.overlayCenter {
+  width: 48px;
+  height: 48px;
+  background: var(--accent-primary);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 0 30px rgba(0, 255, 194, 0.4);
+}
+
+.overlayIcon {
+  color: var(--bg-primary);
+}
+
+@media (max-width: 768px) {
+  .visualWindow {
+    transform: scale(0.8);
+    margin-top: 10vh;
+  }
+}

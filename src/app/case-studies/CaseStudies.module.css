@@ -1,0 +1,262 @@
+.main {
+  padding: 120px 0 8rem;
+  background: var(--bg-primary);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  gap: 4rem;
+  align-items: flex-start;
+}
+
+.sidebar {
+  flex: 0 0 250px;
+  position: sticky;
+  top: 120px;
+  height: calc(100vh - 160px);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarInner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidebarTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.navLink {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.navLink:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.activeNavLink {
+  color: var(--accent-primary);
+  background: rgba(0, 255, 194, 0.05);
+  border-color: rgba(0, 255, 194, 0.2);
+  font-weight: 500;
+}
+
+.ctaBox {
+  margin-top: auto;
+  padding: 1.5rem;
+  background: var(--surface-1);
+  border-radius: 12px;
+  border: 1px solid var(--surface-border);
+  text-align: center;
+}
+
+.sidebarCta {
+  display: block;
+  width: 100%;
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  padding: 0.75rem;
+  border-radius: 100px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9375rem;
+  margin-top: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.sidebarCta:hover {
+  transform: translateY(-2px);
+  background: var(--accent-primary);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+  padding-bottom: 4rem;
+}
+
+.projectSection {
+  scroll-margin-top: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.projectHeader {
+  margin-bottom: 1rem;
+}
+
+.companyName {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.projectName {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.videoPlaceholder {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--surface-2);
+  border: 1px solid var(--surface-border);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.videoPlaceholder::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 100%);
+  z-index: 1;
+}
+
+.playButtonWrapper {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.playButton {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+  box-shadow: 0 10px 30px rgba(0, 255, 194, 0.3);
+}
+
+.playButtonWrapper:hover .playButton {
+  transform: scale(1.1);
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.detailBox {
+  padding: 2rem;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.impactBox {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.detailLabel {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-primary);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.detailList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.detailList li {
+  position: relative;
+  padding-left: 1.25rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.detailList li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: currentColor;
+  opacity: 0.5;
+}
+
+.impactBox .detailList li::before {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    gap: 3rem;
+  }
+  
+  .sidebar {
+    position: static;
+    height: auto;
+    width: 100%;
+    flex: none;
+  }
+  
+  .nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+  
+  .navLink {
+    white-space: nowrap;
+  }
+  
+  .ctaBox {
+    display: none;
+  }
+  
+  .detailsGrid {
+    grid-template-columns: 1fr;
+  }
+}

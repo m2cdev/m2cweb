@@ -1,0 +1,60 @@
+.page {
+  padding: 12rem 0 8rem;
+  background: var(--bg-primary);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.heroSection {
+  margin-bottom: 8rem;
+}
+
+.heroSection h1 {
+  margin-bottom: 3rem;
+  max-width: 800px;
+}
+
+.missionText {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 800px;
+}
+
+.missionText p {
+  font-size: 1.25rem !important;
+}
+
+.philosophySection {
+  margin-bottom: 8rem;
+}
+
+.philosophyGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.philosophyCard {
+  padding: 3rem 2rem;
+  border: 1px solid var(--surface-border);
+  background: var(--surface-1);
+}
+
+.philosophyCard h3 {
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+
+
+@media (max-width: 1024px) {
+  .philosophyGrid {
+    grid-template-columns: 1fr;
+  }
+}

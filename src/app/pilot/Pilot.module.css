@@ -1,0 +1,189 @@
+.main {
+  padding-top: 80px;
+  background: var(--bg-primary);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.heroSection {
+  padding: 6rem 0 4rem;
+}
+
+.heroContent {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.title {
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.stepsSection {
+  padding: 6rem 0;
+  background: var(--surface-1);
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  position: relative;
+}
+
+.stepCard {
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: var(--bg-primary);
+  border: 1px solid var(--surface-border);
+  transition: all 0.3s ease;
+}
+
+.stepCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 255, 194, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 255, 194, 0.1);
+}
+
+.iconBox {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: rgba(0, 255, 194, 0.1);
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.stepTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.connector {
+  position: absolute;
+  top: 5rem;
+  right: -2rem;
+  width: 2rem;
+  height: 2px;
+  background: dashed 2px var(--surface-border);
+  z-index: 0;
+}
+
+.ctaSection {
+  padding: 8rem 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.ctaBox {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem;
+  border-radius: 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(145deg, var(--surface-2) 0%, var(--surface-1) 100%);
+  border: 1px solid var(--accent-primary);
+  box-shadow: 0 0 40px rgba(0, 255, 194, 0.1);
+}
+
+.ctaTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.ctaSubtitle {
+  font-size: 1.25rem;
+  margin-bottom: 3rem;
+  max-width: 600px;
+}
+
+.primaryCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  padding: 1rem 2rem;
+  border-radius: 100px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1.125rem;
+  transition: all 0.3s ease;
+}
+
+.primaryCta:hover {
+  transform: translateY(-2px);
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+}
+
+.glowBg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(0, 255, 194, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  
+  .connector {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .ctaBox {
+    padding: 3rem 1.5rem;
+  }
+  
+  .ctaTitle {
+    font-size: 2rem;
+  }
+}

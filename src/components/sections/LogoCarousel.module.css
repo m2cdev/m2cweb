@@ -1,0 +1,74 @@
+.carouselSection {
+  padding: 4rem 0;
+  border-bottom: 1px solid var(--surface-border);
+  background: var(--bg-primary);
+  position: relative;
+  z-index: 10;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.label {
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  opacity: 0.6;
+}
+
+.carouselWrapper {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.carouselTrack {
+  display: flex;
+  gap: 6rem;
+  align-items: center;
+  width: max-content;
+  animation: scroll 40s linear infinite;
+  padding: 0 3rem;
+}
+
+.carouselTrack:hover {
+  animation-play-state: paused;
+}
+
+.logoItem {
+  flex-shrink: 0;
+  cursor: pointer;
+  filter: grayscale(100%) opacity(0.5);
+  transition: all 0.4s ease;
+}
+
+.logoItem:hover {
+  filter: grayscale(0%) opacity(1);
+  transform: scale(1.05);
+}
+
+.logoPlaceholder {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: -0.02em;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 3rem));
+  }
+}
+
+@media (max-width: 768px) {
+  .carouselTrack {
+    gap: 3rem;
+  }
+}

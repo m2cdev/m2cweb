@@ -1,0 +1,126 @@
+.caseSection {
+  padding: 8rem 0;
+  position: relative;
+  background: var(--bg-primary);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.header {
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  margin-top: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+  gap: 1.5rem;
+  transition: all 0.3s ease;
+  background: var(--surface-1);
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  background: var(--surface-2);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.cardIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cardContent {
+  flex: 1;
+}
+
+.companyName {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.projectName {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.cardLink {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+  border: 1px solid var(--surface-border);
+}
+
+.card:hover .cardLink {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+}
+
+.ctaWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.readMoreCta {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  gap: 0.75rem;
+  color: var(--bg-primary);
+  background: var(--text-primary);
+  text-decoration: none;
+  font-size: 1.125rem;
+  transition: all 0.3s ease;
+  padding: 1rem 2rem;
+  border-radius: 100px;
+}
+
+.readMoreCta:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
