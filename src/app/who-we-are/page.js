@@ -1,186 +1,111 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Target, Zap, Activity, Users, Settings, BookOpen } from 'lucide-react';
-import styles from './WhoWeAre.module.css';
-import CTASection from '@/components/sections/CTASection';
-import FinalCTASection from '@/components/sections/FinalCTASection';
+import React from "react";
+import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card-effect";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+
+const philosophyCards = [
+  {
+    title: "Precision First",
+    description: "We don't guess. We map. Every move is calculated based on deep account intelligence and decision-making patterns.",
+    image: "/precision-first.png"
+  },
+  {
+    title: "Complexity Mapping",
+    description: "The bigger the deal, the more noise. We filter the noise to find the clear path to a 'Yes'.",
+    image: "/complexity-mapping.png"
+  },
+  {
+    title: "Repeatable Excellence",
+    description: "Success shouldn't be a fluke. We build the engine that makes high-value wins a habit, not a hobby.",
+    image: "/surgical-execution.png"
+  }
+];
 
 export default function WhoWeAre() {
   return (
-    <main className={styles.main}>
-      {/* 1. Overview */}
-      <section className={styles.heroSection}>
-        <div className={styles.container}>
-          <motion.div 
-            className={styles.heroContent}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+    <div className="flex flex-col w-full bg-black min-h-screen pt-40 pb-20 overflow-x-hidden">
+      <div className="container-custom">
+        {/* Hero Section */}
+        <div className="max-w-4xl mb-32">
+          <motion.h1 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="text-5xl md:text-8xl font-black tracking-tighter mb-8 leading-none text-white"
           >
-            <h1 className={`hero-heading ${styles.title}`}>
-              We build systems inside your <span className="primary-gradient">sales motion.</span>
-            </h1>
-            <p className={`body-text ${styles.subtitle}`}>
-              Map2Close is a sales enablement partner for B2B teams. We do not just provide strategy.<br/>
-              We embed inside your sales motion to build systems and help reps execute them.
-            </p>
-          </motion.div>
+            We Are the <span className="text-primary italic">Architects</span> <br /> of Strategic Deals.
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl md:text-2xl text-gray-400 font-body leading-relaxed max-w-2xl"
+          >
+            Map2Close was founded on a simple realization: High-stakes B2B sales is broken by complexity. We fixed it with precision mapping.
+          </motion.p>
         </div>
-      </section>
 
-      {/* 2. What Makes Us Different */}
-      <section className={styles.section}>
-        <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <h2 className="section-heading">What Makes Us <span className="primary-gradient">Different</span></h2>
-          </div>
-          <div className={styles.splitGrid}>
-            <motion.div 
-              className={`glass-panel ${styles.card} ${styles.cardNegative}`}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6 }}
-            >
-              <h3 className={styles.cardTitle}>Most consultants</h3>
-              <ul className={styles.list}>
-                <li>Deliver slide decks</li>
-                <li>Recommend tools</li>
-                <li>Leave execution to the client</li>
-              </ul>
-            </motion.div>
-
-            <motion.div 
-              className={`glass-panel ${styles.card} ${styles.cardPositive}`}
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <h3 className={styles.cardTitle}>Map2Close</h3>
-              <ul className={styles.list}>
-                <li>Builds systems inside your CRM</li>
-                <li>Works with reps in live deals</li>
-                <li>Optimizes messaging and workflows</li>
-                <li>Coaches execution in real time</li>
-              </ul>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Our Philosophy */}
-      <section className={styles.sectionAlt}>
-        <div className={styles.container}>
-          <div className={styles.philosophyContainer}>
-            <div className={styles.philosophyText}>
-              <h2 className="section-heading">Our <span className="primary-gradient">Philosophy</span></h2>
-              <p className={`body-text ${styles.philosophyLead}`}>
-                Sales improves when three things work together:
-              </p>
-              <ul className={styles.bigList}>
-                <li><span className={styles.number}>1</span> Systems</li>
-                <li><span className={styles.number}>2</span> Process</li>
-                <li><span className={styles.number}>3</span> Execution</li>
-              </ul>
-              <p className={`body-text ${styles.philosophyConclusion}`}>
-                Most teams focus on just one.<br/>
-                We focus on <strong>all three</strong> at the same time.
-              </p>
-            </div>
-            {/* Minimalistic Interactive Element */}
-            <div className={styles.philosophyVisual}>
-              <div className={styles.vennContainer}>
-                <motion.div className={styles.vennCircle1} animate={{ scale: [1, 1.05, 1], rotate: [0, 5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}></motion.div>
-                <motion.div className={styles.vennCircle2} animate={{ scale: [1, 1.05, 1], rotate: [0, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}></motion.div>
-                <motion.div className={styles.vennCircle3} animate={{ scale: [1, 1.05, 1], y: [0, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 2 }}></motion.div>
-                <div className={styles.vennCenter}><Target size={30} /></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. What We Actually Do */}
-      <section className={styles.section}>
-        <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <h2 className="section-heading">What We <span className="primary-gradient">Actually Do</span></h2>
-            <p className="body-text">Typical engagement includes:</p>
-          </div>
-          <div className={styles.grid4}>
-            {[
-              { title: "CRM and systems audit", icon: <Settings size={28} /> },
-              { title: "Sales process optimization", icon: <Activity size={28} /> },
-              { title: "Custom playbooks", icon: <BookOpen size={28} /> },
-              { title: "Rep coaching and deal support", icon: <Users size={28} /> }
-            ].map((item, i) => (
-              <motion.div 
-                key={i}
-                className={`glass-panel ${styles.serviceCard}`}
+        {/* Philosophy Section - Spread Effect */}
+        <div className="mb-40">
+          <h2 className="text-3xl font-bold mb-16 border-l-4 border-primary pl-6 uppercase tracking-widest text-primary/80">Our Philosophy</h2>
+          
+          <div className="group/container relative flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0 lg:gap-0 min-h-[600px]">
+            {philosophyCards.map((card, index) => (
+              <motion.div
+                key={index}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className={cn(
+                  "relative transition-all duration-500 ease-out z-10",
+                  // Mobile: standard stack
+                  "w-full max-w-[90vw] md:w-auto",
+                  // Desktop: Spread on container hover
+                  index === 0 && "md:group-hover/container:-translate-x-32 lg:group-hover/container:-translate-x-48",
+                  index === 2 && "md:group-hover/container:translate-x-32 lg:group-hover/container:translate-x-48",
+                  // Initial centered stack effect (if overlapping was desired, but here we spread)
+                  "md:-mx-12 lg:-mx-16" 
+                )}
               >
-                <div className={styles.iconWrapper}>{item.icon}</div>
-                <h3 className={styles.serviceTitle}>{item.title}</h3>
+                <CardContainer className="inter-var">
+                  <CardBody className="bg-[#050A10] relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] border-white/10 w-full sm:w-[26rem] h-auto rounded-2xl p-6 border transition-all">
+                    <CardItem
+                      translateZ="50"
+                      className="text-2xl font-black text-white"
+                    >
+                      {card.title}
+                    </CardItem>
+                    <CardItem
+                      as="p"
+                      translateZ="60"
+                      className="text-gray-400 text-sm max-w-sm mt-3 font-body leading-relaxed"
+                    >
+                      {card.description}
+                    </CardItem>
+                    <CardItem translateZ="100" className="w-full mt-6">
+                      <img
+                        src={card.image}
+                        height="600"
+                        width="600"
+                        className="h-64 w-full object-cover rounded-xl group-hover/card:shadow-xl opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 border border-white/5"
+                        alt={card.title}
+                      />
+                    </CardItem>
+                    
+                    {/* Brand Accent corner */}
+                    <div className={cn(
+                      "absolute top-0 right-0 w-24 h-24 bg-gradient-to-br transition-opacity duration-500 opacity-0 group-hover/card:opacity-10 rounded-tr-2xl",
+                      index === 1 ? "from-[#62D2A2]" : "from-[#F96B6B]"
+                    )} />
+                  </CardBody>
+                </CardContainer>
               </motion.div>
             ))}
           </div>
-          <motion.div 
-            className={styles.conclusionBox}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <p className="body-text">This structure turns scattered sales activity into a repeatable process.</p>
-          </motion.div>
         </div>
-      </section>
 
-      {/* 5. How We Compare (Dropdown Target) */}
-      <section id="how-we-compare" className={styles.sectionAlt}>
-        <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <h2 className="section-heading">How We <span className="primary-gradient">Compare</span></h2>
-          </div>
-          
-          <div className={styles.compareGrid}>
-            <div className={`glass-panel ${styles.compareCard}`}>
-              <h3 className={styles.compareTitle}>Traditional Sales Consulting</h3>
-              <ul className={styles.compareList}>
-                <li><span className={styles.dash}>-</span>Strategy advice</li>
-                <li><span className={styles.dash}>-</span>Slide decks</li>
-                <li><span className={styles.dash}>-</span>Limited execution</li>
-              </ul>
-            </div>
-            
-            <div className={`glass-panel ${styles.compareCard}`}>
-              <h3 className={styles.compareTitle}>Lead Generation Agencies</h3>
-              <ul className={styles.compareList}>
-                <li><span className={styles.dash}>-</span>Focus on meetings</li>
-                <li><span className={styles.dash}>-</span>No system improvements</li>
-                <li><span className={styles.dash}>-</span>Limited deal impact</li>
-              </ul>
-            </div>
-            
-            <div className={`glass-panel ${styles.compareCard} ${styles.compareCardPrimary}`}>
-              <h3 className={styles.compareTitleHighlight}>Map2Close</h3>
-              <ul className={styles.compareListHighlight}>
-                <li><Zap size={16} />Build sales systems</li>
-                <li><Zap size={16} />Improve execution</li>
-                <li><Zap size={16} />Work with reps in real deals</li>
-                <li><Zap size={16} />Optimize full funnel performance</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <FinalCTASection />
-    </main>
+      </div>
+    </div>
   );
 }

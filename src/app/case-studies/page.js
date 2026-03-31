@@ -1,198 +1,127 @@
-'use client';
+"use client";
 
-import { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
-import { Play } from 'lucide-react';
-import Link from 'next/link';
-import styles from './CaseStudies.module.css';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
+import { BorderBeam } from "@/components/ui/border-beam";
+import { Play } from "lucide-react";
 
-const projects = [
+const caseStudies = [
   {
-    id: 'pinecone',
-    company: "Pinecone",
-    project: "Sales Enablement Hub",
-    problem: "Sales content existed but reps could not access it easily during deals.",
-    solution: [
-      "Filter assets by deal stage",
-      "Access competitor battlecards",
-      "Build deal kits quickly"
-    ],
-    impact: [
-      "Faster access to selling content",
-      "Improved rep consistency",
-      "Better deal preparation"
-    ]
+    id: "fintech",
+    company: "Fintech Leader",
+    title: "Mapping the Path to a 25% Increase in Deal Velocity",
+    description: "Our client, a leading Fintech platform, struggled with long sales cycles and stakeholder gridlock. We mapped their top tier accounts and identified key friction points.",
+    loomId: "placeholder-1", // Placeholder for actual Loom link
+    color: "#62D2A2"
   },
   {
-    id: 'signpost',
-    company: "SignPost",
-    project: "Signal Intelligence Engine",
-    problem: "Outbound lacked timing signals.",
-    solution: [
-      "Built a signal engine detecting events such as funding, leadership changes, contract renewals",
-      "Signals pushed directly into CRM workflows"
-    ],
-    impact: [
-      "Reps reach buyers at the right time",
-      "3–5× engagement increase",
-      "Faster pipeline generation"
-    ]
+    id: "saas",
+    company: "Growth-Stage SaaS",
+    title: "The Mid-Market Pivot: Closing 12 Accounts in 90 Days",
+    description: "Moving from SMB to Mid-Market required a new blueprint. We built a repeatable sales motion that allowed their team to scale with precision.",
+    loomId: "placeholder-2",
+    color: "#F96B6B"
   },
   {
-    id: 'zenatech',
-    company: "ZenaTech",
-    project: "Sales Vault System",
-    problem: "Sales knowledge scattered across documents.",
-    solution: [
-      "sales playbooks",
-      "objection handling",
-      "messaging frameworks",
-      "internal deal intelligence"
-    ],
-    impact: [
-      "Faster rep ramp time",
-      "Consistent messaging",
-      "Stronger outbound execution"
-    ]
-  },
-  {
-    id: 'qwilr',
-    company: "Qwilr",
-    project: "Trial-to-Close Engine",
-    problem: "Trials converting poorly.",
-    solution: [
-      "track trial engagement signals",
-      "automate follow-ups",
-      "guide reps on next steps"
-    ],
-    impact: [
-      "Improved trial conversion",
-      "Shorter deal cycles",
-      "Stronger pipeline predictability"
-    ]
+    id: "cyber",
+    company: "Defense Tech",
+    title: "Surgical Execution on a $5M Government Contract",
+    description: "High-stakes deals require zero margin for error. We mapped the entire DMU for a complex government RFP, ensuring every stakeholder was aligned.",
+    loomId: "placeholder-3",
+    color: "#ffffff"
   }
 ];
 
-export default function CaseStudiesPage() {
-  const [activeSection, setActiveSection] = useState(projects[0].id);
-
-  // Intersection Observer to highlight active section in sidebar
-  useEffect(() => {
-    const observers = [];
-    projects.forEach(project => {
-      const element = document.getElementById(project.id);
-      if (element) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                setActiveSection(project.id);
-              }
-            });
-          },
-          { rootMargin: '-20% 0px -60% 0px' }
-        );
-        observer.observe(element);
-        observers.push(observer);
-      }
-    });
-    
-    return () => {
-      observers.forEach(obs => obs.disconnect());
-    };
-  }, []);
+const LoomEmbed = ({ loomId, color }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <main className={styles.main}>
-      <div className={styles.container}>
-        
-        {/* Sticky Sidebar Navigation */}
-        <aside className={styles.sidebar}>
-          <div className={styles.sidebarInner}>
-            <h2 className={styles.sidebarTitle}>Case Studies</h2>
-            <nav className={styles.nav}>
-              {projects.map((p) => (
-                <a 
-                  key={p.id} 
-                  href={`#${p.id}`}
-                  className={`${styles.navLink} ${activeSection === p.id ? styles.activeNavLink : ''}`}
-                >
-                  {p.company}
-                </a>
-              ))}
-            </nav>
-            
-            <div className={styles.ctaBox}>
-              <p className="micro-text">Ready to build your revenue engine?</p>
-              <Link href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96" target="_blank" rel="noopener noreferrer" className={styles.sidebarCta}>
-                Book a Session
-              </Link>
-            </div>
+    <div className="relative group w-full aspect-video rounded-3xl overflow-hidden bg-white/5 border border-white/10">
+      <BorderBeam colorFrom={color} colorTo={color} size={300} duration={12} delay={9} />
+      
+      {!isPlaying ? (
+        <div 
+          className="absolute inset-0 z-10 flex flex-col items-center justify-center cursor-pointer hover:bg-black/40 transition-colors"
+          onClick={() => setIsPlaying(true)}
+        >
+          <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center text-black shadow-2xl group-hover:scale-110 transition-transform">
+            <Play fill="currentColor" size={32} />
           </div>
-        </aside>
+          <p className="mt-4 text-sm font-bold uppercase tracking-widest text-primary">Watch Case Study</p>
+        </div>
+      ) : (
+        <iframe
+          src={`https://www.loom.com/embed/${loomId}?hide_owner=true&hide_share=true&hide_title=true&hide_embed_top_bar=true`}
+          frameBorder="0"
+          webkitallowfullscreen
+          mozallowfullscreen
+          allowfullscreen
+          className="absolute inset-0 w-full h-full"
+        ></iframe>
+      )}
+      
+      {/* Fallback Image / Poster */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-neutral-800 to-black" />
+    </div>
+  );
+};
 
-        {/* Scrollable Content */}
-        <div className={styles.content}>
-          {projects.map((project, index) => (
-            <motion.section 
-              key={project.id} 
-              id={project.id}
-              className={styles.projectSection}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className={styles.projectHeader}>
-                <h2 className={styles.companyName}>{project.company}</h2>
-                <h3 className={`primary-gradient ${styles.projectName}`}>{project.project}</h3>
+export default function CaseStudies() {
+  return (
+    <div className="flex flex-col w-full bg-black min-h-screen pt-40 pb-20 relative">
+      <ScrollProgress className="top-20 h-1 bg-primary z-[60]" />
+      
+      <div className="container-custom">
+        <div className="max-w-4xl mb-32">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-5xl md:text-8xl font-black tracking-tighter mb-8"
+          >
+            Real Deals. <br /> <span className="text-primary italic">Surgical</span> Results.
+          </motion.h1>
+          <p className="text-xl md:text-2xl text-gray-400 font-body leading-relaxed max-w-2xl">
+            See how Map2Close blueprints have transformed sales motions for some of the world's most ambitious sales organizations.
+          </p>
+        </div>
+
+        <div className="space-y-40">
+          {caseStudies.map((cs, index) => (
+            <section key={cs.id} className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+              <div className={index % 2 === 1 ? "lg:order-2" : ""}>
+                <motion.div
+                  initial={{ opacity: 0, x: index % 2 === 1 ? 20 : -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  <p className="inline-block px-4 py-1 rounded-full border border-white/10 bg-white/5 text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">
+                    {cs.company}
+                  </p>
+                  <h2 className="text-3xl md:text-5xl font-bold mb-8 tracking-tight leading-tight">
+                    {cs.title}
+                  </h2>
+                  <p className="text-lg text-gray-400 font-body leading-relaxed mb-10">
+                    {cs.description}
+                  </p>
+                  <button className="h-12 px-8 rounded-full border border-white/10 text-white font-bold hover:bg-white/5 transition-all">
+                    Read the Full Paper
+                  </button>
+                </motion.div>
               </div>
 
-              <div className={styles.videoPlaceholder}>
-                {/* Loom Video Placeholder */}
-                <div className={styles.playButtonWrapper}>
-                  <div className={styles.playButton}>
-                    <Play fill="currentColor" size={32} />
-                  </div>
-                </div>
-                <p className="micro-text">Loom Video Embed Placeholder</p>
-              </div>
-
-              <div className={styles.detailsGrid}>
-                <div className={`glass-panel ${styles.detailBox}`}>
-                  <h4 className={styles.detailLabel}>The Problem</h4>
-                  <p className="body-text">{project.problem}</p>
-                </div>
-
-                <div className={`glass-panel ${styles.detailBox}`}>
-                  <h4 className={styles.detailLabel}>System Built</h4>
-                  <ul className={styles.detailList}>
-                    {project.solution.map((item, i) => (
-                      <li key={i}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className={`glass-panel ${styles.detailBox} ${styles.impactBox}`}>
-                  <h4 className={styles.detailLabel} style={{color: 'var(--bg-primary)'}}>The Impact</h4>
-                  <ul className={styles.detailList} style={{color: 'var(--bg-primary)'}}>
-                    {project.impact.map((item, i) => (
-                      <li key={i}>
-                        <CheckCircle size={18} style={{flexShrink: 0, marginRight: '8px', color: 'rgba(0,0,0,0.5)'}} /> 
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </motion.section>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8 }}
+                className={index % 2 === 1 ? "lg:order-1" : ""}
+              >
+                <LoomEmbed loomId={cs.loomId} color={cs.color} />
+              </motion.div>
+            </section>
           ))}
         </div>
-        
       </div>
-    </main>
+    </div>
   );
 }
-
-// CheckCircle imported at the end to keep clean imports 
-import { CheckCircle } from 'lucide-react';
