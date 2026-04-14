@@ -3,7 +3,7 @@
 import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 
-// Use our local CustomSpline implementation to bypass @splinetool/react-spline resolution issues
+// Use our local CustomSpline implementation to bypass the official react wrapper resolution issues
 const Spline = dynamic(() => import('./custom-spline'), {
   ssr: false,
 })

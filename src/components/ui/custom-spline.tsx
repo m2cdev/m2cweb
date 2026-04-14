@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import { Application } from '@splinetool/runtime'
+import type { Application } from '@splinetool/runtime'
 
 interface CustomSplineProps {
   scene: string
@@ -16,10 +16,12 @@ export default function CustomSpline({ scene, className, onLoad }: CustomSplineP
   useEffect(() => {
     if (!canvasRef.current) return
 
-    const app = new Application(canvasRef.current)
-    
+    let app: Application
+
     async function init() {
       try {
+        const { Application } = await import('@splinetool/runtime')
+        app = new Application(canvasRef.current!)
         await app.load(scene)
         setLoading(false)
         if (onLoad) onLoad(app)
@@ -31,7 +33,7 @@ export default function CustomSpline({ scene, className, onLoad }: CustomSplineP
     init()
 
     return () => {
-      app.dispose()
+      if (app) app.dispose()
     }
   }, [scene, onLoad])
 

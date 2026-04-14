@@ -1,0 +1,37 @@
+Retrieving project…
+Deploying yayoub2004s-projects/map2close-web
+Uploading [--------------------] (0.0B/67B)
+Uploading [====================] (67.0B/67B)
+Inspect: https://vercel.com/yayoub2004s-projects/map2close-web/CdiJptgXmk4TQCcqnC1CAHg5KC3g [2s]
+Production: https://map2close-af0tyay8c-yayoub2004s-projects.vercel.app [2s]
+https://map2close-af0tyay8c-yayoub2004s-projects.vercel.appBuilding...
+Building: Running build in Washington, D.C., USA (East) – iad1
+Building: Build machine configuration: 2 cores, 8 GB
+Building: Retrieving list of deployment files...
+Building: Retrieving list of deployment files...
+Building: Downloading 173 deployment files...
+Building: Restored build cache from previous deployment (3bQRW9L4MEaXGsyX6kZrtFbm9D9L)
+Building: Running "vercel build"
+Building: Vercel CLI 51.2.1
+Building: Installing dependencies...
+Building: added 6 packages in 2s
+Building: 252 packages are looking for funding
+Building: run `npm fund` for details
+Building: Detected Next.js version: 16.1.6
+Building: Running "npm run build"
+Building: > map2close-web@0.1.0 build
+Building: > next build --webpack
+Building: ▲ Next.js 16.1.6 (webpack)
+Building: Creating an optimized production build ...
+Building: Failed to compile.
+Building: ./node_modules/@splinetool/runtime/build/process.js
+Building: Module not found: Can't resolve 'process.wasm'
+Building: https://nextjs.org/docs/messages/module-not-found
+Building: Import trace for requested module:
+Building: ./node_modules/@splinetool/runtime/build/runtime.js
+Building: ./src/components/ui/custom-spline.tsx
+Building: ./src/components/ui/spline-scene.tsx
+Building: ./src/app/services/ai-sales-assistant/page.js
+Building: > Build failed because of webpack errors
+Building: Error: Command "npm run build" exited with 1
+Error: Command "npm run build" exited with 1

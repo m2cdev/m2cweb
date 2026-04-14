@@ -86,7 +86,7 @@ export default function ProblemSection() {
                 animate={isTextInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                 transition={{ duration: 0.5, delay: 0.5 + (index * 0.15) }}
               >
-                <div className={styles.iconWrapper} style={{ background: 'rgba(255, 100, 100, 0.1)', color: '#ff6464' }}>
+                <div className={styles.iconWrapper} style={{ background: 'rgba(249, 107, 107, 0.1)', color: '#F96B6B' }}>
                   <AlertTriangle size={20} />
                 </div>
                 <span className="body-text">{bullet}</span>

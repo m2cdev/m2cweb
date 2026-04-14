@@ -1,5 +1,5 @@
-/** @type {import('next').NextConfig} */
 const nextConfig = {
+  serverExternalPackages: ['@splinetool/runtime'],
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'logo.clearbit.com' },
@@ -15,13 +15,20 @@ const nextConfig = {
       { protocol: 'https', hostname: 'upload.wikimedia.org' },
     ],
   },
-  transpilePackages: ['@splinetool/runtime'],
+
   webpack: (config) => {
-    config.experiments = { ...config.experiments, asyncWebAssembly: true };
+    config.experiments = { 
+      ...config.experiments, 
+      asyncWebAssembly: true,
+      layers: true 
+    };
+
+    // Fix for WASM resolution in environments where it might not be automatically handled
     config.module.rules.push({
       test: /\.wasm$/,
       type: 'asset/resource',
     });
+
     return config;
   },
 };

@@ -144,6 +144,19 @@ export default function AISalesAssistantPage() {
                 </div>
               </FadeSection>
 
+              {/* Powered by Full Enrich */}
+              <FadeSection delay={0.25} className="mt-12">
+                <div className="flex items-center gap-4 px-5 py-3 rounded-xl border border-white/10 bg-white/[0.03] w-fit">
+                  <span className="text-[11px] font-black tracking-[0.2em] text-white uppercase whitespace-nowrap">Powered by</span>
+                  <div className="w-px h-4 bg-white/20" />
+                  <img 
+                    src="https://framerusercontent.com/images/yyQy6O9iI8m11Nmj5L5RvQjqc.svg?width=1834&height=335" 
+                    alt="FullEnrich" 
+                    className="h-4 md:h-5 w-auto invert brightness-[10] contrast-200" 
+                  />
+                </div>
+              </FadeSection>
+
               {/* Floating stat pill */}
               <FadeSection delay={0.3} className="mt-20">
                 <div className="inline-flex items-center gap-4 px-5 py-4 rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-sm">

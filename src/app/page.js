@@ -33,15 +33,15 @@ export default function Home() {
           className="absolute inset-0 z-0 opacity-80"
         >
           <div className="relative z-20 w-full max-w-6xl px-6 text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-[5rem] font-black text-white tracking-tight mb-8 leading-[1.05] uppercase">
+            <h1 className="text-4xl md:text-5xl lg:text-[5rem] font-black text-white tracking-[-0.01em] mb-8 leading-[0.95]">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               >
-                WE HELP SALES TEAMS<br className="hidden md:block" />
-                BRING MORE DEALS IN<br className="hidden md:block" />
-                AND CLOSE THEM FASTER
+                We Help Sales Teams<br className="hidden md:block" />
+                Bring <span className="text-primary italic">More Deals</span> In<br className="hidden md:block" />
+                And <span className="text-coral italic">Close Them Faster</span>
               </motion.div>
             </h1>
             
