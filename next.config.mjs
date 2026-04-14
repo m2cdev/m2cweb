@@ -16,18 +16,31 @@ const nextConfig = {
     ],
   },
 
-  webpack: (config) => {
-    config.experiments = { 
-      ...config.experiments, 
+  webpack: (config, { isServer }) => {
+    config.experiments = {
+      ...config.experiments,
       asyncWebAssembly: true,
-      layers: true 
+      layers: true
     };
 
-    // Fix for WASM resolution in environments where it might not be automatically handled
+    // Fix for WASM resolution: treat .wasm files as asset resources
     config.module.rules.push({
       test: /\.wasm$/,
       type: 'asset/resource',
     });
+
+    // Alias process.wasm to false to prevent webpack from trying to bundle it
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'process.wasm': false,
+    };
+
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+      };
+    }
 
     return config;
   },
