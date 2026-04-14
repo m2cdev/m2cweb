@@ -8,29 +8,41 @@ import { Play } from "lucide-react";
 
 const caseStudies = [
   {
-    id: "fintech",
-    company: "Fintech Leader",
-    title: "Mapping the Path to a 25% Increase in Deal Velocity",
-    description: "Our client, a leading Fintech platform, struggled with long sales cycles and stakeholder gridlock. We mapped their top tier accounts and identified key friction points.",
-    loomId: "placeholder-1", // Placeholder for actual Loom link
-    color: "#62D2A2"
+    id: "pinecone",
+    company: "Sales Enablement",
+    title: "Sales Enablement Hub",
+    description: "The right content never made it into the right conversation at the right time. Assets existed but were scattered, outdated, and impossible to surface during an active deal. We built a centralized Sales Enablement Hub where reps filter assets by deal stage, buyer persona, and use case in real time.",
+    loomId: "placeholder-1",
+    color: "#62D2A2",
+    companyName: "Pinecone",
   },
   {
-    id: "saas",
-    company: "Growth-Stage SaaS",
-    title: "The Mid-Market Pivot: Closing 12 Accounts in 90 Days",
-    description: "Moving from SMB to Mid-Market required a new blueprint. We built a repeatable sales motion that allowed their team to scale with precision.",
+    id: "signpost",
+    company: "Signal Intelligence",
+    title: "Signal Intelligence Engine",
+    description: "Reps were cold calling blind — no way to know which accounts were actively in pain. We built a custom Signal Intelligence Engine that scraped public review data, scored every account across Fit, Demand, Comms Pain, and Growth, and pushed high-scoring leads directly into HubSpot with rep-facing briefs.",
     loomId: "placeholder-2",
-    color: "#F96B6B"
+    color: "#F96B6B",
+    companyName: "SignPost",
   },
   {
-    id: "cyber",
-    company: "Defense Tech",
-    title: "Surgical Execution on a $5M Government Contract",
-    description: "High-stakes deals require zero margin for error. We mapped the entire DMU for a complex government RFP, ensuring every stakeholder was aligned.",
+    id: "zenatech",
+    company: "Revenue Systems",
+    title: "Multi-Unit Revenue System",
+    description: "A fast-growing holding company operating across SaaS, Drones-as-a-Service, land surveying, and defense tech — none of it connected. We built the entire revenue operating system: full HubSpot + Apollo implementation, multi-unit pipelines, automated routing, and weekly coaching across 12+ reps.",
     loomId: "placeholder-3",
-    color: "#ffffff"
-  }
+    color: "#ffffff",
+    companyName: "ZenaTech",
+  },
+  {
+    id: "qwilr",
+    company: "Trial Optimization",
+    title: "Trial-to-Close Engine",
+    description: "Deals slowed the moment they left the demo stage. We designed a Trial-to-Close Engine — guided trial playbooks, a Deal Accelerator Engine monitoring every active trial, and live rep coaching until the new motion stuck.",
+    loomId: "placeholder-4",
+    color: "#62D2A2",
+    companyName: "Qwilr",
+  },
 ];
 
 const LoomEmbed = ({ loomId, color }) => {
@@ -79,10 +91,10 @@ export default function CaseStudies() {
             animate={{ opacity: 1, y: 0 }}
             className="text-5xl md:text-8xl font-black tracking-tighter mb-8"
           >
-            Real Deals. <br /> <span className="text-primary italic">Surgical</span> Results.
+            Outcomes <br /> <span className="text-primary italic">Over Optics.</span>
           </motion.h1>
           <p className="text-xl md:text-2xl text-gray-400 font-body leading-relaxed max-w-2xl">
-            See how Map2Close blueprints have transformed sales motions for some of the world's most ambitious sales organizations.
+            Real problems. Real builds. Real results.
           </p>
         </div>
 
@@ -98,15 +110,21 @@ export default function CaseStudies() {
                   <p className="inline-block px-4 py-1 rounded-full border border-white/10 bg-white/5 text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">
                     {cs.company}
                   </p>
-                  <h2 className="text-3xl md:text-5xl font-bold mb-8 tracking-tight leading-tight">
-                    {cs.title}
+                  <h2 className="text-3xl md:text-5xl font-bold mb-3 tracking-tight leading-tight">
+                    {cs.companyName}
                   </h2>
+                  <p className="text-primary font-bold uppercase tracking-widest text-sm mb-8">{cs.title}</p>
                   <p className="text-lg text-gray-400 font-body leading-relaxed mb-10">
                     {cs.description}
                   </p>
-                  <button className="h-12 px-8 rounded-full border border-white/10 text-white font-bold hover:bg-white/5 transition-all">
-                    Read the Full Paper
-                  </button>
+                  <div className="flex gap-4 flex-wrap">
+                    <button className="h-12 px-8 rounded-full border border-white/10 text-white font-bold hover:bg-white/5 transition-all">
+                      Read the Full Paper
+                    </button>
+                    <button className="h-12 px-8 rounded-full border border-primary/30 text-primary font-bold hover:bg-primary/10 transition-all">
+                      Watch Case Study
+                    </button>
+                  </div>
                 </motion.div>
               </div>
 

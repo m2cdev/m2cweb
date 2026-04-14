@@ -91,6 +91,8 @@ const COLOR_SCHEME = {
   }
 };
 
+const noise = createNoise();
+
 export const FluidParticlesBackground = ({
   children,
   particleCount = 2000,
@@ -99,7 +101,6 @@ export const FluidParticlesBackground = ({
   className
 }) => { 
   const canvasRef = useRef(null);
-  const noise = createNoise();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -125,69 +126,81 @@ export const FluidParticlesBackground = ({
       velocity: { x: 0, y: 0 },
       life: Math.random() * 100,
       maxLife: 100 + Math.random() * 50,
+      isGreen: Math.random() < 0.2, // 20% are green
     }));
 
-    const animate = () => {
-      // Check for dark mode to apply theme-appropriate colors
-      const isDark = document.documentElement.classList.contains("dark");
-      const scheme = isDark ? COLOR_SCHEME.dark : COLOR_SCHEME.light;
+      let reqId;
+      const animate = () => {
+        // Check for dark mode to apply theme-appropriate colors
+        const isDark = document.documentElement.classList.contains("dark");
+        const scheme = isDark ? COLOR_SCHEME.dark : COLOR_SCHEME.light;
 
-      // Clear canvas with a semi-transparent background to create trails
-      ctx.fillStyle = scheme.background;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // Clear canvas with a semi-transparent background to create trails
+        ctx.fillStyle = scheme.background;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      for (const particle of particles) {
-        particle.life += 1;
-        if (particle.life > particle.maxLife) {
-          particle.life = 0;
-          particle.x = Math.random() * canvas.width;
-          particle.y = Math.random() * canvas.height;
+        for (const particle of particles) {
+          particle.life += 1;
+          if (particle.life > particle.maxLife) {
+            particle.life = 0;
+            particle.x = Math.random() * canvas.width;
+            particle.y = Math.random() * canvas.height;
+          }
+
+          const opacity =
+            Math.sin((particle.life / particle.maxLife) * Math.PI) * 0.15; // Fade in and out
+
+          // Use noise for particle movement direction
+          const n = noise.simplex3(
+            particle.x * noiseIntensity,
+            particle.y * noiseIntensity,
+            Date.now() * 0.0001
+          );
+
+          const angle = n * Math.PI * 4;
+          particle.velocity.x = Math.cos(angle) * 2;
+          particle.velocity.y = Math.sin(angle) * 2;
+
+          particle.x += particle.velocity.x;
+          particle.y += particle.velocity.y;
+
+          // Wrap particles around the canvas edges
+          if (particle.x < 0) particle.x = canvas.width;
+          if (particle.x > canvas.width) particle.x = 0;
+          if (particle.y < 0) particle.y = canvas.height;
+          if (particle.y > canvas.height) particle.y = 0;
+
+          // Draw particle: Use globalAlpha to avoid continuous string allocations (which causes massive memory leaks)
+          ctx.beginPath();
+          if (particle.isGreen) {
+            ctx.globalAlpha = Math.min(1, opacity * 2);
+            ctx.fillStyle = "#62D2A2";
+          } else {
+            ctx.globalAlpha = Math.min(1, opacity);
+            ctx.fillStyle = isDark ? "#ffffff" : "#000000";
+          }
+          
+          ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+          ctx.fill();
         }
+        
+        ctx.globalAlpha = 1.0; // Reset for background clear
 
-        const opacity =
-          Math.sin((particle.life / particle.maxLife) * Math.PI) * 0.15; // Fade in and out
+        reqId = requestAnimationFrame(animate);
+      };
 
-        // Use noise for particle movement direction
-        const n = noise.simplex3(
-          particle.x * noiseIntensity,
-          particle.y * noiseIntensity,
-          Date.now() * 0.0001
-        );
+      animate(); // Start the animation loop
 
-        const angle = n * Math.PI * 4;
-        particle.velocity.x = Math.cos(angle) * 2;
-        particle.velocity.y = Math.sin(angle) * 2;
+      const handleResize = () => {
+        resizeCanvas(); // Re-size canvas on window resize
+      };
 
-        particle.x += particle.velocity.x;
-        particle.y += particle.velocity.y;
-
-        // Wrap particles around the canvas edges
-        if (particle.x < 0) particle.x = canvas.width;
-        if (particle.x > canvas.width) particle.x = 0;
-        if (particle.y < 0) particle.y = canvas.height;
-        if (particle.y > canvas.height) particle.y = 0;
-
-        // Draw particle
-        ctx.fillStyle = isDark
-          ? `rgba(255, 255, 255, ${opacity})`
-          : `rgba(0, 0, 0, ${opacity})`;
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      requestAnimationFrame(animate);
-    };
-
-    animate(); // Start the animation loop
-
-    const handleResize = () => {
-      resizeCanvas(); // Re-size canvas on window resize
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [particleCount, noiseIntensity, particleSize, noise]);
+      window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+        cancelAnimationFrame(reqId);
+      };
+    }, [particleCount, noiseIntensity, particleSize, noise]);
 
   return (
     <div

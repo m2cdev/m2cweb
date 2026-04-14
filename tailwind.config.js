@@ -21,7 +21,7 @@ module.exports = {
         foreground: "hsl(var(--foreground))",
       },
       fontFamily: {
-        heading: ["var(--font-heading)"],
+        heading: ["var(--font-body)"],
         body: ["var(--font-body)"],
       },
       animation: {

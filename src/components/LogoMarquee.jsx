@@ -25,7 +25,7 @@ export const LogoMarquee = () => {
           Trusted by Leading Brands <br />
           <span className="text-primary italic">Worldwide</span>
         </h2>
-        <p className="text-gray-500 font-bold tracking-[0.3em] uppercase text-xs">Category-Leading Sales Architecture</p>
+        <p className="text-gray-500 font-bold tracking-[0.3em] uppercase text-xs">From Growth-Stage to Enterprise</p>
       </div>
       
       <div className="relative flex overflow-hidden group">

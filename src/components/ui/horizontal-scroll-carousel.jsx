@@ -5,14 +5,16 @@ import { useRef, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Example = ({ cards }) => {
   return (
     <div className="bg-black py-20 relative overflow-hidden">
       <div className="container-custom mb-12">
-        <h2 className="text-4xl md:text-6xl font-black tracking-tighter">
-          <span className="text-primary italic">Success</span> <span className="text-[#F96B6B] italic">Stories</span>
+        <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter">
+          Outcomes Over Optics.
         </h2>
+        <p className="text-white font-bold mt-4 text-lg">Don&apos;t take our word for it.</p>
       </div>
       <HorizontalScrollCarousel cards={cards} />
     </div>
@@ -121,33 +123,41 @@ const HorizontalScrollCarousel = ({ cards = [] }) => {
 
 const Card = ({ card }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5 }}
-      viewport={{ once: true }}
-      className="relative shrink-0 h-[500px] w-[350px] md:w-[500px] overflow-hidden rounded-3xl bg-neutral-900 border border-white/10 snap-center group"
-    >
-      <div
-        style={{
-          backgroundImage: `url(${card.url})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-        className="absolute inset-0 z-0 transition-transform duration-700 group-hover:scale-105 opacity-60"
-      />
-      
-      <div className="absolute inset-0 z-10 p-10 flex flex-col justify-end bg-gradient-to-t from-black via-black/20 to-transparent">
-        <p className="text-primary font-bold text-xs uppercase tracking-[0.3em] mb-3">{card.category || "Case Study"}</p>
-        <h3 className="text-3xl md:text-4xl font-black text-white leading-tight mb-6 group-hover:text-primary transition-colors">
-          {card.title}
-        </h3>
-        <p className="text-gray-400 text-sm mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 max-w-[80%] uppercase tracking-widest font-black">
-          {card.subtitle}
-        </p>
-        <div className="h-1 w-0 bg-primary group-hover:w-full transition-all duration-700" />
-      </div>
-    </motion.div>
+    <Link href={`/case-studies#${card.id}`} className="block">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+        className="relative shrink-0 h-[550px] w-[350px] md:w-[500px] overflow-hidden rounded-3xl bg-neutral-900 border border-white/10 snap-center group cursor-pointer"
+      >
+        <div
+          style={{
+            backgroundImage: `url(${card.url})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+          className="absolute inset-0 z-0 transition-transform duration-700 group-hover:scale-105 opacity-60"
+        />
+        
+        <div className="absolute inset-0 z-10 p-10 flex flex-col justify-between bg-gradient-to-t from-black via-black/20 to-transparent">
+          <div className="flex justify-between items-start">
+            <div>
+              <p className="text-primary font-bold text-xs uppercase tracking-[0.3em] mb-3">{card.category || "Case Study"}</p>
+              <h3 className="text-3xl md:text-5xl font-black text-white leading-tight group-hover:text-primary transition-colors">
+                {card.title}
+              </h3>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-gray-400 text-sm mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 max-w-[800px] uppercase tracking-widest font-black leading-relaxed">
+              {card.subtitle}
+            </p>
+          </div>
+        </div>
+      </motion.div>
+    </Link>
   );
 };
 

@@ -50,8 +50,8 @@ export default function ProcessScroll() {
             {/* Scene 1: Chaotic Pipeline */}
             <motion.div style={{ opacity: scene1Opacity }} className={styles.sceneLayer}>
               <div className={styles.sceneText}>
-                <h3 className="sub-heading">Scene 1: Chaotic Pipeline</h3>
-                <p className="body-text">Deals stall. Reps act on instinct. Visibility is zero.</p>
+                <h3 className="sub-heading">Chaotic Execution</h3>
+                <p className="body-text">Deals stall and visibility disappears into the noise.</p>
               </div>
               <div className={styles.diagramArea}>
                 <svg width="100%" height="100%" viewBox="0 0 800 500" style={{ overflow: 'visible' }}>
@@ -82,8 +82,8 @@ export default function ProcessScroll() {
             {/* Scene 2: Map2Close System Overlays */}
             <motion.div style={{ opacity: scene2Opacity }} className={styles.sceneLayer}>
               <div className={styles.sceneText}>
-                <h3 className="sub-heading">Scene 2: The Map2Close Overlay</h3>
-                <p className="body-text">We install structured frameworks and connect the disconnected nodes.</p>
+                <h3 className="sub-heading">The Revenue Engine</h3>
+                <p className="body-text">We install structured systems that connect every deal stage.</p>
               </div>
               <div className={styles.diagramArea}>
                 <motion.div 
@@ -110,8 +110,8 @@ export default function ProcessScroll() {
             {/* Scene 3: Organized Pipeline */}
             <motion.div style={{ opacity: scene3Opacity }} className={styles.sceneLayer}>
               <div className={styles.sceneText}>
-                <h3 className="sub-heading">Scene 3: Organized Pipeline</h3>
-                <p className="body-text">Deals progress smoothly through structured stages to Closed-Won.</p>
+                <h3 className="sub-heading">Predictable Growth</h3>
+                <p className="body-text">Repeatable motions that convert a high-velocity pipeline into revenue.</p>
               </div>
               <div className={styles.diagramArea}>
                 <svg width="100%" height="100%" viewBox="0 0 800 500" style={{ overflow: 'visible' }}>

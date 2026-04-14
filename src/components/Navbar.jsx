@@ -15,6 +15,12 @@ const navLinks = [
     { name: "Company", href: "/who-we-are" },
     { name: "How We Compare", href: "/who-we-are/compare" }
   ]},
+  { name: "Services", href: "/services", dropdown: [
+    { name: "Sales Enablement", href: "/services/sales-enablement" },
+    { name: "Rev Ops Implementations", href: "/services/rev-ops-implementations" },
+    { name: "Rev Ops Custom Buildouts", href: "/services/rev-ops-custom-buildouts" },
+    { name: "AI Sales Assistant", href: "/services/ai-sales-assistant" },
+  ]},
   { name: "Case Studies", href: "/case-studies" },
   { name: "The Pilot", href: "/pilot" },
 ];
@@ -48,7 +54,7 @@ export default function Navbar() {
                 href={link.href}
                 className={cn(
                   "text-sm font-medium transition-colors duration-300",
-                  pathname === link.href || (link.dropdown && link.dropdown.some(item => pathname === item.href))
+                  (link.href === '/' ? pathname === '/' : pathname.startsWith(link.href))
                     ? "text-primary" 
                     : "text-gray-300 hover:text-[#F96B6B]"
                 )}
@@ -122,7 +128,7 @@ export default function Navbar() {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={cn(
                       "text-2xl font-bold transition-colors duration-300",
-                      pathname === link.href || (link.dropdown && link.dropdown.some(item => pathname === item.href))
+                      (link.href === '/' ? pathname === '/' : pathname.startsWith(link.href))
                         ? "text-primary" 
                         : "text-white hover:text-[#F96B6B]"
                     )}

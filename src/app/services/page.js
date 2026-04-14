@@ -1,0 +1,161 @@
+"use client";
+
+import React, { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Pipeline3D from "@/components/sections/Pipeline3D";
+import ServiceJunction from "@/components/sections/ServiceJunction";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
+import Link from "next/link";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { GLSLHills } from "@/components/ui/glsl-hills";
+
+
+
+const servicesData = [
+  {
+    id: "rev-ops",
+    tag: "REV OPS",
+    title: "Rev Ops Implementations",
+    subtitle: "Your Stack Should Be Working Harder Than You Are.",
+    description: "Most teams are sitting on powerful tools they're barely using. We configure your entire stack around a process built to convert — so your reps spend less time managing software and more time closing deals.",
+    link: "/services/rev-ops-implementations",
+    linkText: "See How We Implement →",
+    extrasType: "icons",
+    extrasData: [
+      { label: "CRM Setup & Optimization" },
+      { label: "Tech Stack Integration" },
+      { label: "Workflow Automation" },
+      { label: "Stack Optimization" },
+    ],
+    toolLogos: ["HubSpot", "Salesforce", "Apollo", "Pipedrive"]
+  },
+  {
+    id: "custom-builds",
+    tag: "CUSTOM BUILDS",
+    title: "Rev Ops Custom Buildouts",
+    subtitle: "Built for Your Motion, Down to the Detail.",
+    description: "When your stack alone doesn't cut it, we build around it. Custom tools designed from the ground up to eliminate bottlenecks and give your reps exactly what they need to move deals forward.",
+    link: "/services/rev-ops-custom-buildouts",
+    linkText: "See What We Build →",
+    extrasType: "cards",
+    extrasData: [
+      { title: "Sales Enablement Hub", text: "Centralized assets filtered by deal stage and persona" },
+      { title: "Signal Intelligence Engine", text: "ICP-specific buying signals pushed into workflows" },
+      { title: "Lead Routing Engines", text: "Qualify, score, and assign leads automatically" },
+    ]
+  },
+  {
+    id: "enablement",
+    tag: "ENABLEMENT",
+    title: "Sales Enablement",
+    subtitle: "The Part Most Partners Skip.",
+    description: "Strategy is the easy part. Execution is where most partners tap out. We embed inside your sales motion and work directly with your reps — on real calls, real deals, and real objections.",
+    link: "/services/sales-enablement",
+    linkText: "See How We Enable →",
+    extrasType: "pills",
+    extrasData: [
+      "Live Deal Coaching", "Cold Call Labs", "1-1 Coaching", "Group Training", "Enablement Assets"
+    ]
+  }
+];
+
+export default function ServicesPage() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+  
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  return (
+    <div ref={containerRef} className="bg-black text-white selection:bg-primary/30 min-h-[800vh] relative overflow-x-hidden">
+      {/* 1. Hero Section */}
+      <section className="h-screen w-full flex flex-col items-center justify-center relative px-6 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <GLSLHills />
+        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center max-w-4xl z-10 pointer-events-none"
+        >
+          <h1 className="text-6xl md:text-[8rem] font-black tracking-tighter leading-none mb-6">
+            What We <span className="text-primary italic">Build</span>
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-400 font-body leading-relaxed max-w-2xl mx-auto">
+            High-fidelity revenue systems designed to scale from lead to close.
+          </p>
+        </motion.div>
+        
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-primary/50 z-10"
+        >
+          <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path d="M7 13l5 5 5-5M7 6l5 5 5-5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </motion.div>
+      </section>
+
+      {/* Traveling Pulse Element */}
+      <motion.div 
+        className="fixed left-1/2 -translate-x-1/2 w-4 h-full pointer-events-none z-10 hidden md:block" // Hidden on mobile structurally
+      >
+        <motion.div 
+          style={{ 
+            top: useTransform(smoothProgress, [0, 1], ["0%", "100%"])
+          }} 
+          className="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-primary shadow-[0_0_20px_6px_rgba(98,210,162,0.6)]"
+        />
+      </motion.div>
+
+      {/* 2. High-Fidelity 3D Background */}
+      <Pipeline3D scrollProgress={smoothProgress} />
+
+      {/* 3. Service Junctions */}
+      <div className="relative z-10">
+        {servicesData.map((service, i) => (
+          <ServiceJunction 
+            key={service.id} 
+            index={i} 
+            {...service} 
+          />
+        ))}
+      </div>
+
+      {/* 4. Final CTA Block */}
+      <section className="relative z-20 bg-black pt-32 pb-32 md:pb-[120px] px-6 border-t border-white/5">
+        <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
+          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-6">
+            Not sure which service fits?
+          </h2>
+          <p className="text-lg md:text-xl text-gray-500 font-body leading-relaxed mb-12">
+            Start with a Working Session. We&apos;ll diagnose the problem and recommend the right path.
+          </p>
+          
+          <div className="flex flex-col items-center justify-center gap-8">
+            <Link href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96" target="_blank">
+              <ShimmerButton shimmerColor="#62D2A2" background="#050505" className="h-14 px-8 rounded-full">
+                <span className="text-sm font-black text-white uppercase tracking-widest">Book a Working Session</span>
+              </ShimmerButton>
+            </Link>
+            
+            <Link href="/pilot" className="text-gray-500 hover:text-white transition-colors uppercase text-[11px] font-black tracking-widest flex items-center gap-2 group">
+              Or explore the Custom Pilot 
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+

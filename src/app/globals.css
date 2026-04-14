@@ -11,7 +11,7 @@
   --color-gray-mid: #1a1a1a;
   --color-gray-light: #888888;
 
-  --font-heading: 'Sora', 'Century Gothic', sans-serif;
+  --font-heading: 'Outfit', 'Century Gothic', sans-serif;
   --font-body: 'Outfit', 'Century Gothic', sans-serif;
 
   /* Shadcn Dark Mode Base (Optimized for Map2Close Obsidian) */
@@ -46,11 +46,12 @@
   }
   html {
     @apply antialiased scroll-smooth;
-    background-color: black;
+    background-color: #050505;
     color: white;
   }
   body {
-    @apply bg-black text-white font-body;
+    background-color: #050505;
+    @apply text-white font-body;
     font-family: var(--font-body);
   }
   h1, h2, h3, h4, h5, h6 {
@@ -86,4 +87,20 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #333;
+}
+
+/* ── Aceternity Spotlight animation ─────────────────────────────────── */
+@keyframes spotlight {
+  0% {
+    opacity: 0;
+    transform: translate(-72%, -62%) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -40%) scale(1);
+  }
+}
+
+.animate-spotlight {
+  animation: spotlight 2s ease 0.75s 1 forwards;
 }

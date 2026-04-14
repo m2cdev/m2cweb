@@ -21,7 +21,7 @@ export default function Footer() {
               <Map2CloseLogo />
             </div>
             <p className="text-gray-400 font-body leading-relaxed mb-8 max-w-xs">
-              We combine strategy, systems, and hands-on outreach to help you move deals from cold to closed – faster.
+              Precision blueprinting for sales teams that can&apos;t afford to guess.
             </p>
             <div className="flex gap-4">
               <a 
