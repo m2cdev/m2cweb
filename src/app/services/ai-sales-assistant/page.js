@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { ArrowRight, Bot, Target, Mail, Calendar, BarChart3, Zap, CheckCircle, Layers, Shield } from "lucide-react";
 import { SplineScene } from "@/components/ui/spline-scene";
 import { Card } from "@/components/ui/card";
@@ -64,16 +65,41 @@ const features = [
   },
 ];
 
-// ─── Stages ──────────────────────────────────────────────────────────────
-const stages = ["Prospecting", "Outreach", "Meetings", "Deal Execution"];
-
 // ─── Integrations ────────────────────────────────────────────────────────
 const integrations = [
-  { name: "HubSpot", color: "#ff7a59" },
-  { name: "Salesforce", color: "#00a1e0" },
-  { name: "Pipedrive", color: "#1a73e8" },
-  { name: "Gmail", color: "#ea4335" },
-  { name: "Slack", color: "#4a154b" },
+  { 
+    name: "Apollo.io", 
+    svg: <svg width="120" height="24" viewBox="0 0 152 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[120px] h-auto"><path d="M19.5993 0.0862365L19.605 13.2568C19.6058 15.3375 17.4222 16.6715 15.6079 15.6986L2.58376 8.7153C3.57706 7.05795 4.82616 5.57609 6.27427 4.32386L16.489 13.8945C17.0303 14.4015 17.8835 13.8518 17.6605 13.1398L13.6992 0.493553C15.0326 0.17147 16.4233 0 17.8536 0C18.4428 0 19.0248 0.0296814 19.5993 0.0862365Z" fill="currentColor"/><path d="M16.0635 36.1087L16.0578 23.0046C16.057 20.9239 18.2407 19.5898 20.0549 20.5627L33.0838 27.5486C32.0838 29.2016 30.8289 30.6786 29.3751 31.925L19.1738 22.3668C18.6326 21.8598 17.7793 22.4095 18.0023 23.1215L21.9486 35.72C20.6338 36.0329 19.263 36.1989 17.8539 36.1989C17.2497 36.1989 16.6523 36.1683 16.0635 36.1087Z" fill="currentColor"/><path d="M22.0105 16.77L31.4705 6.39392C30.2362 4.92008 28.7742 3.6486 27.1384 2.63702L20.2306 15.8767C19.2709 17.716 20.5871 19.9298 22.6396 19.9288L35.6183 19.923C35.6775 19.3234 35.7082 18.7151 35.7082 18.0996C35.7082 16.6683 35.5436 15.2761 35.2338 13.9406L22.7549 17.9576C22.0526 18.1837 21.5103 17.3187 22.0105 16.77Z" fill="currentColor"/><path d="M0.0842758 16.3383L13.0237 16.3325C15.0764 16.3317 16.3923 18.5454 15.4327 20.3846L8.56047 33.5561C6.93095 32.547 5.47394 31.2801 4.24344 29.8121L13.653 19.4914C14.1531 18.9427 13.6107 18.0777 12.9084 18.3037L0.485078 22.3029C0.168551 20.954 0 19.5467 0 18.0994C0 17.5051 0.0290814 16.9177 0.0842758 16.3383Z" fill="currentColor"/><path fillRule="evenodd" clipRule="evenodd" d="M57.0218 3.78205H60.6172L72.556 32.4477H68.5958L64.912 23.327H52.6694L49.1387 32.4477H45.3968L57.0218 3.78205ZM58.6968 8.35018L54.052 19.9528H63.4944L58.6968 8.35018Z" fill="currentColor"/><path fillRule="evenodd" clipRule="evenodd" d="M96.0131 22.4209C96.0131 16.3054 100.173 11.8668 105.904 11.8668C111.66 11.8668 115.838 16.3054 115.838 22.4209C115.838 28.5365 111.66 32.9753 105.904 32.9753C100.173 32.9753 96.0131 28.5365 96.0131 22.4209ZM99.7588 22.4209C99.7588 27.0223 102.114 29.8808 105.904 29.8808C109.721 29.8808 112.092 27.0223 112.092 22.4209C112.092 17.8197 109.721 14.9613 105.904 14.9613C102.114 14.9613 99.7588 17.8197 99.7588 22.4209Z" fill="currentColor"/><path fillRule="evenodd" clipRule="evenodd" d="M142.109 11.8668C136.353 11.8668 132.175 16.3054 132.175 22.4209C132.175 28.5365 136.353 32.9753 142.109 32.9753C147.84 32.9753 152 28.5365 152 22.4209C152 16.3054 147.84 11.8668 142.109 11.8668ZM142.109 29.8808C138.292 29.8808 135.92 27.0223 135.92 22.4209C135.92 17.8197 138.292 14.9613 142.109 14.9613C145.9 14.9613 148.254 17.8197 148.254 22.4209C148.254 27.0223 145.9 29.8808 142.109 29.8808Z" fill="currentColor"/><path d="M122.206 32.4477H118.59V3.78205H122.206V32.4477Z" fill="currentColor"/><path d="M125.807 32.4477H129.424V3.78205H125.807V32.4477Z" fill="currentColor"/><path fillRule="evenodd" clipRule="evenodd" d="M84.6895 32.9751C81.7329 32.9751 79.5182 31.5396 78.241 29.7601V40H74.6249V12.3935H78.241V15.1162C79.521 13.318 81.7375 11.8667 84.6895 11.8667C90.1907 11.8667 93.8867 16.1079 93.8867 22.4208C93.8867 28.7337 90.1907 32.9751 84.6895 32.9751ZM84.3427 15.0488C80.6409 15.0488 78.081 17.8451 78.081 21.8605V22.9813C78.081 26.9965 80.6409 29.7926 84.3427 29.7926C87.9732 29.7926 90.1408 27.0369 90.1408 22.4208C90.1408 17.8047 87.9732 15.0488 84.3427 15.0488Z" fill="currentColor"/></svg> 
+  },
+  { 
+    name: "HubSpot", 
+    svg: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1255.82 355.99" className="w-[120px] h-auto"><g fill="currentColor"><polygon points="136.01 201.48 43.79 201.48 43.79 298.62 0 298.62 0 58.93 43.79 58.93 43.79 159.35 136.01 159.35 136.01 58.93 179.99 58.93 179.79 298.62 136.01 298.62 136.01 201.48"/><path d="M319.91,221.14c0,19.96-16.26,36.21-36.22,36.21s-36.21-16.24-36.21-36.21v-102.66h-41.47v102.66c0,42.83,34.85,77.67,77.68,77.67s77.67-34.84,77.67-77.67v-102.66h-41.45v102.66Z"/><path d="M627.6,129.05c0-21.05,13.93-27.72,29.18-27.72,12.28,0,28.53,9.35,39.14,20.71l27.19-32.06c-13.59-18.36-41.12-31.05-63.67-31.05-45.12,0-77.63,26.38-77.63,70.13,0,81.14,99.19,55.42,99.19,100.84,0,14.01-13.6,26.37-29.18,26.37-24.55,0-32.52-12.02-43.79-24.71l-30.19,31.38c19.25,23.71,43.13,35.74,71.66,35.74,42.79,0,77.29-26.71,77.29-68.46,0-90.15-99.18-62.1-99.18-101.16Z"/><path d="M1241.21,260.33c-24.54,0-31.5-10.61-31.5-26.87v-71.98h38.14v-36.48h-38.14v-48.1l-42.12,18.91v146.62c0,37.49,25.86,56.4,61.34,56.4,5.31,0,12.61-.34,16.6-1.33l10.29-37.81c-4.64.32-9.95.65-14.61.65Z"/><path d="M477.96,119.68c-20.57,0-34.92,5.97-48.79,19.58V60.36h-41.6v146.23c0,54.73,39.57,92.22,84.04,92.22,49.43,0,92.73-38.15,92.73-89.56s-39.93-89.57-86.38-89.57ZM477.7,256.95c-26.06,0-47.18-21.12-47.18-47.18s21.12-47.18,47.18-47.18,47.18,21.12,47.18,47.18-21.12,47.18-47.18,47.18Z"/><path d="M929.59,207.09c0-51.41-43.31-89.56-92.73-89.56-44.46,0-84.04,37.49-84.04,92.22v146.23h41.6v-78.91c13.87,13.61,28.22,19.58,48.79,19.58,46.45,0,86.38-38.81,86.38-89.57ZM890.13,206.58c0,26.06-21.12,47.18-47.18,47.18s-47.18-21.12-47.18-47.18,21.12-47.18,47.18-47.18,47.18,21.12,47.18,47.18Z"/><path d="M1064.01,115.52v-41.79c10.91-5.15,18.55-16.19,18.55-28.99v-.97c0-17.67-14.46-32.13-32.13-32.13h-.96c-17.67,0-32.13,14.46-32.13,32.13v.97c0,12.81,7.64,23.84,18.55,28.99v41.79c-16.24,2.51-31.08,9.21-43.32,19.06l-114.73-89.25c-0.75-2.91,1.28-5.9,1.29-9.04C879.14,16.27,862.94,0.03,842.92,0c-20.02-0.03-36.26,16.18-36.29,36.2,0.02,20.02,16.18,36.26,36.2,36.29,6.52,0,12.56-1.84,17.85-4.85l112.86,87.79c-9.6,14.49-15.22,31.84-15.22,50.52s6.18,37.65,16.62,52.53l-34.32,34.32c-2.71-0.81-5.53-1.38-8.51-1.38-16.45,0-29.78,13.33-29.78,29.78s13.34,29.78,29.78,29.78,29.78-13.33,29.78,29.78c0-2.98-0.57-5.8-1.38-8.51l33.95-33.95c15.41,11.76,34.6,18.83,55.49,18.83,50.6,0,91.62-41.02,91.62-91.62,0-45.81-33.65-83.65-77.56-90.43ZM1049.94,252.92c-25.94,0-46.98-21.03-46.98-46.97s21.03-46.97,46.98-46.97,46.97,21.03,46.97,46.97-21.03,46.97-46.97,46.97Z"/></g></svg> 
+  },
+  { 
+    name: "Salesforce", 
+    svg: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 92 64" fill="currentColor" className="w-[100px] h-auto"><path d="m38.33,6.98c2.95-3.07,7.05-4.98,11.59-4.98,6.04,0,11.3,3.37,14.11,8.36,2.44-1.09,5.14-1.7,7.97-1.7,10.89,0,19.71,8.9,19.71,19.89s-8.83,19.89-19.71,19.89c-1.33,0-2.63-0.13-3.88-0.39-2.47,4.4-7.18,7.38-12.58,7.38-2.26,0-4.4-0.52-6.3-1.45-2.5,5.89-8.34,10.02-15.13,10.02s-13.11-4.48-15.43-10.76c-1.01,0.21-2.06,0.33-3.14,0.33-8.43,0-15.26-6.9-15.26-15.42,0-5.71,3.07-10.69,7.63-13.36-0.94-2.16-1.46-4.55-1.46-7.05C6.45,7.94,14.4,0,24.21,0,29.97,0,35.09,2.74,38.33,6.98Z"/><g fill="white"><path d="m13.53,33.19c-0.06,0.15,0.02,0.18,0.04,0.21,0.17,0.12,0.35,0.21,0.52,0.32,0.93,0.49,1.81,0.64,2.73,0.64,1.88,0,3.04-1,3.04-2.6v-0.03c0-1.48-1.32-2.02-2.55-2.41l-0.16-0.05c-0.93-0.3-1.73-0.56-1.73-1.18v-0.03c0-0.52,0.47-0.91,1.2-0.91,0.81,0,1.77,0.27,2.38,0.61,0,0,0.18,0.12,0.25-0.06,0.04-0.1,0.35-0.94,0.38-1.03,0.04-0.1-0.03-0.17-0.09-0.21-0.71-0.43-1.68-0.72-2.69-0.72h-0.19c-1.72,0-2.92,1.04-2.92,2.52v-0.03c0,1.57,1.32,2.07,2.56,2.43l0.2,0.06c0.9,0.28,1.68,0.52,1.68,1.15v-0.03c0,0.58-0.51,1.01-1.32,1.01-0.32,0-1.33,0-2.42-0.7-0.13-0.08-0.21-0.13-0.31-0.19-0.05-0.03-0.19-0.09-0.25,0.08l-0.37,1.03Z"/><path d="m40.98,33.19c-0.06,0.15,0.02,0.18,0.04,0.21,0.17,0.12,0.35,0.21,0.52,0.32,0.93,0.49,1.81,0.64,2.73,0.64,1.88,0,3.04-1,3.04-2.6v-0.03c0-1.48-1.31-2.02-2.55-2.41l-0.16-0.05c-0.93-0.3-1.73-0.56-1.73-1.18v-0.03c0-0.52,0.47-0.91,1.2-0.91,0.81,0,1.77,0.27,2.38,0.61,0,0,0.18,0.12,0.25-0.06,0.04-0.1,0.35-0.94,0.38-1.03,0.04-0.1-0.03-0.17-0.09-0.21-0.71-0.43-1.68-0.72-2.69-0.72h-0.19c-1.72,0-2.92,1.04-2.92,2.52v-0.03c0,1.57,1.32,2.07,2.56,2.43l0.2,0.06c0.9,0.28,1.68,0.52,1.68,1.15v-0.03c0,0.58-0.51,1.01-1.32,1.01-0.32,0-1.33,0-2.42-0.7-0.13-0.08-0.21-0.13-0.31-0.19-0.03-0.02-0.19-0.08-0.25,0.08l-0.37,1.03Z"/><path d="m61.29,28.36c-0.15-0.52-0.39-0.98-0.71-1.36-0.32-0.38-0.72-0.69-1.2-0.91-0.48-0.22-1.04-0.34-1.68-0.34s-1.2,0.11-1.68,0.34c-0.48,0.22-0.88,0.53-1.2,0.91-0.32,0.38-0.56,0.84-0.71,1.36-0.15,0.52-0.23,1.08-0.23,1.68s0.08,1.17,0.23,1.68c0.15,0.52,0.39,0.98,0.71,1.36,0.32,0.38,0.73,0.69,1.2,0.91,0.48,0.22,1.04,0.33,1.68,0.33s1.2-0.11,1.68-0.33c0.48-0.22,0.88-0.52,1.2-0.91,0.32-0.38,0.56-0.84,0.71-1.36,0.15-0.52,0.23-1.08,0.23-1.68s-0.08-1.17-0.23-1.68m-1.57,1.68c0,0.91-0.17,1.62-0.5,2.13-0.33,0.5-0.83,0.74-1.52,0.74s-1.19-0.24-1.52-0.74c-0.33-0.51-0.5-1.22-0.5-2.13s0.17-1.62,0.49-2.12c0.33-0.5,0.82-0.74,1.52-0.74s1.19,0.24,1.52,0.74c0.33,0.5,0.5,1.21,0.5,2.12"/><path d="m74.15,32.67c-0.05-0.15-0.2-0.09-0.2-0.09-0.23,0.09-0.47,0.17-0.73,0.21-0.26,0.04-0.55,0.06-0.86,0.06-0.76,0-1.36-0.23-1.79-0.67-0.43-0.45-0.68-1.17-0.67-2.14,0-0.89,0.22-1.55,0.6-2.06,0.38-0.51,0.96-0.76,1.74-0.76,0.65,0,1.14,0.07,1.66,0.24,0,0,0.12,0.05,0.18-0.11,0.14-0.38,0.24-0.65,0.39-1.07,0.04-0.12-0.06-0.17-0.1-0.18-0.2-0.08-0.68-0.21-1.04-0.26-0.34-0.05-0.73-0.08-1.17-0.08-0.66,0-1.24,0.11-1.75,0.34-0.5,0.22-0.92,0.53-1.26,0.91-0.34,0.38-0.59,0.84-0.76,1.36-0.17,0.52-0.26,1.08-0.26,1.69,0,1.3,0.35,2.35,1.04,3.12,0.69,0.77,1.73,1.16,3.09,1.16,0.8,0,1.62-0.16,2.22-0.4,0,0,0.11-0.05,0.06-0.19l-0.38-1.06Z"/><path d="m82.16,28.07c-0.13-0.5-0.46-1.01-0.68-1.24-0.34-0.37-0.67-0.62-1.01-0.77-0.43-0.19-0.95-0.31-1.52-0.31-0.66,0-1.26,0.11-1.75,0.34-0.49,0.23-0.9,0.54-1.22,0.93-0.32,0.39-0.56,0.85-0.72,1.38-0.15,0.52-0.23,1.09-0.23,1.69s0.08,1.18,0.24,1.69c0.16,0.52,0.42,0.97,0.77,1.35,0.35,0.38,0.8,0.68,1.33,0.88,0.53,0.21,1.18,0.31,1.92,0.31,1.53,0,2.34-0.35,2.67-0.53,0.06-0.03,0.11-0.09,0.05-0.25l-0.35-0.97c-0.05-0.14-0.2-0.09-0.2-0.09-0.38,0.14-0.92,0.39-2.18,0.39-0.82,0-1.43-0.24-1.81-0.62-0.39-0.39-0.58-0.96-0.62-1.76h5.3s0.14,0,0.15-0.13c0-0.06,0.18-1.09-0.16-2.28Zm-5.27,1.11c0.07-0.5,0.21-0.92,0.43-1.25,0.32-0.5,0.82-0.77,1.52-0.77s1.15,0.27,1.48,0.77c0.22,0.33,0.31,0.76,0.35,1.25h-3.78Z"/><path d="m39.72,28.07c-0.13-0.5-0.46-1.01-0.68-1.24-0.34-0.37-0.67-0.62-1.01-0.77-0.43-0.19-0.95-0.31-1.52-0.31-0.66,0-1.26,0.11-1.75,0.34-0.49,0.23-0.9,0.54-1.22,0.93-0.32,0.39-0.56,0.85-0.72,1.38-0.15,0.52-0.23,1.09-0.23,1.69s0.08,1.18,0.24,1.69c0.16,0.52,0.42,0.97,0.77,1.35,0.35,0.38,0.8,0.68,1.33,0.88,0.53,0.21,1.18,0.31,1.92,0.31,1.53,0,2.34-0.35,2.67-0.53,0.06-0.03,0.11-0.09,0.04-0.25l-0.35-0.97c-0.05-0.14-0.2-0.09-0.2-0.09-0.38,0.14-0.92,0.39-2.18,0.39-0.82,0-1.43-0.24-1.81-0.62-0.39-0.39-0.58-0.96-0.62-1.76h5.3s0.14,0,0.15-0.13c0-0.06,0.18-1.09-0.16-2.28Zm-5.27,1.11c0.07-0.5,0.21-0.92,0.43-1.25,0.33-0.5,0.82-0.77,1.52-0.77s1.15,0.27,1.49,0.77c0.22,0.33,0.31,0.76,0.35,1.25h-3.78Z"/><path d="m25.1,28.92c-0.22-0.02-0.49-0.02-0.83-0.02-0.45,0-0.89,0.06-1.31,0.17-0.41,0.11-0.79,0.28-1.11,0.51-0.32,0.23-0.58,0.52-0.77,0.87-0.19,0.35-0.28,0.76-0.28,1.22s0.08,0.88,0.24,1.21c0.16,0.33,0.39,0.61,0.69,0.83,0.29,0.21,0.66,0.37,1.08,0.47,0.42,0.09,0.89,0.14,1.4,0.14,0.54,0,1.09-0.05,1.61-0.13,0.52-0.09,1.16-0.22,1.33-0.26,0.18-0.04,0.37-0.09,0.37-0.09,0.13-0.03,0.12-0.17,0.12-0.17v-4.85c0-1.06-0.29-1.85-0.85-2.34-0.56-0.49-1.37-0.73-2.43-0.73-0.4,0-1.04,0.05-1.42,0.13,0,0-1.16,0.22-1.63,0.6,0,0-0.1,0.06-0.05,0.21l0.38,1.01c0.05,0.13,0.17,0.09,0.17,0.09,0,0,0.04-0.02,0.09-0.04,1.02-0.55,2.31-0.54,2.31-0.54,0.57,0,1.01,0.12,1.31,0.34,0.29,0.22,0.44,0.56,0.44,1.26v0.22c-0.45-0.07-0.87-0.1-0.87-0.1Zm-2.11,3.72c-0.21-0.17-0.24-0.21-0.31-0.31-0.1-0.16-0.16-0.39-0.16-0.69,0-0.47,0.15-0.8,0.47-1.03,0,0,0.46-0.4,1.54-0.38,0.76,0,1.44,0.12,1.44,0.12v2.41h0s-0.67,0.14-1.43,0.19c-1.08,0.06-1.56-0.31-1.55-0.31Z"/><path d="m67.84,26.19c0.04-0.12-0.04-0.18-0.08-0.19-0.09-0.03-0.54-0.13-0.89-0.15-0.67-0.04-1.04,0.07-1.37,0.22-0.33,0.15-0.69,0.39-0.9,0.66v-0.65c0-0.09-0.06-0.16-0.15-0.16h-1.36c-0.09,0-0.15,0.07-0.15,0.16v7.91c0,0.09,0.07,0.16,0.16,0.16h1.39c0.09,0,0.16-0.07,0.16-0.16v-3.95c0-0.53,0.06-1.06,0.18-1.39,0.11-0.33,0.27-0.59,0.46-0.78,0.19-0.19,0.41-0.32,0.65-0.39,0.25-0.08,0.52-0.1,0.71-0.1,0.28,0,0.58,0.07,0.58,0.07,0.1,0.01,0.16-0.05,0.19-0.14,0.09-0.24,0.35-0.97,0.4-1.11Z"/><path d="m54.77,22.53c-0.17-0.05-0.32-0.09-0.52-0.12-0.2-0.04-0.45-0.06-0.72-0.06-0.96,0-1.71,0.27-2.24,0.81-0.53,0.53-0.89,1.34-1.06,2.4l-0.06,0.36h-1.2s-0.15,0-0.18,0.15l-0.2,1.1c-0.01,0.11,0.03,0.17,0.17,0.17h1.17l-1.19,6.63c-0.09,0.53-0.2,0.97-0.32,1.31-0.12,0.33-0.23,0.57-0.37,0.75-0.14,0.17-0.26,0.3-0.48,0.37-0.18,0.06-0.39,0.09-0.62,0.09-0.13,0-0.3-0.02-0.43-0.05-0.13-0.02-0.19-0.05-0.29-0.09,0,0-0.14-0.05-0.19,0.09-0.04,0.11-0.36,0.97-0.39,1.08-0.04,0.1,0.02,0.19,0.08,0.21,0.16,0.06,0.27,0.09,0.48,0.14,0.29,0.07,0.54,0.07,0.78,0.07,0.49,0,0.93-0.07,1.3-0.2,0.37-0.13,0.69-0.37,0.98-0.68,0.31-0.34,0.5-0.7,0.69-1.19,0.18-0.48,0.34-1.08,0.47-1.78l1.19-6.76h1.75s0.15,0,0.18-0.15l0.2-1.1c0.01-0.11-0.03-0.17-0.17-0.17h-1.69s0.09-0.63,0.28-1.2c0.08-0.24,0.24-0.43,0.37-0.57,0.13-0.13,0.28-0.22,0.44-0.28,0.17-0.05,0.36-0.08,0.57-0.08,0.16,0,0.32,0.02,0.44,0.04,0.16,0.03,0.23,0.05,0.27,0.07,0.17,0.05,0.2,0,0.23-0.08l0.41-1.11c0.04-0.12-0.06-0.17-0.1-0.18Z"/><path d="m31.1,33.99c0,0.09-0.06,0.16-0.15,0.16h-1.41c-0.09,0-0.15-0.07-0.15-11.31c0-0.09,0.06-0.16,0.15-0.16h1.41c0.09,0,0.15,0.07,0.15,0.16v11.31Z"/></g></svg> 
+  },
+  { 
+    name: "Pipedrive", 
+    svg: <svg width="120" height="26" viewBox="0 0 121 26" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className="w-[120px] h-auto"><path fillRule="evenodd" clipRule="evenodd" d="M20.4673 4.66455C21.7516 4.66455 22.7928 3.6241 22.7928 2.34064C22.7928 1.05718 21.7516 0.0167236 20.4673 0.0167236C19.1829 0.0167236 18.1417 1.05718 18.1417 2.34064C18.1417 3.6241 19.1829 4.66455 20.4673 4.66455Z"/><path d="M22.5555 5.82849H18.3803V20.1432H22.5555V5.82849Z" fillRule="evenodd" clipRule="evenodd"/><path fillRule="evenodd" clipRule="evenodd" d="M87.6574 4.66455C88.9418 4.66455 89.983 3.6241 89.983 2.34064C89.983 1.05718 88.9418 0.0167236 87.6574 0.0167236C86.3731 0.0167236 85.3319 1.05718 85.3319 2.34064C85.3319 3.6241 86.3731 4.66455 87.6574 4.66455Z"/><path d="M89.7456 5.82849H85.5705V20.1432H89.7456V5.82849Z" fillRule="evenodd" clipRule="evenodd"/><path fillRule="evenodd" clipRule="evenodd" d="M120.108 12.514C120.108 8.42815 116.848 5.51392 112.931 5.51392C108.528 5.51392 105.325 8.57122 105.325 12.9716C105.325 17.3152 108.328 20.4292 112.931 20.4292C116.848 20.4292 119.45 18.0009 119.936 15.3148H115.904C115.446 16.4865 114.102 17.1438 112.845 17.1438C111.158 17.1154 109.9 16.1152 109.529 13.9434H120.079L120.108 12.514ZM109.614 11.3424C110.072 9.22857 111.644 8.71429 112.93 8.71429C114.246 8.71429 115.79 9.37164 115.989 11.3424H109.614Z"/><path d="M102.237 5.82849H106.526L100.692 20.1432H96.2902L90.4564 5.82849H94.9462L98.577 15.3136L102.237 5.82849Z" fillRule="evenodd" clipRule="evenodd"/><path d="M79.2775 8.11376C80.2501 6.59928 81.794 5.62744 83.5662 5.62744C83.8809 5.62744 84.2807 5.6558 84.5387 5.74216V9.65659C84.1956 9.59988 83.8241 9.57152 83.481 9.57152C80.7931 9.57152 79.3923 11.5436 79.3923 14.3714V20.1432H75.2469V9.59988C75.2469 9.37174 75.1605 9.31374 74.9038 9.31374H73.4734V5.82851H77.0758C78.5346 5.82851 79.2775 6.51422 79.2775 7.80055V8.11376Z" fillRule="evenodd" clipRule="evenodd"/><path d="M72.7291 16.6567C72.5009 16.6567 72.4428 16.5999 72.4428 16.3705V2.08546C72.4428 0.657347 71.6999 0 70.1844 0H66.5535V3.45687H67.8975C68.1542 3.45687 68.2406 3.54194 68.2406 3.77137V7.14317C67.6976 6.42911 66.1821 5.51398 64.1519 5.51398C60.1199 5.51398 57.1753 8.57129 57.1753 12.9716C57.1753 17.4571 60.0064 20.4293 64.0371 20.4293C66.2956 20.4293 67.8975 19.286 68.4973 18.3438C68.554 18.9728 68.9835 20.1445 70.5274 20.1445H74.2163V16.6592H72.7291V16.6567ZM64.8948 16.9995C62.893 16.9995 61.4356 15.4567 61.4356 12.9704C61.4356 10.5988 62.9227 8.99921 64.9232 8.99921C67.1817 8.99921 68.3257 10.9996 68.3257 12.942C68.3257 15.9709 66.4968 16.9995 64.8948 16.9995Z" fillRule="evenodd" clipRule="evenodd"/><path d="M56.2595 12.514C56.2595 8.42815 53.0002 5.51392 49.083 5.51392C44.6796 5.51392 41.477 8.57122 41.477 12.9716C41.477 17.3152 44.4797 20.4292 49.083 20.4292C53.0002 20.4292 55.6017 18.0009 56.088 15.3148H52.056C51.5982 16.4865 50.2542 17.1438 48.9966 17.1438C47.3095 17.1154 46.052 16.1152 45.6805 13.9434H56.2312L56.2595 12.514ZM45.7669 11.3424C46.2248 9.22857 47.7971 8.71429 49.083 8.71429C50.3986 8.71429 51.9425 9.37164 52.1425 11.3424H45.7669Z" fillRule="evenodd" clipRule="evenodd"/><path d="M33.8155 5.51392C31.4707 5.51392 29.812 6.74225 29.1838 7.79916C29.069 7.19853 28.6692 5.82712 27.0685 5.82712H23.5809V9.31364H25.01C25.2667 9.31364 25.3247 9.37035 25.3247 9.59978V25.9999H29.4998V19.6572L29.4715 18.6286C30.0712 19.6288 31.6732 20.4292 33.6169 20.4292C37.7056 20.4292 40.5651 17.4003 40.5651 12.9716C40.5626 8.51322 37.8462 5.51392 33.8155 5.51392ZM32.7566 16.9994C30.4981 16.9994 29.4108 14.9707 29.4108 13.0283C29.4108 10.0573 31.2127 8.99914 32.8134 8.99914C34.7571 8.99914 36.301 10.6283 36.301 12.9986C36.3023 15.7995 34.4153 16.9994 32.7566 16.9994Z" fillRule="evenodd" clipRule="evenodd"/><path d="M17.4027 12.9716C17.4027 17.4003 14.5432 20.4293 10.4545 20.4293C8.51071 20.4293 6.90877 19.6289 6.30901 18.6287L6.33738 19.6572V26H2.16355V9.59983C2.16355 9.37169 2.1068 9.31369 1.84884 9.31369H0.418434V5.82847H3.90738C5.50803 5.82847 5.90916 7.19987 6.02267 7.80051C6.6521 6.7436 8.3095 5.51526 10.6544 5.51526C14.6863 5.51397 17.4027 8.51328 17.4027 12.9716ZM13.1424 13C13.1424 10.6284 11.5985 9.00049 9.65349 9.00049C8.05283 9.00049 6.25096 10.0574 6.25096 13.0296C6.25096 14.972 7.33699 17.0008 9.59674 17.0008C11.2554 16.9995 13.1424 15.7995 13.1424 13Z" fillRule="evenodd" clipRule="evenodd"/></svg> 
+  },
+  { 
+    name: "Gmail", 
+    svg: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" fill="currentColor" className="w-[45px] h-auto"><path d="M8,46v16l18.35,17.76L48,92l4-26.93L48,40l-11.2-8.4C24.93,22.7,8,31.17,8,46"/><path d="M144,40l-4,25.4l4,26.6l19.65-9.73L184,62V46c0-14.83-16.93-23.3-28.8-14.4L144,40z"/><path d="M20,160h28V92L8,62v86C8,154.63,13.37,160,20,160"/><path d="M144,160h28c6.63,0,12-5.37,12-12V62l-40,30V160z"/><polygon points="96,76 48,40 48,92 96,128 144,92 144,40"/></svg> 
+  },
+  { 
+    name: "Slack", 
+    svg: <svg width="44" height="44" viewBox="0 0 44 44" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className="w-[35px] h-auto"><path d="M13.7336 14.3137C14.3576 14.3137 14.9276 14.4705 15.4436 14.7825C15.9715 15.0824 16.3858 15.4959 16.6858 16.0237C16.9978 16.5397 17.1536 17.1041 17.1536 17.7161C17.1536 18.34 16.9977 18.9157 16.6858 19.4436C16.3858 19.9596 15.9716 20.3738 15.4436 20.6858C14.9277 20.9857 14.3576 21.136 13.7336 21.136H5.21997C4.608 21.136 4.03799 20.9858 3.51001 20.6858C2.98208 20.3738 2.56222 19.9596 2.25024 19.4436C1.95034 18.9157 1.80005 18.34 1.80005 17.7161C1.80005 17.1041 1.95582 16.5397 2.26782 16.0237C2.57977 15.4958 2.99416 15.0824 3.51001 14.7825C4.03799 14.4705 4.608 14.3137 5.21997 14.3137H13.7336ZM13.7161 5.80005C14.34 5.80005 14.9101 5.95587 15.426 6.26782C15.954 6.56782 16.3682 6.98201 16.6682 7.51001C16.9802 8.03798 17.136 8.60802 17.136 9.21997V12.6399H13.7161C13.1041 12.6399 12.5341 12.4897 12.0061 12.1897C11.4902 11.8778 11.0759 11.4643 10.7639 10.9485C10.4639 10.4205 10.3137 9.84397 10.3137 9.21997C10.3137 8.608 10.4639 8.04357 10.7639 7.52759C11.0759 6.99972 11.4902 6.57977 12.0061 6.26782C12.5341 5.95588 13.1041 5.80005 13.7161 5.80005Z"/><path d="M22.2659 31.3596C22.8779 31.3596 23.4423 31.5164 23.9583 31.8284C24.474 32.1283 24.882 32.5419 25.1819 33.0696C25.4938 33.5855 25.6496 34.1557 25.6497 34.7795C25.6497 35.3914 25.4938 35.9616 25.1819 36.4895C24.882 37.0174 24.4741 37.4317 23.9583 37.7317C23.4423 38.0437 22.8779 38.1995 22.2659 38.1995C21.642 38.1994 21.0663 38.0436 20.5383 37.7317C20.0223 37.4317 19.6081 37.0175 19.2961 36.4895C18.9962 35.9616 18.8459 35.3914 18.8459 34.7795V31.3596H22.2659ZM30.7795 22.8459C31.3914 22.8459 31.9616 23.0019 32.4895 23.3137C33.0175 23.6137 33.4317 24.028 33.7317 24.5559C34.0437 25.0719 34.1994 25.6419 34.1995 26.2659C34.1995 26.8779 34.0437 27.4423 33.7317 27.9583C33.4317 28.4741 33.0174 28.8875 32.4895 29.1995C31.9615 29.4994 31.3915 29.6497 30.7795 29.6497H22.2659C21.6419 29.6496 21.0663 29.4994 20.5383 29.1995C20.0224 28.8875 19.6081 28.4741 19.2961 27.9583C18.9961 27.4423 18.8459 26.8779 18.8459 26.2659C18.846 25.6419 18.9962 25.0719 19.2961 24.5559C19.6081 24.028 20.0224 23.6137 20.5383 23.3137C21.0662 23.0019 21.642 22.846 22.2659 22.8459H30.7795Z"/><path d="M13.7161 22.8472C14.34 22.8472 14.9101 23.003 15.426 23.3149C15.954 23.6149 16.3682 24.0291 16.6682 24.5571C16.9802 25.0731 17.136 25.6431 17.136 26.2671V34.7808C17.136 35.3926 16.9801 35.9628 16.6682 36.4907C16.3682 37.0187 15.954 37.4329 15.426 37.7329C14.91 38.0449 14.3401 38.2007 13.7161 38.2007C13.1041 38.2007 12.5341 38.0449 12.0061 37.7329C11.4901 37.4209 11.0759 37.0011 10.7639 36.4731C10.4639 35.9572 10.3137 35.3927 10.3137 34.7808V26.2671C10.3137 25.6431 10.4639 25.0731 10.7639 24.5571C11.0759 24.0291 11.4901 23.6149 12.0061 23.3149C12.5341 23.003 13.1041 22.8472 13.7161 22.8472ZM8.63989 22.8472V26.2671C8.63989 26.8791 8.48412 27.4435 8.17212 27.9595C7.87215 28.4753 7.4578 28.8887 6.92993 29.2007C6.41393 29.5007 5.84397 29.6509 5.21997 29.6509C4.608 29.6509 4.03799 29.5007 3.51001 29.2007C2.98223 28.8888 2.56218 28.4753 2.25024 27.9595C1.95024 27.4435 1.80005 26.8791 1.80005 26.2671C1.80006 25.6431 1.95026 25.0731 2.25024 24.5571C2.56224 24.0292 2.98205 23.6149 3.51001 23.3149C4.03797 23.003 4.60803 22.8472 5.21997 22.8472H8.63989Z"/><path d="M22.2659 5.80005C22.8779 5.80005 23.4423 5.95582 23.9583 6.26782C24.4742 6.56781 24.8819 6.98208 25.1819 7.51001C25.4939 8.03799 25.6496 8.608 25.6497 9.21997V17.7336C25.6497 18.3576 25.4939 18.9342 25.1819 19.4622C24.8819 19.9781 24.4742 20.3924 23.9583 20.7043C23.4423 21.0043 22.8779 21.1536 22.2659 21.1536C21.6421 21.1536 21.0662 21.0042 20.5383 20.7043C20.0224 20.3924 19.6081 19.9781 19.2961 19.4622C18.9961 18.9342 18.8459 18.3576 19.2961 17.7336V9.21997C18.846 8.608 18.9962 8.03799 19.2961 7.51001C19.6081 6.98206 20.0224 6.5678 20.5383 6.26782C21.0662 5.95599 21.642 5.80006 22.2659 5.80005ZM30.7795 14.3137C31.3915 14.3137 31.9559 14.4705 32.4719 14.7825C32.9997 15.0824 33.4197 15.4959 33.7317 16.0237C34.0437 16.5397 34.1995 17.1041 34.1995 17.7161C34.1995 18.34 34.0436 18.9157 33.7317 19.4436C33.4317 19.9596 33.0175 20.3738 32.4895 20.6858C31.9616 20.9857 31.3915 21.136 30.7795 21.136H27.3596V17.7161C27.3596 17.1041 27.5098 16.5397 27.8098 16.0237C28.1218 15.4958 28.5361 15.0824 29.052 14.7825C29.5799 14.4705 30.1557 14.3138 30.7795 14.3137Z"/></svg> 
+  },
+];
+
+
+// ─── Stages ──────────────────────────────────────────────────────────────
+const stages = [
+  "Prospecting",
+  "Outreach",
+  "Discovery",
+  "Closing",
 ];
 
 export default function AISalesAssistantPage() {
@@ -87,25 +113,31 @@ export default function AISalesAssistantPage() {
           fill="#62D2A2"
         />
 
-        {/* ── Interactive Spline 3D scene (Placed behind content but fully interactive) ──────────────── */}
-        <div className="absolute top-0 right-0 w-full md:w-[70%] lg:w-[75%] h-full z-10 select-none">
-          <div className="w-full h-full transform scale-110 lg:scale-135 origin-center translate-x-[15%] md:translate-x-[20%]">
+        {/* ── Interactive Spline 3D scene ──────────────── */}
+        <div className="absolute top-0 right-0 w-full md:w-[75%] h-full z-10 select-none">
+          <div className="relative w-full h-full transform scale-110 lg:scale-135 origin-center translate-x-[15%] md:translate-x-[20%]">
             <SplineScene
               scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
               className="w-full h-full"
+              onLoad={(app) => {
+                window.m2c_app = app;
+              }}
             />
           </div>
         </div>
 
         {/* ── Foreground Content ──────────────── */}
-        <div className="container mx-auto px-6 md:px-12 relative z-20 w-full h-full flex items-center pointer-events-none">
-          <div className="max-w-4xl pointer-events-auto">
+        <div className="container mx-auto px-6 md:px-12 relative z-30 w-full h-full flex items-start pt-20 md:pt-28 pointer-events-none">
+          <div className="max-w-xl md:max-w-2xl lg:max-w-3xl pointer-events-auto">
             <div className="flex flex-col justify-center">
               <FadeSection delay={0}>
                 <div className="flex items-center gap-3 mb-8">
                   <div className="w-10 h-[1px] bg-[#62D2A2]/40" />
                   <span className="text-[11px] font-black tracking-[0.4em] text-[#62D2A2] uppercase">
                     AI Sales Assistant
+                  </span>
+                  <span className="px-2 py-0.5 rounded border border-[#62D2A2]/40 text-[#62D2A2] text-[9px] uppercase tracking-widest bg-[#62D2A2]/10 ml-2 font-bold">
+                    Coming Soon
                   </span>
                 </div>
               </FadeSection>
@@ -120,40 +152,53 @@ export default function AISalesAssistantPage() {
               </FadeSection>
 
               <FadeSection delay={0.14}>
-                <p className="text-xl text-neutral-400 leading-relaxed mb-12 max-w-lg font-medium">
+                <p className="text-xl text-white opacity-80 leading-relaxed mb-12 max-w-lg font-medium">
                   An AI-powered agent working inside your CRM across every stage of the deal — from first touch to closed-won.
                 </p>
               </FadeSection>
 
-              <FadeSection delay={0.2}>
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                  <Link
-                    href="#waitlist"
-                    className="group inline-flex items-center gap-3 bg-[#62D2A2] text-black px-10 py-5 font-black text-sm uppercase tracking-widest rounded-full hover:bg-white hover:scale-105 transition-all duration-300"
-                  >
-                    Join the Waitlist
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                  <Link
-                    href="#what-it-does"
-                    className="text-neutral-500 hover:text-white transition-colors text-sm font-black uppercase tracking-widest flex items-center gap-3 group"
-                  >
-                    See capabilities
-                    <span className="group-hover:translate-x-1 transition-transform">→</span>
-                  </Link>
-                </div>
+              {/* Powered by Full Enrich */}
+              <FadeSection delay={0.2} className="mt-1">
+                <a
+                  href="https://fullenrich.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-5 px-7 py-4 rounded-full border border-purple-500/40 bg-purple-950/30 w-fit transition-all duration-300 hover:bg-purple-500/20 hover:border-purple-400/60 hover:scale-105"
+                  style={{boxShadow: 'rgba(139, 92, 246, 0.35) 0px 0px 40px 10px'}}
+                >
+                  <span className="text-[11px] font-black tracking-[0.2em] text-purple-300 group-hover:text-white uppercase whitespace-nowrap transition-colors duration-300">Powered by</span>
+                  <div className="w-px h-5 bg-purple-400/30" />
+                  <img
+                    alt="FullEnrich"
+                    className="h-6 md:h-7 w-auto invert brightness-[10] contrast-200 group-hover:brightness-[15] transition-all duration-300"
+                    src="https://framerusercontent.com/images/yyQy6O9iI8m11Nmj5L5RvQjqc.svg?width=1834&height=335"
+                  />
+                </a>
               </FadeSection>
 
-              {/* Powered by Full Enrich */}
-              <FadeSection delay={0.25} className="mt-12">
-                <div className="flex items-center gap-4 px-5 py-3 rounded-xl border border-white/10 bg-white/[0.03] w-fit">
-                  <span className="text-[11px] font-black tracking-[0.2em] text-white uppercase whitespace-nowrap">Powered by</span>
-                  <div className="w-px h-4 bg-white/20" />
-                  <img 
-                    src="https://framerusercontent.com/images/yyQy6O9iI8m11Nmj5L5RvQjqc.svg?width=1834&height=335" 
-                    alt="FullEnrich" 
-                    className="h-4 md:h-5 w-auto invert brightness-[10] contrast-200" 
-                  />
+
+              <FadeSection delay={0.25} className="mt-14">
+                <div className="flex flex-col sm:flex-row items-center sm:items-center gap-6">
+                  <Link href="#waitlist">
+                    <ShimmerButton 
+                      shimmerColor="#62D2A2" 
+                      background="#111" 
+                      className="h-16 px-10 rounded-full"
+                      shimmerSize="0.1em"
+                    >
+                      <span className="flex items-center gap-3 text-sm font-black text-white uppercase tracking-widest">
+                        Join the Waitlist
+                        <ArrowRight className="w-4 h-4" />
+                      </span>
+                    </ShimmerButton>
+                  </Link>
+                  <Link
+                    href="/pilot"
+                    className="text-white opacity-80 hover:text-white transition-colors text-sm font-black uppercase tracking-widest flex items-center gap-3 group"
+                  >
+                    See How a Pilot Works
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </Link>
                 </div>
               </FadeSection>
 
@@ -210,7 +255,7 @@ export default function AISalesAssistantPage() {
         </div>
 
         <FadeSection delay={0.3} className="mt-12">
-          <p className="text-gray-500 text-base leading-relaxed max-w-2xl">
+          <p className="text-white opacity-80 text-base leading-relaxed max-w-2xl">
             Most AI tools solve one problem in one stage. Our agent operates across your entire deal lifecycle — from first touch to closed-won — with full context of every interaction.
           </p>
         </FadeSection>
@@ -234,17 +279,19 @@ export default function AISalesAssistantPage() {
           </h2>
         </FadeSection>
 
-        <div className="flex flex-col divide-y divide-white/5">
+        <div className="grid md:grid-cols-2 gap-12 text-left">
           {features.map((feature, i) => (
             <FadeSection key={feature.title} delay={0.06 * i}>
-              <div className="group grid md:grid-cols-[1fr_2fr] gap-8 md:gap-16 py-10 hover:bg-white/[0.015] px-4 -mx-4 rounded-xl transition-all duration-300">
-                <div className="flex items-start gap-4">
-                  <div className="mt-0.5 w-8 h-8 rounded-lg bg-[#62D2A2]/8 border border-[#62D2A2]/15 flex items-center justify-center shrink-0">
+              <div className="group flex flex-col h-full gap-5 p-8 md:p-10 border border-white/10 rounded-3xl bg-white/[0.02] hover:border-[#62D2A2]/30 hover:bg-white/[0.05] transition-all duration-300">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#62D2A2]/10 border border-[#62D2A2]/20 flex items-center justify-center shrink-0 text-[#62D2A2]">
                     {feature.icon}
                   </div>
-                  <h3 className="text-xl font-black text-white leading-tight">{feature.title}</h3>
+                  <h3 className="text-2xl font-black text-white">{feature.title}</h3>
                 </div>
-                <p className="text-gray-400 leading-relaxed self-center">{feature.description}</p>
+                <p className="text-white opacity-90 text-base md:text-lg leading-relaxed ml-16 mt-2">
+                  {feature.description}
+                </p>
               </div>
             </FadeSection>
           ))}
@@ -275,7 +322,7 @@ export default function AISalesAssistantPage() {
             </FadeSection>
 
             <FadeSection delay={0.08}>
-              <p className="text-gray-400 text-lg leading-relaxed mb-10">
+              <p className="text-white opacity-80 text-lg leading-relaxed mb-10">
                 No new software to learn. No replatforming. No rep adoption risk.
               </p>
             </FadeSection>
@@ -293,7 +340,7 @@ export default function AISalesAssistantPage() {
                     </div>
                     <div>
                       <p className="font-bold text-white mb-1">{item.title}</p>
-                      <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+                      <p className="text-white opacity-80 text-sm leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
                 </FadeSection>
@@ -364,29 +411,20 @@ export default function AISalesAssistantPage() {
         </FadeSection>
 
         <FadeSection delay={0.1}>
-          <div className="flex flex-wrap items-center justify-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-12 md:gap-20">
             {integrations.map((integration) => (
               <div
                 key={integration.name}
-                className="group px-6 py-4 border border-white/8 rounded-xl bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.05] transition-all duration-300 cursor-default"
+                className="opacity-40 hover:opacity-100 transition-all duration-500 transform hover:scale-110 grayscale hover:grayscale-0"
               >
-                <div className="flex items-center justify-center gap-3">
-                  {/* Colored dot as brand indicator */}
-                  <div
-                    className="w-2.5 h-2.5 rounded-full opacity-40 group-hover:opacity-100 transition-opacity"
-                    style={{ backgroundColor: integration.color }}
-                  />
-                  <span className="text-sm font-bold text-white/40 group-hover:text-white transition-colors">
-                    {integration.name}
-                  </span>
-                </div>
+                {integration.svg}
               </div>
             ))}
           </div>
         </FadeSection>
 
         <FadeSection delay={0.2} className="text-center mt-10">
-          <p className="text-gray-600 text-sm">More integrations available. Ask us about your stack.</p>
+          <p className="text-white opacity-80 text-sm">More integrations available. Ask us about your stack.</p>
         </FadeSection>
       </section>
 
@@ -414,7 +452,7 @@ export default function AISalesAssistantPage() {
           </FadeSection>
 
           <FadeSection delay={0.14}>
-            <p className="text-gray-400 text-lg leading-relaxed mb-12 max-w-xl">
+            <p className="text-white opacity-80 text-lg leading-relaxed mb-12 max-w-xl">
               The agent never sends an email, books a meeting, or advances a deal without rep approval. It does the thinking. Your rep makes the call.
             </p>
           </FadeSection>
@@ -432,14 +470,14 @@ export default function AISalesAssistantPage() {
                 detail: "Personalized copy — rep just hits send.",
               },
             ].map((flow, i) => (
-              <FadeSection key={flow.from} delay={0.06 * i}>
-                <div className="p-6 border border-white/6 rounded-2xl bg-white/[0.02]">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="text-sm text-white/30">{flow.from}</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#62D2A2]/40 shrink-0" />
-                    <span className="text-sm font-bold text-white">{flow.to}</span>
+              <FadeSection key={flow.from} delay={0.06 * i} className="h-full">
+                <div className="h-full flex flex-col p-6 border border-white/6 rounded-2xl bg-white/[0.02]">
+                  <div className="flex items-start sm:items-center gap-3 mb-4 flex-col sm:flex-row">
+                    <span className="text-sm text-white/30 shrink-0">{flow.from}</span>
+                    <ArrowRight className="hidden sm:block w-3.5 h-3.5 text-[#62D2A2]/40 shrink-0" />
+                    <span className="text-sm font-bold text-white leading-tight">{flow.to}</span>
                   </div>
-                  <p className="text-gray-500 text-sm">{flow.detail}</p>
+                  <p className="text-white opacity-80 text-sm mt-auto">{flow.detail}</p>
                 </div>
               </FadeSection>
             ))}
@@ -455,7 +493,7 @@ export default function AISalesAssistantPage() {
       {/* ──────────────────────────────────────────────────────────────────
           SECTION 7 — CTA / WAITLIST
       ────────────────────────────────────────────────────────────────── */}
-      <section id="waitlist" className="py-40 px-6 text-center">
+      <section id="waitlist" className="py-40 px-6 text-center hide-floating-cta">
         <div className="max-w-3xl mx-auto">
           <FadeSection delay={0}>
             <span className="inline-block text-[11px] font-black tracking-[0.3em] text-white/25 uppercase mb-8">
@@ -470,26 +508,33 @@ export default function AISalesAssistantPage() {
           </FadeSection>
 
           <FadeSection delay={0.14}>
-            <p className="text-gray-500 text-lg mb-14 max-w-lg mx-auto leading-relaxed">
-              Be the first to access the Map2Close AI Sales Assistant. Limited spots for early teams.
+            <p className="text-white opacity-80 text-lg mb-14 max-w-lg mx-auto leading-relaxed">
+              This Is The Next Generation of Selling. Less admin. Less guesswork. More time selling. Limited spots for early teams.
             </p>
           </FadeSection>
 
-          <FadeSection delay={0.2}>
+          <FadeSection delay={0.2} className="flex justify-center">
             <Link
               href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
               target="_blank"
-              className="group inline-flex items-center gap-3 bg-[#62D2A2] text-black px-10 py-5 font-black text-sm uppercase tracking-widest rounded-full hover:bg-[#7ddbae] transition-all duration-300"
             >
-              Request Early Access
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ShimmerButton 
+                shimmerColor="#62D2A2" 
+                background="#111" 
+                className="h-20 px-12 rounded-full"
+              >
+                <span className="flex items-center gap-3 text-sm font-black text-white uppercase tracking-widest">
+                  Join the Waitlist
+                  <ArrowRight className="w-4 h-4" />
+                </span>
+              </ShimmerButton>
             </Link>
           </FadeSection>
 
           <FadeSection delay={0.28}>
-            <p className="mt-10 text-gray-600 text-sm">
+            <p className="mt-10 text-white opacity-80 text-sm">
               Or{" "}
-              <Link href="/services" className="text-gray-400 hover:text-white transition-colors underline underline-offset-4">
+              <Link href="/services" className="text-white opacity-80 hover:text-white transition-colors underline underline-offset-4">
                 explore all services
               </Link>
             </p>

@@ -17,7 +17,7 @@ export default function FinalCTASection() {
   const isInView = useInView(containerRef, { once: true, margin: "-100px 0px" });
 
   return (
-    <section className={styles.ctaSection} ref={containerRef}>
+    <section className={`${styles.ctaSection} hide-floating-cta`} ref={containerRef}>
       <div className={styles.container}>
         <motion.div 
           className={styles.content}

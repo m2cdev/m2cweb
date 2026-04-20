@@ -123,7 +123,7 @@ const HorizontalScrollCarousel = ({ cards = [] }) => {
 
 const Card = ({ card }) => {
   return (
-    <Link href={`/case-studies#${card.id}`} className="block">
+    <Link href={`/case-studies/${card.id}`} className="block">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}

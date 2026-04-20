@@ -107,7 +107,7 @@ export default function ServiceSubpageLayout({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 1 }}
-            className="text-lg md:text-xl text-gray-400 font-body leading-relaxed max-w-[640px] mx-auto"
+            className="text-lg md:text-xl text-white font-body leading-relaxed max-w-[640px] mx-auto"
           >
             {heroSubtext}
           </motion.p>
@@ -137,7 +137,7 @@ export default function ServiceSubpageLayout({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="text-xl md:text-2xl text-gray-300 font-body leading-relaxed"
+              className="text-xl md:text-2xl text-white font-body leading-relaxed"
             >
               {approachText}
             </motion.div>
@@ -145,13 +145,63 @@ export default function ServiceSubpageLayout({
         </section>
       )}
 
-      {/* 3. SERVICE BLOCKS */}
+      {/* 3. SERVICE BLOCKS (Horizontal Scroll) */}
       {serviceRows && serviceRows.length > 0 && (
-        <section className="px-6 py-24 md:py-32 max-w-[900px] mx-auto">
-          <div className="flex flex-col">
+        <section className="py-24 md:py-32 relative overflow-hidden bg-black">
+          {/* Subtle background decoration */}
+          <div className="absolute inset-0 bg-primary/5 [mask-image:radial-gradient(ellipse_at_center,white,transparent_70%)] pointer-events-none" />
+          
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 md:gap-8 px-6 md:px-12 pb-12 w-full mx-auto" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            <style jsx>{`
+              div::-webkit-scrollbar {
+                display: none;
+              }
+            `}</style>
+            
+            {/* Start spacer */}
+            <div className="shrink-0 w-4 md:w-[10vw]" />
+
             {serviceRows.map((row, i) => (
-              <ServiceRow key={i} row={row} index={i} isWaitlist={isWaitlist} />
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: i * 0.1, ease: "easeOut" }}
+                key={i}
+                className="snap-center shrink-0 w-[85vw] md:w-[450px] bg-[#050505] border border-white/5 rounded-[2rem] p-10 md:p-12 relative group hover:border-primary/30 transition-all duration-500 shadow-2xl flex flex-col justify-between min-h-[400px]"
+              >
+                {/* Internal Glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/0 group-hover:from-primary/5 group-hover:to-transparent transition-colors duration-500 rounded-[2rem] pointer-events-none" />
+                
+                <div>
+                  <span className={cn(
+                    "block text-primary font-black tracking-widest mb-10",
+                    isWaitlist ? "text-lg uppercase" : "text-5xl"
+                  )}>
+                    {row.identifier || `0${i + 1}`}
+                  </span>
+                  
+                  <h3 className="text-3xl font-black text-white mb-6 tracking-tight group-hover:text-primary transition-colors duration-300 leading-tight">
+                    {row.title}
+                  </h3>
+                  
+                  <p className="text-lg text-white font-body leading-relaxed">
+                    {row.description}
+                  </p>
+                </div>
+
+                {row.linkText && row.linkUrl && (
+                  <div className="mt-10">
+                    <Link href={row.linkUrl} className="text-primary text-xs font-black uppercase tracking-widest hover:text-white transition-colors flex items-center gap-2">
+                      {row.linkText}
+                    </Link>
+                  </div>
+                )}
+              </motion.div>
             ))}
+
+            {/* End spacer */}
+            <div className="shrink-0 w-4 md:w-[10vw]" />
           </div>
         </section>
       )}
@@ -188,7 +238,7 @@ export default function ServiceSubpageLayout({
             {ctaHeadline}
           </h2>
           {ctaSubtext && (
-            <p className="text-lg md:text-xl text-gray-500 font-body leading-relaxed mb-10">
+            <p className="text-lg md:text-xl text-white font-body leading-relaxed mb-10">
               {ctaSubtext}
             </p>
           )}
@@ -226,41 +276,4 @@ export default function ServiceSubpageLayout({
   );
 }
 
-function ServiceRow({ row, index, isWaitlist }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-      className="group grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-12 py-10 md:py-16 border-b border-[#1A1A1A] last:border-b-0"
-    >
-      <div className="md:col-span-1 pt-1 md:text-right">
-        <span className={cn(
-          "text-primary font-black tracking-widest",
-          isWaitlist ? "text-lg uppercase" : "text-3xl"
-        )}>
-          {row.identifier || `0${index + 1}`}
-        </span>
-      </div>
-      <div className="md:col-span-3">
-        <h3 className="text-xl font-bold text-white mb-3 tracking-tight group-hover:text-primary transition-colors">
-          {row.title}
-        </h3>
-        <p className="text-base text-gray-500 font-body leading-relaxed">
-          {row.description}
-        </p>
-        {row.linkText && row.linkUrl && (
-          <div className="mt-6">
-            <Link href={row.linkUrl} className="text-primary text-xs font-black uppercase tracking-widest hover:text-white transition-colors flex items-center gap-2">
-              {row.linkText}
-            </Link>
-          </div>
-        )}
-      </div>
-    </motion.div>
-  );
-}

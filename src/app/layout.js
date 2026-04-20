@@ -1,4 +1,4 @@
-import { Outfit } from "next/font/google";
+import { Outfit, Sora, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import FloatingCTA from "@/components/FloatingCTA";
@@ -8,6 +8,18 @@ const outfit = Outfit({
   subsets: ["latin"], 
   variable: "--font-body",
   weight: ["300", "400", "500", "600", "700", "800", "900"]
+});
+
+const sora = Sora({
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["400", "600", "700", "800"]
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400", "700"]
 });
 
 export const metadata = {
@@ -37,7 +49,7 @@ import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark">
-      <body className={`${outfit.variable} font-body bg-[#050505] text-white antialiased`}>
+      <body className={`${outfit.variable} ${sora.variable} ${jetbrainsMono.variable} font-body bg-[#050505] text-white antialiased`}>
         <Navbar />
         <SmoothScrollProvider>
           <main className="relative z-10 min-h-screen">

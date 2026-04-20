@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { BorderBeam } from "@/components/ui/border-beam";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { Play } from "lucide-react";
 
 const caseStudies = [
@@ -93,7 +95,7 @@ export default function CaseStudies() {
           >
             Outcomes <br /> <span className="text-primary italic">Over Optics.</span>
           </motion.h1>
-          <p className="text-xl md:text-2xl text-gray-400 font-body leading-relaxed max-w-2xl">
+          <p className="text-xl md:text-2xl text-white opacity-80 font-body leading-relaxed max-w-2xl">
             Real problems. Real builds. Real results.
           </p>
         </div>
@@ -107,23 +109,27 @@ export default function CaseStudies() {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8 }}
                 >
-                  <p className="inline-block px-4 py-1 rounded-full border border-white/10 bg-white/5 text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">
+                  <p className="inline-block px-4 py-1 rounded-full border border-white/10 bg-white/5 text-sm font-bold text-white opacity-80 uppercase tracking-widest mb-6">
                     {cs.company}
                   </p>
                   <h2 className="text-3xl md:text-5xl font-bold mb-3 tracking-tight leading-tight">
                     {cs.companyName}
                   </h2>
                   <p className="text-primary font-bold uppercase tracking-widest text-sm mb-8">{cs.title}</p>
-                  <p className="text-lg text-gray-400 font-body leading-relaxed mb-10">
+                  <p className="text-lg text-white opacity-80 font-body leading-relaxed mb-10">
                     {cs.description}
                   </p>
                   <div className="flex gap-4 flex-wrap">
-                    <button className="h-12 px-8 rounded-full border border-white/10 text-white font-bold hover:bg-white/5 transition-all">
-                      Read the Full Paper
-                    </button>
-                    <button className="h-12 px-8 rounded-full border border-primary/30 text-primary font-bold hover:bg-primary/10 transition-all">
-                      Watch Case Study
-                    </button>
+                    <Link href={`/case-studies/${cs.id}`}>
+                      <ShimmerButton 
+                        shimmerColor="#62D2A2" 
+                        background="#050505" 
+                        className="h-12 px-8 rounded-full"
+                        shimmerSize="0.1em"
+                      >
+                        <span className="text-sm font-bold text-white tracking-tight">Dive Deeper →</span>
+                      </ShimmerButton>
+                    </Link>
                   </div>
                 </motion.div>
               </div>

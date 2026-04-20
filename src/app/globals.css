@@ -4,15 +4,16 @@
 
 :root {
   --color-primary: #62D2A2;
-  --color-black: #000000;
+  --color-black: #0A0A0A;
   --color-white: #FFFFFF;
   --color-coral: #F96B6B;
-  --color-gray-dark: #111111;
-  --color-gray-mid: #1a1a1a;
+  --color-gray-dark: #0A0A0A;
+  --color-gray-mid: #141414;
   --color-gray-light: #888888;
 
-  --font-heading: 'Outfit', 'Century Gothic', sans-serif;
-  --font-body: 'Outfit', 'Century Gothic', sans-serif;
+  --font-heading: var(--font-display), 'Sora', sans-serif;
+  --font-body: var(--font-body), 'Outfit', sans-serif;
+  --font-mono: var(--font-mono), 'JetBrains Mono', monospace;
 
   /* Shadcn Dark Mode Base (Optimized for Map2Close Obsidian) */
   --background: 0 0% 0%;

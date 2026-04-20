@@ -20,13 +20,13 @@ const servicesData = [
     subtitle: "Your Stack Should Be Working Harder Than You Are.",
     description: "Most teams are sitting on powerful tools they're barely using. We configure your entire stack around a process built to convert — so your reps spend less time managing software and more time closing deals.",
     link: "/services/rev-ops-implementations",
-    linkText: "See How We Implement →",
+    linkText: "See How We Implement",
     extrasType: "icons",
     extrasData: [
       { label: "CRM Setup & Optimization" },
       { label: "Tech Stack Integration" },
       { label: "Workflow Automation" },
-      { label: "Stack Optimization" },
+      { label: "Process & Pipeline Design" },
     ],
     toolLogos: ["HubSpot", "Salesforce", "Apollo", "Pipedrive"]
   },
@@ -34,10 +34,11 @@ const servicesData = [
     id: "custom-builds",
     tag: "CUSTOM BUILDS",
     title: "Rev Ops Custom Buildouts",
-    subtitle: "Built for Your Motion, Down to the Detail.",
+    subtitle: "Custom tools tailored to your motion's bottlenecks.",
     description: "When your stack alone doesn't cut it, we build around it. Custom tools designed from the ground up to eliminate bottlenecks and give your reps exactly what they need to move deals forward.",
     link: "/services/rev-ops-custom-buildouts",
-    linkText: "See What We Build →",
+    linkText: "See how this works",
+    extrasLabel: "Successful Builds",
     extrasType: "cards",
     extrasData: [
       { title: "Sales Enablement Hub", text: "Centralized assets filtered by deal stage and persona" },
@@ -49,10 +50,10 @@ const servicesData = [
     id: "enablement",
     tag: "ENABLEMENT",
     title: "Sales Enablement",
-    subtitle: "The Part Most Partners Skip.",
-    description: "Strategy is the easy part. Execution is where most partners tap out. We embed inside your sales motion and work directly with your reps — on real calls, real deals, and real objections.",
+    subtitle: "In the trenches, not on a slide deck.",
+    description: "We embed inside your sales motion and work directly with your reps to fix performance gaps where they happen: on real calls & inside active deals.",
     link: "/services/sales-enablement",
-    linkText: "See How We Enable →",
+    linkText: "How we Dive Deeper",
     extrasType: "pills",
     extrasData: [
       "Live Deal Coaching", "Cold Call Labs", "1-1 Coaching", "Group Training", "Enablement Assets"
@@ -89,7 +90,7 @@ export default function ServicesPage() {
           <h1 className="text-6xl md:text-[8rem] font-black tracking-tighter leading-none mb-6">
             What We <span className="text-primary italic">Build</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-400 font-body leading-relaxed max-w-2xl mx-auto">
+          <p className="text-xl md:text-2xl text-white opacity-80 font-body leading-relaxed max-w-2xl mx-auto">
             High-fidelity revenue systems designed to scale from lead to close.
           </p>
         </motion.div>
@@ -137,7 +138,7 @@ export default function ServicesPage() {
           <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-6">
             Not sure which service fits?
           </h2>
-          <p className="text-lg md:text-xl text-gray-500 font-body leading-relaxed mb-12">
+          <p className="text-lg md:text-xl text-white opacity-80 font-body leading-relaxed mb-12">
             Start with a Working Session. We&apos;ll diagnose the problem and recommend the right path.
           </p>
           
@@ -148,7 +149,7 @@ export default function ServicesPage() {
               </ShimmerButton>
             </Link>
             
-            <Link href="/pilot" className="text-gray-500 hover:text-white transition-colors uppercase text-[11px] font-black tracking-widest flex items-center gap-2 group">
+            <Link href="/pilot" className="text-white opacity-80 hover:text-white transition-colors uppercase text-[11px] font-black tracking-widest flex items-center gap-2 group">
               Or explore the Custom Pilot 
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </Link>

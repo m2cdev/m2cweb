@@ -21,8 +21,9 @@ module.exports = {
         foreground: "hsl(var(--foreground))",
       },
       fontFamily: {
-        heading: ["var(--font-body)"],
+        heading: ["var(--font-display)"],
         body: ["var(--font-body)"],
+        mono: ["var(--font-mono)"],
       },
       animation: {
         'shimmer-slide': 'shimmer-slide var(--speed) ease-in-out infinite alternate',

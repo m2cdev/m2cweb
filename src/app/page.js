@@ -81,7 +81,7 @@ export default function Home() {
       <HorizontalCarousel cards={caseStudiesData} />
 
       {/* Final CTA - Lamp Effect */}
-      <section className="relative bg-black h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+      <section className="relative bg-black h-screen w-full flex flex-col items-center justify-center overflow-hidden hide-floating-cta">
         <LampContainer>
           <motion.div
             initial={{ opacity: 0.5, y: 100 }}
@@ -96,13 +96,13 @@ export default function Home() {
             <h2 className="text-4xl md:text-7xl font-black mb-8 tracking-tighter text-white">
               One conversation. <br /> <span className="text-primary italic">No commitment.</span>
             </h2>
-            <p className="text-xl md:text-2xl text-gray-400 mb-8 font-body">Stop guessing. Start closing.</p>
+            <p className="text-xl md:text-2xl text-white opacity-80 mb-8 font-body">Stop guessing. Start closing.</p>
             <Link href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96" target="_blank">
               <ShimmerButton className="h-16 px-12 rounded-2xl" shimmerColor="#62D2A2">
                 <span className="text-xl font-black uppercase tracking-widest text-white">Book a Working Session</span>
               </ShimmerButton>
             </Link>
-            <p className="mt-8 text-gray-500 font-bold tracking-[0.3em] uppercase text-xs">Map. Execute. Optimize. Close.</p>
+            <p className="mt-8 text-white opacity-80 font-bold tracking-[0.3em] uppercase text-xs">Map. Execute. Optimize. Close.</p>
           </motion.div>
         </LampContainer>
       </section>

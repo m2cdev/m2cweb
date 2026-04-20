@@ -5,6 +5,7 @@ import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function FloatingCTA() {
+  const [forceHide, setForceHide] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -13,13 +14,40 @@ export default function FloatingCTA() {
       setIsVisible(window.scrollY > 300);
     };
 
+    // Intersection Observer to hide CTA when main page CTAs are visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const isAnyInView = entries.some((entry) => entry.isIntersecting);
+        setForceHide(isAnyInView);
+      },
+      { threshold: 0.1 }
+    );
+
+    const observeElements = () => {
+      const elements = document.querySelectorAll(".hide-floating-cta");
+      elements.forEach((el) => observer.observe(el));
+    };
+
+    // Initial observe
+    observeElements();
+
+    // Re-observe if DOM changes (e.g. navigation)
+    const mutationObserver = new MutationObserver(() => {
+      observeElements();
+    });
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+      mutationObserver.disconnect();
+    };
   }, []);
 
   return (
     <AnimatePresence>
-      {isVisible && (
+      {(isVisible && !forceHide) && (
         <motion.div
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}

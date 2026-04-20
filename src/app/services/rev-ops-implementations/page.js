@@ -90,39 +90,74 @@ export default function RevOpsImplementationsPage() {
           </FadeSection>
 
           <FadeSection delay={0.14}>
-            <p className="text-gray-400 text-lg md:text-xl leading-relaxed mb-16 font-medium">
+            <p className="text-white opacity-80 text-lg md:text-xl leading-relaxed mb-16 font-medium">
               We configure your stack around a process built to convert — so your reps spend less time managing software and more time closing deals.
             </p>
           </FadeSection>
+        </div> {/* Close container for full width ticker */}
 
-          {/* CRM logos / partners */}
-          <FadeSection delay={0.2} className="mb-24">
-             <div className="flex flex-wrap items-center gap-10 md:gap-16 opacity-30 grayscale hover:grayscale-0 transition-all duration-500">
-              {["HubSpot", "Salesforce", "Apollo", "Pipedrive"].map((tool) => (
-                <div key={tool} className="text-xl md:text-2xl font-black tracking-tighter text-white">
-                  {tool}
+        {/* Scrolling Logo Ticker */}
+        <FadeSection delay={0.2} className="mb-24 mt-10 w-full relative">
+          <div 
+            className="relative flex overflow-hidden w-full"
+            style={{
+              maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)'
+            }}
+          >
+            <div className="flex w-fit shrink-0 animate-ticker">
+              {[...Array(4)].map((_, arrayIndex) => (
+                <div key={arrayIndex} className="flex gap-[80px] pr-[80px] items-center shrink-0">
+                  {[
+                    { name: "HubSpot", src: "https://api.iconify.design/logos/hubspot.svg" },
+                    { name: "Salesforce", src: "https://api.iconify.design/logos/salesforce.svg" },
+                    { name: "Airtable", src: "https://api.iconify.design/logos/airtable.svg" },
+                    { name: "Pipedrive", src: "https://api.iconify.design/logos/pipedrive.svg" },
+                    { name: "Zoom", src: "https://api.iconify.design/logos/zoom-icon.svg" },
+                    { name: "LinkedIn", src: "https://api.iconify.design/logos/linkedin-icon.svg" },
+                    { name: "Slack", src: "https://api.iconify.design/logos/slack-icon.svg" },
+                    { name: "Gmail", src: "https://api.iconify.design/logos/google-gmail.svg" },
+                    { name: "Zapier", src: "https://api.iconify.design/logos/zapier-icon.svg" },
+                    { name: "Notion", src: "https://api.iconify.design/logos/notion-icon.svg?color=white" }
+                  ].map((logo) => (
+                    <div key={logo.name} className="relative h-[36px] md:h-[48px] opacity-90 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center shrink-0">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={logo.src}
+                        alt={`${logo.name} logo`}
+                        className="h-full w-auto object-contain"
+                      />
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
-            <div className="mt-8">
-              <span className="px-5 py-2.5 rounded-full border border-[#62D2A2]/20 bg-[#62D2A2]/5 text-[11px] font-black text-[#62D2A2] uppercase tracking-[0.2em]">
-                Certified Apollo Partners
-              </span>
-            </div>
-          </FadeSection>
+          </div>
+          <style jsx>{`
+            @keyframes ticker {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-25%); }
+            }
+            .animate-ticker {
+              animation: ticker 30s linear infinite;
+            }
+          `}</style>
+        </FadeSection>
 
+        {/* Re-open container */}
+        <div className="container mx-auto px-6 md:px-16 relative z-10">
           {/* Detailed features */}
           <div className="grid md:grid-cols-2 gap-12 text-left border-t border-white/5 pt-20">
             {implementationRows.map((row, i) => (
               <FadeSection key={row.title} delay={0.06 * i}>
-                <div className="group flex flex-col gap-5 p-8 border border-white/6 rounded-2xl bg-white/[0.02] hover:border-[#62D2A2]/20 hover:bg-white/[0.04] transition-all duration-300">
+                <div className="group flex flex-col gap-5 p-8 md:p-10 border border-white/10 rounded-3xl bg-white/[0.02] hover:border-[#62D2A2]/30 hover:bg-white/[0.05] transition-all duration-300">
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-[#62D2A2]/10 border border-[#62D2A2]/20 flex items-center justify-center shrink-0 text-[#62D2A2]">
+                    <div className="w-12 h-12 rounded-xl bg-[#62D2A2]/10 border border-[#62D2A2]/20 flex items-center justify-center shrink-0 text-[#62D2A2]">
                       {row.icon}
                     </div>
-                    <h3 className="text-xl font-black text-white">{row.title}</h3>
+                    <h3 className="text-2xl font-black text-white">{row.title}</h3>
                   </div>
-                  <p className="text-gray-500 text-sm leading-relaxed ml-14">
+                  <p className="text-white text-base md:text-lg leading-relaxed ml-16 opacity-90">
                     {row.description}
                   </p>
                 </div>

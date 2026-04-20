@@ -2,11 +2,13 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import RotatingEarth from "@/components/ui/wireframe-dotted-globe";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 
 const comparisons = [
   {
-    leftHeader: "Common Room / 6sense — Signal & Intent Intelligence Platforms",
+    category: "Signal & Intent Intelligence Platforms",
+    competitor: "Common Room / 6sense",
     leftItems: [
       "Aggregate pre-set buying signals across channels",
       "Surface intent data and account activity",
@@ -19,7 +21,8 @@ const comparisons = [
     ],
   },
   {
-    leftHeader: "Gong — Revenue Intelligence & Call Analytics",
+    category: "Revenue Intelligence & Call Analytics",
+    competitor: "Gong",
     leftItems: [
       "Record and transcribe sales calls",
       "Surface deal risks and conversation insights",
@@ -32,7 +35,8 @@ const comparisons = [
     ],
   },
   {
-    leftHeader: "Traditional Sales Consultancy",
+    category: "Sales Strategy & Consulting",
+    competitor: "Traditional Sales Consultancy",
     leftItems: [
       "Deliver a strategy and a slide deck",
       "Recommend tools and processes",
@@ -48,61 +52,174 @@ const comparisons = [
 
 export default function ComparePage() {
   return (
-    <div className="flex flex-col w-full bg-black min-h-screen pt-40 pb-20">
-      <div className="container-custom">
-        <h1 className="text-4xl md:text-7xl font-black mb-16 tracking-tighter text-white">
-          Traditional Consulting <br /> vs. <span className="text-primary italic">Map2Close</span>
-        </h1>
+    <div className="flex flex-col w-full bg-[#0A0A0A] min-h-screen text-white antialiased selection:bg-[#62D2A2]/30">
 
-        <div className="space-y-16">
-          {comparisons.map((comp, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              viewport={{ once: true }}
-              className="py-12 bg-white/5 rounded-3xl p-12 overflow-hidden relative border border-white/10"
+      {/* ── Hero Section ─────────────────────────────────────────────── */}
+      <section className="w-full pt-36 pb-24 border-b border-white/10">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-16 flex flex-col md:flex-row items-center gap-12">
+
+          {/* Left — text */}
+          <div className="flex-1 min-w-0">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="font-heading font-black text-[11px] text-[#62D2A2] tracking-[0.2em] uppercase mb-6"
             >
-              <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-64 h-64 bg-primary/10 rounded-full blur-[80px]" />
+              The difference is execution
+            </motion.p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10">
-                <div className="space-y-6 opacity-40 group hover:opacity-100 transition-opacity">
-                  <h3 className="text-base font-bold uppercase tracking-widest text-gray-500 mb-6">{comp.leftHeader}</h3>
-                  <ul className="space-y-4">
-                    {comp.leftItems.map((item, i) => (
-                      <li key={i} className="flex items-start gap-4 line-through decoration-coral decoration-2">
-                        <div className="w-2 h-2 rounded-full bg-coral mt-2 shrink-0" />
-                        <p className="text-lg text-gray-400 font-body">{item}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="font-heading font-black text-[clamp(64px,7vw,110px)] leading-[0.9] tracking-[-0.04em] text-white mb-8"
+            >
+              How We<br /><span className="text-[#62D2A2]">Stack</span> Up
+            </motion.h1>
 
-                <div className="space-y-6 border-l border-white/10 pl-12 bg-primary/5 p-8 rounded-2xl">
-                  <h3 className="text-xl font-bold uppercase tracking-widest text-primary mb-6">The Map2Close Method</h3>
-                  <ul className="space-y-4">
-                    {comp.rightItems.map((item, i) => (
-                      <li key={i} className="flex items-start gap-4">
-                        <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                        <p className="text-lg text-gray-300 font-body leading-relaxed">{item}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="font-heading text-lg md:text-xl text-white max-w-[460px] leading-relaxed"
+            >
+              Why we're better in every sense. No shallow intent boards. No slide-deck strategies. Just standardized execution that moves the line.
+            </motion.p>
+          </div>
+
+          {/* Right — full globe, no clipping */}
+          <motion.div
+            initial={{ opacity: 0, x: 60, scale: 0.9 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 1.6, ease: "easeOut" }}
+            className="flex-shrink-0 w-[500px] h-[500px] hidden md:flex items-center justify-center"
+            style={{
+              maskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 50%, transparent 100%)',
+              WebkitMaskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 50%, transparent 100%)',
+            }}
+          >
+            <RotatingEarth width={500} height={500} className="w-full h-full" />
+          </motion.div>
+
+        </div>
+      </section>
+
+
+      {/* ── Comparison Section ───────────────────────────────────────── */}
+      <div className="container-custom py-24 space-y-8">
+        {comparisons.map((block, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.08 }}
+            viewport={{ once: true, margin: "-60px" }}
+            className="rounded-3xl bg-[#111111] border border-white/[0.06] overflow-hidden"
+          >
+            {/* Competitor label row */}
+            <div className="px-8 pt-8 pb-6 border-b border-white/[0.06]">
+              <div className="flex items-center gap-3">
+                <span className="font-heading font-black text-[22px] tracking-tight text-white">
+                  {block.competitor}
+                </span>
+                <div className="w-6 h-[1px] bg-white/15" />
+                <span className="font-heading font-black text-[13px] tracking-tight text-white">
+                  {block.category}
+                </span>
               </div>
-            </motion.div>
-          ))}
-        </div>
+            </div>
 
-        <div className="mt-20 text-center">
-          <a href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96" target="_blank" rel="noopener noreferrer">
-            <ShimmerButton shimmerColor="#62D2A2" background="#111" className="h-16 px-12 rounded-2xl">
-              <span className="text-xl font-bold text-white tracking-tight">Book a Working Session</span>
-            </ShimmerButton>
-          </a>
-        </div>
+            {/* Two-column body */}
+            <div className="grid grid-cols-1 md:grid-cols-2">
+
+              {/* THEY column */}
+              <div className="px-8 py-8 border-r border-white/[0.06]">
+                <h4 className="font-heading font-black text-[13px] uppercase tracking-[0.15em] text-red-400 mb-8">
+                  THEY:
+                </h4>
+                <ul className="space-y-5">
+                  {block.leftItems.map((item, i) => (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: i * 0.07 }}
+                      viewport={{ once: true, margin: "-60px" }}
+                      className="flex items-start gap-4"
+                    >
+                      <div className="w-1.5 h-1.5 rounded-full bg-red-400/40 mt-[9px] shrink-0" />
+                      <p className="font-heading font-black text-[16px] text-red-300/80 leading-[1.75] tracking-tight">
+                        {item}
+                      </p>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* MAP2CLOSE column */}
+              <div className="px-8 py-8 bg-[#0d1a14]">
+                <h4 className="font-heading font-black text-[13px] uppercase tracking-[0.15em] text-[#62D2A2] mb-8">
+                  THE MAP2CLOSE METHOD
+                </h4>
+                <ul className="space-y-5">
+                  {block.rightItems.map((item, i) => (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, y: 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 + i * 0.08 }}
+                      viewport={{ once: true, margin: "-60px" }}
+                      className="flex items-start gap-4"
+                    >
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#62D2A2] mt-[9px] shrink-0 shadow-[0_0_8px_rgba(98,210,162,0.5)]" />
+                      <p className="font-heading font-black text-[16px] text-white leading-[1.75] tracking-tight">
+                        {item}
+                      </p>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+
+            </div>
+          </motion.div>
+        ))}
       </div>
+
+
+      {/* ── Bottom CTA ───────────────────────────────────────────────── */}
+      <section className="container-custom py-40 text-center hide-floating-cta border-t border-white/10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-4xl mx-auto"
+        >
+          <h2 className="font-heading font-black text-[clamp(40px,5vw,72px)] leading-[1] tracking-[-0.03em] mb-4">
+            <span className="block text-white">Still comparing?</span>
+            <span className="block text-white">See the difference <span className="text-[#62D2A2]">firsthand.</span></span>
+          </h2>
+
+          <p className="font-heading text-white text-xl md:text-2xl mb-12 max-w-2xl mx-auto leading-relaxed">
+            One working session. No commitment. You'll know by the end of it.
+          </p>
+
+          <div className="flex justify-center mt-4">
+            <a
+              href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ShimmerButton
+                shimmerColor="#62D2A2"
+                background="#111"
+                className="h-16 px-12 rounded-2xl"
+              >
+                <span className="font-heading font-black text-xl text-white tracking-tight">Book a working session</span>
+              </ShimmerButton>
+            </a>
+          </div>
+        </motion.div>
+      </section>
     </div>
   );
 }

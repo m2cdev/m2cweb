@@ -15,13 +15,20 @@ const navLinks = [
     { name: "Company", href: "/who-we-are" },
     { name: "How We Compare", href: "/who-we-are/compare" }
   ]},
-  { name: "Services", href: "/services", dropdown: [
+  { name: "What We Do", href: "/services", dropdown: [
+    { name: "Overview", href: "/services" },
     { name: "Sales Enablement", href: "/services/sales-enablement" },
     { name: "Rev Ops Implementations", href: "/services/rev-ops-implementations" },
     { name: "Rev Ops Custom Buildouts", href: "/services/rev-ops-custom-buildouts" },
     { name: "AI Sales Assistant", href: "/services/ai-sales-assistant" },
   ]},
-  { name: "Case Studies", href: "/case-studies" },
+  { name: "Case Studies", href: "/case-studies", dropdown: [
+    { name: "Overview", href: "/case-studies" },
+    { name: "Signal Intelligence", href: "/case-studies/signpost" },
+    { name: "Sales Enablement", href: "/case-studies/pinecone" },
+    { name: "Revenue Systems", href: "/case-studies/zenatech" },
+    { name: "Trial Optimization", href: "/case-studies/qwilr" },
+  ]},
   { name: "The Pilot", href: "/pilot" },
 ];
 

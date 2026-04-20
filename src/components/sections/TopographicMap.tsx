@@ -983,6 +983,7 @@ export default function TopographicMap() {
           }}
           frameloop="always"
           dpr={[1, 1.5]}
+          performance={{ min: 0.5 }}
           camera={{ fov: 58, near: 0.5, far: 320, position: [30, 140, 160] }}
           shadows
           style={{ background: "#060c0a", position: "absolute", inset: 0 }}

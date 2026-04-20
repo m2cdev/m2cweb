@@ -6,6 +6,8 @@ import { Environment, PerspectiveCamera } from "@react-three/drei";
 import * as THREE from "three";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 
+import { motion, useTransform } from "framer-motion";
+
 const MINT = "#62D2A2";
 const DARK_METAL = "#2a3530";
 
@@ -116,7 +118,7 @@ function Scene({ scrollProgress }) {
       ? scrollProgress.get() 
       : (typeof scrollProgress === 'number' ? scrollProgress : 0);
 
-    // Determine target Y
+    // Determine target Y based on which junction is currently active/scrolling
     let targetY;
     if (j2 > 0.01) {
       targetY = -NODE_Y[2]; 
@@ -125,16 +127,20 @@ function Scene({ scrollProgress }) {
     } else if (j0 > 0.01) {
       targetY = -NODE_Y[0]; 
     } else {
-      targetY = -NODE_Y[0] - 20; 
+      // Starting position slightly below first node
+      targetY = -NODE_Y[0] - 30; 
     }
 
-    // Smooth damped transition
-    const current = sceneGroup.current.position.y;
-    sceneGroup.current.position.y += (targetY - current) * 0.08;
+    // Weighted Smooth Transition (Elastic-like feel)
+    const dist = targetY - sceneGroup.current.position.y;
+    sceneGroup.current.position.y += dist * 0.12; // Increased from 0.08 for more snap
 
-    // Visibility Clamp — specifically avoid Hero (0.1) and Footer (0.8)
-    const inActiveRange = totalProgress > 0.05 && totalProgress < 0.85;
-    const anyInteraction = j0 > 0 || j1 > 0 || j2 > 0;
+    // Subtle rotation based on vertical movement
+    sceneGroup.current.rotation.y = THREE.MathUtils.lerp(sceneGroup.current.rotation.y, dist * 0.005, 0.1);
+
+    // Dynamic Visibility / Opacity
+    const inActiveRange = totalProgress > 0.01 && totalProgress < 0.99;
+    const anyInteraction = j0 > 0.01 || j1 > 0.01 || j2 > 0.01;
     
     sceneGroup.current.visible = inActiveRange && anyInteraction;
   });
@@ -142,15 +148,21 @@ function Scene({ scrollProgress }) {
   return (
     <>
       <PerspectiveCamera makeDefault position={[0, 0, 50]} fov={35} />
-      <ambientLight intensity={0.2} />
-      <directionalLight position={[10, 20, 10]} intensity={1} color="#ffffff" />
-      <pointLight position={[-15, 0, 15]} intensity={1.5} color={MINT} />
+      <ambientLight intensity={0.15} />
+      <spotLight position={[20, 40, 20]} angle={0.15} penumbra={1} intensity={2} color="#ffffff" castShadow />
+      <pointLight position={[-20, 0, 20]} intensity={2} color={MINT} />
+      <pointLight position={[20, -20, 10]} intensity={1.5} color="#4444ff" />
 
       <group ref={sceneGroup}>
         {/* Continuous pipe trunk — tall enough to span all nodes */}
         <mesh position={[0, 0, -0.5]}>
-          <cylinderGeometry args={[2.5, 2.5, 300, 32]} />
-          <meshStandardMaterial color={DARK_METAL} metalness={0.9} roughness={0.15} clippingPlanes={clippingPlanes} />
+          <cylinderGeometry args={[2.5, 2.5, 400, 32]} />
+          <meshStandardMaterial 
+            color={DARK_METAL} 
+            metalness={1} 
+            roughness={0.1} 
+            clippingPlanes={clippingPlanes} 
+          />
         </mesh>
 
         {/* Three identical service nodes */}
@@ -159,8 +171,13 @@ function Scene({ scrollProgress }) {
         <ServiceNode junctionIndex={2} positionY={NODE_Y[2]} clippingPlanes={clippingPlanes} />
       </group>
 
-      <EffectComposer disableNormalPass multisampling={0}>
-        <Bloom luminanceThreshold={0.5} mipmapBlur intensity={0.8} radius={0.6} />
+      <EffectComposer disableNormalPass multisampling={4}>
+        <Bloom 
+          luminanceThreshold={0.4} 
+          mipmapBlur 
+          intensity={1.2} 
+          radius={0.7} 
+        />
       </EffectComposer>
       <Environment preset="night" />
     </>
@@ -168,11 +185,26 @@ function Scene({ scrollProgress }) {
 }
 
 export default function Pipeline3D({ scrollProgress }) {
+  // Use scrollProgress to drive Canvas opacity smoothly
+  // scrollProgress is a motion value from parent
+  const opacity = useTransform(
+    scrollProgress, 
+    [0, 0.05, 0.95, 1], // progress points
+    [0, 0.8, 0.8, 0]        // opacity values
+  );
+
   return (
-    <div className="fixed inset-0 pointer-events-none z-0">
-      <Canvas shadows={false} dpr={[1, 2]} gl={{ antialias: false, stencil: false, depth: true, localClippingEnabled: true }}>
+    <motion.div 
+      style={{ opacity }} 
+      className="fixed inset-0 pointer-events-none z-0"
+    >
+      <Canvas 
+        shadows={false} 
+        dpr={[1, 2]} 
+        gl={{ antialias: false, stencil: false, depth: true, localClippingEnabled: true }}
+      >
         <Scene scrollProgress={scrollProgress} />
       </Canvas>
-    </div>
+    </motion.div>
   );
 }

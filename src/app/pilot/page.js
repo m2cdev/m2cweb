@@ -7,6 +7,10 @@ import { TracingBeam } from "@/components/ui/tracing-beam";
 import { NeonGradientCard } from "@/components/ui/neon-gradient-card";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { CheckCircle2 } from "lucide-react";
+import { CardSpotlight } from "@/components/ui/card-spotlight";
+import { BackgroundBeams } from "@/components/ui/background-beams";
+
+import { PilotHero } from "@/components/pilot/PilotHero";
 
 const steps = [
   {
@@ -31,28 +35,27 @@ const steps = [
 
 export default function Pilot() {
   return (
-    <div className="flex flex-col w-full bg-black min-h-screen pb-20 overflow-hidden">
-      {/* Hero Section - Lamp */}
-      <section className="relative z-0 min-h-[90vh] w-full flex flex-col items-center justify-center">
-        <LampContainer>
-          <motion.div 
-            initial={{ opacity: 0.5, y: 100 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
-            className="flex flex-col items-center justify-center text-center mt-12 px-4"
-          >
-            <h1 className="bg-gradient-to-br from-white to-gray-500 py-4 bg-clip-text text-5xl font-black tracking-tighter text-transparent md:text-8xl">
-              The Pilot <br /> <span className="text-3xl md:text-5xl font-bold text-primary font-body uppercase tracking-[0.3em] inline-block mt-4">Prove It First. Scale What Works.</span>
-            </h1>
-            <p className="text-lg md:text-xl text-gray-300 font-body mt-8 max-w-2xl mx-auto leading-relaxed">
-              The Custom Pilot is a 3–6 month engagement scoped around one meaningful outcome. No long-term contracts. No guessing. Just results.
-            </p>
-          </motion.div>
-        </LampContainer>
+    <div className="flex flex-col w-full bg-black min-h-screen pb-20">
+      <PilotHero />
+
+      {/* Scope & Risk Free Section */}
+      <section className="py-24 px-6 relative z-10 border-b border-white/10 bg-[#050505]">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 relative z-10">
+          <CardSpotlight className="bg-white/[0.02] border-white/10 rounded-3xl p-10 md:p-16 hover:border-primary/50 transition-colors shadow-2xl">
+            <h3 className="text-secondary font-bold text-sm uppercase tracking-widest mb-6 border border-secondary/20 bg-secondary/10 w-fit px-4 py-1.5 rounded-full relative z-20">Scoping</h3>
+            <h4 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tighter relative z-20">Hyper-Focused Scope</h4>
+            <p className="text-white opacity-80 text-lg leading-relaxed font-body relative z-20">We don't try to boil the ocean. The pilot targets a specific, high-friction area of your pipeline where we can prove immediate ROI within 90 days. We define this outcome together before we start.</p>
+          </CardSpotlight>
+          <CardSpotlight className="bg-white/[0.02] border-white/10 rounded-3xl p-10 md:p-16 hover:border-primary/50 transition-colors shadow-2xl">
+            <h3 className="text-primary font-bold text-sm uppercase tracking-widest mb-6 border border-primary/20 bg-primary/10 w-fit px-4 py-1.5 rounded-full relative z-20">De-Risked</h3>
+            <h4 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tighter relative z-20">Zero Long-Term Lock-In</h4>
+            <p className="text-white opacity-80 text-lg leading-relaxed font-body relative z-20">We hate standard agency retainers. The pilot is a fixed-term engagement designed to prove our value. If you don't see the results, we shake hands and walk away. If you do, we scale.</p>
+          </CardSpotlight>
+        </div>
       </section>
 
       {/* Steps Section - Tracing Beam */}
-      <div className="container-custom pt-32 pb-20 relative z-10">
+      <div id="how-it-works" className="container-custom pt-32 pb-20 relative z-10">
         <TracingBeam className="px-6">
           <div className="max-w-4xl mx-auto antialiased pt-4 relative">
             {steps.map((item, index) => (
@@ -60,12 +63,12 @@ export default function Pilot() {
                 <p className="text-primary font-bold text-sm uppercase tracking-widest mb-4">{item.step}</p>
                 <h2 className="text-4xl md:text-6xl font-black mb-8 tracking-tighter">{item.title}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                  <p className="text-xl text-gray-400 font-body leading-relaxed">
+                  <p className="text-xl text-white opacity-80 font-body leading-relaxed">
                     {item.description}
                   </p>
-                  <div className="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-md">
-                    <h3 className="text-sm font-bold uppercase tracking-widest text-gray-500 mb-6">Deliverables</h3>
-                    <ul className="space-y-4">
+                  <CardSpotlight className="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-md">
+                    <h3 className="text-sm font-bold uppercase tracking-widest text-white opacity-80 mb-6 relative z-20">Deliverables</h3>
+                    <ul className="space-y-4 relative z-20">
                       {item.deliverables.map((d, i) => (
                         <li key={i} className="flex items-center gap-3 text-white font-medium">
                           <CheckCircle2 className="text-primary w-5 h-5 flex-shrink-0" />
@@ -73,7 +76,7 @@ export default function Pilot() {
                         </li>
                       ))}
                     </ul>
-                  </div>
+                  </CardSpotlight>
                 </div>
               </div>
             ))}
@@ -86,7 +89,7 @@ export default function Pilot() {
               <NeonGradientCard neonColors={{ firstColor: "#62d2a2", secondColor: "#f96b6b" }} className="p-1">
                 <div className="bg-neutral-900 rounded-[var(--radius)] p-12 text-center">
                   <h3 className="text-2xl md:text-4xl font-black mb-6">What You Get</h3>
-                  <p className="text-xl text-gray-400 font-body mb-8 max-w-2xl mx-auto">
+                  <p className="text-xl text-white opacity-80 font-body mb-8 max-w-2xl mx-auto">
                     Even if we never work together again. Leave the working session with a clear Path-to-Close Plan. Execute it yourself, with another partner, or with us.
                   </p>
                   <div className="flex flex-wrap justify-center gap-4">
@@ -104,14 +107,19 @@ export default function Pilot() {
       </div>
 
       {/* Final CTA */}
-      <div className="container-custom py-40 text-center">
-        <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-6">Only 4 Teams Onboarded Per Quarter.</h2>
-        <p className="text-xl text-gray-400 font-body mb-12 max-w-xl mx-auto">We keep it small on purpose. Every pilot gets our full attention.</p>
-        <a href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96" target="_blank" rel="noopener noreferrer">
-          <ShimmerButton shimmerColor="#62D2A2" background="#111" className="h-16 px-12 rounded-2xl">
-            <span className="text-xl font-bold text-white tracking-tight">Book a Working Session</span>
-          </ShimmerButton>
-        </a>
+      <div className="py-40 relative flex items-center justify-center min-h-[60vh] overflow-hidden text-center hide-floating-cta">
+        <BackgroundBeams className="opacity-60" />
+        <div className="relative z-10 px-6 max-w-4xl mx-auto flex flex-col items-center">
+          <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-6 text-white drop-shadow-2xl">Only 4 Teams Onboarded Per Quarter.</h2>
+          <p className="text-xl md:text-2xl text-white opacity-80 font-body mb-12 max-w-2xl text-center">We keep it small on purpose. Every pilot gets our full, undivided execution capacity.</p>
+          <div className="flex justify-center">
+            <a href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96" target="_blank" rel="noopener noreferrer">
+              <ShimmerButton shimmerColor="#62D2A2" background="#111" className="h-16 px-12 rounded-2xl" shimmerSize="0.1em">
+                <span className="text-xl font-black text-white tracking-widest uppercase">Book a Working Session</span>
+              </ShimmerButton>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
