@@ -29,36 +29,7 @@ export function Waves({
     const rafRef = useRef(null)
     const boundingRef = useRef(null)
 
-    // Initialization
-    useEffect(() => {
-        if (!containerRef.current || !svgRef.current) return
-
-        // Initialize noise generator
-        noiseRef.current = createNoise2D()
-
-        // Initialize size and lines
-        setSize()
-        setLines()
-
-        // Bind events
-        window.addEventListener('resize', onResize)
-        window.addEventListener('mousemove', onMouseMove)
-        containerRef.current.addEventListener('touchmove', onTouchMove, { passive: false })
-
-        // Start animation
-        rafRef.current = requestAnimationFrame(tick)
-
-        return () => {
-            if (rafRef.current) cancelAnimationFrame(rafRef.current)
-            window.removeResizeListener?.(onResize) // Fallback for various nextjs envs
-            window.removeEventListener('resize', onResize)
-            window.removeEventListener('mousemove', onMouseMove)
-            containerRef.current?.removeEventListener('touchmove', onTouchMove)
-        }
-    }, [])
-
-    // Set SVG size
-    const setSize = () => {
+    function setSize() {
         if (!containerRef.current || !svgRef.current) return
 
         boundingRef.current = containerRef.current.getBoundingClientRect()
@@ -68,8 +39,7 @@ export function Waves({
         svgRef.current.style.height = `${height}px`
     }
 
-    // Setup lines - more points for smoother curves
-    const setLines = () => {
+    function setLines() {
         if (!svgRef.current || !boundingRef.current) return
 
         const { width, height } = boundingRef.current
@@ -129,26 +99,22 @@ export function Waves({
         }
     }
 
-    // Resize handler
-    const onResize = () => {
+    function onResize() {
         setSize()
         setLines()
     }
 
-    // Mouse handler
-    const onMouseMove = (e) => {
+    function onMouseMove(e) {
         updateMousePosition(e.pageX, e.pageY)
     }
 
-    // Touch handler
-    const onTouchMove = (e) => {
+    function onTouchMove(e) {
         e.preventDefault()
         const touch = e.touches[0]
         updateMousePosition(touch.clientX, touch.clientY)
     }
 
-    // Update mouse position
-    const updateMousePosition = (x, y) => {
+    function updateMousePosition(x, y) {
         if (!boundingRef.current) return
 
         const mouse = mouseRef.current
@@ -171,8 +137,7 @@ export function Waves({
         }
     }
 
-    // Move points - smoother wave motion
-    const movePoints = (time) => {
+    function movePoints(time) {
         const { current: lines } = linesRef
         const { current: mouse } = mouseRef
         const { current: noise } = noiseRef
@@ -219,8 +184,7 @@ export function Waves({
         })
     }
 
-    // Get moved point coordinates
-    const moved = (point, withCursorForce = true) => {
+    function moved(point, withCursorForce = true) {
         const coords = {
             x: point.x + point.wave.x + (withCursorForce ? point.cursor.x : 0),
             y: point.y + point.wave.y + (withCursorForce ? point.cursor.y : 0),
@@ -229,8 +193,7 @@ export function Waves({
         return coords
     }
 
-    // Draw lines - using line segments
-    const drawLines = () => {
+    function drawLines() {
         const { current: lines } = linesRef
         const { current: paths } = pathsRef
 
@@ -251,8 +214,7 @@ export function Waves({
         })
     }
 
-    // Animation logic
-    const tick = (time) => {
+    function tick(time) {
         const { current: mouse } = mouseRef
 
         // Smooth mouse movement
@@ -286,6 +248,30 @@ export function Waves({
 
         rafRef.current = requestAnimationFrame(tick)
     }
+
+    // Initialization
+    useEffect(() => {
+        if (!containerRef.current || !svgRef.current) return
+
+        const containerEl = containerRef.current
+
+        noiseRef.current = createNoise2D()
+        setSize()
+        setLines()
+
+        window.addEventListener('resize', onResize)
+        window.addEventListener('mousemove', onMouseMove)
+        containerEl.addEventListener('touchmove', onTouchMove, { passive: false })
+
+        rafRef.current = requestAnimationFrame(tick)
+
+        return () => {
+            if (rafRef.current) cancelAnimationFrame(rafRef.current)
+            window.removeEventListener('resize', onResize)
+            window.removeEventListener('mousemove', onMouseMove)
+            containerEl.removeEventListener('touchmove', onTouchMove)
+        }
+    }, [])
 
     return (
         <div

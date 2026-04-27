@@ -1,10 +1,9 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Bot, Target, Mail, Calendar, BarChart3, Zap, CheckCircle, Layers, Shield, Wrench, Database, Cpu, GitBranch } from "lucide-react";
-import ScrollExpandMedia from "@/components/ui/scroll-expansion-hero";
+import { ArrowRight, Zap, Database, Cpu, GitBranch } from "lucide-react";
 
 // ─── Fade-up animation preset ──────────────────────────────────────────────
 const fadeUp = {
@@ -38,7 +37,7 @@ const implementationRows = [
   {
     icon: <Database className="w-5 h-5 text-[#62D2A2]" />,
     title: "CRM Setup & Optimization",
-    description: "We configure your CRM around a process that reflects how your deals actually move — clean pipelines, meaningful stages, and workflows your reps will use.",
+    description: "We configure your CRM around a process that reflects how your deals actually move, clean pipelines, meaningful stages, and workflows your reps will use.",
   },
   {
     icon: <Cpu className="w-5 h-5 text-[#62D2A2]" />,
@@ -48,12 +47,61 @@ const implementationRows = [
   {
     icon: <Zap className="w-5 h-5 text-[#62D2A2]" />,
     title: "Workflow Automation",
-    description: "We identify every manual, repetitive workflow and automate it — so your reps stay focused on selling, not admin.",
+    description: "We identify every manual, repetitive workflow and automate it, so your reps stay focused on selling, not admin.",
   },
   {
     icon: <GitBranch className="w-5 h-5 text-[#62D2A2]" />,
     title: "Stack Optimization",
-    description: "Most teams use 20% of what their tools can do. We unlock the rest — so you get the most out of every tool you're already paying for.",
+    description: "Most teams use 20% of what their tools can do. We unlock the rest, so you get the most out of every tool you're already paying for.",
+  },
+];
+
+const revOpsLogos = [
+  { name: "HubSpot", src: "https://api.iconify.design/logos/hubspot.svg" },
+  { name: "Salesforce", src: "https://api.iconify.design/logos/salesforce.svg" },
+  { name: "Airtable", src: "https://api.iconify.design/logos/airtable.svg" },
+  {
+    name: "Apollo",
+    src: "/logos/apollo.png",
+    className: "scale-[1.4] transition-transform duration-300",
+    style: { filter: 'brightness(0) saturate(100%) invert(86%) sepia(35%) saturate(3015%) hue-rotate(358deg) brightness(104%) contrast(104%)' }
+  },
+  {
+    name: "Pipedrive",
+    src: "/logos/pipedrive.png",
+    className: "scale-[1.3] transition-transform duration-300"
+  },
+  { name: "LinkedIn", src: "https://api.iconify.design/logos/linkedin-icon.svg" },
+  { name: "Slack", src: "https://api.iconify.design/logos/slack-icon.svg" },
+  { name: "Gmail", src: "https://api.iconify.design/logos/google-gmail.svg" },
+  { name: "Notion", src: "https://api.iconify.design/logos/notion-icon.svg?color=white" },
+  {
+    name: "Gong",
+    src: "/logos/gong.png",
+    className: "scale-[1.2] transition-transform duration-300"
+  },
+];
+
+const howWeRunRows = [
+  {
+    step: "01",
+    title: "Map the current motion",
+    body: "We audit how leads, deals, handoffs, fields, automations, and reporting actually work today before changing the stack.",
+  },
+  {
+    step: "02",
+    title: "Rebuild around rep behavior",
+    body: "We simplify the CRM and workflows around what reps need to do next, not around how the software was configured by default.",
+  },
+  {
+    step: "03",
+    title: "Automate the repeatable work",
+    body: "Manual updates, routing, alerts, enrichment, and follow-up triggers get moved into clean workflows your team can maintain.",
+  },
+  {
+    step: "04",
+    title: "Enable and pressure-test",
+    body: "We train the team inside the rebuilt motion, watch where adoption breaks, and tune the system against live pipeline.",
   },
 ];
 
@@ -61,93 +109,129 @@ export default function RevOpsImplementationsPage() {
   return (
     <div className="bg-black text-white min-h-screen overflow-x-hidden">
 
-      {/* ──────────────────────────────────────────────────────────────────
-          HERO SECTION — Scroll Expansion Hero
-      ────────────────────────────────────────────────────────────────── */}
-      <ScrollExpandMedia
-        mediaType="image"
-        mediaSrc="/images/revops_branded_dashboard.png"
-        bgImageSrc="/images/revops_hubspot_analytics.png"
-        title="Rev Ops Implementations"
-        date="Strategic Infrastructure"
-        scrollToExpand="Scroll to Expand Your Motion"
-        textBlend
-      >
-        <div className="max-w-4xl mx-auto py-10">
+      {/* ── HERO ─────────────────────────────────────────────────────────── */}
+      <section className="relative min-h-screen flex flex-col md:flex-row items-center gap-12 md:gap-16 pt-32 pb-20 px-6 md:px-16 max-w-[1400px] mx-auto overflow-visible">
+        {/* Ambient background */}
+        <div className="absolute inset-0 pointer-events-none -z-10">
+          <div className="absolute top-1/3 left-0 w-[700px] h-[700px] rounded-full bg-[#62D2A2]/8 blur-[160px]" />
+          <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-[#F96B6B]/5 blur-[140px]" />
+        </div>
+
+        {/* Left: Headline content */}
+        <div className="flex-1 flex flex-col justify-center z-10 md:max-w-[52%]">
           <FadeSection delay={0}>
-            <span className="inline-block text-[11px] font-black tracking-[0.3em] text-[#62D2A2] uppercase mb-12">
-              The Implementation Phase
+            <span className="inline-block text-[11px] font-black tracking-[0.4em] text-[#62D2A2] uppercase mb-6">
+              Rev Ops Implementations
             </span>
           </FadeSection>
 
           <FadeSection delay={0.08}>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-tight mb-12">
+            <h1 className="text-5xl md:text-6xl lg:text-[5rem] font-black tracking-tight leading-[0.95] mb-8 text-white">
               Your Stack Should Be{" "}
               <span className="text-[#62D2A2]">Working</span>{" "}
-              <span className="text-[#F96B6B]">Harder</span>{" "}
-              Than You Are.
-            </h2>
+              Harder Than You Are.
+            </h1>
           </FadeSection>
 
           <FadeSection delay={0.14}>
-            <p className="text-white opacity-80 text-lg md:text-xl leading-relaxed mb-16 font-medium">
-              We configure your stack around a process built to convert — so your reps spend less time managing software and more time closing deals.
+            <p className="font-body text-white text-lg md:text-xl leading-relaxed mb-10 max-w-xl">
+              We configure your stack around a process built to convert, so your reps spend less time managing software and more time closing deals.
             </p>
           </FadeSection>
-        </div> {/* Close container for full width ticker */}
 
-        {/* Scrolling Logo Ticker */}
-        <FadeSection delay={0.2} className="mb-24 mt-10 w-full relative">
-          <div 
-            className="relative flex overflow-hidden w-full"
-            style={{
-              maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)'
-            }}
-          >
-            <div className="flex w-fit shrink-0 animate-ticker">
-              {[...Array(4)].map((_, arrayIndex) => (
-                <div key={arrayIndex} className="flex gap-[80px] pr-[80px] items-center shrink-0">
-                  {[
-                    { name: "HubSpot", src: "https://api.iconify.design/logos/hubspot.svg" },
-                    { name: "Salesforce", src: "https://api.iconify.design/logos/salesforce.svg" },
-                    { name: "Airtable", src: "https://api.iconify.design/logos/airtable.svg" },
-                    { name: "Pipedrive", src: "https://api.iconify.design/logos/pipedrive.svg" },
-                    { name: "Zoom", src: "https://api.iconify.design/logos/zoom-icon.svg" },
-                    { name: "LinkedIn", src: "https://api.iconify.design/logos/linkedin-icon.svg" },
-                    { name: "Slack", src: "https://api.iconify.design/logos/slack-icon.svg" },
-                    { name: "Gmail", src: "https://api.iconify.design/logos/google-gmail.svg" },
-                    { name: "Zapier", src: "https://api.iconify.design/logos/zapier-icon.svg" },
-                    { name: "Notion", src: "https://api.iconify.design/logos/notion-icon.svg?color=white" }
-                  ].map((logo) => (
-                    <div key={logo.name} className="relative h-[36px] md:h-[48px] opacity-90 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center shrink-0">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={logo.src}
-                        alt={`${logo.name} logo`}
-                        className="h-full w-auto object-contain"
-                      />
-                    </div>
-                  ))}
-                </div>
-              ))}
+          <FadeSection delay={0.2}>
+            <a
+              href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex"
+            >
+              <button className="bg-[#62D2A2] text-white px-10 py-4 font-black text-sm uppercase tracking-widest rounded-full hover:bg-[#F96B6B] hover:text-white transition-all duration-300 flex items-center gap-3 shadow-[0_0_40px_rgba(98,210,162,0.15)] hover:shadow-[0_0_40px_rgba(249,107,107,0.2)]">
+                Book a Working Session
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </a>
+          </FadeSection>
+        </div>
+
+        {/* Right: CRM Dashboard visual */}
+        <FadeSection delay={0.1} className="flex-1 w-full relative mt-8 md:mt-0 flex items-center justify-center">
+          <div className="relative w-full rounded-[1.2rem] overflow-hidden border border-white/15 shadow-[0_32px_64px_rgba(0,0,0,0.8)]">
+            {/* Browser chrome */}
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-[#1a1a1a]">
+              <div className="w-3 h-3 rounded-full bg-[#F96B6B]/80" />
+              <div className="w-3 h-3 rounded-full bg-yellow-400/80" />
+              <div className="w-3 h-3 rounded-full bg-[#62D2A2]/80" />
+              <div className="ml-4 flex-1 bg-white/8 rounded-full h-5 max-w-[180px]" />
             </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/revops_branded_dashboard.png"
+              alt="CRM Dashboard"
+              className="w-full h-auto block"
+            />
           </div>
-          <style jsx>{`
-            @keyframes ticker {
-              0% { transform: translateX(0); }
-              100% { transform: translateX(-25%); }
-            }
-            .animate-ticker {
-              animation: ticker 30s linear infinite;
-            }
-          `}</style>
+          {/* Decorative glow behind image */}
+          <div className="absolute -inset-4 bg-[#62D2A2]/5 blur-[60px] rounded-[2rem] -z-10" />
         </FadeSection>
+      </section>
 
-        {/* Re-open container */}
-        <div className="container mx-auto px-6 md:px-16 relative z-10">
-          {/* Detailed features */}
-          <div className="grid md:grid-cols-2 gap-12 text-left border-t border-white/5 pt-20">
+      {/* ── LOGO TICKER ─────────────────────────────────────────────────── */}
+      <div className="py-10 border-y border-white/[0.06] relative overflow-hidden">
+        <div
+          className="relative flex overflow-hidden w-full"
+          style={{
+            maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+          }}
+        >
+          <div className="flex w-max shrink-0 animate-ticker">
+            {[...revOpsLogos, ...revOpsLogos].map((logo, logoIndex) => (
+              <div
+                key={`${logo.name}-${logoIndex}`}
+                className={`relative mx-10 h-[32px] md:h-[44px] opacity-60 hover:opacity-100 transition-all duration-300 flex items-center justify-center shrink-0 ${logo.className || ""}`}
+                style={logo.style}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={logo.src}
+                  alt={`${logo.name} logo`}
+                  className="h-full w-auto object-contain"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        <style jsx>{`
+          @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+          }
+          .animate-ticker {
+            animation: ticker 48s linear infinite;
+            will-change: transform;
+          }
+        `}</style>
+      </div>
+
+      {/* ── EVERYTHING CONNECTED / AUTOMATED ─────────────────────────────── */}
+      <div className="relative bg-[#080808] border-b border-white/[0.06] overflow-hidden">
+        {/* Grid background */}
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)]" />
+          {/* Prominent background bubbles */}
+          <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#62D2A2]/[0.08] blur-[120px]" />
+          <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-[#62D2A2]/[0.06] blur-[100px]" />
+        </div>
+
+        <div className="container mx-auto px-6 md:px-16 relative z-10 py-28">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter">
+              Everything <span className="text-[#62D2A2]">Connected.</span> Everything <span className="text-[#62D2A2]">Automated.</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-10 text-left">
             {implementationRows.map((row, i) => (
               <FadeSection key={row.title} delay={0.06 * i}>
                 <div className="group flex flex-col gap-5 p-8 md:p-10 border border-white/10 rounded-3xl bg-white/[0.02] hover:border-[#62D2A2]/30 hover:bg-white/[0.05] transition-all duration-300">
@@ -157,7 +241,7 @@ export default function RevOpsImplementationsPage() {
                     </div>
                     <h3 className="text-2xl font-black text-white">{row.title}</h3>
                   </div>
-                  <p className="text-white text-base md:text-lg leading-relaxed ml-16 opacity-90">
+                  <p className="font-body text-white text-base md:text-lg leading-relaxed ml-16">
                     {row.description}
                   </p>
                 </div>
@@ -165,18 +249,51 @@ export default function RevOpsImplementationsPage() {
             ))}
           </div>
 
-          {/* Footer CTA */}
-          <FadeSection delay={0.3} className="mt-32 text-center pb-20">
+          {/* ── HOW WE RUN IT ──────────────────────────────────────────── */}
+          <FadeSection delay={0.15} className="mt-28">
+            <div className="border-t border-white/10 pt-16">
+              <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr]">
+                <div>
+                  <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight text-white mb-4">
+                    How we <span className="text-[#F96B6B]">run it.</span>
+                  </h2>
+                  <p className="text-base text-white font-body leading-relaxed max-w-sm">
+                    Implementation that reaches the field, not just the settings page.
+                  </p>
+                </div>
+                <div className="grid gap-5">
+                  {howWeRunRows.map((row) => (
+                    <div key={row.step} className="grid gap-5 rounded-3xl border border-white/10 bg-white/[0.025] p-6 md:grid-cols-[72px_minmax(0,1fr)] md:p-8">
+                      <div className="font-mono text-sm font-black tracking-[0.25em] text-[#62D2A2]">
+                        {row.step}
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-black tracking-tight text-white">
+                          {row.title}
+                        </h3>
+                        <p className="mt-3 font-body text-base md:text-lg leading-relaxed text-white">
+                          {row.body}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </FadeSection>
+
+          {/* ── FOOTER CTA ─────────────────────────────────────────────── */}
+          <FadeSection delay={0.3} className="mt-32 text-center pb-20 hide-floating-cta">
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Link
                 href="/pilot"
-                className="group inline-flex items-center gap-3 bg-[#62D2A2] text-black px-12 py-5 font-black text-sm uppercase tracking-widest rounded-full hover:bg-white transition-all duration-300"
+                className="group inline-flex items-center gap-3 bg-[#62D2A2] text-white px-12 py-5 font-black text-sm uppercase tracking-widest rounded-full hover:bg-white hover:text-black transition-all duration-300"
               >
                 See How a Pilot Works
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                 href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
+                href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
                 target="_blank"
                 className="text-white/40 hover:text-white transition-colors text-sm font-black uppercase tracking-widest flex items-center gap-3 border border-white/10 px-12 py-5 rounded-full"
               >
@@ -185,7 +302,7 @@ export default function RevOpsImplementationsPage() {
             </div>
           </FadeSection>
         </div>
-      </ScrollExpandMedia>
+      </div>
 
     </div>
   );

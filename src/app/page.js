@@ -13,10 +13,10 @@ import TopographicMap from "@/components/sections/TopographicMap";
 
 
 const caseStudiesData = [
-  { id: "pinecone", title: "Pinecone", subtitle: "Sales Enablement Hub", url: "/images/case-studies/pinecone.png", category: "Sales Enablement" },
-  { id: "signpost", title: "SignPost", subtitle: "Signal Intelligence Engine", url: "/images/case-studies/signpost.png", category: "Signal Intelligence" },
-  { id: "zenatech", title: "ZenaTech", subtitle: "Multi-Unit Revenue System", url: "/images/case-studies/zenatech.png", category: "Revenue Systems" },
-  { id: "qwilr", title: "Qwilr", subtitle: "Trial-to-Close Engine", url: "/images/case-studies/qwilr.png", category: "Trial Optimization" },
+  { id: "pinecone", title: "Pinecone", subtitle: "Sales Enablement Hub", url: "/images/case-studies/pinecone-loom.png", category: "Sales Enablement" },
+  { id: "signpost", title: "SignPost", subtitle: "Signal Intelligence Engine", url: "/images/case-studies/signpost-loom.png", category: "Signal Intelligence" },
+  { id: "zenatech", title: "ZenaTech", subtitle: "Custom CRM Automations", url: "/images/case-studies/zenatech-loom.png", category: "Revenue Systems" },
+  { id: "qwilr", title: "Qwilr", subtitle: "Trial-to-Close Engine", url: "/images/case-studies/qwilr-loom.png", category: "Trial Optimization" },
 ];
 
 
@@ -40,8 +40,8 @@ export default function Home() {
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               >
                 We Help Sales Teams<br className="hidden md:block" />
-                Bring <span className="text-primary italic">More Deals</span> In<br className="hidden md:block" />
-                And <span className="text-coral italic">Close Them Faster</span>
+                Bring More <span className="text-primary ">Deals</span> In<br className="hidden md:block" />
+                And <span className="text-coral ">Close Faster</span>
               </motion.div>
             </h1>
             
@@ -65,15 +65,28 @@ export default function Home() {
         </FluidParticlesBackground>
       </section>
 
-      {/* Problem Section — words animate in on entry, full sentence visible before 3D section */}
+      {/* Problem Section - words animate in on entry, full sentence visible before 3D section */}
       <TextReveal
-        children="Map2Close embeds directly into your sales team to audit your pipeline, fix your process, and train your reps so every lead that comes in has a real path to close."
-        greenWords={["Map2Close", "audit", "fix", "train", "close"]}
-        redWords={["pipeline", "process"]}
-      />
+        greenWords={["Map2Close", "close"]}
+        redWords={["process"]}
+      >
+        Map2Close embeds directly into your sales team to audit your pipeline, fix your process, and train your reps so every lead that comes in has a real path to close.
+      </TextReveal>
 
       {/* Trust Section - Logo Marquee */}
       <LogoMarquee />
+
+      <div className="w-full pt-24 pb-16 px-6 md:px-16 max-w-7xl mx-auto">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="text-4xl md:text-6xl font-black tracking-tighter text-white"
+        >
+          How It <span className="text-primary">Works</span>
+        </motion.h2>
+      </div>
 
       <TopographicMap />
 
@@ -94,15 +107,15 @@ export default function Home() {
             className="flex flex-col items-center justify-center text-center px-4"
           >
             <h2 className="text-4xl md:text-7xl font-black mb-8 tracking-tighter text-white">
-              One conversation. <br /> <span className="text-primary italic">No commitment.</span>
+              One conversation. <br /> No <span className="text-primary ">commitment.</span>
             </h2>
-            <p className="text-xl md:text-2xl text-white opacity-80 mb-8 font-body">Stop guessing. Start closing.</p>
+            <p className="text-xl md:text-2xl text-white mb-8 font-body">Stop guessing. Start closing.</p>
             <Link href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96" target="_blank">
               <ShimmerButton className="h-16 px-12 rounded-2xl" shimmerColor="#62D2A2">
                 <span className="text-xl font-black uppercase tracking-widest text-white">Book a Working Session</span>
               </ShimmerButton>
             </Link>
-            <p className="mt-8 text-white opacity-80 font-bold tracking-[0.3em] uppercase text-xs">Map. Execute. Optimize. Close.</p>
+            <p className="mt-8 text-white font-bold tracking-[0.3em] uppercase text-xs">Map. Execute. Optimize. Close.</p>
           </motion.div>
         </LampContainer>
       </section>

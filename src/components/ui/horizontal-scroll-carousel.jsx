@@ -12,7 +12,7 @@ const Example = ({ cards }) => {
     <div className="bg-black py-20 relative overflow-hidden">
       <div className="container-custom mb-12">
         <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter">
-          Outcomes Over Optics.
+          Outcomes <span style={{ color: '#F96B6B' }}>Over Optics.</span>
         </h2>
         <p className="text-white font-bold mt-4 text-lg">Don&apos;t take our word for it.</p>
       </div>
@@ -27,7 +27,8 @@ const HorizontalScrollCarousel = ({ cards = [] }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
-  
+  const [hasDragged, setHasDragged] = useState(false);
+
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -41,9 +42,11 @@ const HorizontalScrollCarousel = ({ cards = [] }) => {
     mouseY.set(e.clientY - rect.top);
 
     if (isDragging) {
-      e.preventDefault();
       const x = e.pageX - e.currentTarget.offsetLeft;
       const walk = (x - startX) * 2; // scroll speed
+      if (Math.abs(x - startX) > 5) {
+        setHasDragged(true);
+      }
       if (scrollRef.current) {
         scrollRef.current.scrollLeft = scrollLeft - walk;
       }
@@ -52,6 +55,7 @@ const HorizontalScrollCarousel = ({ cards = [] }) => {
 
   const handleMouseDown = (e) => {
     setIsDragging(true);
+    setHasDragged(false);
     setStartX(e.pageX - e.currentTarget.offsetLeft);
     setScrollLeft(scrollRef.current.scrollLeft);
   };
@@ -66,7 +70,7 @@ const HorizontalScrollCarousel = ({ cards = [] }) => {
   };
 
   return (
-    <div 
+    <div
       className={cn(
         "relative group/carousel select-none [&_*]:cursor-none",
         "cursor-none"
@@ -89,27 +93,38 @@ const HorizontalScrollCarousel = ({ cards = [] }) => {
           scale: isHovered ? 1 : 0,
           opacity: isHovered ? 1 : 0,
         }}
-        className="pointer-events-none absolute z-50 hidden md:flex items-center justify-center gap-2 bg-primary text-black w-24 h-24 rounded-full font-black text-sm tracking-widest shadow-[0_0_50px_rgba(98,210,162,0.6)] backdrop-blur-md border-2 border-white/20"
+        className="pointer-events-none absolute z-50 hidden md:flex flex-col items-center justify-center"
       >
-        <ArrowLeft size={16} strokeWidth={4} />
-        <div className="relative h-12 w-12 flex items-center justify-center">
-          <Image 
-            src="/m2c-icon.png" 
-            alt="M2C Icon" 
-            width={40}
-            height={40}
-            className="object-contain mix-blend-multiply scale-110"
-            priority
-          />
+        <div className="flex flex-col items-center justify-center bg-primary text-black w-32 h-32 rounded-full shadow-[0_0_50px_rgba(98,210,162,0.6)] backdrop-blur-md border-2 border-white/20">
+          <div className="flex items-center justify-center gap-2">
+            <ArrowLeft size={16} strokeWidth={4} />
+            <div className="relative h-12 w-12 flex items-center justify-center">
+              <Image
+                src="/m2c-icon.png"
+                alt="M2C Icon"
+                width={40}
+                height={40}
+                className="object-contain mix-blend-multiply scale-110"
+                priority
+              />
+            </div>
+            <ArrowRight size={16} strokeWidth={4} />
+          </div>
+          <span className="text-[10px] font-black tracking-[0.3em] uppercase mt-1 leading-none">SWIPE</span>
         </div>
-        <ArrowRight size={16} strokeWidth={4} />
       </motion.div>
 
-      <div 
+      <div
         ref={scrollRef}
+        onClickCapture={(e) => {
+          if (hasDragged) {
+            e.stopPropagation();
+            e.preventDefault();
+          }
+        }}
         className={cn(
-          "flex gap-8 overflow-x-auto pb-12 px-6 md:px-[10%] no-scrollbar snap-x snap-mandatory scroll-smooth",
-          isDragging && "scroll-auto"
+          "flex gap-8 overflow-x-auto pb-12 px-6 md:px-[10%] no-scrollbar",
+          isDragging ? "scroll-auto cursor-grabbing" : ""
         )}
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
@@ -123,13 +138,13 @@ const HorizontalScrollCarousel = ({ cards = [] }) => {
 
 const Card = ({ card }) => {
   return (
-    <Link href={`/case-studies/${card.id}`} className="block">
+    <Link href={`/case-studies/${card.id}`} className="block" draggable={false} onDragStart={(e) => e.preventDefault()}>
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
-        className="relative shrink-0 h-[550px] w-[350px] md:w-[500px] overflow-hidden rounded-3xl bg-neutral-900 border border-white/10 snap-center group cursor-pointer"
+        className="relative shrink-0 h-[550px] w-[350px] md:w-[500px] overflow-hidden rounded-3xl bg-neutral-900 border border-white/10 group cursor-pointer"
       >
         <div
           style={{
@@ -139,7 +154,7 @@ const Card = ({ card }) => {
           }}
           className="absolute inset-0 z-0 transition-transform duration-700 group-hover:scale-105 opacity-60"
         />
-        
+
         <div className="absolute inset-0 z-10 p-10 flex flex-col justify-between bg-gradient-to-t from-black via-black/20 to-transparent">
           <div className="flex justify-between items-start">
             <div>

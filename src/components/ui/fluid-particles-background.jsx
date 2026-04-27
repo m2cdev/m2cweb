@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import React, { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
@@ -109,15 +109,26 @@ export const FluidParticlesBackground = ({
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    // Modified resizeCanvas to directly use window dimensions for fullscreen
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.fillStyle = "#000000";
+      ctx.fillRect(0, 0, width, height);
     };
 
-    resizeCanvas(); // Initial resize
+    resizeCanvas();
 
-    const particles = Array.from({ length: particleCount }, () => ({
+    const effectiveParticleCount =
+      window.innerWidth < 768 ? Math.max(350, Math.floor(particleCount * 0.45)) : particleCount;
+
+    const particles = Array.from({ length: effectiveParticleCount }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       size:
@@ -131,13 +142,9 @@ export const FluidParticlesBackground = ({
 
       let reqId;
       const animate = () => {
-        // Check for dark mode to apply theme-appropriate colors
-        const isDark = document.documentElement.classList.contains("dark");
-        const scheme = isDark ? COLOR_SCHEME.dark : COLOR_SCHEME.light;
-
-        // Clear canvas with a semi-transparent background to create trails
-        ctx.fillStyle = scheme.background;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        const time = performance.now() * 0.0001;
+        ctx.fillStyle = COLOR_SCHEME.dark.background;
+        ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
         for (const particle of particles) {
           particle.life += 1;
@@ -154,7 +161,7 @@ export const FluidParticlesBackground = ({
           const n = noise.simplex3(
             particle.x * noiseIntensity,
             particle.y * noiseIntensity,
-            Date.now() * 0.0001
+            time
           );
 
           const angle = n * Math.PI * 4;
@@ -177,14 +184,14 @@ export const FluidParticlesBackground = ({
             ctx.fillStyle = "#62D2A2";
           } else {
             ctx.globalAlpha = Math.min(1, opacity);
-            ctx.fillStyle = isDark ? "#ffffff" : "#000000";
+            ctx.fillStyle = "#ffffff";
           }
           
           ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
           ctx.fill();
         }
         
-        ctx.globalAlpha = 1.0; // Reset for background clear
+        ctx.globalAlpha = 1.0;
 
         reqId = requestAnimationFrame(animate);
       };
@@ -192,7 +199,7 @@ export const FluidParticlesBackground = ({
       animate(); // Start the animation loop
 
       const handleResize = () => {
-        resizeCanvas(); // Re-size canvas on window resize
+        resizeCanvas();
       };
 
       window.addEventListener("resize", handleResize);
@@ -200,13 +207,12 @@ export const FluidParticlesBackground = ({
         window.removeEventListener("resize", handleResize);
         cancelAnimationFrame(reqId);
       };
-    }, [particleCount, noiseIntensity, particleSize, noise]);
+    }, [particleCount, noiseIntensity, particleSize]);
 
   return (
     <div
       className={cn(
         "relative w-full h-screen overflow-hidden",
-        // h-screen для полноэкранности
         "bg-white dark:bg-black",
         className
       )}>

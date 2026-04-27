@@ -23,9 +23,9 @@ export const LogoMarquee = () => {
       <div className="container-custom mb-16 text-center">
         <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter mb-4">
           Trusted by Leading Brands <br />
-          <span className="text-primary italic">Worldwide</span>
+          <span className="text-primary ">Worldwide</span>
         </h2>
-        <p className="text-gray-500 font-bold tracking-[0.3em] uppercase text-xs">From Growth-Stage to Enterprise</p>
+        <p className="text-white font-bold tracking-[0.3em] uppercase text-xs">From Growth-Stage to Enterprise</p>
       </div>
       
       <div className="relative flex overflow-hidden group">

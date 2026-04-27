@@ -63,7 +63,7 @@ export default function Navbar() {
                   "text-sm font-medium transition-colors duration-300",
                   (link.href === '/' ? pathname === '/' : pathname.startsWith(link.href))
                     ? "text-primary" 
-                    : "text-gray-300 hover:text-[#F96B6B]"
+                    : "text-white hover:text-[#F96B6B]"
                 )}
               >
                 {link.name}
@@ -82,7 +82,7 @@ export default function Navbar() {
                           "block px-4 py-3 text-sm rounded-lg transition-colors duration-300",
                           pathname === item.href 
                             ? "text-primary bg-white/5" 
-                            : "text-gray-400 hover:text-[#F96B6B] hover:bg-white/5"
+                            : "text-white/70 hover:text-[#F96B6B] hover:bg-white/5"
                         )}
                       >
                         {item.name}
@@ -153,7 +153,7 @@ export default function Navbar() {
                             "text-lg transition-colors duration-300",
                             pathname === item.href 
                               ? "text-primary" 
-                              : "text-gray-400 hover:text-[#F96B6B]"
+                              : "text-white/70 hover:text-[#F96B6B]"
                           )}
                         >
                           {item.name}

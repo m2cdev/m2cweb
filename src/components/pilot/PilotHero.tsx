@@ -20,6 +20,16 @@ export function PilotHero() {
   
   const [scrollProgress, setScrollProgress] = useState(0);
 
+  function scrollToHowItWorks() {
+    const target = document.getElementById("how-it-works");
+    if (!target) return;
+
+    const top = target.getBoundingClientRect().top + window.scrollY - 24;
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top, behavior: "smooth" });
+    });
+  }
+
   useGSAP(({ context }: any) => {
     // 1. PIN THE HERO
     const st = ScrollTrigger.create({
@@ -64,33 +74,30 @@ export function PilotHero() {
               <div className="flex items-center gap-3 mb-8">
                 <div className="w-10 h-[1px] bg-[#62D2A2]/40" />
                 <span className="text-[11px] font-black tracking-[0.4em] text-[#62D2A2] uppercase font-mono">
-                    THE CUSTOM PILOT PROGRAM
+                    THE PILOT PROGRAM
                 </span>
               </div>
 
               <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[1.05] mb-10 text-white">
-                <div>Prove it first.</div>
+                <div>Prove It First.</div>
                 <div>
-                  <span className="text-[#62D2A2]">Scale</span> what works.
+                  <span className="text-[#62D2A2]">Scale</span> What Works.
                 </div>
               </h1>
 
-              <p className="text-xl md:text-2xl text-white opacity-80 leading-relaxed mb-12 max-w-lg font-medium font-body italic">
-                “A focused 3-6 week engagement — We work inside your systems and pipeline to remove friction and prove the ROI before we scale out.”
+              <p className="text-xl md:text-2xl text-white leading-relaxed mb-12 max-w-lg font-medium font-body">
+                A focused 3 to 6 month engagement, we work inside your systems and pipeline to remove friction and prove the ROI before we scale out.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-6 mb-8">
-                <Link 
-                  href="#how-it-works"
+                <ShimmerButton 
+                  shimmerColor="#62D2A2" 
+                  background="#111" 
+                  className="h-16 px-10 rounded-full"
+                  onClick={scrollToHowItWorks}
                 >
-                  <ShimmerButton 
-                    shimmerColor="#62D2A2" 
-                    background="#111" 
-                    className="h-16 px-10 rounded-full"
-                  >
-                    <span className="text-sm font-black text-white uppercase tracking-widest">See How The Pilot Works</span>
-                  </ShimmerButton>
-                </Link>
+                  <span className="text-sm font-black text-white uppercase tracking-widest">See How The Pilot Works</span>
+                </ShimmerButton>
                 <Link 
                   href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
                   target="_blank"

@@ -73,7 +73,7 @@ export default function RadialOrbitalTimeline({ timelineData }) {
 
   const calculateNodePosition = (index, total) => {
     const angle = ((index / total) * 360 + rotationAngle) % 360;
-    const radius = 190;
+    const radius = 230;
     const radian = (angle * Math.PI) / 180;
     const x = radius * Math.cos(radian) + centerOffset.x;
     const y = radius * Math.sin(radian) + centerOffset.y;
@@ -104,20 +104,29 @@ export default function RadialOrbitalTimeline({ timelineData }) {
           ref={orbitRef}
           style={{ perspective: "1000px", transform: `translate(${centerOffset.x}px, ${centerOffset.y}px)` }}
         >
-          {/* Center orb - mint green for Map2Close branding */}
-          <div className="absolute w-14 h-14 rounded-full bg-black border border-white/10 flex items-center justify-center z-10 shadow-[0_0_30px_rgba(98,210,162,0.1)] overflow-hidden">
-            <div className="absolute w-20 h-20 rounded-full border border-white/5 animate-pulse opacity-50" />
-            <div className="w-10 h-10 relative">
-              <img 
-                src="/m2c-icon.png" 
-                alt="M2C Icon" 
-                className="w-full h-full object-contain invert brightness-200" 
+          {/* Center orb - clickable to open Phase 1 */}
+          <div
+            className="absolute w-14 h-14 rounded-full bg-black border border-white/30 flex items-center justify-center z-10 shadow-[0_0_30px_rgba(98,210,162,0.25)] overflow-visible cursor-pointer group"
+            onClick={(e) => { e.stopPropagation(); toggleItem(1); }}
+          >
+            {/* Pulsing click indicator rings */}
+            <div className="absolute w-20 h-20 rounded-full border border-[#62D2A2]/40 animate-ping opacity-60 pointer-events-none" />
+            <div className="absolute w-24 h-24 rounded-full border border-[#62D2A2]/20 animate-ping opacity-40 pointer-events-none" style={{ animationDelay: '0.4s' }} />
+            <div className="w-10 h-10 relative z-10">
+              <img
+                src="/m2c-icon.png"
+                alt="M2C Icon"
+                className="w-full h-full object-contain invert brightness-200 group-hover:scale-110 transition-transform duration-200"
               />
+            </div>
+            {/* "Click" label */}
+            <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap text-[13px] font-black uppercase tracking-[0.25em] text-[#62D2A2] pointer-events-none">
+              click
             </div>
           </div>
 
           {/* Orbit ring */}
-          <div className="absolute rounded-full border border-white/5" style={{width:'380px',height:'380px'}}></div>
+          <div className="absolute rounded-full border border-white/20" style={{width:'460px',height:'460px'}}></div>
 
           {timelineData.map((item, index) => {
             const position = calculateNodePosition(index, timelineData.length);
@@ -157,7 +166,7 @@ export default function RadialOrbitalTimeline({ timelineData }) {
                       ? "bg-[#62D2A2] text-black border-[#62D2A2] shadow-[0_0_20px_rgba(98,210,162,0.5)] scale-150"
                       : isRelated
                       ? "bg-[#62D2A2]/20 text-[#62D2A2] border-[#62D2A2]/60 animate-pulse"
-                      : "bg-black text-white border-white/20 hover:border-white/40"
+                      : "bg-black text-white border-white/50 hover:border-white/80"
                   }`}
                 >
                   <Icon size={14} />
@@ -166,7 +175,7 @@ export default function RadialOrbitalTimeline({ timelineData }) {
                 {/* Label */}
                 <div
                   className={`absolute top-12 whitespace-nowrap text-xs font-semibold tracking-wider transition-all duration-300 ${
-                    isExpanded ? "text-[#62D2A2] scale-110" : "text-white/60"
+                    isExpanded ? "text-[#62D2A2] scale-110" : "text-white/90"
                   }`}
                   style={{ left: "50%", transform: isExpanded ? "translateX(-50%) scale(1.1)" : "translateX(-50%)" }}
                 >

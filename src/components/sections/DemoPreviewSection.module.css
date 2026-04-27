@@ -161,7 +161,7 @@
   line-height: 1.6;
   color: var(--text-primary);
   margin-bottom: 2rem;
-  font-style: italic;
+  
   border-left: 2px solid var(--accent-primary);
   padding-left: 1.5rem;
 }

@@ -116,7 +116,7 @@ export default function PhilosophySpinner() {
                 viewport={{ once: true, margin: "-20%" }}
                 className="flex flex-col"
               >
-                <div className="text-[#62D2A2] font-heading font-medium text-[16px] tracking-[0.15em] uppercase mb-2">
+                <div className="text-[#62D2A2] font-mono font-medium text-[16px] tracking-[0.15em] uppercase mb-2">
                   {pillar.num} {pillar.label}
                 </div>
                 <div className="text-white font-heading font-bold text-[36px] mb-3">
@@ -135,10 +135,10 @@ export default function PhilosophySpinner() {
             viewport={{ once: true }}
             className="mt-32 text-center"
           >
-            <p className="text-white/60 font-body text-[24px] mb-2">
+            <p className="text-white font-black text-[24px] tracking-[-0.02em] mb-2">
               Most teams focus on just one.
             </p>
-            <h2 className="text-[#62D2A2] font-heading font-bold text-[32px]">
+            <h2 className="text-[#62D2A2] font-black text-[32px] tracking-[-0.04em] leading-tight">
               We focus on all three at the same time.
             </h2>
           </motion.div>
@@ -182,7 +182,7 @@ export default function PhilosophySpinner() {
 
   return (
     <>
-      <div ref={triggerRef} className="relative w-full h-[2500px] bg-[#050505] overflow-visible">
+      <div ref={triggerRef} className="relative w-full h-[3000px] bg-[#050505] overflow-visible">
         <div ref={containerRef} className="sticky top-0 w-full h-screen flex items-center justify-center overflow-visible bg-[#050505]">
           
           {/* INTRO TEXT */}
@@ -190,7 +190,7 @@ export default function PhilosophySpinner() {
             className="absolute top-[18%] left-1/2 -translate-x-1/2 text-center z-10 w-full"
             style={{ opacity: introOp, pointerEvents: introOp > 0 ? 'auto' : 'none' }}
           >
-            <p className="text-[#62D2A2] font-heading text-[14px] uppercase tracking-[0.15em]">
+            <p className="text-[#62D2A2] font-mono text-[14px] uppercase tracking-[0.25em]">
               Sales improves when three things work together:
             </p>
           </div>
@@ -262,7 +262,7 @@ export default function PhilosophySpinner() {
           <div 
             className="absolute z-30 px-10"
             style={{ 
-              top: 'calc(50% - 180px)', right: '5%',
+              top: 'calc(50% - 220px)', right: '5%',
               opacity: p1Op, 
               pointerEvents: p1Op > 0 ? 'auto' : 'none',
               transform: `translateX(${p1Op === 1 ? 0 : 40}px)`,
@@ -270,10 +270,10 @@ export default function PhilosophySpinner() {
             }}
           >
             <div className="max-w-[450px] text-right">
-              <div className="text-[#62D2A2] font-heading font-medium text-[18px] tracking-[0.15em] uppercase mb-2">
+              <div className="text-[#62D2A2] font-mono font-medium text-[16px] tracking-[0.15em] uppercase mb-2">
                 {PILLARS[0].num} {PILLARS[0].label}
               </div>
-              <div className="text-white font-heading font-black text-[48px] tracking-tight mb-3">
+              <div className="text-white font-black text-[48px] tracking-[-0.04em] mb-3 leading-none">
                 {PILLARS[0].title}
               </div>
               <div className="text-[#AAAAAA] font-body text-[22px] leading-[1.6]">
@@ -286,7 +286,7 @@ export default function PhilosophySpinner() {
           <div 
             className="absolute z-30 px-10"
             style={{ 
-              top: 'calc(50% + 110px)', right: '5%',
+              top: 'calc(50% + 30px)', right: '5%',
               opacity: p2Op, 
               pointerEvents: p2Op > 0 ? 'auto' : 'none',
               transform: `translateX(${p2Op === 1 ? 0 : 40}px)`,
@@ -294,10 +294,10 @@ export default function PhilosophySpinner() {
             }}
           >
             <div className="max-w-[400px] text-right">
-              <div className="text-[#62D2A2] font-heading font-medium text-[18px] tracking-[0.15em] uppercase mb-2">
+              <div className="text-[#62D2A2] font-mono font-medium text-[16px] tracking-[0.15em] uppercase mb-2">
                 {PILLARS[1].num} {PILLARS[1].label}
               </div>
-              <div className="text-white font-heading font-black text-[48px] tracking-tight mb-3">
+              <div className="text-white font-black text-[48px] tracking-[-0.04em] mb-3 leading-none">
                 {PILLARS[1].title}
               </div>
               <div className="text-[#AAAAAA] font-body text-[22px] leading-[1.6]">
@@ -310,7 +310,7 @@ export default function PhilosophySpinner() {
           <div 
             className="absolute z-30 px-10"
             style={{ 
-              top: 'calc(50% + 110px)', left: '5%',
+              top: 'calc(50% + 30px)', left: '5%',
               opacity: p3Op, 
               pointerEvents: p3Op > 0 ? 'auto' : 'none',
               transform: `translateX(${p3Op === 1 ? 0 : -40}px)`,
@@ -318,10 +318,10 @@ export default function PhilosophySpinner() {
             }}
           >
             <div className="max-w-[400px]">
-              <div className="text-[#62D2A2] font-heading font-medium text-[18px] tracking-[0.15em] uppercase mb-2">
+              <div className="text-[#62D2A2] font-mono font-medium text-[16px] tracking-[0.15em] uppercase mb-2">
                 {PILLARS[2].num} {PILLARS[2].label}
               </div>
-              <div className="text-white font-heading font-black text-[48px] tracking-tight mb-3">
+              <div className="text-white font-black text-[48px] tracking-[-0.04em] mb-3 leading-none">
                 {PILLARS[2].title}
               </div>
               <div className="text-[#AAAAAA] font-body text-[22px] leading-[1.6]">
@@ -334,18 +334,18 @@ export default function PhilosophySpinner() {
           <div 
             className="absolute left-1/2 w-full text-center z-30 flex flex-col items-center"
             style={{ 
-              top: 'calc(50% + 240px)', 
+              top: 'calc(50% + 280px)', 
               transform: 'translateX(-50%)' 
             }}
           >
             <p 
-              className="text-white font-body text-[32px] mb-4"
+              className="text-white font-black text-[32px] md:text-[40px] tracking-[-0.02em] mb-4"
               style={{ opacity: closing1Op, transform: `translateY(${(1-closing1Op)*20}px)` }}
             >
               Most teams focus on just one.
             </p>
             <h2 
-              className="text-[#62D2A2] font-heading font-black text-[54px] tracking-tight"
+              className="text-[#62D2A2] font-black text-[54px] md:text-[72px] tracking-[-0.04em] leading-[0.95]"
               style={{ opacity: closing2Op, transform: `translateY(${(1-closing2Op)*20}px)` }}
             >
               We focus on all three at the same time.

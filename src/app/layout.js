@@ -54,8 +54,8 @@ export default function RootLayout({ children }) {
         <SmoothScrollProvider>
           <main className="relative z-10 min-h-screen">
             {children}
+            <Footer className="relative z-50" />
           </main>
-          <Footer />
         </SmoothScrollProvider>
         <FloatingCTA />
       </body>

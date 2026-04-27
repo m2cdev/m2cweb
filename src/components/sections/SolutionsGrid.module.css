@@ -70,7 +70,7 @@
 .exampleText {
   color: var(--text-secondary);
   font-size: 0.9375rem;
-  font-style: italic;
+  
   line-height: 1.5;
 }
 

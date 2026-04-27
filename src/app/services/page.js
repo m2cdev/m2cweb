@@ -14,11 +14,24 @@ import { GLSLHills } from "@/components/ui/glsl-hills";
 
 const servicesData = [
   {
+    id: "enablement",
+    tag: "ENABLEMENT",
+    title: "Sales Enablement",
+    subtitle: "In the trenches, not on a slide deck.",
+    description: "We embed inside your sales motion and work directly with your reps to fix performance gaps where they happen: on real calls & inside active deals.",
+    link: "/services/sales-enablement",
+    linkText: "How we Dive Deeper",
+    extrasType: "pills",
+    extrasData: [
+      "Live Deal Coaching", "Cold Call Labs", "1-1 Coaching", "Group Training", "Enablement Assets"
+    ]
+  },
+  {
     id: "rev-ops",
     tag: "REV OPS",
     title: "Rev Ops Implementations",
     subtitle: "Your Stack Should Be Working Harder Than You Are.",
-    description: "Most teams are sitting on powerful tools they're barely using. We configure your entire stack around a process built to convert — so your reps spend less time managing software and more time closing deals.",
+    description: "Most teams are sitting on powerful tools they're barely using. We configure your entire stack around a process built to convert, so your reps spend less time managing software and more time closing deals.",
     link: "/services/rev-ops-implementations",
     linkText: "See How We Implement",
     extrasType: "icons",
@@ -28,7 +41,7 @@ const servicesData = [
       { label: "Workflow Automation" },
       { label: "Process & Pipeline Design" },
     ],
-    toolLogos: ["HubSpot", "Salesforce", "Apollo", "Pipedrive"]
+    toolLogos: ["HubSpot", "Salesforce", "Apollo", "Pipedrive", "and more"]
   },
   {
     id: "custom-builds",
@@ -41,22 +54,9 @@ const servicesData = [
     extrasLabel: "Successful Builds",
     extrasType: "cards",
     extrasData: [
-      { title: "Sales Enablement Hub", text: "Centralized assets filtered by deal stage and persona" },
-      { title: "Signal Intelligence Engine", text: "ICP-specific buying signals pushed into workflows" },
-      { title: "Lead Routing Engines", text: "Qualify, score, and assign leads automatically" },
-    ]
-  },
-  {
-    id: "enablement",
-    tag: "ENABLEMENT",
-    title: "Sales Enablement",
-    subtitle: "In the trenches, not on a slide deck.",
-    description: "We embed inside your sales motion and work directly with your reps to fix performance gaps where they happen: on real calls & inside active deals.",
-    link: "/services/sales-enablement",
-    linkText: "How we Dive Deeper",
-    extrasType: "pills",
-    extrasData: [
-      "Live Deal Coaching", "Cold Call Labs", "1-1 Coaching", "Group Training", "Enablement Assets"
+      { title: "Sales Enablement Hub", text: "Centralized assets filtered by deal stage and persona", href: "/case-studies/pinecone" },
+      { title: "Signal Intelligence Engine", text: "ICP-specific buying signals pushed into workflows", href: "/case-studies/signpost" },
+      { title: "Lead Routing Engines", text: "Qualify, score, and assign leads automatically", href: "/case-studies/zenatech" },
     ]
   }
 ];
@@ -74,12 +74,31 @@ export default function ServicesPage() {
     restDelta: 0.001
   });
 
+  useEffect(() => {
+    // Force GSAP to recalculate all pin spacings after the DOM has fully painted
+    // This fixes the issue where mapped children create triggers out-of-order or before height is stable
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div ref={containerRef} className="bg-black text-white selection:bg-primary/30 min-h-[800vh] relative overflow-x-hidden">
+      {/* Page-wide ambient glow layer */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_80%_60%_at_20%_10%,rgba(98,210,162,0.06)_0%,transparent_60%)]" />
+        <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_60%_50%_at_80%_90%,rgba(249,107,107,0.05)_0%,transparent_60%)]" />
+      </div>
       {/* 1. Hero Section */}
       <section className="h-screen w-full flex flex-col items-center justify-center relative px-6 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <GLSLHills />
+        </div>
+        {/* Ambient glow overlays */}
+        <div className="absolute inset-0 z-1 pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-[#62D2A2]/8 blur-[120px]" />
+          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-[#F96B6B]/6 blur-[100px]" />
         </div>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -88,10 +107,10 @@ export default function ServicesPage() {
           className="text-center max-w-4xl z-10 pointer-events-none"
         >
           <h1 className="text-6xl md:text-[8rem] font-black tracking-tighter leading-none mb-6">
-            What We <span className="text-primary italic">Build</span>
+            What We <span className="text-primary">Build</span>
           </h1>
-          <p className="text-xl md:text-2xl text-white opacity-80 font-body leading-relaxed max-w-2xl mx-auto">
-            High-fidelity revenue systems designed to scale from lead to close.
+          <p className="text-xl md:text-2xl text-white font-body leading-relaxed max-w-2xl mx-auto">
+            High-quality revenue systems designed to scale from lead to close.
           </p>
         </motion.div>
         
@@ -133,12 +152,12 @@ export default function ServicesPage() {
       </div>
 
       {/* 4. Final CTA Block */}
-      <section className="relative z-20 bg-black pt-32 pb-32 md:pb-[120px] px-6 border-t border-white/5">
+      <section className="relative z-20 bg-black pt-32 pb-32 md:pb-[120px] px-6 border-t border-white/5 hide-floating-cta">
         <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
           <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-6">
-            Not sure which service fits?
+            Your <span className="text-primary">motion</span> has a <span className="text-primary">gap</span>.<br />We already know where to <span className="text-primary">look</span>.
           </h2>
-          <p className="text-lg md:text-xl text-white opacity-80 font-body leading-relaxed mb-12">
+          <p className="text-lg md:text-xl text-white font-body leading-relaxed mb-12">
             Start with a Working Session. We&apos;ll diagnose the problem and recommend the right path.
           </p>
           
@@ -149,8 +168,8 @@ export default function ServicesPage() {
               </ShimmerButton>
             </Link>
             
-            <Link href="/pilot" className="text-white opacity-80 hover:text-white transition-colors uppercase text-[11px] font-black tracking-widest flex items-center gap-2 group">
-              Or explore the Custom Pilot 
+            <Link href="/pilot" className="text-white hover:text-white transition-colors uppercase text-[11px] font-black tracking-widest flex items-center gap-2 group">
+              Or explore the Pilot Program
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </Link>
           </div>
@@ -159,4 +178,3 @@ export default function ServicesPage() {
     </div>
   );
 }
-

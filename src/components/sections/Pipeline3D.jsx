@@ -47,22 +47,22 @@ function ServiceNode({ positionY, clippingPlanes, junctionIndex }) {
     if (leftRail.current) leftRail.current.position.x = -openT * 10;
     if (rightRail.current) rightRail.current.position.x = openT * 10;
 
-    // Internal mechanism glow
+    // Internal mechanism glow (now stable)
     if (mechanism.current) {
-      mechanism.current.material.emissiveIntensity = openT * 12;
-      mechanism.current.material.opacity = openT;
+      mechanism.current.material.emissiveIntensity = 8;
+      mechanism.current.material.opacity = 1;
     }
 
-    // Core energy cylinder
+    // Core energy cylinder (now stable)
     if (coreGlow.current) {
-      coreGlow.current.scale.set(openT, 1, openT);
-      coreGlow.current.material.opacity = openT;
+      coreGlow.current.scale.set(1, 1, 1);
+      coreGlow.current.material.opacity = 1;
     }
   });
 
   return (
     <group position={[0, positionY, 0]}>
-      {/* Mechanical Seal — two half-cylinders that split apart */}
+      {/* Mechanical Seal - two half-cylinders that split apart */}
       <mesh ref={leftSeal}>
         <cylinderGeometry args={[4.2, 4.2, 3, 32, 1, false, Math.PI / 2, Math.PI]} />
         <meshStandardMaterial color={DARK_METAL} metalness={1} roughness={0.1} clippingPlanes={clippingPlanes} side={THREE.DoubleSide} />
@@ -75,7 +75,7 @@ function ServiceNode({ positionY, clippingPlanes, junctionIndex }) {
       {/* Internal locking ring */}
       <mesh ref={mechanism} rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[3.8, 0.12, 16, 64]} />
-        <meshStandardMaterial color={MINT} emissive={MINT} emissiveIntensity={0} transparent opacity={0} clippingPlanes={clippingPlanes} />
+        <meshStandardMaterial color={MINT} emissive={MINT} emissiveIntensity={8} transparent opacity={1} clippingPlanes={clippingPlanes} />
       </mesh>
 
       {/* Heavy Rails */}
@@ -91,7 +91,7 @@ function ServiceNode({ positionY, clippingPlanes, junctionIndex }) {
       {/* Core Energy Cylinder */}
       <mesh ref={coreGlow}>
         <cylinderGeometry args={[2, 2, 15, 32]} />
-        <meshStandardMaterial color={MINT} emissive={MINT} emissiveIntensity={6} transparent opacity={0} clippingPlanes={clippingPlanes} />
+        <meshStandardMaterial color={MINT} emissive={MINT} emissiveIntensity={6} transparent opacity={1} clippingPlanes={clippingPlanes} />
       </mesh>
     </group>
   );
@@ -138,11 +138,17 @@ function Scene({ scrollProgress }) {
     // Subtle rotation based on vertical movement
     sceneGroup.current.rotation.y = THREE.MathUtils.lerp(sceneGroup.current.rotation.y, dist * 0.005, 0.1);
 
-    // Dynamic Visibility / Opacity
-    const inActiveRange = totalProgress > 0.01 && totalProgress < 0.99;
-    const anyInteraction = j0 > 0.01 || j1 > 0.01 || j2 > 0.01;
+    // Determine visibility based on global scroll position to prevent hero leakage
+    const scrollY = (typeof window !== "undefined") ? window.scrollY : 0;
+    const vh = (typeof window !== "undefined") ? window.innerHeight : 1000;
     
-    sceneGroup.current.visible = inActiveRange && anyInteraction;
+    // Explicitly hide in hero and at the very bottom
+    // We only show it once we are deep into the scroll area (past the hero)
+    const isPastHero = totalProgress > 0.13 || scrollY > vh * 0.9;
+    const isBeforeEnd = totalProgress < 0.91;
+    
+    // Hard toggle to ensure zero leakage in hero/footer
+    sceneGroup.current.visible = isPastHero && isBeforeEnd;
   });
 
   return (
@@ -153,8 +159,8 @@ function Scene({ scrollProgress }) {
       <pointLight position={[-20, 0, 20]} intensity={2} color={MINT} />
       <pointLight position={[20, -20, 10]} intensity={1.5} color="#4444ff" />
 
-      <group ref={sceneGroup}>
-        {/* Continuous pipe trunk — tall enough to span all nodes */}
+      <group ref={sceneGroup} position={[0, -100, 0]}>
+        {/* Continuous pipe trunk - tall enough to span all nodes */}
         <mesh position={[0, 0, -0.5]}>
           <cylinderGeometry args={[2.5, 2.5, 400, 32]} />
           <meshStandardMaterial 
@@ -173,9 +179,9 @@ function Scene({ scrollProgress }) {
 
       <EffectComposer disableNormalPass multisampling={4}>
         <Bloom 
-          luminanceThreshold={0.4} 
+          luminanceThreshold={0.8} 
           mipmapBlur 
-          intensity={1.2} 
+          intensity={1.0} 
           radius={0.7} 
         />
       </EffectComposer>
@@ -189,19 +195,20 @@ export default function Pipeline3D({ scrollProgress }) {
   // scrollProgress is a motion value from parent
   const opacity = useTransform(
     scrollProgress, 
-    [0, 0.05, 0.95, 1], // progress points
-    [0, 0.8, 0.8, 0]        // opacity values
+    [0, 0.12, 0.18, 0.88, 0.92], // progress points
+    [0, 0, 0.8, 0.8, 0]        // opacity values
   );
 
   return (
     <motion.div 
       style={{ opacity }} 
-      className="fixed inset-0 pointer-events-none z-0"
+      className="fixed inset-0 pointer-events-none z-0 translate-x-[25%] sm:translate-x-[15%] md:translate-x-0"
     >
       <Canvas 
         shadows={false} 
-        dpr={[1, 2]} 
-        gl={{ antialias: false, stencil: false, depth: true, localClippingEnabled: true }}
+        dpr={typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1}
+        performance={{ min: 0.5, max: 1 }}
+        gl={{ antialias: true, stencil: false, depth: true, localClippingEnabled: true }}
       >
         <Scene scrollProgress={scrollProgress} />
       </Canvas>

@@ -48,8 +48,8 @@ const PHASES = [
     id: 3,
     label: "Follow-ups that fall through the cracks.",
     sub: "Missed pipeline.",
-    solution: "Custom Pilot",
-    solutionSub: "3–6 month engagement. One measurable outcome. If we don't hit it, we keep working...a risk-free POC",
+    solution: "Pilot",
+    solutionSub: "3 to 6 month engagement. One measurable outcome. If we don't hit it, we keep working, a risk-free POC.",
     pStart: 0.45,
     pEnd: 0.63,
     pFix: 0.494,
@@ -70,8 +70,8 @@ const PHASES = [
   },
   {
     id: 6,
-    label: "We’re essentially Plumbers for your Pipeline",
-    sub: "If there’s a Leak, We Fix it.",
+    label: "We're essentially plumbers for your pipeline",
+    sub: "If there's a leak, we fix it.",
     pStart: 0.88,
     pEnd: 1.0,
     type: "outro",
@@ -81,7 +81,7 @@ const PHASES = [
 const LEAK_PHASES = PHASES.filter((p) => p.type === "leak") as (typeof PHASES[0] & { pipeZ: number; pFix: number; solution: string; solutionSub: string })[];
 
 // ─────────────────────────────────────────────────────────────────────────────
-// CAMERA — pure straight-line tunnel drive along Z axis
+// CAMERA - pure straight-line tunnel drive along Z axis
 // Think: car on a highway, eyes forward, no turns, smooth zoom.
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -151,16 +151,24 @@ function getCamLook(t: number): THREE.Vector3 {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// CAMERA RIG — pure linear, no orbiting, just forward flight
+// CAMERA RIG - pure linear, no orbiting, just forward flight
 // ─────────────────────────────────────────────────────────────────────────────
 
 function CameraRig({ progress }: { progress: number }) {
-  const { camera } = useThree();
+  const sceneCamera = useThree((state) => state.camera);
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const smoothP = useRef(0);
   const camPos  = useRef(new THREE.Vector3(0, 90, 148));
   const camLook = useRef(new THREE.Vector3(0, -2, 60));
 
+  useEffect(() => {
+    cameraRef.current = sceneCamera as THREE.PerspectiveCamera;
+  }, [sceneCamera]);
+
   useFrame(() => {
+    const camera = cameraRef.current;
+    if (!camera) return;
+
     // Faster, snappier progress tracking
     smoothP.current += (progress - smoothP.current) * 0.065;
     const t = Math.max(0, Math.min(1, smoothP.current));
@@ -177,9 +185,8 @@ function CameraRig({ progress }: { progress: number }) {
 
     // FOV: wide on entry descent, 50 during cruise
     const targetFov = t < 0.10 ? 60 : t < OUTRO_START ? 50 : 44;
-    (camera as THREE.PerspectiveCamera).fov +=
-      (targetFov - (camera as THREE.PerspectiveCamera).fov) * 0.08;
-    (camera as THREE.PerspectiveCamera).updateProjectionMatrix();
+    camera.fov += (targetFov - camera.fov) * 0.08;
+    camera.updateProjectionMatrix();
   });
 
   return null;
@@ -266,7 +273,7 @@ const PIPE_ZONES = [120, 70, 10, -50, -110, -165];
 
 const segGeoPool = PIPE_ZONES.slice(0, -1).map((zStart, i) => {
   const zEnd = PIPE_ZONES[i + 1];
-  // Full length — no gaps. The patch sleeve sits on top of the pipe at leak joints.
+  // Full length - no gaps. The patch sleeve sits on top of the pipe at leak joints.
   const len = Math.abs(zStart - zEnd) + 2; // +2 for slight overlap to eliminate any seam
   return new THREE.CylinderGeometry(PIPE_R, PIPE_R, len, 28);
 });
@@ -296,7 +303,7 @@ function Pipeline({ progress }: { progress: number }) {
         const midZ = (zStart + zEnd) / 2;
         const leakPhase = LEAK_PHASES[i - 1];
         const isFixed = leakPhase ? progress >= leakPhase.pFix : true;
-        const isPreLeak = i === 0; // before first leak — always clean
+        const isPreLeak = i === 0; // before first leak - always clean
 
         const col = isFixed || isPreLeak ? "#2daa72" : "#416358";
         const emissive = isFixed || isPreLeak ? "#0d4028" : "#1a3a30";
@@ -396,6 +403,23 @@ function PulsingCrack() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const DRIP_COUNT = 50;
+const DRIP_SEEDS = Array.from({ length: DRIP_COUNT }, (_, i) => {
+  const unit = (offset: number) => {
+    const value = Math.sin((i + 1) * (offset + 12.9898)) * 43758.5453;
+    return value - Math.floor(value);
+  };
+
+  return {
+    x: unit(1),
+    y: unit(2),
+    z: unit(3),
+    vx: unit(4),
+    vy: unit(5),
+    vz: unit(6),
+    resetX: unit(7),
+    resetZ: unit(8),
+  };
+});
 
 function LeakDrips({ z, active }: { z: number; active: boolean }) {
   const ref = useRef<THREE.Points>(null);
@@ -403,13 +427,14 @@ function LeakDrips({ z, active }: { z: number; active: boolean }) {
     const arr = new Float32Array(DRIP_COUNT * 3);
     const v: number[] = [];
     for (let i = 0; i < DRIP_COUNT; i++) {
-      arr[i * 3] = (Math.random() - 0.5) * 3.5;
-      arr[i * 3 + 1] = Math.random() * 1.5;
-      arr[i * 3 + 2] = (Math.random() - 0.5) * 3;
+      const seed = DRIP_SEEDS[i];
+      arr[i * 3] = (seed.x - 0.5) * 3.5;
+      arr[i * 3 + 1] = seed.y * 1.5;
+      arr[i * 3 + 2] = (seed.z - 0.5) * 3;
       v.push(
-        (Math.random() - 0.5) * 0.06,
-        -0.06 - Math.random() * 0.05,
-        (Math.random() - 0.5) * 0.04,
+        (seed.vx - 0.5) * 0.06,
+        -0.06 - seed.vy * 0.05,
+        (seed.vz - 0.5) * 0.04,
       );
     }
     const g = new THREE.BufferGeometry();
@@ -424,7 +449,12 @@ function LeakDrips({ z, active }: { z: number; active: boolean }) {
       let py = pos.getY(i) + vel[i * 3 + 1];
       let px = pos.getX(i) + vel[i * 3];
       let pz = pos.getZ(i) + vel[i * 3 + 2];
-      if (py < -12) { px = (Math.random() - 0.5) * 3; py = 1; pz = (Math.random() - 0.5) * 3; }
+      if (py < -12) {
+        const seed = DRIP_SEEDS[i];
+        px = (seed.resetX - 0.5) * 3;
+        py = 1;
+        pz = (seed.resetZ - 0.5) * 3;
+      }
       pos.setXYZ(i, px, py, pz);
     }
     pos.needsUpdate = true;
@@ -439,7 +469,7 @@ function LeakDrips({ z, active }: { z: number; active: boolean }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// GOOGLE MAPS STYLE LEAK PINS — teardrop, red→green, with inline label
+// GOOGLE MAPS STYLE LEAK PINS - teardrop, red→green, with inline label
 // ─────────────────────────────────────────────────────────────────────────────
 
 const PIN_SPHERE_GEO = new THREE.SphereGeometry(0.9, 20, 20);
@@ -448,10 +478,12 @@ const PIN_CONE_GEO   = new THREE.ConeGeometry(0.62, 2.0, 16);
 type LeakPhase = typeof LEAK_PHASES[0];
 
 function LeakPin({ phase, progress }: { phase: LeakPhase; progress: number }) {
+  const { size } = useThree();
   const sphereRef = useRef<THREE.Mesh>(null);
   const coneRef   = useRef<THREE.Mesh>(null);
   const lightRef  = useRef<THREE.PointLight>(null);
 
+  const isMobile = size.width < 768;
   const isSolved  = progress >= phase.pFix;
   const isVisible = progress >= phase.pStart - 0.04;
 
@@ -508,60 +540,61 @@ function LeakPin({ phase, progress }: { phase: LeakPhase; progress: number }) {
       <pointLight ref={lightRef} color={targetColor} intensity={45} distance={28} />
       {/* Large, legible label so users immediately understand what was fixed */}
       <Html
-        position={[3.1, 2.1, 0]}
+        position={[isMobile ? 1.2 : 3.1, isMobile ? 1.6 : 2.1, 0]}
         style={{ pointerEvents: 'none', whiteSpace: 'normal' }}
-        distanceFactor={22}
+        distanceFactor={isMobile ? 13 : 22}
       >
         <div
           style={{
             fontFamily: 'Outfit, Inter, sans-serif',
             userSelect: 'none',
-            maxWidth: '500px',
+            width: isMobile ? 'min(280px, calc(100vw - 56px))' : 'min(580px, calc(100vw - 160px))',
+            maxWidth: isMobile ? 'calc(100vw - 56px)' : '85vw',
           }}
         >
           {isSolved ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <span style={{ fontSize: '12px', letterSpacing: '0.22em', textTransform: 'uppercase', color: '#62D2A2', fontFamily: 'monospace', fontWeight: 700 }}>✓ sealed</span>
-              <span style={{ fontSize: '24px', fontWeight: 800, color: '#ffffff', lineHeight: 1.05 }}>{phase.solution}</span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <span style={{ fontSize: 'clamp(12px, 2vw, 18px)', letterSpacing: '0.22em', textTransform: 'uppercase', color: '#62D2A2', fontFamily: 'monospace', fontWeight: 700 }}>✓ sealed</span>
+              <span style={{ fontSize: 'clamp(20px, 4.2vw, 35px)', fontWeight: 800, color: '#ffffff', lineHeight: 1.05 }}>{phase.solution}</span>
               {showDetailedCopy && (
                 <>
-                  <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.86)', lineHeight: 1.25, fontWeight: 600, maxWidth: '320px' }}>{phase.solutionSub}</span>
+                  <span style={{ fontSize: 'clamp(15px, 3.2vw, 28px)', color: 'rgba(255,255,255,0.86)', lineHeight: 1.2, fontWeight: 600, width: '100%', maxWidth: '100%' }}>{phase.solutionSub}</span>
 
                   
                   {/* Build Task extensions for id:2 */}
                   {phase.id === 2 && (
-                    <div style={{ marginTop: '24px', display: 'flex', gap: '32px', pointerEvents: 'auto' }}>
+                    <div style={{ marginTop: '24px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? '16px' : '32px', pointerEvents: 'auto', width: '100%' }}>
                       <div style={{ 
-                        background: 'rgba(98, 210, 162, 0.05)', 
-                        borderLeft: '2px solid #62D2A2', 
-                        padding: '12px 16px', 
-                        width: '200px',
-                        backdropFilter: 'blur(8px)',
-                        borderRadius: '0 8px 8px 0'
+                        background: 'rgba(98, 210, 162, 0.1)', 
+                        borderLeft: '3px solid #62D2A2', 
+                        padding: '16px 20px', 
+                        width: isMobile ? '100%' : '300px',
+                        backdropFilter: 'blur(12px)',
+                        borderRadius: '0 12px 12px 0'
                       }}>
-                        <h4 style={{ color: '#62D2A2', fontSize: '13px', fontWeight: 900, marginBottom: '6px', textTransform: 'uppercase' }}>Rep Enablement</h4>
-                        <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.4 }}>Transforming reps into surgical deal-closers with repeatable playbooks.</p>
+                        <h4 style={{ color: '#ffffff', fontSize: '18px', fontWeight: 900, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Rep Enablement</h4>
+                        <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.9)', lineHeight: 1.5, fontWeight: 500 }}>Transforming reps into surgical deal-closers with repeatable playbooks.</p>
                       </div>
 
                       <div style={{ 
-                        background: 'rgba(255, 255, 255, 0.03)', 
-                        borderLeft: '2px solid rgba(255,255,255,0.2)', 
-                        padding: '12px 16px', 
-                        width: '240px',
-                        backdropFilter: 'blur(8px)',
-                        borderRadius: '0 8px 8px 0'
+                        background: 'rgba(255, 255, 255, 0.05)', 
+                        borderLeft: '3px solid rgba(255,255,255,0.4)', 
+                        padding: '16px 20px', 
+                        width: isMobile ? '100%' : '350px',
+                        backdropFilter: 'blur(12px)',
+                        borderRadius: '0 12px 12px 0'
                       }}>
-                        <h4 style={{ color: '#ffffff', fontSize: '13px', fontWeight: 900, marginBottom: '2px', textTransform: 'uppercase' }}>Rev Ops</h4>
-                        <div style={{ height: '1px', background: 'rgba(255,255,255,0.1)', margin: '8px 0' }} />
-                        <div style={{ marginBottom: '14px' }}>
-                          <p style={{ fontSize: '11px', color: '#fff', fontWeight: 700, marginBottom: '2px' }}>Existing Tech Stack</p>
-                          <p style={{ fontSize: '9px', color: 'rgba(255,255,255,0.4)', marginBottom: '6px' }}>Optimizing CRM for speed.</p>
-                          <a href="/services/rev-ops-implementations" className="hover:text-primary transition-colors" style={{ fontSize: '9px', color: '#62D2A2', fontWeight: 800 }}>VIEW IMPLEMENTATION →</a>
+                        <h4 style={{ color: '#ffffff', fontSize: '18px', fontWeight: 900, marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Rev Ops</h4>
+                        <div style={{ height: '1px', background: 'rgba(255,255,255,0.2)', margin: '12px 0' }} />
+                        <div style={{ marginBottom: '16px' }}>
+                          <p style={{ fontSize: '16px', color: '#fff', fontWeight: 800, marginBottom: '4px' }}>Existing Tech Stack</p>
+                          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)', marginBottom: '8px', lineHeight: 1.4 }}>Optimizing CRM for speed.</p>
+                          <a href="/services/rev-ops-implementations" className="hover:text-primary transition-colors" style={{ fontSize: '13px', color: '#62D2A2', fontWeight: 900, textDecoration: 'none', borderBottom: '1px solid rgba(98, 210, 162, 0.3)' }}>VIEW IMPLEMENTATION →</a>
                         </div>
                         <div>
-                          <p style={{ fontSize: '11px', color: '#fff', fontWeight: 700, marginBottom: '2px' }}>Custom Tools</p>
-                          <p style={{ fontSize: '9px', color: 'rgba(255,255,255,0.4)', marginBottom: '6px' }}>Bespoke software solutions.</p>
-                          <a href="/services/rev-ops-custom-buildouts" className="hover:text-primary transition-colors" style={{ fontSize: '9px', color: '#62D2A2', fontWeight: 800 }}>VIEW BUILDOUTS →</a>
+                          <p style={{ fontSize: '16px', color: '#fff', fontWeight: 800, marginBottom: '4px' }}>Custom Tools</p>
+                          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)', marginBottom: '8px', lineHeight: 1.4 }}>Bespoke software solutions.</p>
+                          <a href="/services/rev-ops-custom-buildouts" className="hover:text-primary transition-colors" style={{ fontSize: '13px', color: '#62D2A2', fontWeight: 900, textDecoration: 'none', borderBottom: '1px solid rgba(98, 210, 162, 0.3)' }}>VIEW BUILDOUTS →</a>
                         </div>
                       </div>
                     </div>
@@ -570,10 +603,10 @@ function LeakPin({ phase, progress }: { phase: LeakPhase; progress: number }) {
               )}
             </div>
           ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <span style={{ fontSize: '12px', letterSpacing: '0.22em', textTransform: 'uppercase', color: '#F96B6B', fontFamily: 'monospace', fontWeight: 700 }}>● leak detected</span>
-              <span style={{ fontSize: '20px', fontWeight: 800, color: '#ffffff', lineHeight: 1.08 }}>{phase.label}</span>
-              <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.78)', lineHeight: 1.25, fontWeight: 600 }}>{phase.sub}</span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <span style={{ fontSize: 'clamp(12px, 2vw, 18px)', letterSpacing: '0.22em', textTransform: 'uppercase', color: '#F96B6B', fontFamily: 'monospace', fontWeight: 700 }}>● leak detected</span>
+              <span style={{ fontSize: 'clamp(20px, 4.2vw, 35px)', fontWeight: 800, color: '#ffffff', lineHeight: 1.05 }}>{phase.label}</span>
+              <span style={{ fontSize: 'clamp(15px, 3.2vw, 28px)', color: 'rgba(255,255,255,0.78)', lineHeight: 1.2, fontWeight: 600 }}>{phase.sub}</span>
             </div>
           )}
         </div>
@@ -583,7 +616,7 @@ function LeakPin({ phase, progress }: { phase: LeakPhase; progress: number }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// AMBIENT COLOR — shifts atmosphere between red (danger) and green (fixed)
+// AMBIENT COLOR - shifts atmosphere between red (danger) and green (fixed)
 // ─────────────────────────────────────────────────────────────────────────────
 
 function AtmosphericLight({ progress }: { progress: number }) {
@@ -613,7 +646,7 @@ function AtmosphericLight({ progress }: { progress: number }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// M2C FLOATING ICON — billboard sprite that leads the camera like a guide
+// M2C FLOATING ICON - billboard sprite that leads the camera like a guide
 // ─────────────────────────────────────────────────────────────────────────────
 
 function M2CLeader({ progress }: { progress: number }) {
@@ -672,6 +705,8 @@ function M2CLeader({ progress }: { progress: number }) {
 
 function Scene({ progress }: { progress: number }) {
   const isOutro = progress >= 0.89;
+  const hidePipeline = progress >= OUTRO_START + 0.025;
+
   return (
     <>
       <ambientLight intensity={0.22} color="#d0f0e0" />
@@ -682,12 +717,13 @@ function Scene({ progress }: { progress: number }) {
       <CameraRig progress={progress} />
       <Terrain />
       <ContourGrid />
-      <Pipeline progress={progress} />
+      
+      {!hidePipeline && <Pipeline progress={progress} />}
 
-      {/* Floating M2C icon — leads the camera through the pipeline */}
-      <M2CLeader progress={progress} />
+      {/* Floating M2C icon - leads the camera through the pipeline */}
+      {!hidePipeline && <M2CLeader progress={progress} />}
 
-      {/* Drip particles — stop during outro */}
+      {/* Drip particles - stop during outro */}
       {LEAK_PHASES.map((phase) => (
         <LeakDrips
           key={phase.id}
@@ -697,7 +733,7 @@ function Scene({ progress }: { progress: number }) {
       ))}
 
       {/* Google Maps teardrop pins */}
-      {LEAK_PHASES.map((phase) => (
+      {!hidePipeline && LEAK_PHASES.map((phase) => (
         <LeakPin key={phase.id} phase={phase} progress={progress} />
       ))}
 
@@ -716,7 +752,7 @@ function Scene({ progress }: { progress: number }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SIDE RAIL PHASE INDICATOR — replaces all text, clean vertical progress rail
+// SIDE RAIL PHASE INDICATOR - replaces all text, clean vertical progress rail
 // ─────────────────────────────────────────────────────────────────────────────
 
 function StoryOverlay({ progress }: { progress: number }) {
@@ -730,7 +766,7 @@ function StoryOverlay({ progress }: { progress: number }) {
     <div className="absolute inset-0 z-20 pointer-events-none">
       {/* Right-edge vertical progress rail */}
       <div
-        className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col items-center"
+        className="absolute right-8 top-1/2 hidden -translate-y-1/2 md:flex flex-col items-center"
         style={{ height: "52vh", gap: 0 }}
       >
         {/* Background track */}
@@ -811,7 +847,7 @@ function LeakCounter({ progress }: { progress: number }) {
           className="absolute top-7 left-8 z-20 pointer-events-none"
         >
           <div className="flex flex-col gap-1">
-            <span className="text-white/20 font-mono text-[9px] tracking-[0.3em] uppercase">
+            <span className="text-white/20 font-mono text-[11px] tracking-[0.3em] uppercase">
               Leaks sealed
             </span>
             <div className="flex gap-2 mt-1">
@@ -848,7 +884,7 @@ function FixesOverview({ progress }: { progress: number }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-black/85 backdrop-blur-md z-20 pointer-events-none"
+            className="absolute inset-0 bg-black z-20 pointer-events-none"
           />
           
           <motion.div
@@ -864,7 +900,7 @@ function FixesOverview({ progress }: { progress: number }) {
                 transition={{ delay: 0.1 }}
                 className="text-[#62D2A2] text-xs font-black uppercase tracking-[0.4em] mb-4"
               >
-                We’re essentially Plumbers for your Pipeline
+                We&apos;re essentially plumbers for your pipeline
               </motion.p>
               
               <motion.h3 
@@ -873,7 +909,7 @@ function FixesOverview({ progress }: { progress: number }) {
                 transition={{ delay: 0.2 }}
                 className="text-white text-4xl md:text-7xl font-black leading-[1.0] tracking-tighter mb-6 drop-shadow-2xl"
               >
-                If there’s a Leak, <br />
+                If there&apos;s a leak, <br />
                 <span className="text-[#62D2A2]">We Fix it.</span>
               </motion.h3>
 
@@ -881,7 +917,7 @@ function FixesOverview({ progress }: { progress: number }) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="text-white/60 text-xl md:text-2xl font-bold tracking-tight mb-12"
+                className="text-white text-xl md:text-2xl font-bold tracking-tight mb-12"
               >
                 And Prove that we can before you commit
               </motion.p>
@@ -909,8 +945,8 @@ function FixesOverview({ progress }: { progress: number }) {
                 transition={{ delay: 0.8 }}
                 className="pointer-events-auto"
               >
-                <a href="/services/sales-enablement/demo" target="_blank">
-                  <button className="bg-[#62D2A2] text-black px-12 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:bg-[#F96B6B] hover:text-white transition-all duration-300 shadow-[0_0_50px_rgba(98,210,162,0.3)] hover:shadow-[0_0_50px_rgba(249,107,107,0.4)] transform hover:-translate-y-1">
+                <a href="/pilot">
+                  <button className="bg-[#62D2A2] text-white px-12 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:bg-[#F96B6B] hover:text-white transition-all duration-300 shadow-[0_0_50px_rgba(98,210,162,0.3)] hover:shadow-[0_0_50px_rgba(249,107,107,0.4)] transform hover:-translate-y-1">
                     How our Pilot Program Works
                   </button>
                 </a>
@@ -946,7 +982,7 @@ function ScrollCue({ progress }: { progress: number }) {
       transition={{ repeat: Infinity, duration: 2.2 }}
       className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex flex-col items-center gap-2"
     >
-      <span className="text-white/30 font-mono text-[9px] tracking-[0.35em] uppercase">
+      <span className="text-white/30 font-mono text-[11px] tracking-[0.35em] uppercase">
         scroll to begin
       </span>
       <div className="w-px h-8 bg-gradient-to-b from-white/30 to-transparent" />
@@ -982,8 +1018,8 @@ export default function TopographicMap() {
             toneMappingExposure: 1.4,
           }}
           frameloop="always"
-          dpr={[1, 1.5]}
-          performance={{ min: 0.5 }}
+          dpr={1}
+          performance={{ min: 0.1, max: 0.5 }}
           camera={{ fov: 58, near: 0.5, far: 320, position: [30, 140, 160] }}
           shadows
           style={{ background: "#060c0a", position: "absolute", inset: 0 }}
@@ -999,7 +1035,7 @@ export default function TopographicMap() {
               "radial-gradient(ellipse 80% 70% at 50% 50%, transparent 40%, rgba(6,12,10,0.7) 100%)",
           }}
         />
-        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#060c0a] to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#060c0a] to-transparent z-10 pointer-events-none" />
 
         {/* UI layers */}

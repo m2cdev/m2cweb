@@ -35,8 +35,8 @@ export default function Hero() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
-            <li>Improve outbound conversion 3–5×</li>
-            <li>Reduce deal cycles 25–40%</li>
+            <li>Improve outbound conversion 3 to 5x</li>
+            <li>Reduce deal cycles 25 to 40%</li>
             <li>Turn cold pipeline into revenue within 90 days</li>
           </motion.ul>
 

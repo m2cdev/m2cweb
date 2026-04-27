@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { cn } from "@/lib/utils";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,23 +36,42 @@ export default function ServiceJunction({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Publish progress to window for Pipeline3D
+  // Initialize and cleanup global window state to prevent leakage during navigation
   useEffect(() => {
     if (typeof window !== "undefined") {
-      window[`m2c_junction_${index}`] = progress;
+      window[`m2c_junction_${index}`] = 0;
     }
-  }, [progress, index]);
+    return () => {
+      if (typeof window !== "undefined") {
+        window[`m2c_junction_${index}`] = 0;
+      }
+    };
+  }, [index]);
 
   useGSAP(() => {
+    if (isMobile) {
+      if (typeof window !== "undefined") {
+        window[`m2c_junction_${index}`] = 0;
+      }
+      gsap.set([leftColRef.current, rightColRef.current], { opacity: 1, x: 0, y: 0, scale: 1 });
+      return;
+    }
+
     const tl = gsap.timeline({
       scrollTrigger: {
+        id: `junction-${index}`,
         trigger: containerRef.current,
         start: "top top",
-        end: "+=1000", // Slightly shorter for better mobile/navigation experience
+        end: "+=1000",
         pin: true,
-        scrub: 1, // Balanced scrub
+        scrub: 1,
         anticipatePin: 1,
-        onUpdate: (self) => setProgress(self.progress),
+        refreshPriority: 10 - index, // Forces top-to-bottom calculation order
+        onUpdate: (self) => {
+          if (typeof window !== "undefined") {
+            window[`m2c_junction_${index}`] = self.progress;
+          }
+        },
       }
     });
 
@@ -97,8 +117,8 @@ export default function ServiceJunction({
     >
       <div 
         className={cn(
-          "relative z-20 w-full max-w-[90rem] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-56 pointer-events-auto",
-          isMobile ? "text-center pt-24" : ""
+          "relative z-20 w-full max-w-[90rem] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-24 pointer-events-auto",
+          isMobile ? "text-center py-16" : ""
         )}
       >
         {/* Left Side: Title & Subtitle */}
@@ -106,21 +126,21 @@ export default function ServiceJunction({
            ref={leftColRef}
            className={cn(
              "flex flex-col justify-center",
-             isMobile ? "items-center" : "items-end text-right pr-6 md:pr-16"
+             isMobile ? "items-center" : "items-end text-right pr-4 md:pr-8"
            )}
         >
           <span className="px-3 py-1 border border-primary/20 text-primary text-[10px] tracking-[0.4em] font-black uppercase rounded-full mb-8">
             {tag}
           </span>
-          <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] mb-6 text-white">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter leading-[1] md:leading-[0.95] mb-5 md:mb-6 text-white max-w-3xl">
             {title}
           </h2>
-          <p className="text-2xl text-gray-300 font-body leading-relaxed max-w-md ml-auto">
+          <p className="text-lg sm:text-xl md:text-2xl text-white font-body leading-relaxed max-w-md ml-auto">
             {subtitle}
           </p>
           
           {extrasType === 'icons' && (
-            <div className="mt-16 grid grid-cols-2 gap-x-12 gap-y-6">
+            <div className="mt-8 md:mt-16 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-5">
               {extrasData.map((item, i) => (
                 <div key={i} className="flex flex-col items-end gap-1">
                   <div className="h-[2px] w-8 bg-primary/50 mb-2" />
@@ -138,11 +158,11 @@ export default function ServiceJunction({
            ref={rightColRef}
            className={cn(
              "flex flex-col justify-center",
-             isMobile ? "items-center text-center pb-24" : "items-start text-left pl-6 md:pl-16"
+             isMobile ? "items-center text-center pb-24" : "items-start text-left pl-4 md:pl-8"
            )}
         >
-          <div className={cn(isMobile ? "max-w-sm" : "max-w-lg", "bg-[#0a0a0a]/80 backdrop-blur-md border border-white/5 p-8 shadow-2xl rounded-3xl")}>
-             <p className="text-xl md:text-2xl text-gray-200 font-body leading-relaxed mb-10">
+          <div className={cn(isMobile ? "max-w-sm" : "max-w-2xl", "bg-[#0a0a0a]/80 backdrop-blur-md border border-white/5 p-5 md:p-8 shadow-2xl rounded-3xl")}>
+             <p className="text-base sm:text-lg md:text-xl text-white font-body leading-relaxed mb-6">
                {description}
              </p>
              
@@ -162,24 +182,35 @@ export default function ServiceJunction({
              </a>
 
              {extrasType === 'cards' && (
-               <div className="mt-16 space-y-6">
+               <div className="mt-6 md:mt-8 space-y-4">
                  {extrasLabel && (
-                   <h3 className="text-[#AAAAAA] text-sm font-bold uppercase tracking-widest mb-6 border-b border-white/10 pb-4">{extrasLabel}</h3>
+                   <h3 className="text-[#AAAAAA] text-sm font-bold uppercase tracking-widest mb-4 border-b border-white/10 pb-3">{extrasLabel}</h3>
                  )}
                  {extrasData.map((card, i) => (
-                   <div 
-                    key={i}
-                    className="border-l border-primary/20 pl-6 py-1 group/card hover:border-primary transition-colors text-right md:text-left"
-                   >
-                     <h4 className="font-bold text-white tracking-tight group-hover/card:text-primary transition-colors text-base">{card.title}</h4>
-                     <p className="text-sm text-gray-500 leading-relaxed">{card.text}</p>
-                   </div>
+                   card.href ? (
+                     <Link
+                      key={i}
+                      href={card.href}
+                      className="block border-l border-primary/20 pl-6 py-1 group/card hover:border-primary transition-colors text-right md:text-left"
+                     >
+                       <h4 className="font-bold text-white tracking-tight group-hover/card:text-primary transition-colors text-base underline underline-offset-2 decoration-white/20 group-hover/card:decoration-primary">{card.title}</h4>
+                       <p className="text-sm text-white leading-relaxed">{card.text}</p>
+                     </Link>
+                   ) : (
+                     <div
+                      key={i}
+                      className="border-l border-primary/20 pl-6 py-1 group/card hover:border-primary transition-colors text-right md:text-left"
+                     >
+                       <h4 className="font-bold text-white tracking-tight group-hover/card:text-primary transition-colors text-base">{card.title}</h4>
+                       <p className="text-sm text-white leading-relaxed">{card.text}</p>
+                     </div>
+                   )
                  ))}
                </div>
              )}
 
              {extrasType === 'pills' && (
-               <div className="mt-12 flex flex-wrap gap-3 justify-center md:justify-start">
+               <div className="mt-8 md:mt-12 flex flex-wrap gap-3 justify-center md:justify-start">
                  {extrasData.map((pill, i) => (
                    <span 
                     key={i}
@@ -192,10 +223,15 @@ export default function ServiceJunction({
              )}
 
              {toolLogos && (
-               <div className="mt-12 flex flex-wrap items-center gap-6 justify-center md:justify-start">
-                  <span className="text-[10px] font-black tracking-widest uppercase text-gray-500">Integrated Tools:</span>
-                  <div className="flex gap-4 items-center">
+               <div className="mt-8 md:mt-12 flex flex-wrap items-center gap-6 justify-center md:justify-start">
+                  <span className="text-[10px] font-black tracking-widest uppercase text-white/60">Integrated Tools:</span>
+                  <div className="flex gap-4 items-center flex-wrap">
                     {toolLogos.map((logo) => {
+                      if (logo.toLowerCase().startsWith("and")) {
+                        return (
+                          <span key={logo} className="text-[10px] font-black tracking-widest uppercase text-primary/60">{logo}</span>
+                        );
+                      }
                       const getLogoIcon = (name) => {
                         const m = name.toLowerCase();
                         if (m === "apollo") return "https://icon.horse/icon/apollo.io";
