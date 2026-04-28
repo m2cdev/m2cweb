@@ -73,7 +73,7 @@ export default function RadialOrbitalTimeline({ timelineData }) {
 
   const calculateNodePosition = (index, total) => {
     const angle = ((index / total) * 360 + rotationAngle) % 360;
-    const radius = 230;
+    const radius = 185;
     const radian = (angle * Math.PI) / 180;
     const x = radius * Math.cos(radian) + centerOffset.x;
     const y = radius * Math.sin(radian) + centerOffset.y;
@@ -128,7 +128,7 @@ export default function RadialOrbitalTimeline({ timelineData }) {
           </div>
 
           {/* Orbit ring */}
-          <div className="absolute rounded-full border border-white/20" style={{width:'460px',height:'460px'}}></div>
+          <div className="absolute rounded-full border border-white/20" style={{width:'370px',height:'370px'}}></div>
 
           {timelineData.map((item, index) => {
             const position = calculateNodePosition(index, timelineData.length);
