@@ -58,7 +58,7 @@ const verticalComparisons = [
     m2c: "Embedded inside live pipeline, present on real calls, real deals",
   },
   {
-    dimension: "Execution vs. Advice",
+    dimension: "Execution vs Advice",
     others: "Deliver frameworks, playbooks, and recommendations",
     m2c: "Build the system, train the team, and stay until it's working",
   },
@@ -270,7 +270,7 @@ export default function ComparePage() {
               transition={{ delay: 0.1 }}
               className="text-3xl md:text-5xl font-black tracking-[-0.01em] text-white mb-4"
             >
-              Execution vs. <span className="text-[#F96B6B]">Everything Else</span>
+              Execution vs <span className="text-[#F96B6B]">Everything Else</span>
             </motion.h2>
             <div className="h-1 w-20 bg-[#F96B6B] mx-auto rounded-full" />
           </div>
@@ -288,16 +288,23 @@ export default function ComparePage() {
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-white/[0.06] overflow-hidden divide-y divide-white/[0.06]">
-            {verticalComparisons.map((row, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -16 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.06 }}
-                viewport={{ once: true, margin: "-40px" }}
-                className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr] hover:bg-white/[0.015] transition-colors duration-300"
-              >
+          <div className="relative rounded-[2rem] border border-white/[0.06] overflow-hidden bg-white/[0.01]">
+            {/* Subtle brand color glows behind the table */}
+            <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute -left-10 top-0 w-[300px] h-full bg-coral/[0.04] blur-[80px]" />
+              <div className="absolute -right-10 bottom-0 w-[300px] h-full bg-[#62D2A2]/[0.04] blur-[80px]" />
+            </div>
+
+            <div className="relative z-10 divide-y divide-white/[0.06]">
+              {verticalComparisons.map((row, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -16 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.06 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  className={`grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr] hover:bg-white/[0.03] transition-colors duration-300 ${index % 2 === 0 ? 'bg-white/[0.01]' : 'bg-transparent'}`}
+                >
                 <div className="px-6 py-6 flex items-center">
                   <span className="font-black text-white text-[15px] tracking-tight">{row.dimension}</span>
                 </div>
@@ -309,6 +316,7 @@ export default function ComparePage() {
                 </div>
               </motion.div>
             ))}
+            </div>
           </div>
         </div>
       </div>
@@ -322,9 +330,9 @@ export default function ComparePage() {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto"
         >
-          <h2 className="font-black text-[clamp(40px,5vw,72px)] leading-[1] tracking-[-0.03em] mb-4">
-            <span className="block text-white">Still comparing?</span>
-            <span className="block text-white">See the difference <span className="text-[#62D2A2] opacity-90">firsthand.</span></span>
+          <h2 className="font-black text-[clamp(32px,4vw,72px)] leading-[1] tracking-[-0.03em] mb-4">
+            <span className="block text-white">Still Comparing?</span>
+            <span className="block text-white whitespace-nowrap">See the Difference <span className="text-[#62D2A2] opacity-90">Firsthand.</span></span>
           </h2>
 
           <p className="font-body text-white text-xl md:text-2xl mb-12 max-w-2xl mx-auto leading-relaxed">

@@ -334,9 +334,8 @@ export default function CaseStudyPage() {
             transition={{ duration: 0.6 }}
             className="text-center py-16 border-t border-white/[0.06] hide-floating-cta"
           >
-            <p className="text-white/50 text-sm font-black uppercase tracking-widest mb-4">Want this for your team?</p>
             <h3 className="text-4xl md:text-6xl font-black tracking-tighter mb-10">
-              Let&apos;s build your <span className="text-[#62D2A2]">motion.</span>
+              Let&apos;s Build Your <span className="text-[#62D2A2]">Motion.</span>
             </h3>
             <a
               href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"

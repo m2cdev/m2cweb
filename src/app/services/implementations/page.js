@@ -121,7 +121,7 @@ export default function RevOpsImplementationsPage() {
         <div className="flex-1 flex flex-col justify-center z-10 md:max-w-[52%]">
           <FadeSection delay={0}>
             <span className="inline-block text-[11px] font-black tracking-[0.4em] text-[#62D2A2] uppercase mb-6">
-              Rev Ops Implementations
+              Implementations
             </span>
           </FadeSection>
 
@@ -154,24 +154,107 @@ export default function RevOpsImplementationsPage() {
           </FadeSection>
         </div>
 
-        {/* Right: CRM Dashboard visual */}
+        {/* Right: CRM Dashboard mockup */}
         <FadeSection delay={0.1} className="flex-1 w-full relative mt-8 md:mt-0 flex items-center justify-center">
-          <div className="relative w-full rounded-[1.2rem] overflow-hidden border border-white/15 shadow-[0_32px_64px_rgba(0,0,0,0.8)]">
+          <div className="relative w-full rounded-[1.2rem] overflow-hidden border border-[#62D2A2]/30 shadow-[0_0_60px_rgba(98,210,162,0.18),0_0_120px_rgba(98,210,162,0.10),0_32px_64px_rgba(0,0,0,0.8)]">
             {/* Browser chrome */}
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-[#1a1a1a]">
+            <div className="flex items-center gap-2 px-4 py-3 bg-[#141414] border-b border-white/10">
               <div className="w-3 h-3 rounded-full bg-[#F96B6B]/80" />
               <div className="w-3 h-3 rounded-full bg-yellow-400/80" />
               <div className="w-3 h-3 rounded-full bg-[#62D2A2]/80" />
               <div className="ml-4 flex-1 bg-white/8 rounded-full h-5 max-w-[180px]" />
             </div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/revops_branded_dashboard.png"
-              alt="CRM Dashboard"
-              className="w-full h-auto block"
-            />
+
+            {/* Dashboard body */}
+            <div className="bg-[#0f0f0f] p-3 space-y-2">
+
+              {/* Top stat cards */}
+              <div className="grid grid-cols-4 gap-2">
+                {[
+                  { label: "Pipeline", value: "$2.4M", change: "+18%" },
+                  { label: "Active Deals", value: "47", change: "+6" },
+                  { label: "Velocity", value: "12d", change: "-3d" },
+                  { label: "Win Rate", value: "34%", change: "+7%" },
+                ].map((s) => (
+                  <div key={s.label} className="bg-[#1a1a1a] border border-white/8 rounded-lg p-2.5">
+                    <p className="text-white/40 text-[9px] uppercase tracking-widest font-black mb-1">{s.label}</p>
+                    <p className="text-white text-base font-black tracking-tight leading-none">{s.value}</p>
+                    <p className="text-[#62D2A2] text-[10px] font-bold mt-0.5">{s.change}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Pipeline stages bar */}
+              <div className="bg-[#1a1a1a] border border-white/8 rounded-lg px-3 py-2">
+                <div className="flex items-center justify-between mb-1.5">
+                  <p className="text-white/50 text-[9px] font-black uppercase tracking-widest">Pipeline Stages</p>
+                  <p className="text-white/20 text-[9px] font-mono">Q2 2025</p>
+                </div>
+                <div className="flex h-2 rounded-full overflow-hidden gap-px">
+                  <div className="bg-[#62D2A2] rounded-l-full" style={{width:"28%"}} />
+                  <div className="bg-[#62D2A2]/60" style={{width:"22%"}} />
+                  <div className="bg-[#62D2A2]/35" style={{width:"18%"}} />
+                  <div className="bg-[#F96B6B]/60" style={{width:"14%"}} />
+                  <div className="bg-white/15 rounded-r-full" style={{width:"18%"}} />
+                </div>
+              </div>
+
+              {/* Deal rows */}
+              <div className="bg-[#1a1a1a] border border-white/8 rounded-lg overflow-hidden">
+                <div className="flex items-center px-3 py-1.5 border-b border-white/5">
+                  <p className="text-white/30 text-[9px] font-black uppercase tracking-widest">Active Deals</p>
+                </div>
+                {[
+                  { name: "Acme Corp", stage: "Proposal", value: "$84K", owner: "KM", health: "high" },
+                  { name: "Vertex AI", stage: "Qualified", value: "$210K", owner: "SL", health: "high" },
+                  { name: "Bridgeway", stage: "Negotiation", value: "$47K", owner: "KM", health: "mid" },
+                ].map((deal, i) => (
+                  <div key={i} className="flex items-center gap-3 px-3 py-2 border-b border-white/[0.04] last:border-0">
+                    <div className="w-6 h-6 rounded-md bg-[#62D2A2]/10 border border-[#62D2A2]/20 flex items-center justify-center shrink-0">
+                      <span className="text-[8px] font-black text-[#62D2A2]">{deal.owner}</span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-white text-[11px] font-bold truncate leading-none">{deal.name}</p>
+                      <p className="text-white/30 text-[9px] mt-0.5">{deal.stage}</p>
+                    </div>
+                    <p className="text-white text-[11px] font-black shrink-0">{deal.value}</p>
+                    <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${deal.health === "high" ? "bg-[#62D2A2]" : deal.health === "mid" ? "bg-yellow-400" : "bg-[#F96B6B]"}`} />
+                  </div>
+                ))}
+              </div>
+
+              {/* Bottom row: automation log + mini chart */}
+              <div className="grid grid-cols-2 gap-2">
+                <div className="bg-[#1a1a1a] border border-white/8 rounded-lg p-2.5">
+                  <p className="text-white/30 text-[9px] font-black uppercase tracking-widest mb-2">Workflow Triggers</p>
+                  {[
+                    { event: "Lead enriched → HubSpot", time: "2m" },
+                    { event: "Deal stall alert fired", time: "8m" },
+                  ].map((e, i) => (
+                    <div key={i} className="flex items-center gap-1.5 mb-1.5 last:mb-0">
+                      <div className="w-1 h-1 rounded-full bg-[#62D2A2] shrink-0" />
+                      <p className="text-white/60 text-[9px] flex-1 truncate">{e.event}</p>
+                      <p className="text-white/20 text-[8px] shrink-0">{e.time}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="bg-[#1a1a1a] border border-white/8 rounded-lg p-2.5">
+                  <p className="text-white/30 text-[9px] font-black uppercase tracking-widest mb-2">Conversion Rate</p>
+                  <div className="flex items-end gap-0.5 h-8">
+                    {[40,55,45,65,58,72,68,80,75,88].map((h, i) => (
+                      <div key={i} className="flex-1 rounded-sm" style={{
+                        height: `${h}%`,
+                        background: i === 9 ? "#62D2A2" : `rgba(98,210,162,${0.15 + i * 0.07})`
+                      }} />
+                    ))}
+                  </div>
+                  <p className="text-[#62D2A2] text-[10px] font-black mt-1.5">+34% this quarter</p>
+                </div>
+              </div>
+
+            </div>
           </div>
-          {/* Decorative glow behind image */}
+          {/* Decorative glow */}
           <div className="absolute -inset-4 bg-[#62D2A2]/5 blur-[60px] rounded-[2rem] -z-10" />
         </FadeSection>
       </section>
@@ -254,10 +337,10 @@ export default function RevOpsImplementationsPage() {
             <div className="border-t border-white/10 pt-16">
               <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr]">
                 <div>
-                  <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight text-white mb-4">
-                    How we <span className="text-[#F96B6B]">run it.</span>
+                  <h2 className="text-5xl md:text-6xl font-black tracking-tighter leading-tight text-white mb-6">
+                    How We <span className="text-[#F96B6B]">Run It.</span>
                   </h2>
-                  <p className="text-base text-white font-body leading-relaxed max-w-sm">
+                  <p className="text-lg md:text-xl text-white font-body leading-relaxed max-w-sm">
                     Implementation that reaches the field, not just the settings page.
                   </p>
                 </div>
@@ -284,20 +367,16 @@ export default function RevOpsImplementationsPage() {
 
           {/* ── FOOTER CTA ─────────────────────────────────────────────── */}
           <FadeSection delay={0.3} className="mt-32 text-center pb-20 hide-floating-cta">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <p className="text-lg md:text-xl text-white font-body mb-2">
+              Your stack should be working <span className="text-[#62D2A2] font-black">harder</span> than it is.
+            </p>
+            <div className="flex flex-col items-center justify-center gap-6 mt-8">
               <Link
                 href="/pilot"
                 className="group inline-flex items-center gap-3 bg-[#62D2A2] text-white px-12 py-5 font-black text-sm uppercase tracking-widest rounded-full hover:bg-white hover:text-black transition-all duration-300"
               >
                 See How a Pilot Works
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
-                target="_blank"
-                className="text-white/40 hover:text-white transition-colors text-sm font-black uppercase tracking-widest flex items-center gap-3 border border-white/10 px-12 py-5 rounded-full"
-              >
-                Book a Working Session
               </Link>
             </div>
           </FadeSection>

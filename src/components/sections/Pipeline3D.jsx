@@ -4,7 +4,6 @@ import React, { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, PerspectiveCamera } from "@react-three/drei";
 import * as THREE from "three";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
 
 import { motion, useTransform } from "framer-motion";
 
@@ -156,7 +155,8 @@ function Scene({ scrollProgress }) {
       <PerspectiveCamera makeDefault position={[0, 0, 50]} fov={35} />
       <ambientLight intensity={0.15} />
       <spotLight position={[20, 40, 20]} angle={0.15} penumbra={1} intensity={2} color="#ffffff" castShadow />
-      <pointLight position={[-20, 0, 20]} intensity={2} color={MINT} />
+      <pointLight position={[-20, 0, 20]} intensity={6} color={MINT} />
+      <pointLight position={[20, 0, 20]} intensity={4} color={MINT} />
       <pointLight position={[20, -20, 10]} intensity={1.5} color="#4444ff" />
 
       <group ref={sceneGroup} position={[0, -100, 0]}>
@@ -177,14 +177,6 @@ function Scene({ scrollProgress }) {
         <ServiceNode junctionIndex={2} positionY={NODE_Y[2]} clippingPlanes={clippingPlanes} />
       </group>
 
-      <EffectComposer disableNormalPass multisampling={4}>
-        <Bloom 
-          luminanceThreshold={0.8} 
-          mipmapBlur 
-          intensity={1.0} 
-          radius={0.7} 
-        />
-      </EffectComposer>
       <Environment preset="night" />
     </>
   );

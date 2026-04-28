@@ -18,8 +18,8 @@ const navLinks = [
   { name: "What We Do", href: "/services", dropdown: [
     { name: "Overview", href: "/services" },
     { name: "Sales Enablement", href: "/services/sales-enablement" },
-    { name: "Rev Ops Implementations", href: "/services/rev-ops-implementations" },
-    { name: "Rev Ops Custom Buildouts", href: "/services/rev-ops-custom-buildouts" },
+    { name: "Implementations", href: "/services/implementations" },
+    { name: "Custom Buildouts", href: "/services/custom-buildouts" },
     { name: "AI Sales Assistant", href: "/services/ai-sales-assistant" },
   ]},
   { name: "Case Studies", href: "/case-studies", dropdown: [

@@ -10,7 +10,7 @@ import Link from "next/link";
 const Example = ({ cards }) => {
   return (
     <div className="bg-black py-20 relative overflow-hidden">
-      <div className="container-custom mb-12">
+      <div className="px-6 md:px-[10%] mb-12">
         <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter">
           Outcomes <span style={{ color: '#F96B6B' }}>Over Optics.</span>
         </h2>

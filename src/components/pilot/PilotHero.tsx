@@ -37,7 +37,7 @@ export function PilotHero() {
         pin: containerRef.current,
         pinSpacing: true,
         start: "top top",
-        end: "+=600%", // Longer scroll for 192 frames
+        end: "+=200%", // Faster scroll duration
         scrub: 1, // Increased smoothing for 30fps feel
         onUpdate: (self) => {
             // Use GSAP to smooth the progress update itself if needed

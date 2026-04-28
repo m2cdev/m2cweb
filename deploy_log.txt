@@ -1,16 +1,19 @@
 Retrieving project…
 Deploying map2-close/map2close-web
-Uploading [--------------------] (0.0B/15.7KB)
-Uploading [====================] (15.7KB/15.7KB)
-Inspect: https://vercel.com/map2-close/map2close-web/F16rzPgMf39JAaYAS94ASij5hdy5 [3s]
-Production: https://map2close-4esog2qua-map2-close.vercel.app [3s]
-https://map2close-4esog2qua-map2-close.vercel.appBuilding...
+Uploading [--------------------] (0.0B/5.9MB)
+Uploading [=====---------------] (1.5MB/5.9MB)
+Uploading [==========----------] (2.9MB/5.9MB)
+Uploading [===============-----] (4.4MB/5.9MB)
+Uploading [====================] (5.9MB/5.9MB)
+Inspect: https://vercel.com/map2-close/map2close-web/Gzh4JdaEGGAQPBBYFWQVxBiiZ7ox [4s]
+Production: https://map2close-486pcn52k-map2-close.vercel.app [4s]
+Building...
 Building...
 Building: Running build in Washington, D.C., USA (East) – iad1
 Building: Build machine configuration: 4 cores, 8 GB
 Building: Retrieving list of deployment files...
-Building: Downloading 388 deployment files...
-Building: Restored build cache from previous deployment (3oZy94xZJ6GiUsUcEun4tznMJ2K5)
+Building: Downloading 352 deployment files...
+Building: Restored build cache from previous deployment (F1xqQNqdmMfgnsHgxZD2ebJ7eqvF)
 Building: Running "vercel build"
 Building: Vercel CLI 51.6.1
 Building: Installing dependencies...
@@ -23,18 +26,36 @@ Building: > map2close-web@0.1.0 build
 Building: > next build --webpack
 Building: ▲ Next.js 16.1.6 (webpack)
 Building: Creating an optimized production build ...
-Building: ✓ Compiled successfully in 11.4s
+Building: ✓ Compiled successfully in 10.4s
 Building: Running TypeScript ...
 Building: Collecting page data using 3 workers ...
 Building: Generating static pages using 3 workers (0/15) ...
 Building: Generating static pages using 3 workers (3/15)
 Building: Generating static pages using 3 workers (7/15)
-Building: Error occurred prerendering page "/services". Read more: https://nextjs.org/docs/messages/prerender-error
-Building: ReferenceError: window is not defined
-Building: at aF (.next/server/app/services/page.js:115:14471) {
-Building: digest: '841317101'
-Building: }
-Building: Export encountered an error on /services/page: /services, exiting the build.
-Building: ⨯ Next.js build worker exited with code: 1 and signal: null
-Building: Error: Command "npm run build" exited with 1
-Error: Command "npm run build" exited with 1
+Building: Generating static pages using 3 workers (11/15)
+Building: ✓ Generating static pages using 3 workers (15/15) in 657.4ms
+Building: Finalizing page optimization ...
+Building: Collecting build traces ...
+Building: Route (app)
+Building: ┌ ○ /
+Building: ├ ○ /_not-found
+Building: ├ ○ /case-studies
+Building: ├ ƒ /case-studies/[id]
+Building: ├ ○ /how-we-compare
+Building: ├ ○ /icon.png
+Building: ├ ○ /pilot
+Building: ├ ○ /services
+Building: ├ ○ /services/ai-sales-assistant
+Building: ├ ○ /services/rev-ops-custom-buildouts
+Building: ├ ○ /services/rev-ops-implementations
+Building: ├ ○ /services/sales-enablement
+Building: ├ ○ /services/sales-enablement/demo
+Building: ├ ○ /who-we-are
+Building: └ ○ /who-we-are/compare
+Building: ○  (Static)   prerendered as static content
+Building: ƒ  (Dynamic)  server-rendered on demand
+Building: Traced Next.js server files in: 42.818ms
+Building: Created all serverless functions in: 108.077ms
+Building: Collected static files (public/, static/, .next/static): 21.627ms
+Building: Build Completed in /vercel/output [22s]
+Building: Deploying outputs...

@@ -28,11 +28,11 @@ const servicesData = [
   },
   {
     id: "rev-ops",
-    tag: "REV OPS",
-    title: "Rev Ops Implementations",
+    tag: "IMPLEMENTATIONS",
+    title: "Implementations",
     subtitle: "Your Stack Should Be Working Harder Than You Are.",
     description: "Most teams are sitting on powerful tools they're barely using. We configure your entire stack around a process built to convert, so your reps spend less time managing software and more time closing deals.",
-    link: "/services/rev-ops-implementations",
+    link: "/services/implementations",
     linkText: "See How We Implement",
     extrasType: "icons",
     extrasData: [
@@ -46,10 +46,10 @@ const servicesData = [
   {
     id: "custom-builds",
     tag: "CUSTOM BUILDS",
-    title: "Rev Ops Custom Buildouts",
+    title: "Custom Buildouts",
     subtitle: "Custom tools tailored to your motion's bottlenecks.",
     description: "When your stack alone doesn't cut it, we build around it. Custom tools designed from the ground up to eliminate bottlenecks and give your reps exactly what they need to move deals forward.",
-    link: "/services/rev-ops-custom-buildouts",
+    link: "/services/custom-buildouts",
     linkText: "See how this works",
     extrasLabel: "Successful Builds",
     extrasType: "cards",
@@ -155,10 +155,10 @@ export default function ServicesPage() {
       <section className="relative z-20 bg-black pt-32 pb-32 md:pb-[120px] px-6 border-t border-white/5 hide-floating-cta">
         <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
           <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-6">
-            Your <span className="text-primary">motion</span> has a <span className="text-primary">gap</span>.<br />We already know where to <span className="text-primary">look</span>.
+            Close More, Close <span className="text-[#F96B6B]">Faster.</span>
           </h2>
           <p className="text-lg md:text-xl text-white font-body leading-relaxed mb-12">
-            Start with a Working Session. We&apos;ll diagnose the problem and recommend the right path.
+            Most sales motions are just &ldquo;motions.&rdquo; We&apos;ll help you actually get somewhere.
           </p>
           
           <div className="flex flex-col items-center justify-center gap-8">
@@ -168,10 +168,6 @@ export default function ServicesPage() {
               </ShimmerButton>
             </Link>
             
-            <Link href="/pilot" className="text-white hover:text-white transition-colors uppercase text-[11px] font-black tracking-widest flex items-center gap-2 group">
-              Or explore the Pilot Program
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </Link>
           </div>
         </div>
       </section>

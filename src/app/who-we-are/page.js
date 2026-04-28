@@ -76,7 +76,7 @@ export default function WhoWeAre() {
             <div className="space-y-10 text-left">
               <div className="flex items-center gap-4">
                 <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">
-                  Built From the Field
+                  Built From the <span className="text-primary">Field</span>
                 </h2>
                 <div className="h-px flex-1 bg-gradient-to-r from-primary/40 to-transparent" />
               </div>
@@ -85,14 +85,10 @@ export default function WhoWeAre() {
                 With <span className="text-primary">20+ years</span> of experience across B2B sales, tech, finance, retail, and operator-led growth environments, we kept seeing the same pattern: generic software built for the masses, one-size-fits-all playbooks, and real sales friction left untouched.
               </p>
 
-              <p className="max-w-4xl text-lg md:text-xl font-body leading-relaxed text-white">
-                The old Map2Close material said it plainly and it still holds: enterprise sales motions fail because of chaotic infrastructure, not a lack of talent. That is why we design the system, embed with the team, and prove the motion before we ask anyone to scale it.
-              </p>
-
-              <div className="pt-4">
+              <div className="pt-2">
                 <div className="mb-6 h-px w-28 bg-gradient-to-r from-primary/70 to-transparent" />
                 <p className="text-2xl md:text-4xl font-black tracking-[-0.01em] text-white leading-[1.1]">
-                  So we built the thing we <span className="text-primary opacity-90">always wished existed.</span>
+                  So We Built the Thing We <span className="text-primary opacity-90">Always Wished Existed.</span>
                 </p>
               </div>
             </div>

@@ -256,16 +256,20 @@ export function Waves({
         const containerEl = containerRef.current
 
         noiseRef.current = createNoise2D()
-        setSize()
-        setLines()
 
         window.addEventListener('resize', onResize)
         window.addEventListener('mousemove', onMouseMove)
         containerEl.addEventListener('touchmove', onTouchMove, { passive: false })
 
-        rafRef.current = requestAnimationFrame(tick)
+        // Defer size/lines init until after browser paint so getBoundingClientRect returns real dimensions
+        const initRaf = requestAnimationFrame(() => {
+            setSize()
+            setLines()
+            rafRef.current = requestAnimationFrame(tick)
+        })
 
         return () => {
+            cancelAnimationFrame(initRaf)
             if (rafRef.current) cancelAnimationFrame(rafRef.current)
             window.removeEventListener('resize', onResize)
             window.removeEventListener('mousemove', onMouseMove)

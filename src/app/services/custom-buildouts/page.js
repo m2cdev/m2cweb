@@ -211,18 +211,11 @@ export default function RevOpsCustomBuildoutsPage() {
 
         {/* SECTION 2 - DETAILS (Horizontal Boxes Below Text) */}
         <section id="details" className="bg-black pt-12 pb-28 border-t border-white/5 relative z-20 overflow-hidden">
-           {/* Premium Grid Background */}
-          <div className="absolute inset-0 pointer-events-none z-0">
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,#000_18%,transparent_100%)]" />
-            {/* Top & bottom 1px gradient dividers */}
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-            {/* Dot accents */}
-            <div className="absolute left-[12%] top-[22%] h-2 w-2 rounded-full bg-[#62D2A2]/35 shadow-[0_0_20px_rgba(98,210,162,0.35)]" />
-            <div className="absolute right-[16%] bottom-[28%] h-2 w-2 rounded-full bg-[#62D2A2]/30 shadow-[0_0_18px_rgba(98,210,162,0.3)]" />
-            {/* Ambient glow */}
-            <div className="absolute -left-24 top-20 h-[420px] w-[420px] rounded-full bg-[#62D2A2]/5 blur-[140px]" />
-            <div className="absolute right-[-120px] top-1/3 h-[360px] w-[360px] rounded-full bg-[#62D2A2]/4 blur-[150px]" />
+          {/* Grid background */}
+          <div className="absolute inset-0 pointer-events-none z-0 bg-black">
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
+            <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#62D2A2]/[0.10] blur-[120px]" />
+            <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-[#62D2A2]/[0.08] blur-[100px]" />
           </div>
 
            <div className="container mx-auto px-6 md:px-16 relative z-10">
@@ -302,8 +295,7 @@ export default function RevOpsCustomBuildoutsPage() {
            
            <div className="max-w-5xl mx-auto px-6 relative z-10 transition-colors flex flex-col items-center">
               <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-tight mb-12 text-white text-center">
-                Have a bottleneck we haven&apos;t seen before?<br />
-                <span className="text-[#62D2A2]">Let&apos;s Build Around It →</span>
+                Have a <span className="text-[#F96B6B]">Bottleneck</span> We Haven&apos;t Seen Before?
               </h2>
 
               <div className="flex justify-center">
@@ -311,14 +303,14 @@ export default function RevOpsCustomBuildoutsPage() {
                   href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
                   target="_blank"
                 >
-                  <ShimmerButton 
-                    shimmerColor="#62D2A2" 
+                  <ShimmerButton
+                    shimmerColor="#62D2A2"
                     background="#111"
                     className="group h-16 px-16 rounded-full border-none shadow-[0_0_50px_rgba(98,210,162,0.1)] hover:shadow-[0_0_50px_rgba(249,107,107,0.3)] transition-all duration-500"
                   >
                     <div className="flex items-center gap-3">
                       <span className="text-sm font-black text-white uppercase tracking-widest transition-colors duration-300">
-                        Book a Working Session
+                        Let&apos;s Build Around It
                       </span>
                       <ArrowRight className="w-4 h-4 text-white transition-all duration-300 group-hover:translate-x-1" />
                     </div>

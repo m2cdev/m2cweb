@@ -76,18 +76,28 @@ export default function Pilot() {
       </section>
 
       {/* Steps Section - Tracing Beam */}
-      <div id="how-it-works" className="container-custom pt-32 pb-20 relative z-10">
+      <div id="how-it-works" className="container-custom pt-32 pb-20 relative z-10 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
+          <div className="absolute top-[15%] left-[10%] w-[500px] h-[500px] rounded-full bg-[#62D2A2]/[0.08] blur-[130px]" />
+          <div className="absolute top-[40%] right-[10%] w-[450px] h-[450px] rounded-full bg-[#62D2A2]/[0.07] blur-[120px]" />
+          <div className="absolute bottom-[15%] left-[35%] w-[500px] h-[500px] rounded-full bg-[#62D2A2]/[0.06] blur-[130px]" />
+        </div>
         <TracingBeam className="px-6">
           <div className="max-w-4xl mx-auto antialiased pt-4 relative">
             {steps.map((item, index) => (
               <div key={index} className="mb-40">
                 <p className="text-primary font-bold text-sm uppercase tracking-widest mb-4">{item.step}</p>
-                <h2 className="text-4xl md:text-6xl font-black mb-8 tracking-tighter">{item.title}</h2>
+                <h2 className="text-4xl md:text-6xl font-black mb-8 tracking-tighter">
+                  {index === 0 && <>Define the <span className="text-[#F96B6B]">Outcome</span></>}
+                  {index === 1 && <>Build and <span className="text-[#F96B6B]">Enable</span></>}
+                  {index === 2 && <>Deliver <span className="text-[#F96B6B]">Results</span></>}
+                </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                   <p className="text-xl text-white font-body leading-relaxed">
-                    {index === 0 && <>We align on one core KPI that actually matters. Not vague goals. A clear, measurable <span className="text-[#F96B6B] font-black">Outcome.</span></>}
-                    {index === 1 && <>We optimize your existing tech stack, building custom tooling where needed and provide live human <span className="text-[#F96B6B] font-black">Enablement</span> to drive the execution.</>}
-                    {index === 2 && <>If we don&apos;t hit the target, we keep working until we do. Continuation is earned, not assumed. <span className="text-[#F96B6B] font-black">Results</span> first.</>}
+                    {index === 0 && <>We align on one core KPI that actually matters. Not vague goals. A clear, measurable outcome.</>}
+                    {index === 1 && <>We optimize your existing tech stack, building custom tooling where needed and provide live human enablement to drive the execution.</>}
+                    {index === 2 && <>If we don&apos;t hit the target, we keep working until we do. Continuation is earned, not assumed. Results first.</>}
                   </p>
                   <CardSpotlight className="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-md">
                     <h3 className="text-sm font-bold uppercase tracking-widest text-white mb-6 relative z-20">Deliverables</h3>

@@ -112,8 +112,6 @@ export default function ServiceSubpageLayout({
   ctaSubtext,
   ctaPrimaryText = "Book a Working Session",
   ctaPrimaryLink = "https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96",
-  ctaSecondaryText = "Or explore the Pilot Program →",
-  ctaSecondaryLink = "/pilot",
   ctaExtra,
   isWaitlist = false,
   heroBackground,
@@ -515,11 +513,6 @@ export default function ServiceSubpageLayout({
                   </Link>
                 )}
 
-                {ctaSecondaryText && ctaSecondaryLink && (
-                  <Link href={ctaSecondaryLink} className="text-white/60 hover:text-white transition-colors uppercase text-[11px] font-black tracking-widest flex items-center gap-2 group">
-                    {ctaSecondaryText}
-                  </Link>
-                )}
               </>
             )}
           </div>

@@ -13,10 +13,10 @@ import TopographicMap from "@/components/sections/TopographicMap";
 
 
 const caseStudiesData = [
-  { id: "pinecone", title: "Pinecone", subtitle: "Sales Enablement Hub", url: "/images/case-studies/pinecone-loom.png", category: "Sales Enablement" },
-  { id: "signpost", title: "SignPost", subtitle: "Signal Intelligence Engine", url: "/images/case-studies/signpost-loom.png", category: "Signal Intelligence" },
-  { id: "zenatech", title: "ZenaTech", subtitle: "Custom CRM Automations", url: "/images/case-studies/zenatech-loom.png", category: "Revenue Systems" },
-  { id: "qwilr", title: "Qwilr", subtitle: "Trial-to-Close Engine", url: "/images/case-studies/qwilr-loom.png", category: "Trial Optimization" },
+  { id: "pinecone", title: "Pinecone", subtitle: "Sales Enablement Hub", url: "/images/pinecone-homepage.png", category: "Sales Enablement" },
+  { id: "signpost", title: "SignPost", subtitle: "Signal Intelligence Engine", url: "/images/signpost-homepage.png", category: "Signal Intelligence" },
+  { id: "zenatech", title: "ZenaTech", subtitle: "Custom CRM Automations", url: "/images/zenatech-homepage.png", category: "Revenue Systems" },
+  { id: "qwilr", title: "Qwilr", subtitle: "Trial-to-Close Engine", url: "/images/qwilr-homepage.png", category: "Trial Optimization" },
 ];
 
 
@@ -82,9 +82,9 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="text-4xl md:text-6xl font-black tracking-tighter text-white"
+          className="text-4xl md:text-6xl font-black tracking-tighter text-white text-center"
         >
-          How It <span className="text-primary">Works</span>
+          Our Process, <span className="text-primary">Mapped</span>
         </motion.h2>
       </div>
 
@@ -107,7 +107,7 @@ export default function Home() {
             className="flex flex-col items-center justify-center text-center px-4"
           >
             <h2 className="text-4xl md:text-7xl font-black mb-8 tracking-tighter text-white">
-              One conversation. <br /> No <span className="text-primary ">commitment.</span>
+              One Conversation. <br /> No <span className="text-primary ">Commitment.</span>
             </h2>
             <p className="text-xl md:text-2xl text-white mb-8 font-body">Stop guessing. Start closing.</p>
             <Link href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96" target="_blank">

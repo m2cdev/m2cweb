@@ -106,22 +106,24 @@ export default function RadialOrbitalTimeline({ timelineData }) {
         >
           {/* Center orb - clickable to open Phase 1 */}
           <div
-            className="absolute w-14 h-14 rounded-full bg-black border border-white/30 flex items-center justify-center z-10 shadow-[0_0_30px_rgba(98,210,162,0.25)] overflow-visible cursor-pointer group"
+            className="absolute flex items-center justify-center z-10 cursor-pointer group"
+            style={{ width: 56, height: 56 }}
             onClick={(e) => { e.stopPropagation(); toggleItem(1); }}
           >
-            {/* Pulsing click indicator rings */}
+            {/* Pulsing click indicator rings - outside clip boundary */}
             <div className="absolute w-20 h-20 rounded-full border border-[#62D2A2]/40 animate-ping opacity-60 pointer-events-none" />
             <div className="absolute w-24 h-24 rounded-full border border-[#62D2A2]/20 animate-ping opacity-40 pointer-events-none" style={{ animationDelay: '0.4s' }} />
-            <div className="w-10 h-10 relative z-10">
+            {/* "Click" label - outside clip boundary */}
+            <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap text-[13px] font-black uppercase tracking-[0.25em] text-[#62D2A2] pointer-events-none">
+              click
+            </div>
+            {/* Clipped circle with icon */}
+            <div className="w-14 h-14 rounded-full bg-black border border-white/30 flex items-center justify-center overflow-hidden shadow-[0_0_30px_rgba(98,210,162,0.25)]">
               <img
                 src="/m2c-icon.png"
                 alt="M2C Icon"
-                className="w-full h-full object-contain invert brightness-200 group-hover:scale-110 transition-transform duration-200"
+                className="w-10 h-10 object-contain invert brightness-200 group-hover:scale-110 transition-transform duration-200"
               />
-            </div>
-            {/* "Click" label */}
-            <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap text-[13px] font-black uppercase tracking-[0.25em] text-[#62D2A2] pointer-events-none">
-              click
             </div>
           </div>
 

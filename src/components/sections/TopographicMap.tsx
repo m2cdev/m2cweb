@@ -589,12 +589,12 @@ function LeakPin({ phase, progress }: { phase: LeakPhase; progress: number }) {
                         <div style={{ marginBottom: '16px' }}>
                           <p style={{ fontSize: '16px', color: '#fff', fontWeight: 800, marginBottom: '4px' }}>Existing Tech Stack</p>
                           <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)', marginBottom: '8px', lineHeight: 1.4 }}>Optimizing CRM for speed.</p>
-                          <a href="/services/rev-ops-implementations" className="hover:text-primary transition-colors" style={{ fontSize: '13px', color: '#62D2A2', fontWeight: 900, textDecoration: 'none', borderBottom: '1px solid rgba(98, 210, 162, 0.3)' }}>VIEW IMPLEMENTATION →</a>
+                          <a href="/services/implementations" className="hover:text-primary transition-colors" style={{ fontSize: '13px', color: '#62D2A2', fontWeight: 900, textDecoration: 'none', borderBottom: '1px solid rgba(98, 210, 162, 0.3)' }}>VIEW IMPLEMENTATION →</a>
                         </div>
                         <div>
                           <p style={{ fontSize: '16px', color: '#fff', fontWeight: 800, marginBottom: '4px' }}>Custom Tools</p>
                           <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)', marginBottom: '8px', lineHeight: 1.4 }}>Bespoke software solutions.</p>
-                          <a href="/services/rev-ops-custom-buildouts" className="hover:text-primary transition-colors" style={{ fontSize: '13px', color: '#62D2A2', fontWeight: 900, textDecoration: 'none', borderBottom: '1px solid rgba(98, 210, 162, 0.3)' }}>VIEW BUILDOUTS →</a>
+                          <a href="/services/custom-buildouts" className="hover:text-primary transition-colors" style={{ fontSize: '13px', color: '#62D2A2', fontWeight: 900, textDecoration: 'none', borderBottom: '1px solid rgba(98, 210, 162, 0.3)' }}>VIEW BUILDOUTS →</a>
                         </div>
                       </div>
                     </div>

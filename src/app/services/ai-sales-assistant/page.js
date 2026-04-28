@@ -104,7 +104,7 @@ const stages = [
 
 export default function AISalesAssistantPage() {
   return (
-    <div className="bg-[#050505] text-white min-h-screen overflow-x-hidden">
+    <div className="bg-[#050505] text-white min-h-screen overflow-x-hidden relative">
 
       <section className="relative w-full h-[100vh] min-h-[900px] flex items-center overflow-hidden bg-black">
         {/* Aceternity spotlight beam - sweeps in from top-left */}
@@ -127,7 +127,7 @@ export default function AISalesAssistantPage() {
         </div>
 
         {/* ── Foreground Content ──────────────── */}
-        <div className="container mx-auto px-6 md:px-12 relative z-30 w-full h-full flex items-start pt-20 md:pt-28 pointer-events-none">
+        <div className="container mx-auto px-6 md:px-12 relative z-30 w-full h-full flex items-start pt-20 md:pt-24 pointer-events-none">
           <div className="max-w-xl md:max-w-2xl lg:max-w-4xl pointer-events-auto">
             <div className="flex flex-col justify-center">
               <FadeSection delay={0}>
@@ -143,20 +143,20 @@ export default function AISalesAssistantPage() {
               </FadeSection>
 
               <FadeSection delay={0.08}>
-                <h1 className="text-4xl md:text-5xl lg:text-[5rem] font-black tracking-[-0.01em] leading-[0.95] mb-8 text-white">
+                <h1 className="text-4xl md:text-5xl lg:text-[4.5rem] font-black tracking-[-0.01em] leading-[0.95] mb-5 text-white">
                   Your Sales Motion Just Got an Unfair{" "}
                   <span className="text-[#62D2A2]">Advantage.</span>
                 </h1>
               </FadeSection>
 
               <FadeSection delay={0.14}>
-                <p className="text-lg md:text-xl text-white opacity-100 leading-relaxed mb-8 max-w-lg font-body">
+                <p className="text-lg md:text-xl text-white opacity-100 leading-relaxed mb-5 max-w-lg font-body">
                   An AI-powered agent working inside your CRM across every stage of the deal, from first touch to closed-won.
                 </p>
               </FadeSection>
 
               {/* Powered by Full Enrich */}
-              <FadeSection delay={0.2} className="mt-1">
+              <FadeSection delay={0.2} className="mt-0">
                 <a
                   href="https://fullenrich.com/"
                   target="_blank"
@@ -175,7 +175,7 @@ export default function AISalesAssistantPage() {
               </FadeSection>
 
 
-              <FadeSection delay={0.25} className="mt-10">
+              <FadeSection delay={0.25} className="mt-6">
                 <div className="flex flex-col sm:flex-row items-center sm:items-center gap-6">
                   <Link href="#waitlist">
                     <ShimmerButton 
@@ -190,18 +190,11 @@ export default function AISalesAssistantPage() {
                       </span>
                     </ShimmerButton>
                   </Link>
-                  <Link
-                    href="/pilot"
-                    className="text-white opacity-80 hover:text-white transition-colors text-sm font-black uppercase tracking-widest flex items-center gap-3 group"
-                  >
-                    See How a Pilot Works
-                    <span className="group-hover:translate-x-1 transition-transform">→</span>
-                  </Link>
                 </div>
               </FadeSection>
 
               {/* Floating stat pill */}
-              <FadeSection delay={0.25} className="mt-8">
+              <FadeSection delay={0.25} className="mt-5">
                 <div className="inline-flex items-center gap-4 px-5 py-4 rounded-2xl border border-[#62D2A2]/20 bg-[#62D2A2]/[0.04] backdrop-blur-sm">
                   <div className="relative">
                     <div className="w-2 h-2 rounded-full bg-[#62D2A2] animate-ping absolute inset-0" />
@@ -229,9 +222,10 @@ export default function AISalesAssistantPage() {
           SECTION 2 - OVERVIEW / STAGES
       ────────────────────────────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-16 mx-auto relative overflow-hidden bg-black">
-        {/* Premium Grid Background */}
-        <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-0">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_0%,#000_10%,transparent_100%)]" />
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
+          <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#62D2A2]/[0.08] blur-[120px]" />
+          <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-[#62D2A2]/[0.06] blur-[100px]" />
         </div>
         
         <div className="max-w-[1400px] mx-auto relative z-10">
@@ -240,7 +234,7 @@ export default function AISalesAssistantPage() {
             Full-Funnel Coverage
           </span>
           <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-[1.05] max-w-2xl">
-            One agent. Every stage.
+            One <span className="text-[#62D2A2]">Agent.</span> Every <span className="text-[#62D2A2]">Stage.</span>
           </h2>
         </FadeSection>
 
@@ -275,9 +269,9 @@ export default function AISalesAssistantPage() {
           SECTION 3 - WHAT IT DOES
       ────────────────────────────────────────────────────────────────── */}
       <section id="what-it-does" className="py-28 px-6 md:px-16 mx-auto relative overflow-hidden bg-black">
-        {/* Premium Grid Background */}
-        <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-0">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_10%,transparent_100%)]" />
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
+          <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#62D2A2]/[0.08] blur-[120px]" />
         </div>
         
         <div className="max-w-[1400px] mx-auto relative z-10">
@@ -286,7 +280,7 @@ export default function AISalesAssistantPage() {
             Capabilities
           </span>
           <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-[1.05]">
-            What the agent does.
+            What the Agent <span className="text-[#62D2A2]">Does.</span>
           </h2>
         </FadeSection>
 
@@ -323,9 +317,9 @@ export default function AISalesAssistantPage() {
           SECTION 4 - PRODUCT EXPERIENCE
       ────────────────────────────────────────────────────────────────── */}
       <section className="py-28 px-6 md:px-16 mx-auto relative overflow-hidden bg-black">
-        {/* Premium Grid Background */}
-        <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-0">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_100%_50%,#000_10%,transparent_100%)]" />
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
+          <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#62D2A2]/[0.08] blur-[120px]" />
         </div>
 
         <div className="max-w-[1400px] mx-auto relative z-10">
@@ -337,9 +331,9 @@ export default function AISalesAssistantPage() {
                 Product Experience
               </span>
               <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-[1.05] mb-8">
-                Works where{" "}
-                <span className="text-[#62D2A2]">your reps</span>{" "}
-                already work.
+                Works Where{" "}
+                <span className="text-[#62D2A2]">Your Reps</span>{" "}
+                Already Work.
               </h2>
             </FadeSection>
 
@@ -424,9 +418,9 @@ export default function AISalesAssistantPage() {
           SECTION 5 - INTEGRATIONS
       ────────────────────────────────────────────────────────────────── */}
       <section className="py-28 px-6 md:px-16 mx-auto relative overflow-hidden bg-black">
-        {/* Premium Grid Background */}
-        <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-0">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_100%,#000_10%,transparent_100%)]" />
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
+          <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#62D2A2]/[0.07] blur-[120px]" />
         </div>
 
         <div className="max-w-[1400px] mx-auto relative z-10">
@@ -435,7 +429,7 @@ export default function AISalesAssistantPage() {
             Integrations
           </span>
           <h2 className="text-3xl md:text-4xl font-black tracking-tight">
-            Works with your stack.
+            Works With Your Stack.
           </h2>
         </FadeSection>
 
@@ -467,10 +461,6 @@ export default function AISalesAssistantPage() {
           SECTION 6 - CTA / WAITLIST
       ────────────────────────────────────────────────────────────────── */}
       <section id="waitlist" className="pt-24 pb-12 px-6 text-center hide-floating-cta relative overflow-hidden bg-black">
-        {/* Premium Grid Background */}
-        <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-0">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_10%,transparent_100%)]" />
-        </div>
         
         <div className="max-w-3xl mx-auto relative z-10">
           <FadeSection delay={0}>
@@ -481,7 +471,7 @@ export default function AISalesAssistantPage() {
 
           <FadeSection delay={0.08}>
             <h2 className="text-5xl md:text-7xl font-black tracking-tight leading-tight mb-6">
-              Join the Waitlist.
+              Join the <span className="text-[#F96B6B]">Waitlist.</span>
             </h2>
           </FadeSection>
 
@@ -502,7 +492,7 @@ export default function AISalesAssistantPage() {
                 className="h-20 px-12 rounded-full"
               >
                 <span className="flex items-center gap-3 text-sm font-black text-white uppercase tracking-widest">
-                  Join the Waitlist
+                  Sign Up Today
                   <ArrowRight className="w-4 h-4" />
                 </span>
               </ShimmerButton>
