@@ -148,7 +148,7 @@ export default function RevOpsCustomBuildoutsPage() {
       <div className="relative z-10 w-full">
         
         {/* SECTION 1 - HERO */}
-        <section className="min-h-[calc(100vh-96px)] flex flex-col md:flex-row items-center gap-10 md:gap-14 lg:gap-20 pt-28 pb-12 px-6 md:px-16 container mx-auto relative overflow-visible">
+        <section className="min-h-[calc(100vh-80px)] flex flex-col md:flex-row items-center gap-8 md:gap-10 lg:gap-14 pt-20 pb-8 px-6 md:px-16 container mx-auto relative overflow-hidden">
           
           {/* Left: Headline content */}
           <div className="flex-1 w-full flex flex-col justify-center md:pr-6 lg:pr-10 md:max-w-[52%] z-20">
@@ -201,9 +201,9 @@ export default function RevOpsCustomBuildoutsPage() {
           {/* Right: Orbital Timeline */}
           <FadeSection
             delay={0.1}
-            className="flex-1 min-w-0 h-[420px] sm:h-[520px] md:h-[620px] lg:h-[680px] w-full max-w-[640px] md:max-w-none mt-2 md:mt-0 relative z-10 flex items-center justify-center mx-auto"
+            className="flex-1 min-w-0 h-[380px] sm:h-[460px] md:h-[540px] lg:h-[580px] w-full max-w-[560px] md:max-w-none mt-2 md:mt-0 relative z-10 flex items-center justify-center mx-auto overflow-hidden"
           >
-            <div className="w-full h-full transform scale-[1.0] sm:scale-[1.1] md:scale-[1.2]">
+            <div className="w-full h-full">
               <RadialOrbitalTimeline timelineData={buildoutNodes} />
             </div>
           </FadeSection>
