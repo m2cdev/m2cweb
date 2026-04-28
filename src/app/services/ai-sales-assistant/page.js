@@ -114,7 +114,7 @@ export default function AISalesAssistantPage() {
         />
 
         {/* ── Interactive Spline 3D scene ──────────────── */}
-        <div className="absolute top-0 right-0 w-full md:w-[75%] h-full z-10 select-none">
+        <div className="hidden md:block absolute top-0 right-0 w-full md:w-[75%] h-full z-10 select-none">
           <div className="relative w-full h-full transform scale-110 lg:scale-135 origin-center translate-x-[15%] md:translate-x-[20%]">
             <SplineScene
               scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"

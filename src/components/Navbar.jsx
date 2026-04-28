@@ -15,8 +15,8 @@ const navLinks = [
     { name: "Company", href: "/who-we-are" },
     { name: "How We Compare", href: "/who-we-are/compare" }
   ]},
-  { name: "What We Do", href: "/services", dropdown: [
-    { name: "Overview", href: "/services" },
+  { name: "What We Do", href: "/services", mobileHref: "/services/sales-enablement", dropdown: [
+    { name: "Overview", href: "/services", desktopOnly: true },
     { name: "Sales Enablement", href: "/services/sales-enablement" },
     { name: "Implementations", href: "/services/implementations" },
     { name: "Custom Buildouts", href: "/services/custom-buildouts" },
@@ -131,12 +131,12 @@ export default function Navbar() {
               {navLinks.map((link) => (
                 <div key={link.name} className="flex flex-col gap-2">
                   <Link
-                    href={link.href}
+                    href={link.mobileHref || link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={cn(
                       "text-2xl font-bold transition-colors duration-300",
                       (link.href === '/' ? pathname === '/' : pathname.startsWith(link.href))
-                        ? "text-primary" 
+                        ? "text-primary"
                         : "text-white hover:text-[#F96B6B]"
                     )}
                   >
@@ -144,15 +144,15 @@ export default function Navbar() {
                   </Link>
                   {link.dropdown && (
                     <div className="ml-4 flex flex-col gap-4 border-l border-white/10 pl-6 my-2">
-                      {link.dropdown.map((item) => (
+                      {link.dropdown.filter(item => !item.desktopOnly).map((item) => (
                          <Link
                           key={item.name}
                           href={item.href}
                           onClick={() => setIsMobileMenuOpen(false)}
                           className={cn(
                             "text-lg transition-colors duration-300",
-                            pathname === item.href 
-                              ? "text-primary" 
+                            pathname === item.href
+                              ? "text-primary"
                               : "text-white/70 hover:text-[#F96B6B]"
                           )}
                         >

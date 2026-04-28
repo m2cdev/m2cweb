@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Pipeline3D from "@/components/sections/Pipeline3D";
@@ -62,7 +63,15 @@ const servicesData = [
 ];
 
 export default function ServicesPage() {
+  const router = useRouter();
   const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      router.replace("/services/sales-enablement");
+    }
+  }, [router]);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
