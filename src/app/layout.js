@@ -46,9 +46,47 @@ export const metadata = {
 
 import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://map2close.com/#organization",
+      "name": "Map2Close",
+      "url": "https://map2close.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://map2close.com/images/logo.png"
+      },
+      "description": "Map2Close builds revenue systems for B2B sales teams — embedding inside organizations to standardize execution and close deals at scale.",
+      "sameAs": [
+        "https://www.linkedin.com/company/map2close"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://map2close.com/#website",
+      "url": "https://map2close.com",
+      "name": "Map2Close",
+      "publisher": { "@id": "https://map2close.com/#organization" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://map2close.com/?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={`${outfit.variable} ${sora.variable} ${jetbrainsMono.variable} font-body bg-[#050505] text-white antialiased`}>
         <Navbar />
         <SmoothScrollProvider>

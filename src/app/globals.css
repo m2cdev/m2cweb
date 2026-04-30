@@ -49,11 +49,13 @@
     @apply antialiased scroll-smooth;
     background-color: #050505;
     color: white;
+    overflow-x: clip;
   }
   body {
     background-color: #050505;
     @apply text-white font-body;
     font-family: var(--font-body);
+    overflow-x: clip;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);

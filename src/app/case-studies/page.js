@@ -130,9 +130,9 @@ export default function CaseStudies() {
 
 
 
-        <div className="space-y-40">
+        <div className="space-y-20 md:space-y-40">
           {caseStudies.map((cs, index) => (
-            <section key={cs.id} className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <section key={cs.id} className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-20 items-center">
               <div className={index % 2 === 1 ? "lg:order-2" : ""}>
                 <motion.div
                   initial={{ opacity: 0, x: index % 2 === 1 ? 20 : -20 }}
@@ -142,11 +142,11 @@ export default function CaseStudies() {
                   <p className="inline-block px-4 py-1 rounded-full border border-[#62D2A2]/30 bg-[#62D2A2]/10 text-sm font-bold text-[#62D2A2] uppercase tracking-widest mb-6">
                     {cs.company}
                   </p>
-                  <h2 className="text-3xl md:text-5xl font-bold mb-3 tracking-tight leading-tight">
+                  <h2 className="text-xl md:text-5xl font-bold mb-3 tracking-tight leading-tight">
                     {cs.companyName}
                   </h2>
                   <p className="text-primary font-bold uppercase tracking-widest text-sm mb-8">{cs.title}</p>
-                  <p className="text-lg text-white opacity-80 font-body leading-relaxed mb-10">
+                  <p className="text-sm md:text-lg text-white opacity-80 font-body leading-relaxed mb-8 md:mb-10">
                     {cs.description}
                   </p>
                   <div className="flex gap-4 flex-wrap">

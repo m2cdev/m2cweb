@@ -52,7 +52,7 @@ export default function FloatingCTA() {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 20 }}
-          className="fixed bottom-8 right-8 z-[999]"
+          className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[999]"
         >
           <a href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96" target="_blank" rel="noopener noreferrer">
             <ShimmerButton 

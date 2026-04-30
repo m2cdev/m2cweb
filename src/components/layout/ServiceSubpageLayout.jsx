@@ -173,7 +173,7 @@ export default function ServiceSubpageLayout({
         <div className="max-w-4xl mx-auto z-10 relative mt-16">
           <WordReveal
             text={heroHeadline}
-            className="text-5xl md:text-7xl lg:text-[5.5rem] font-black tracking-tighter leading-tight mb-8"
+            className="text-3xl md:text-7xl lg:text-[5.5rem] font-black tracking-tighter leading-tight mb-8"
           />
           <motion.p
             initial={{ opacity: 0 }}
@@ -218,12 +218,12 @@ export default function ServiceSubpageLayout({
                 </span>
               </div>
 
-              <h2 className="max-w-[660px] text-[52px] font-bold leading-[1.08] text-white">
+              <h2 className="max-w-[660px] text-[28px] md:text-[52px] font-bold leading-[1.08] text-white">
                 The Methodology Meets{" "}
                 <span className="text-[#62D2A2]">Your Motion</span>
               </h2>
 
-              <p className="mt-7 max-w-[660px] text-[22px] leading-[1.65] text-white">
+              <p className="mt-7 max-w-[660px] text-[16px] md:text-[22px] leading-[1.65] text-white">
                 {approachText}
               </p>
 
@@ -378,7 +378,40 @@ export default function ServiceSubpageLayout({
             </div>
           )}
           
-          <div 
+          {/* Mobile: vertical stack */}
+          <div className="flex flex-col gap-6 px-6 pb-12 md:hidden">
+            {serviceRows.map((row, i) => (
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
+                key={i}
+                className="w-full bg-[#050505] border border-white/5 rounded-[2rem] p-8 relative flex flex-col gap-4"
+              >
+                <span className={cn(
+                  "block text-primary font-black tracking-widest",
+                  isWaitlist ? "text-base uppercase" : "text-4xl"
+                )}>
+                  {row.identifier || `0${i + 1}`}
+                </span>
+                <h3 className="text-2xl font-black text-white tracking-tight leading-tight">
+                  {row.title}
+                </h3>
+                <p className="text-base text-white font-body leading-relaxed">
+                  {row.description}
+                </p>
+                {row.linkText && row.linkUrl && (
+                  <Link href={row.linkUrl} className="text-primary text-xs font-black uppercase tracking-widest hover:text-white transition-colors flex items-center gap-2 mt-2">
+                    {row.linkText}
+                  </Link>
+                )}
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Desktop: horizontal drag scroll */}
+          <div
             ref={scrollRef}
             onClickCapture={(e) => {
               if (hasDragged) {
@@ -387,19 +420,16 @@ export default function ServiceSubpageLayout({
               }
             }}
             className={cn(
-              "flex overflow-x-auto gap-6 md:gap-8 px-6 md:px-12 pb-12 w-full mx-auto",
+              "hidden md:flex overflow-x-auto gap-8 px-12 pb-12 w-full mx-auto",
               isDragging && "scroll-auto"
-            )} 
+            )}
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             <style jsx>{`
-              div::-webkit-scrollbar {
-                display: none;
-              }
+              div::-webkit-scrollbar { display: none; }
             `}</style>
-            
-            {/* Start spacer */}
-            <div className="shrink-0 w-4 md:w-[10vw]" />
+
+            <div className="shrink-0 w-[10vw]" />
 
             {serviceRows.map((row, i) => (
               <motion.div
@@ -408,11 +438,9 @@ export default function ServiceSubpageLayout({
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: i * 0.1, ease: "easeOut" }}
                 key={i}
-                className="shrink-0 w-[85vw] md:w-[450px] bg-[#050505] border border-white/5 rounded-[2rem] p-10 md:p-12 relative group hover:border-primary/30 transition-all duration-500 shadow-2xl flex flex-col justify-between min-h-[400px] cursor-none"
+                className="shrink-0 w-[450px] bg-[#050505] border border-white/5 rounded-[2rem] p-12 relative group hover:border-primary/30 transition-all duration-500 shadow-2xl flex flex-col justify-between min-h-[400px] cursor-none"
               >
-                {/* Internal Glow */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/0 group-hover:from-primary/5 group-hover:to-transparent transition-colors duration-500 rounded-[2rem] pointer-events-none" />
-                
                 <div className="cursor-none">
                   <span className={cn(
                     "block text-primary font-black tracking-widest mb-10",
@@ -420,16 +448,13 @@ export default function ServiceSubpageLayout({
                   )}>
                     {row.identifier || `0${i + 1}`}
                   </span>
-                  
                   <h3 className="text-3xl font-black text-white mb-6 tracking-tight group-hover:text-primary transition-colors duration-300 leading-tight">
                     {row.title}
                   </h3>
-                  
                   <p className="text-lg text-white font-body leading-relaxed">
                     {row.description}
                   </p>
                 </div>
-
                 {row.linkText && row.linkUrl && (
                   <div className="mt-10">
                     <Link href={row.linkUrl} className="text-primary text-xs font-black uppercase tracking-widest hover:text-white transition-colors flex items-center gap-2">
@@ -440,8 +465,7 @@ export default function ServiceSubpageLayout({
               </motion.div>
             ))}
 
-            {/* End spacer */}
-            <div className="shrink-0 w-4 md:w-[10vw]" />
+            <div className="shrink-0 w-[10vw]" />
           </div>
         </section>
       )}
@@ -476,7 +500,7 @@ export default function ServiceSubpageLayout({
       <section className="px-6 relative overflow-hidden pb-[120px] pt-32 bg-gradient-to-b from-black to-[#050505] hide-floating-cta">
         <div className="absolute inset-0 bg-primary/5 opacity-50 translate-y-full blur-3xl pointer-events-none" />
         <div className="max-w-3xl mx-auto text-center relative z-10 flex flex-col items-center">
-          <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-6 leading-[0.95]">
+          <h2 className="text-3xl md:text-7xl font-black text-white tracking-tighter mb-6 leading-[0.95]">
             {ctaHeadline.split(" ").map((word, i) => {
               const isCoral = word.startsWith("!");
               const isMint = word.startsWith("^");

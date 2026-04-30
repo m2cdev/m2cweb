@@ -12,6 +12,9 @@ export default function RadialOrbitalTimeline({ timelineData }) {
   const containerRef = useRef(null);
   const orbitRef = useRef(null);
   const nodeRefs = useRef({});
+  const angleRef = useRef(0);
+  const rafRef = useRef(null);
+  const lastTimeRef = useRef(null);
 
   const handleContainerClick = (e) => {
     if (e.target === containerRef.current || e.target === orbitRef.current) {
@@ -52,16 +55,22 @@ export default function RadialOrbitalTimeline({ timelineData }) {
   };
 
   useEffect(() => {
-    let rotationTimer;
-    if (autoRotate) {
-      rotationTimer = setInterval(() => {
-        setRotationAngle((prev) => {
-          const newAngle = (prev + 0.3) % 360;
-          return Number(newAngle.toFixed(3));
-        });
-      }, 50);
+    if (!autoRotate) {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      return;
     }
-    return () => { if (rotationTimer) clearInterval(rotationTimer); };
+    const tick = (timestamp) => {
+      if (lastTimeRef.current !== null) {
+        const delta = timestamp - lastTimeRef.current;
+        // ~0.3 degrees per 50ms = 6 deg/s
+        angleRef.current = (angleRef.current + (delta / 50) * 0.3) % 360;
+        setRotationAngle(Number(angleRef.current.toFixed(3)));
+      }
+      lastTimeRef.current = timestamp;
+      rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); lastTimeRef.current = null; };
   }, [autoRotate]);
 
   const centerViewOnNode = (nodeId) => {
@@ -73,7 +82,7 @@ export default function RadialOrbitalTimeline({ timelineData }) {
 
   const calculateNodePosition = (index, total) => {
     const angle = ((index / total) * 360 + rotationAngle) % 360;
-    const radius = 185;
+    const radius = 210;
     const radian = (angle * Math.PI) / 180;
     const x = radius * Math.cos(radian) + centerOffset.x;
     const y = radius * Math.sin(radian) + centerOffset.y;
@@ -128,7 +137,7 @@ export default function RadialOrbitalTimeline({ timelineData }) {
           </div>
 
           {/* Orbit ring */}
-          <div className="absolute rounded-full border border-white/20" style={{width:'370px',height:'370px'}}></div>
+          <div className="absolute rounded-full border border-white/20" style={{width:'420px',height:'420px'}}></div>
 
           {timelineData.map((item, index) => {
             const position = calculateNodePosition(index, timelineData.length);

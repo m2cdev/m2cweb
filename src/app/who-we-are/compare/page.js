@@ -112,7 +112,7 @@ export default function ComparePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="font-black text-[clamp(64px,7vw,110px)] leading-[0.9] tracking-[-0.01em] text-white mb-8"
+              className="font-black text-[clamp(32px,7vw,110px)] leading-[0.9] tracking-[-0.01em] text-white mb-8"
             >
               How We<br /><span className="text-primary opacity-90">Stack</span> Up
             </motion.h1>
@@ -323,19 +323,19 @@ export default function ComparePage() {
 
 
       {/* ── Bottom CTA ───────────────────────────────────────────────── */}
-      <section className="container-custom py-40 text-center hide-floating-cta border-t border-white/10">
+      <section className="container-custom py-16 md:py-40 text-center hide-floating-cta border-t border-white/10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-4xl mx-auto"
+          className="max-w-4xl mx-auto px-4"
         >
-          <h2 className="font-black text-[clamp(32px,4vw,72px)] leading-[1] tracking-[-0.03em] mb-4">
+          <h2 className="font-black text-[clamp(28px,5vw,72px)] leading-[1.1] tracking-[-0.03em] mb-4">
             <span className="block text-white">Still Comparing?</span>
-            <span className="block text-white whitespace-nowrap">See the Difference <span className="text-[#62D2A2] opacity-90">Firsthand.</span></span>
+            <span className="block text-white">See the Difference <span className="text-[#62D2A2] opacity-90">Firsthand.</span></span>
           </h2>
 
-          <p className="font-body text-white text-xl md:text-2xl mb-12 max-w-2xl mx-auto leading-relaxed">
+          <p className="font-body text-white text-base md:text-2xl mb-10 max-w-2xl mx-auto leading-relaxed">
             One working session. No commitment. You will know by the end of it.
           </p>
 

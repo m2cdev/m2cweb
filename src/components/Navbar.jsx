@@ -13,7 +13,7 @@ const navLinks = [
   { name: "Home", href: "/" },
   { name: "Who We Are", href: "/who-we-are", dropdown: [
     { name: "Company", href: "/who-we-are" },
-    { name: "How We Compare", href: "/who-we-are/compare" }
+    { name: "What We Do", href: "/who-we-are/compare" }
   ]},
   { name: "What We Do", href: "/services", mobileHref: "/services/sales-enablement", dropdown: [
     { name: "Overview", href: "/services", desktopOnly: true },
@@ -44,6 +44,11 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [isMobileMenuOpen]);
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -97,7 +102,7 @@ export default function Navbar() {
 
         {/* CTA */}
         <div className="hidden md:block">
-          <Link href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96" target="_blank">
+          <Link href="/contact">
             <ShimmerButton 
               shimmerColor="#62D2A2" 
               background="#111" 
@@ -125,7 +130,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 z-40 bg-black/95 backdrop-blur-3xl border-b border-white/10 flex flex-col p-8 md:hidden"
+            className="absolute top-full left-0 right-0 z-40 bg-black/95 backdrop-blur-3xl border-b border-white/10 flex flex-col p-8 md:hidden overflow-y-auto max-h-[calc(100vh-64px)]"
           >
             <div className="flex flex-col gap-6">
               {navLinks.map((link) => (
@@ -165,7 +170,7 @@ export default function Navbar() {
               ))}
             </div>
             <div className="mt-8 pt-8 border-t border-white/10">
-              <Link href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96" target="_blank">
+              <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
                 <ShimmerButton className="w-full h-14 rounded-xl" shimmerColor="#62D2A2">
                   <span className="text-lg font-bold">Book a Working Session</span>
                 </ShimmerButton>

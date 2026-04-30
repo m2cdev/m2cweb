@@ -114,6 +114,14 @@ const HorizontalScrollCarousel = ({ cards = [] }) => {
         </div>
       </motion.div>
 
+      {/* Mobile: vertical stack */}
+      <div className="flex md:hidden flex-col gap-6 px-6 pb-12">
+        {cards.map((card) => (
+          <Card card={card} key={card.id || card.title} mobile />
+        ))}
+      </div>
+
+      {/* Desktop: horizontal drag scroll */}
       <div
         ref={scrollRef}
         onClickCapture={(e) => {
@@ -123,7 +131,7 @@ const HorizontalScrollCarousel = ({ cards = [] }) => {
           }
         }}
         className={cn(
-          "flex gap-8 overflow-x-auto pb-12 px-6 md:px-[10%] no-scrollbar",
+          "hidden md:flex gap-8 overflow-x-auto pb-12 px-[10%] no-scrollbar",
           isDragging ? "scroll-auto cursor-grabbing" : ""
         )}
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
@@ -136,7 +144,7 @@ const HorizontalScrollCarousel = ({ cards = [] }) => {
   );
 };
 
-const Card = ({ card }) => {
+const Card = ({ card, mobile }) => {
   return (
     <Link href={`/case-studies/${card.id}`} className="block" draggable={false} onDragStart={(e) => e.preventDefault()}>
       <motion.div
@@ -144,7 +152,10 @@ const Card = ({ card }) => {
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
-        className="relative shrink-0 h-[550px] w-[350px] md:w-[500px] overflow-hidden rounded-3xl bg-neutral-900 border border-white/10 group cursor-pointer"
+        className={cn(
+          "relative overflow-hidden rounded-3xl bg-neutral-900 border border-white/10 group cursor-pointer",
+          mobile ? "w-full h-[260px] shrink-0" : "shrink-0 h-[550px] w-[500px]"
+        )}
       >
         <div
           style={{

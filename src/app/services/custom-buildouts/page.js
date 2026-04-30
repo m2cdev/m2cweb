@@ -1,11 +1,13 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { Wrench, Cpu, GitBranch, Zap, ArrowRight, Database, Calendar, Target, Layout, Search } from "lucide-react";
-import { MeshGradient } from "@paper-design/shaders-react";
-import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
+import dynamic from "next/dynamic";
+
+const MeshGradient = dynamic(() => import("@paper-design/shaders-react").then(m => ({ default: m.MeshGradient })), { ssr: false });
+const RadialOrbitalTimeline = dynamic(() => import("@/components/ui/radial-orbital-timeline"), { ssr: false });
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 
 // ─── Fade-up animation preset ──────────────────────────────────────────────
@@ -117,21 +119,36 @@ const actionExamples = [
 
 export default function RevOpsCustomBuildoutsPage() {
   const [speed] = useState(0.8);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   return (
     <div className="w-full min-h-screen bg-black relative overflow-x-hidden selection:bg-primary/30">
-      
+
       {/* ──────────────────────────────────────────────────────────────────
           BACKGROUND LAYERS - CINEMATIC WAVE
       ────────────────────────────────────────────────────────────────── */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        
-        {/* Layer 1: Mesh Gradient (High Contrast) */}
-        <MeshGradient
-          className="w-full h-full absolute inset-0 opacity-40 shadow-inner"
-          colors={["#000000", "#0a0a0a", "#62D2A2", "#000000"]}
-          speed={speed}
-        />
+
+        {/* Layer 1: Mesh Gradient — desktop only (WebGL crashes mobile) */}
+        {isDesktop && (
+          <MeshGradient
+            className="w-full h-full absolute inset-0 opacity-40 shadow-inner"
+            colors={["#000000", "#0a0a0a", "#62D2A2", "#000000"]}
+            speed={speed}
+          />
+        )}
+
+        {/* Mobile ambient fallback */}
+        {!isDesktop && (
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_30%,rgba(98,210,162,0.08)_0%,transparent_70%)]" />
+        )}
 
         {/* Layer 2: Subtle Ambient Pulsing */}
         <div className="absolute inset-0 z-1 opacity-20">
@@ -148,21 +165,72 @@ export default function RevOpsCustomBuildoutsPage() {
       <div className="relative z-10 w-full">
         
         {/* SECTION 1 - HERO */}
-        <section className="min-h-[calc(100vh-80px)] flex flex-col md:flex-row items-center gap-8 md:gap-10 lg:gap-14 pt-20 pb-8 px-6 md:px-16 container mx-auto relative overflow-hidden">
-          
+
+        {/* ── MOBILE HERO ─────────────────────────────────────────── */}
+        <section className="md:hidden flex flex-col pt-24 pb-12 px-6 relative">
+          <FadeSection delay={0}>
+            <span className="text-[11px] font-black tracking-[0.4em] text-[#62D2A2] uppercase mb-4 block">
+              Custom Buildouts
+            </span>
+            <h1 className="text-3xl font-black tracking-tight leading-[0.95] mb-5 text-white">
+              Built for Your <span className="text-[#62D2A2]">Motion</span>,<br />Down to the Detail.
+            </h1>
+            <p className="text-base text-white leading-relaxed mb-8 font-body">
+              When your stack alone does not cut it, we build around it. Purpose-built systems give your reps exactly what they need to move deals forward.
+            </p>
+          </FadeSection>
+
+          {/* Mobile Phase Stepper */}
+          <div className="relative mb-10">
+            <div className="absolute left-5 top-0 bottom-0 w-px bg-white/10" />
+            {buildoutNodes.map((node, index) => {
+              const Icon = node.icon;
+              return (
+                <FadeSection key={node.id} delay={0.05 * index} className="relative flex gap-5 mb-6 last:mb-0">
+                  <div className="flex flex-col items-center z-10">
+                    <div className="w-10 h-10 rounded-full bg-black border border-[#62D2A2]/60 flex items-center justify-center shrink-0">
+                      <Icon size={16} className="text-[#62D2A2]" />
+                    </div>
+                  </div>
+                  <div className="flex-1 bg-white/[0.03] border border-white/[0.07] rounded-2xl p-5 mb-0">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#62D2A2]">{node.date}</span>
+                      <span className="text-[10px] font-bold uppercase tracking-wide text-white/30">{node.category}</span>
+                    </div>
+                    <h3 className="text-base font-black text-white mb-2">{node.title}</h3>
+                    <p className="text-sm text-white/70 leading-relaxed font-body">{node.content}</p>
+                  </div>
+                </FadeSection>
+              );
+            })}
+          </div>
+
+          {/* CTA after Phase 5 */}
+          <FadeSection delay={0.3}>
+            <a
+              href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
+              target="_blank"
+              className="inline-flex items-center gap-3 bg-[#62D2A2] text-white px-8 py-4 font-black text-sm uppercase tracking-widest rounded-full"
+            >
+              Book a Working Session
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </FadeSection>
+        </section>
+
+        {/* ── DESKTOP HERO ────────────────────────────────────────── */}
+        <section className="hidden md:flex h-screen flex-row items-center gap-10 lg:gap-14 pt-20 pb-8 px-16 container mx-auto relative overflow-hidden">
+
           {/* Left: Headline content */}
-          <div className="flex-1 w-full flex flex-col justify-center md:pr-6 lg:pr-10 md:max-w-[52%] z-20">
+          <div className="flex-1 w-full flex flex-col justify-center pr-6 lg:pr-10 max-w-[52%] z-20">
             <FadeSection delay={0}>
-              <div className="flex items-center gap-3 mb-6">
-                
-                <span className="text-[11px] font-black tracking-[0.4em] text-[#62D2A2] uppercase">
-                  Custom Buildouts
-                </span>
-              </div>
+              <span className="text-[11px] font-black tracking-[0.4em] text-[#62D2A2] uppercase mb-6 block">
+                Custom Buildouts
+              </span>
             </FadeSection>
 
             <FadeSection delay={0.08}>
-              <h1 className="text-5xl md:text-6xl lg:text-[5.2rem] font-black tracking-tight leading-[0.95] mb-8 text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.8)]">
+              <h1 className="text-6xl lg:text-[5.2rem] font-black tracking-tight leading-[0.95] mb-8 text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.8)]">
                 Built for Your <span className="text-[#62D2A2]">Motion</span>,
                 <br />
                 Down to the Detail.
@@ -170,13 +238,13 @@ export default function RevOpsCustomBuildoutsPage() {
             </FadeSection>
 
             <FadeSection delay={0.16}>
-              <p className="max-w-2xl text-lg md:text-xl text-white leading-[1.72] mb-10 font-body drop-shadow-md">
+              <p className="max-w-2xl text-xl text-white leading-[1.72] mb-10 font-body drop-shadow-md">
                 When your stack alone does not cut it, we build around it. Purpose-built systems remove bottlenecks and give your reps exactly what they need to move deals forward.
               </p>
             </FadeSection>
 
             <FadeSection delay={0.22}>
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-8">
+              <div className="flex flex-row items-center gap-8">
                 <a
                   href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
                   target="_blank"
@@ -201,11 +269,9 @@ export default function RevOpsCustomBuildoutsPage() {
           {/* Right: Orbital Timeline */}
           <FadeSection
             delay={0.1}
-            className="flex-1 min-w-0 h-[380px] sm:h-[460px] md:h-[540px] lg:h-[580px] w-full max-w-[560px] md:max-w-none mt-2 md:mt-0 relative z-10 flex items-center justify-center mx-auto overflow-hidden"
+            className="flex-1 min-w-0 h-[620px] lg:h-[680px] relative z-10 flex items-center justify-center"
           >
-            <div className="w-full h-full">
-              <RadialOrbitalTimeline timelineData={buildoutNodes} />
-            </div>
+            <RadialOrbitalTimeline timelineData={buildoutNodes} />
           </FadeSection>
         </section>
 
@@ -228,11 +294,11 @@ export default function RevOpsCustomBuildoutsPage() {
                     </span>
                     <div className="h-px flex-1 bg-gradient-to-r from-[#62D2A2]/40 to-transparent" />
                   </div>
-                  <h2 className="text-5xl md:text-7xl font-black tracking-tight leading-[1] mb-12 text-white">
+                  <h2 className="text-2xl md:text-7xl font-black tracking-tight leading-[1] mb-8 md:mb-12 text-white">
                     Every Build Starts With A <span className="text-[#62D2A2]">Problem</span>
                   </h2>
                   <div className="space-y-10">
-                    <p className="text-2xl md:text-3xl lg:text-4xl text-white leading-[1.25] font-body tracking-tight opacity-100">
+                    <p className="text-lg md:text-3xl lg:text-4xl text-white leading-[1.25] font-body tracking-tight opacity-100">
                       We identify the bottleneck, design the solution around your existing stack, and build a tool that lives inside your CRM or as a standalone, wherever it works best.
                     </p>
                     <div>

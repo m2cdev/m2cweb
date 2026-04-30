@@ -126,7 +126,7 @@ export default function RevOpsImplementationsPage() {
           </FadeSection>
 
           <FadeSection delay={0.08}>
-            <h1 className="text-5xl md:text-6xl lg:text-[5rem] font-black tracking-tight leading-[0.95] mb-8 text-white">
+            <h1 className="text-3xl md:text-6xl lg:text-[5rem] font-black tracking-tight leading-[0.95] mb-6 md:mb-8 text-white">
               Your Stack Should Be{" "}
               <span className="text-[#62D2A2]">Working</span>{" "}
               Harder Than You Are.
@@ -134,12 +134,13 @@ export default function RevOpsImplementationsPage() {
           </FadeSection>
 
           <FadeSection delay={0.14}>
-            <p className="font-body text-white text-lg md:text-xl leading-relaxed mb-10 max-w-xl">
+            <p className="font-body text-white text-base md:text-xl leading-relaxed mb-8 md:mb-10 max-w-xl">
               We configure your stack around a process built to convert, so your reps spend less time managing software and more time closing deals.
             </p>
           </FadeSection>
 
-          <FadeSection delay={0.2}>
+          {/* CTA — hidden on mobile, shown on md+ */}
+          <FadeSection delay={0.2} className="hidden md:block">
             <a
               href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
               target="_blank"
@@ -155,7 +156,7 @@ export default function RevOpsImplementationsPage() {
         </div>
 
         {/* Right: CRM Dashboard mockup */}
-        <FadeSection delay={0.1} className="flex-1 w-full relative mt-8 md:mt-0 flex items-center justify-center">
+        <FadeSection delay={0.1} className="flex-1 w-full relative mt-8 md:mt-0 flex flex-col items-center justify-center gap-6">
           <div className="relative w-full rounded-[1.2rem] overflow-hidden border border-[#62D2A2]/30 shadow-[0_0_60px_rgba(98,210,162,0.18),0_0_120px_rgba(98,210,162,0.10),0_32px_64px_rgba(0,0,0,0.8)]">
             {/* Browser chrome */}
             <div className="flex items-center gap-2 px-4 py-3 bg-[#141414] border-b border-white/10">
@@ -256,6 +257,19 @@ export default function RevOpsImplementationsPage() {
           </div>
           {/* Decorative glow */}
           <div className="absolute -inset-4 bg-[#62D2A2]/5 blur-[60px] rounded-[2rem] -z-10" />
+
+          {/* Mobile-only CTA — after the CRM graphic */}
+          <a
+            href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex md:hidden w-full"
+          >
+            <button className="w-full bg-[#62D2A2] text-white px-10 py-4 font-black text-sm uppercase tracking-widest rounded-full hover:bg-[#F96B6B] transition-all duration-300 flex items-center justify-center gap-3">
+              Book a Working Session
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </a>
         </FadeSection>
       </section>
 
@@ -309,7 +323,7 @@ export default function RevOpsImplementationsPage() {
 
         <div className="container mx-auto px-6 md:px-16 relative z-10 py-28">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter">
+            <h2 className="text-2xl md:text-5xl font-black text-white tracking-tighter">
               Everything <span className="text-[#62D2A2]">Connected.</span> Everything <span className="text-[#62D2A2]">Automated.</span>
             </h2>
           </div>
@@ -322,7 +336,7 @@ export default function RevOpsImplementationsPage() {
                     <div className="w-12 h-12 rounded-xl bg-[#62D2A2]/10 border border-[#62D2A2]/20 flex items-center justify-center shrink-0 text-[#62D2A2]">
                       {row.icon}
                     </div>
-                    <h3 className="text-2xl font-black text-white">{row.title}</h3>
+                    <h3 className="text-lg md:text-2xl font-black text-white">{row.title}</h3>
                   </div>
                   <p className="font-body text-white text-base md:text-lg leading-relaxed ml-16">
                     {row.description}
@@ -337,10 +351,10 @@ export default function RevOpsImplementationsPage() {
             <div className="border-t border-white/10 pt-16">
               <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr]">
                 <div>
-                  <h2 className="text-5xl md:text-6xl font-black tracking-tighter leading-tight text-white mb-6">
+                  <h2 className="text-2xl md:text-6xl font-black tracking-tighter leading-tight text-white mb-6">
                     How We <span className="text-[#F96B6B]">Run It.</span>
                   </h2>
-                  <p className="text-lg md:text-xl text-white font-body leading-relaxed max-w-sm">
+                  <p className="text-base md:text-xl text-white font-body leading-relaxed max-w-sm">
                     Implementation that reaches the field, not just the settings page.
                   </p>
                 </div>
@@ -351,7 +365,7 @@ export default function RevOpsImplementationsPage() {
                         {row.step}
                       </div>
                       <div>
-                        <h3 className="text-2xl font-black tracking-tight text-white">
+                        <h3 className="text-lg md:text-2xl font-black tracking-tight text-white">
                           {row.title}
                         </h3>
                         <p className="mt-3 font-body text-base md:text-lg leading-relaxed text-white">

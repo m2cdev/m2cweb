@@ -190,7 +190,7 @@ export default function CaseStudyPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent" />
         </div>
 
-        <div className="container mx-auto px-6 md:px-16 relative z-10 grid md:grid-cols-2 gap-16 items-center py-32 pt-40">
+        <div className="container mx-auto px-6 md:px-16 relative z-10 grid md:grid-cols-2 gap-8 md:gap-16 items-center py-20 pt-32 md:py-32 md:pt-40">
           {/* Left: text */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -200,17 +200,17 @@ export default function CaseStudyPage() {
             <span className="inline-block text-[11px] font-black tracking-[0.4em] text-[#62D2A2] uppercase mb-4">
               {study.category}
             </span>
-            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-4">
+            <h1 className="text-4xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-4">
               {study.title}
             </h1>
             <p className="text-[#62D2A2] font-black uppercase tracking-widest text-sm mb-8">
               {study.label}
             </p>
-            <p className="text-xl text-white font-body leading-relaxed max-w-lg mb-10">
+            <p className="text-base md:text-xl text-white font-body leading-relaxed max-w-lg mb-8 md:mb-10">
               {study.problem[0]}
             </p>
             <a href="#case-study">
-              <button className="bg-[#62D2A2] text-white px-10 py-4 font-black text-sm uppercase tracking-widest rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center gap-3">
+              <button className="bg-[#62D2A2] text-white px-6 py-3 md:px-10 md:py-4 font-black text-sm uppercase tracking-widest rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center gap-3">
                 Read the Case Study
                 <ArrowRight className="w-4 h-4" />
               </button>
@@ -250,7 +250,7 @@ export default function CaseStudyPage() {
             </div>
             <div className="space-y-6">
               {study.problem.map((para, i) => (
-                <p key={i} className={`font-body leading-relaxed ${i === 0 ? "text-2xl md:text-3xl text-white font-semibold" : "text-xl md:text-2xl text-white"}`}>
+                <p key={i} className={`font-body leading-relaxed ${i === 0 ? "text-lg md:text-3xl text-white font-semibold" : "text-base md:text-2xl text-white"}`}>
                   {para}
                 </p>
               ))}
@@ -272,7 +272,7 @@ export default function CaseStudyPage() {
             </div>
             <div className="space-y-6">
               {study.build.map((para, i) => (
-                <p key={i} className={`font-body leading-relaxed ${i === 0 ? "text-2xl md:text-3xl text-white font-semibold" : "text-xl md:text-2xl text-white"}`}>
+                <p key={i} className={`font-body leading-relaxed ${i === 0 ? "text-lg md:text-3xl text-white font-semibold" : "text-base md:text-2xl text-white"}`}>
                   {para}
                 </p>
               ))}
@@ -308,7 +308,7 @@ export default function CaseStudyPage() {
               <span className="text-sm font-black tracking-[0.35em] text-[#62D2A2] uppercase">{study.resultTitle}</span>
               <div className="h-px flex-1 bg-gradient-to-r from-[#62D2A2]/40 to-transparent" />
             </div>
-            <p className="text-2xl md:text-3xl text-white font-body leading-relaxed mb-12">
+            <p className="text-lg md:text-3xl text-white font-body leading-relaxed mb-8 md:mb-12">
               {study.impact}
             </p>
             <div className="border border-white/[0.08] rounded-2xl overflow-hidden">
@@ -319,7 +319,7 @@ export default function CaseStudyPage() {
                 {study.outcomes.map((outcome, i) => (
                   <div key={i} className="flex items-start gap-4 px-6 py-5">
                     <CheckCircle className="w-5 h-5 text-[#62D2A2] shrink-0 mt-0.5" />
-                    <p className="text-white font-body text-lg md:text-xl">{outcome}</p>
+                    <p className="text-white font-body text-sm md:text-xl">{outcome}</p>
                   </div>
                 ))}
               </div>
@@ -334,7 +334,7 @@ export default function CaseStudyPage() {
             transition={{ duration: 0.6 }}
             className="text-center py-16 border-t border-white/[0.06] hide-floating-cta"
           >
-            <h3 className="text-4xl md:text-6xl font-black tracking-tighter mb-10">
+            <h3 className="text-2xl md:text-6xl font-black tracking-tighter mb-8 md:mb-10">
               Let&apos;s Build Your <span className="text-[#62D2A2]">Motion.</span>
             </h3>
             <a
@@ -342,7 +342,7 @@ export default function CaseStudyPage() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <button className="bg-[#62D2A2] text-white px-12 py-5 font-black text-sm uppercase tracking-widest rounded-full hover:bg-white hover:text-black transition-all duration-300">
+              <button className="bg-[#62D2A2] text-white px-8 py-4 md:px-12 md:py-5 font-black text-sm uppercase tracking-widest rounded-full hover:bg-white hover:text-black transition-all duration-300">
                 Book a Working Session
               </button>
             </a>

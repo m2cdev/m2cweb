@@ -2,10 +2,11 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  Code2, 
-  Layers, 
-  Zap 
+import {
+  Code2,
+  Layers,
+  Zap,
+  ChevronRight
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -76,42 +77,104 @@ export default function FeatureCarousel() {
     return "hidden";
   };
 
+  const active = FEATURES[currentIndex];
+
   return (
     <div className="w-full max-w-7xl mx-auto md:p-8">
-      <div className="relative overflow-hidden rounded-[2.5rem] lg:rounded-[4rem] flex flex-col lg:flex-row min-h-[600px] lg:aspect-video border-2 border-white/30 bg-[#0A0A0A] shadow-[0_0_50px_rgba(255,255,255,0.05)]">
+
+      {/* ── MOBILE LAYOUT ─────────────────────────────────────── */}
+      <div className="block lg:hidden px-4">
+        {/* Tab buttons */}
+        <div className="flex flex-col gap-3 mb-6">
+          {FEATURES.map((feature, index) => {
+            const isActive = index === currentIndex;
+            return (
+              <button
+                key={feature.id}
+                onClick={() => handleChipClick(index)}
+                className={cn(
+                  "flex items-center gap-4 px-5 py-4 rounded-2xl border transition-all duration-300 text-left w-full",
+                  isActive
+                    ? "bg-[#62D2A2] border-[#62D2A2] text-white"
+                    : "bg-[#0D0D0D] border-white/10 text-white/40"
+                )}
+              >
+                <feature.icon size={20} strokeWidth={2} className="shrink-0" />
+                <span className="font-black text-sm tracking-tight uppercase">{feature.title}</span>
+                {!isActive && <ChevronRight size={16} className="ml-auto shrink-0 text-white/20" />}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Active card */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active.id}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.3 }}
+            className="rounded-[2rem] bg-[#62D2A2] p-8 text-white"
+          >
+            <div className="flex items-center gap-2 mb-6">
+              <div className="w-2 h-2 rounded-full bg-white" />
+              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] opacity-80">
+                Principle 0{currentIndex + 1}
+              </span>
+            </div>
+            <div className="bg-white text-[#62D2A2] px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.25em] w-fit mb-6">
+              {active.label}
+            </div>
+            <h3 className="text-2xl font-black uppercase tracking-tight mb-5 leading-none">
+              {active.title}
+            </h3>
+            <p className="text-white font-bold text-base leading-relaxed">
+              {active.description}
+            </p>
+          </motion.div>
+        </AnimatePresence>
+
+        <motion.p
+          animate={{ opacity: [0.4, 0.9, 0.4] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+          className="mt-5 text-[12px] font-black uppercase tracking-[0.3em] text-[#62D2A2] text-center select-none"
+        >
+          ↑ Tap to explore
+        </motion.p>
+      </div>
+
+      {/* ── DESKTOP LAYOUT (unchanged) ────────────────────────── */}
+      <div className="hidden lg:flex relative overflow-hidden rounded-[4rem] min-h-[600px] lg:aspect-video border-2 border-white/30 bg-[#0A0A0A] shadow-[0_0_50px_rgba(255,255,255,0.05)]">
         {/* Left Side Navigation */}
-        <div className="w-full lg:w-[45%] min-h-[400px] lg:h-full relative z-30 flex flex-col items-start justify-center overflow-hidden px-8 md:px-16 lg:pl-20 bg-[#0D0D0D]">
+        <div className="w-[45%] h-full relative z-30 flex flex-col items-center justify-center overflow-hidden px-10 bg-[#0D0D0D]">
           <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#0D0D0D] to-transparent z-40" />
           <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0D0D0D] to-transparent z-40" />
-          
-          <div className="relative w-full h-full flex items-center justify-center lg:justify-start z-20">
+
+          <motion.p
+            animate={{ opacity: [0.4, 0.8, 0.4] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute bottom-20 left-1/2 -translate-x-1/2 text-[13px] font-black uppercase tracking-[0.3em] text-[#62D2A2] z-50 select-none whitespace-nowrap"
+          >
+            ↑ Tap to explore
+          </motion.p>
+
+          <div className="relative w-full h-full flex items-center justify-center z-20">
             {FEATURES.map((feature, index) => {
               const isActive = index === currentIndex;
               const distance = index - currentIndex;
-              const wrappedDistance = wrap(
-                -(FEATURES.length / 2),
-                FEATURES.length / 2,
-                distance
-              );
+              const wrappedDistance = wrap(-(FEATURES.length / 2), FEATURES.length / 2, distance);
 
               return (
                 <motion.div
                   key={feature.id}
-                  style={{
-                    height: ITEM_HEIGHT,
-                    width: "100%",
-                  }}
+                  style={{ height: ITEM_HEIGHT, width: "100%" }}
                   animate={{
                     y: wrappedDistance * ITEM_HEIGHT,
                     opacity: 1 - Math.abs(wrappedDistance) * 0.4,
                     scale: 1 - Math.abs(wrappedDistance) * 0.05,
                   }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 90,
-                    damping: 22,
-                    mass: 1,
-                  }}
+                  transition={{ type: "spring", stiffness: 90, damping: 22, mass: 1 }}
                   className="absolute flex items-center justify-start left-0"
                 >
                   <button
@@ -125,23 +188,21 @@ export default function FeatureCarousel() {
                         : "bg-transparent text-white/40 border-white/5 hover:border-white/10 hover:text-white"
                     )}
                   >
-                    <div
-                      className={cn(
-                        "flex items-center justify-center transition-colors duration-500 shrink-0",
-                        isActive ? "text-white" : "text-white/20"
-                      )}
-                    >
-                      <feature.icon
-                        size={24}
-                        strokeWidth={2}
-                      />
+                    <div className={cn("flex items-center justify-center transition-colors duration-500 shrink-0", isActive ? "text-white" : "text-white/20")}>
+                      <feature.icon size={24} strokeWidth={2} />
                     </div>
-
-                    <div className="flex flex-col">
-                      <span className="font-black text-lg tracking-tight uppercase leading-none">
-                        {feature.title}
-                      </span>
+                    <div className="flex flex-col flex-1">
+                      <span className="font-black text-lg tracking-tight uppercase leading-none">{feature.title}</span>
                     </div>
+                    {!isActive && (
+                      <motion.div
+                        animate={{ x: [0, 5, 0] }}
+                        transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                        className="shrink-0 text-white/30 group-hover:text-white/70 transition-colors duration-300"
+                      >
+                        <ChevronRight size={18} strokeWidth={2.5} />
+                      </motion.div>
+                    )}
                   </button>
                 </motion.div>
               );
@@ -149,10 +210,9 @@ export default function FeatureCarousel() {
           </div>
         </div>
 
-        {/* Right Side Content / Visual */}
-        <div className="flex-1 min-h-[500px] lg:h-full relative bg-[#050505] flex items-center justify-center py-16 px-6 md:px-12 lg:px-10 overflow-hidden border-t lg:border-t-0 lg:border-l border-white/10">
+        {/* Right Side Content */}
+        <div className="flex-1 h-full relative bg-[#050505] flex items-center justify-center py-16 px-10 overflow-hidden border-l border-white/10">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:32px_32px] opacity-20" />
-          
           <div className="relative w-full max-w-[480px] aspect-[4/5] flex items-center justify-center">
             {FEATURES.map((feature, index) => {
               const status = getCardStatus(index);
@@ -172,12 +232,7 @@ export default function FeatureCarousel() {
                     zIndex: isActive ? 20 : isPrev || isNext ? 10 : 0,
                     pointerEvents: isActive ? "auto" : "none",
                   }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 260,
-                    damping: 25,
-                    mass: 0.8,
-                  }}
+                  transition={{ type: "spring", stiffness: 260, damping: 25, mass: 0.8 }}
                   className="absolute inset-0 rounded-[2.5rem] p-10 flex flex-col items-center justify-center border-2 border-white/10 bg-[#62D2A2] origin-center shadow-2xl text-center"
                 >
                   <AnimatePresence>
@@ -189,26 +244,18 @@ export default function FeatureCarousel() {
                         className="flex flex-col items-center justify-center text-white"
                       >
                         <div className="bg-white text-[#62D2A2] px-5 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.25em] w-fit shadow-lg mb-10">
-                           {feature.label}
+                          {feature.label}
                         </div>
-                        
-                        <h3 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight mb-8 leading-none">
-                           {feature.title}
+                        <h3 className="text-5xl font-black text-white uppercase tracking-tight mb-8 leading-none">
+                          {feature.title}
                         </h3>
-
-                        <p className="text-white font-bold text-lg md:text-xl md:text-2xl leading-relaxed tracking-tight max-w-[90%] mx-auto">
+                        <p className="text-white font-bold text-xl leading-relaxed tracking-tight max-w-[90%] mx-auto">
                           {feature.description}
                         </p>
                       </motion.div>
                     )}
                   </AnimatePresence>
-
-                  <div
-                    className={cn(
-                      "absolute top-10 left-10 flex items-center gap-3 transition-opacity duration-500",
-                      isActive ? "opacity-100" : "opacity-0"
-                    )}
-                  >
+                  <div className={cn("absolute top-10 left-10 flex items-center gap-3 transition-opacity duration-500", isActive ? "opacity-100" : "opacity-0")}>
                     <div className="w-2 h-2 rounded-full bg-white shadow-[0_0_15px_rgba(255,255,255,0.5)]" />
                     <span className="text-white text-[10px] font-mono font-bold uppercase tracking-[0.3em] opacity-80">
                       Principle 0{index + 1}

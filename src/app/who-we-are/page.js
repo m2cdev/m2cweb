@@ -20,7 +20,7 @@ export default function WhoWeAre() {
             <motion.h1
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="text-4xl md:text-5xl lg:text-[5rem] font-black text-white tracking-[-0.04em] mb-12 leading-[0.95]"
+              className="text-3xl md:text-5xl lg:text-[5rem] font-black text-white tracking-[-0.04em] mb-8 md:mb-12 leading-[0.95]"
             >
               For <span className="text-primary opacity-90">Sales Teams.</span><br />
               By <span className="text-primary opacity-90">Sales Teams.</span>
@@ -32,7 +32,7 @@ export default function WhoWeAre() {
               transition={{ delay: 0.2 }}
               className="flex flex-col gap-8 max-w-5xl"
             >
-                <p className="mt-4 max-w-3xl text-lg md:text-xl font-body leading-relaxed text-white/82">
+                <p className="mt-4 max-w-3xl text-base md:text-xl font-body leading-relaxed text-white/82">
                   Map2Close embeds inside B2B revenue teams to diagnose where deals stall, rebuild the systems around that friction, and stay close enough to the work to prove the fix in live pipeline.
                 </p>
 
@@ -43,7 +43,7 @@ export default function WhoWeAre() {
                   className="h-14 px-10 rounded-2xl"
                   onClick={() => document.getElementById('narrative')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  <span className="text-lg font-bold text-white tracking-tight">Find out more</span>
+                  <span className="text-sm md:text-lg font-bold text-white tracking-tight">Find out more</span>
                 </ShimmerButton>
               </div>
             </motion.div>
@@ -52,7 +52,7 @@ export default function WhoWeAre() {
       </BackgroundPaths>
 
       {/* Built From the Field Section */}
-      <section id="narrative" className="w-full py-40 px-6 md:px-12 lg:px-20 border-b border-white/5 relative overflow-hidden">
+      <section id="narrative" className="w-full py-16 md:py-40 px-6 md:px-12 lg:px-20 border-b border-white/5 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none -z-10">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,#000_18%,transparent_100%)]" />
           <div className="absolute -left-24 top-20 h-[420px] w-[420px] rounded-full bg-primary/8 blur-[140px]" />
@@ -75,19 +75,19 @@ export default function WhoWeAre() {
           >
             <div className="space-y-10 text-left">
               <div className="flex items-center gap-4">
-                <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">
+                <h2 className="text-xl md:text-4xl font-black text-white tracking-tight">
                   Built From the <span className="text-primary">Field</span>
                 </h2>
                 <div className="h-px flex-1 bg-gradient-to-r from-primary/40 to-transparent" />
               </div>
 
-              <p className="max-w-6xl text-2xl md:text-4xl text-white font-body leading-tight tracking-tight">
+              <p className="max-w-6xl text-lg md:text-4xl text-white font-body leading-tight tracking-tight">
                 With <span className="text-primary">20+ years</span> of experience across B2B sales, tech, finance, retail, and operator-led growth environments, we kept seeing the same pattern: generic software built for the masses, one-size-fits-all playbooks, and real sales friction left untouched.
               </p>
 
               <div className="pt-2">
                 <div className="mb-6 h-px w-28 bg-gradient-to-r from-primary/70 to-transparent" />
-                <p className="text-2xl md:text-4xl font-black tracking-[-0.01em] text-white leading-[1.1]">
+                <p className="text-lg md:text-4xl font-black tracking-[-0.01em] text-white leading-[1.1]">
                   So We Built the Thing We <span className="text-primary opacity-90">Always Wished Existed.</span>
                 </p>
               </div>
@@ -105,7 +105,7 @@ export default function WhoWeAre() {
           transition={{ duration: 0.8 }}
         >
           <div className="flex flex-col mb-16 px-4">
-             <h2 className="text-4xl md:text-6xl font-black text-white tracking-[-0.02em]">
+             <h2 className="text-2xl md:text-6xl font-black text-white tracking-[-0.02em]">
                 Our Operating <span className="text-primary opacity-90">Principles</span>
              </h2>
           </div>
@@ -116,20 +116,25 @@ export default function WhoWeAre() {
       {/* Philosophy Spinner - full-bleed, scroll-linked orbital logo */}
       <PhilosophySpinner />
 
+      {/* Green Divider */}
+      <div className="w-full px-6 md:px-16">
+        <div className="h-px bg-gradient-to-r from-transparent via-[#62D2A2] to-transparent opacity-60" />
+      </div>
+
       {/* Our Partners Section */}
-      <div className="container-custom py-32 hide-floating-cta">
+      <div className="container-custom py-16 hide-floating-cta">
         <div className="flex flex-col items-center justify-center mb-16 text-center">
           <h2 className="text-primary font-mono font-medium text-[14px] tracking-[0.25em] uppercase mb-4">
             Our Partners
           </h2>
         </div>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-16 md:gap-32">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-32">
           {/* Apollo.io Logo */}
           <a
             href="https://www.apollo.io"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col items-center opacity-50 hover:opacity-100 transition-all duration-300 max-w-[200px]"
+            className="group flex flex-col items-center opacity-50 hover:opacity-100 transition-all duration-300 max-w-[140px] md:max-w-[200px]"
           >
             <div className="text-white group-hover:text-[#FACC15] transition-colors duration-300 mb-4">
               <svg width="180" height="48" viewBox="0 0 152 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
@@ -144,7 +149,7 @@ export default function WhoWeAre() {
             href="https://fullenrich.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col items-center opacity-50 hover:opacity-100 transition-all duration-300 max-w-[220px]"
+            className="group flex flex-col items-center opacity-50 hover:opacity-100 transition-all duration-300 max-w-[150px] md:max-w-[220px]"
           >
             <div className="text-white group-hover:text-[#A855F7] transition-colors duration-300 mb-4">
               <svg width="200" height="37" viewBox="0 0 1834 335" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
@@ -160,7 +165,7 @@ export default function WhoWeAre() {
         </div>
       </div>
 
-      <div className="h-20" />
+      <div className="h-8" />
     </div>
   );
 }

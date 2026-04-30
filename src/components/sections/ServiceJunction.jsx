@@ -71,6 +71,7 @@ export default function ServiceJunction({
           if (typeof window !== "undefined") {
             window[`m2c_junction_${index}`] = self.progress;
           }
+          setProgress(self.progress);
         },
       }
     });
@@ -111,11 +112,29 @@ export default function ServiceJunction({
   }, { scope: containerRef });
 
   return (
-    <section 
-      ref={containerRef} 
+    <section
+      ref={containerRef}
       className="relative w-full h-screen flex items-center justify-center overflow-hidden"
     >
-      <div 
+      {/* Green glow — appears after pipe opens, fades when it closes */}
+      <div
+        className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-300"
+        style={{
+          opacity: Math.max(0, Math.min(1,
+            progress < 0.3 ? 0 :
+            progress < 0.5 ? (progress - 0.3) / 0.2 :
+            progress < 0.85 ? 1 :
+            1 - (progress - 0.85) / 0.15
+          )),
+          background: `
+            radial-gradient(ellipse 6% 18% at 50% 50%, rgba(180,255,220,0.95) 0%, rgba(98,210,162,0.85) 30%, transparent 100%),
+            radial-gradient(ellipse 20% 45% at 50% 50%, rgba(98,210,162,0.45) 0%, rgba(98,210,162,0.15) 50%, transparent 100%),
+            radial-gradient(ellipse 40% 80% at 50% 50%, rgba(98,210,162,0.12) 0%, transparent 100%)
+          `,
+        }}
+      />
+
+      <div
         className={cn(
           "relative z-20 w-full max-w-[90rem] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-24 pointer-events-auto",
           isMobile ? "text-center py-16" : ""

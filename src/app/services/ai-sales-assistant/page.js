@@ -127,11 +127,11 @@ export default function AISalesAssistantPage() {
         </div>
 
         {/* ── Foreground Content ──────────────── */}
-        <div className="container mx-auto px-6 md:px-12 relative z-30 w-full h-full flex items-start pt-20 md:pt-24 pointer-events-none">
-          <div className="max-w-xl md:max-w-2xl lg:max-w-4xl pointer-events-auto">
-            <div className="flex flex-col justify-center">
+        <div className="container mx-auto px-6 md:px-12 relative z-30 w-full h-full flex items-start pt-24 md:pt-24 pointer-events-none">
+          <div className="max-w-xl md:max-w-2xl lg:max-w-4xl pointer-events-auto w-full">
+            <div className="flex flex-col justify-start md:justify-center gap-4 md:gap-0">
               <FadeSection delay={0}>
-                <div className="flex items-center gap-3 mb-6">
+                <div className="flex items-center gap-3 mb-4 md:mb-6">
                   
                   <span className="text-[11px] font-mono font-bold tracking-[0.4em] text-[#62D2A2] uppercase">
                     AI Sales Assistant
@@ -143,14 +143,14 @@ export default function AISalesAssistantPage() {
               </FadeSection>
 
               <FadeSection delay={0.08}>
-                <h1 className="text-4xl md:text-5xl lg:text-[4.5rem] font-black tracking-[-0.01em] leading-[0.95] mb-5 text-white">
+                <h1 className="text-2xl md:text-5xl lg:text-[4.5rem] font-black tracking-[-0.01em] leading-[0.95] mb-4 md:mb-5 text-white">
                   Your Sales Motion Just Got an Unfair{" "}
                   <span className="text-[#62D2A2]">Advantage.</span>
                 </h1>
               </FadeSection>
 
               <FadeSection delay={0.14}>
-                <p className="text-lg md:text-xl text-white opacity-100 leading-relaxed mb-5 max-w-lg font-body">
+                <p className="text-base md:text-xl text-white opacity-100 leading-relaxed mb-4 md:mb-5 max-w-lg font-body">
                   An AI-powered agent working inside your CRM across every stage of the deal, from first touch to closed-won.
                 </p>
               </FadeSection>
@@ -175,13 +175,13 @@ export default function AISalesAssistantPage() {
               </FadeSection>
 
 
-              <FadeSection delay={0.25} className="mt-6">
+              <FadeSection delay={0.25} className="mt-4 md:mt-6">
                 <div className="flex flex-col sm:flex-row items-center sm:items-center gap-6">
                   <Link href="#waitlist">
                     <ShimmerButton 
                       shimmerColor="#62D2A2" 
                       background="#111" 
-                      className="h-16 px-10 rounded-full"
+                      className="h-12 px-8 md:h-16 md:px-10 rounded-full"
                       shimmerSize="0.1em"
                     >
                       <span className="flex items-center gap-3 text-sm font-black text-white uppercase tracking-widest">
@@ -194,7 +194,7 @@ export default function AISalesAssistantPage() {
               </FadeSection>
 
               {/* Floating stat pill */}
-              <FadeSection delay={0.25} className="mt-5">
+              <FadeSection delay={0.25} className="mt-4 md:mt-5">
                 <div className="inline-flex items-center gap-4 px-5 py-4 rounded-2xl border border-[#62D2A2]/20 bg-[#62D2A2]/[0.04] backdrop-blur-sm">
                   <div className="relative">
                     <div className="w-2 h-2 rounded-full bg-[#62D2A2] animate-ping absolute inset-0" />
@@ -233,7 +233,7 @@ export default function AISalesAssistantPage() {
           <span className="inline-block text-base font-black tracking-[0.3em] text-white uppercase mb-6">
             Full-Funnel Coverage
           </span>
-          <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-[1.05] max-w-2xl">
+          <h2 className="text-2xl md:text-5xl font-black tracking-tight leading-[1.05] max-w-2xl">
             One <span className="text-[#62D2A2]">Agent.</span> Every <span className="text-[#62D2A2]">Stage.</span>
           </h2>
         </FadeSection>
@@ -296,7 +296,7 @@ export default function AISalesAssistantPage() {
                   <div className="w-12 h-12 rounded-xl bg-[#62D2A2]/10 border border-[#62D2A2]/20 flex items-center justify-center shrink-0 text-[#62D2A2]">
                     {feature.icon}
                   </div>
-                  <h3 className="text-2xl font-black text-white">{feature.title}</h3>
+                  <h3 className="text-lg md:text-2xl font-black text-white">{feature.title}</h3>
                 </div>
                 <p className="text-white font-body text-base md:text-lg leading-relaxed ml-16 mt-2">
                   {feature.description}
@@ -470,13 +470,13 @@ export default function AISalesAssistantPage() {
           </FadeSection>
 
           <FadeSection delay={0.08}>
-            <h2 className="text-5xl md:text-7xl font-black tracking-tight leading-tight mb-6">
+            <h2 className="text-2xl md:text-7xl font-black tracking-tight leading-tight mb-6">
               Join the <span className="text-[#F96B6B]">Waitlist.</span>
             </h2>
           </FadeSection>
 
           <FadeSection delay={0.14}>
-            <p className="text-white opacity-100 text-lg mb-14 max-w-lg mx-auto leading-relaxed">
+            <p className="text-white opacity-100 text-base md:text-lg mb-10 md:mb-14 max-w-lg mx-auto leading-relaxed">
               This Is The Next Generation of Selling. Less admin. Less guesswork. More time selling. Limited spots for early teams.
             </p>
           </FadeSection>

@@ -356,7 +356,7 @@ export default function PhilosophySpinner() {
       </div>
       
       {/* Spacer to guarantee clear reading and unpin release */}
-      <div className="h-[200px] w-full bg-[#050505]"></div>
+      <div className="h-[40px] w-full bg-[#050505]"></div>
     </>
   );
 }

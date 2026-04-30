@@ -29,10 +29,10 @@ export default function HowWeCompare() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <h1 className="text-5xl md:text-7xl lg:text-[6rem] font-heading font-black text-white tracking-widest uppercase mb-8 leading-none">
+            <h1 className="text-3xl md:text-7xl lg:text-[6rem] font-heading font-black text-white tracking-widest uppercase mb-8 leading-none">
               Precision <span className="text-primary ">vs</span> Proximity
             </h1>
-            <p className="text-xl md:text-2xl text-white font-body max-w-3xl mx-auto mb-12 tracking-wide leading-relaxed">
+            <p className="text-base md:text-2xl text-white font-body max-w-3xl mx-auto mb-12 tracking-wide leading-relaxed">
               Standardized sales execution for teams that have outgrown &quot;best effort&quot; workflows.
             </p>
           </motion.div>
@@ -46,10 +46,10 @@ export default function HowWeCompare() {
             <ShimmerButton 
               shimmerColor="#62D2A2" 
               background="rgba(255,255,255,0.05)" 
-              className="h-16 px-12 rounded-2xl border border-white/10 backdrop-blur-3xl"
+              className="h-12 px-8 md:h-16 md:px-12 rounded-2xl border border-white/10 backdrop-blur-3xl"
               onClick={() => document.getElementById('comparison-table')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              <span className="text-lg font-bold text-white tracking-widest uppercase">The Standard</span>
+              <span className="text-sm md:text-lg font-bold text-white tracking-widest uppercase">The Standard</span>
             </ShimmerButton>
           </motion.div>
         </div>
@@ -59,9 +59,9 @@ export default function HowWeCompare() {
       </section>
 
       {/* Comparison Grid Section */}
-      <section id="comparison-table" className="py-32 container-custom relative z-20">
-        <div className="text-center mb-24">
-          <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 tracking-tighter">
+      <section id="comparison-table" className="py-12 md:py-32 container-custom relative z-20">
+        <div className="text-center mb-10 md:mb-24">
+          <h2 className="text-2xl md:text-5xl font-heading font-bold mb-6 tracking-tighter">
             The Map2Close <span className="text-primary">Difference</span>
           </h2>
           <div className="h-1 w-24 bg-primary mx-auto rounded-full" />
@@ -73,13 +73,13 @@ export default function HowWeCompare() {
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="p-12 rounded-[2rem] bg-white/[0.02] border border-white/5 relative group overflow-hidden"
+            className="p-6 md:p-12 rounded-[2rem] bg-white/[0.02] border border-white/5 relative group overflow-hidden"
           >
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-coral/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             
             <div className="flex items-center gap-4 mb-10 text-coral">
               <X size={32} />
-              <h3 className="text-2xl font-heading font-bold uppercase tracking-widest">Legacy Approach</h3>
+              <h3 className="text-lg md:text-2xl font-heading font-bold uppercase tracking-widest">Legacy Approach</h3>
             </div>
 
             <ul className="space-y-8 relative z-10">
@@ -89,11 +89,11 @@ export default function HowWeCompare() {
                 { icon: Target, text: "High variance in individual rep performance" },
                 { icon: Gauge, text: "Guesswork-led pipeline management" }
               ].map((item, i) => (
-                <li key={i} className="flex items-start gap-6">
+                <li key={i} className="flex items-start gap-3 md:gap-6">
                   <div className="p-3 rounded-xl bg-coral/10 text-coral mt-1">
                     <item.icon size={20} />
                   </div>
-                  <p className="text-lg text-white leading-snug">{item.text}</p>
+                  <p className="text-sm md:text-lg text-white leading-snug">{item.text}</p>
                 </li>
               ))}
             </ul>
@@ -110,7 +110,7 @@ export default function HowWeCompare() {
             
             <div className="flex items-center gap-4 mb-10 text-primary">
               <Check size={32} />
-              <h3 className="text-2xl font-heading font-bold uppercase tracking-widest">The Map2Close Standard</h3>
+              <h3 className="text-lg md:text-2xl font-heading font-bold uppercase tracking-widest">The Map2Close Standard</h3>
             </div>
 
             <ul className="space-y-8 relative z-10">
@@ -120,11 +120,11 @@ export default function HowWeCompare() {
                 { icon: Target, text: "Industrialized performance consistency" },
                 { icon: Gauge, text: "Precision-driven account mapping" }
               ].map((item, i) => (
-                <li key={i} className="flex items-start gap-6">
+                <li key={i} className="flex items-start gap-3 md:gap-6">
                   <div className="p-3 rounded-xl bg-primary/10 text-primary mt-1 shadow-[0_0_15px_rgba(98,210,162,0.1)]">
                     <item.icon size={20} />
                   </div>
-                  <p className="text-lg text-white/90 font-medium leading-snug">{item.text}</p>
+                  <p className="text-sm md:text-lg text-white/90 font-medium leading-snug">{item.text}</p>
                 </li>
               ))}
             </ul>
