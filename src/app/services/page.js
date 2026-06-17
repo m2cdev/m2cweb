@@ -57,7 +57,7 @@ const servicesData = [
     extrasData: [
       { title: "Sales Enablement Hub", text: "Centralized assets filtered by deal stage and persona", href: "/case-studies/pinecone" },
       { title: "Signal Intelligence Engine", text: "ICP-specific buying signals pushed into workflows", href: "/case-studies/signpost" },
-      { title: "Lead Routing Engines", text: "Qualify, score, and assign leads automatically", href: "/case-studies/zenatech" },
+      { title: "Trial-to-Close Engine", text: "Guided trial playbooks and monitoring engines accelerating deals post-demo", href: "/case-studies/qwilr" },
     ]
   }
 ];
@@ -171,7 +171,7 @@ export default function ServicesPage() {
           </p>
           
           <div className="flex flex-col items-center justify-center gap-8">
-            <Link href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96" target="_blank">
+            <Link href="/contact">
               <ShimmerButton shimmerColor="#62D2A2" background="#050505" className="h-14 px-8 rounded-full">
                 <span className="text-sm font-black text-white uppercase tracking-widest">Book a Working Session</span>
               </ShimmerButton>

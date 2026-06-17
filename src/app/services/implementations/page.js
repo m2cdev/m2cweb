@@ -139,10 +139,10 @@ export default function RevOpsImplementationsPage() {
             </p>
           </FadeSection>
 
-          {/* CTA — hidden on mobile, shown on md+ */}
+          {/* CTA - hidden on mobile, shown on md+ */}
           <FadeSection delay={0.2} className="hidden md:block">
             <a
-              href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
+              href="/contact"
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex"
@@ -258,9 +258,9 @@ export default function RevOpsImplementationsPage() {
           {/* Decorative glow */}
           <div className="absolute -inset-4 bg-[#62D2A2]/5 blur-[60px] rounded-[2rem] -z-10" />
 
-          {/* Mobile-only CTA — after the CRM graphic */}
+          {/* Mobile-only CTA - after the CRM graphic */}
           <a
-            href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
+            href="/contact"
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex md:hidden w-full"
@@ -321,7 +321,7 @@ export default function RevOpsImplementationsPage() {
           <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-[#62D2A2]/[0.06] blur-[100px]" />
         </div>
 
-        <div className="container mx-auto px-6 md:px-16 relative z-10 py-28">
+        <div className="container mx-auto px-6 md:px-16 relative z-10 py-14 md:py-28">
           <div className="text-center mb-16">
             <h2 className="text-2xl md:text-5xl font-black text-white tracking-tighter">
               Everything <span className="text-[#62D2A2]">Connected.</span> Everything <span className="text-[#62D2A2]">Automated.</span>
@@ -380,7 +380,7 @@ export default function RevOpsImplementationsPage() {
           </FadeSection>
 
           {/* ── FOOTER CTA ─────────────────────────────────────────────── */}
-          <FadeSection delay={0.3} className="mt-32 text-center pb-20 hide-floating-cta">
+          <FadeSection delay={0.3} className="mt-16 md:mt-32 text-center pb-12 md:pb-20 hide-floating-cta">
             <p className="text-lg md:text-xl text-white font-body mb-2">
               Your stack should be working <span className="text-[#62D2A2] font-black">harder</span> than it is.
             </p>

@@ -55,7 +55,7 @@ export default function Hero() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Link href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96" target="_blank" rel="noopener noreferrer" className={`${styles.primaryCta} glow-shadow-hover`}>
+            <Link href="/contact" className={`${styles.primaryCta} glow-shadow-hover`}>
               Book a Working Session
               <ArrowRight size={18} />
             </Link>

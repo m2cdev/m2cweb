@@ -106,7 +106,7 @@ export default function AISalesAssistantPage() {
   return (
     <div className="bg-[#050505] text-white min-h-screen overflow-x-hidden relative">
 
-      <section className="relative w-full h-[100vh] min-h-[900px] flex items-center overflow-hidden bg-black">
+      <section className="relative w-full md:min-h-screen flex items-center overflow-hidden bg-black pt-24 pb-12 md:pt-0 md:pb-0">
         {/* Aceternity spotlight beam - sweeps in from top-left */}
         <Spotlight
           className="-top-40 left-0 md:left-60 md:-top-20"
@@ -127,7 +127,7 @@ export default function AISalesAssistantPage() {
         </div>
 
         {/* ── Foreground Content ──────────────── */}
-        <div className="container mx-auto px-6 md:px-12 relative z-30 w-full h-full flex items-start pt-24 md:pt-24 pointer-events-none">
+        <div className="container mx-auto px-6 md:px-12 relative z-30 w-full md:h-full flex items-start md:pt-24 pointer-events-none">
           <div className="max-w-xl md:max-w-2xl lg:max-w-4xl pointer-events-auto w-full">
             <div className="flex flex-col justify-start md:justify-center gap-4 md:gap-0">
               <FadeSection delay={0}>
@@ -211,7 +211,7 @@ export default function AISalesAssistantPage() {
       </section>
 
       {/* ── Section gap ─────────────────────────────────────────────── */}
-      <div className="h-28" />
+      <div className="h-8 md:h-28" />
 
       {/* Divider */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-16">
@@ -221,13 +221,13 @@ export default function AISalesAssistantPage() {
       {/* ──────────────────────────────────────────────────────────────────
           SECTION 2 - OVERVIEW / STAGES
       ────────────────────────────────────────────────────────────────── */}
-      <section className="py-24 px-6 md:px-16 mx-auto relative overflow-hidden bg-black">
+      <section className="py-12 md:py-24 px-6 md:px-16 mx-auto relative overflow-hidden bg-black">
         <div className="absolute inset-0 pointer-events-none z-0">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
           <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#62D2A2]/[0.08] blur-[120px]" />
           <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-[#62D2A2]/[0.06] blur-[100px]" />
         </div>
-        
+
         <div className="max-w-[1400px] mx-auto relative z-10">
         <FadeSection delay={0} className="mb-16">
           <span className="inline-block text-base font-black tracking-[0.3em] text-white uppercase mb-6">
@@ -268,7 +268,7 @@ export default function AISalesAssistantPage() {
       {/* ──────────────────────────────────────────────────────────────────
           SECTION 3 - WHAT IT DOES
       ────────────────────────────────────────────────────────────────── */}
-      <section id="what-it-does" className="py-28 px-6 md:px-16 mx-auto relative overflow-hidden bg-black">
+      <section id="what-it-does" className="py-14 md:py-28 px-6 md:px-16 mx-auto relative overflow-hidden bg-black">
         <div className="absolute inset-0 pointer-events-none z-0">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
           <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#62D2A2]/[0.08] blur-[120px]" />
@@ -316,7 +316,7 @@ export default function AISalesAssistantPage() {
       {/* ──────────────────────────────────────────────────────────────────
           SECTION 4 - PRODUCT EXPERIENCE
       ────────────────────────────────────────────────────────────────── */}
-      <section className="py-28 px-6 md:px-16 mx-auto relative overflow-hidden bg-black">
+      <section className="py-14 md:py-28 px-6 md:px-16 mx-auto relative overflow-hidden bg-black">
         <div className="absolute inset-0 pointer-events-none z-0">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
           <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#62D2A2]/[0.08] blur-[120px]" />
@@ -417,7 +417,7 @@ export default function AISalesAssistantPage() {
       {/* ──────────────────────────────────────────────────────────────────
           SECTION 5 - INTEGRATIONS
       ────────────────────────────────────────────────────────────────── */}
-      <section className="py-28 px-6 md:px-16 mx-auto relative overflow-hidden bg-black">
+      <section className="py-14 md:py-28 px-6 md:px-16 mx-auto relative overflow-hidden bg-black">
         <div className="absolute inset-0 pointer-events-none z-0">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
           <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#62D2A2]/[0.07] blur-[120px]" />
@@ -460,7 +460,7 @@ export default function AISalesAssistantPage() {
       {/* ──────────────────────────────────────────────────────────────────
           SECTION 6 - CTA / WAITLIST
       ────────────────────────────────────────────────────────────────── */}
-      <section id="waitlist" className="pt-24 pb-12 px-6 text-center hide-floating-cta relative overflow-hidden bg-black">
+      <section id="waitlist" className="pt-12 md:pt-24 pb-12 px-6 text-center hide-floating-cta relative overflow-hidden bg-black">
         
         <div className="max-w-3xl mx-auto relative z-10">
           <FadeSection delay={0}>
@@ -483,7 +483,7 @@ export default function AISalesAssistantPage() {
 
           <FadeSection delay={0.2} className="flex justify-center">
             <Link
-              href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
+              href="/contact"
               target="_blank"
             >
               <ShimmerButton 

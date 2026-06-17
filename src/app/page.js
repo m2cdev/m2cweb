@@ -13,10 +13,9 @@ import TopographicMap from "@/components/sections/TopographicMap";
 
 
 const caseStudiesData = [
-  { id: "pinecone", title: "Pinecone", subtitle: "Sales Enablement Hub", url: "/images/pinecone-homepage.png", category: "Sales Enablement" },
-  { id: "signpost", title: "SignPost", subtitle: "Signal Intelligence Engine", url: "/images/signpost-homepage.png", category: "Signal Intelligence" },
-  { id: "zenatech", title: "ZenaTech", subtitle: "Custom CRM Automations", url: "/images/zenatech-homepage.png", category: "Revenue Systems" },
-  { id: "qwilr", title: "Qwilr", subtitle: "Trial-to-Close Engine", url: "/images/qwilr-homepage.png", category: "Trial Optimization" },
+  { id: "pinecone", title: "Sales Enablement Hub", subtitle: "The right content, surfaced at the right moment in every deal.", url: "/images/pinecone-homepage.png", category: "Sales Enablement" },
+  { id: "signpost", title: "Signal Intelligence Engine", subtitle: "Public review data, scored and pushed straight into HubSpot.", url: "/images/signpost-homepage.png", category: "Signal Intelligence" },
+  { id: "qwilr", title: "Trial-to-Close Engine", subtitle: "A guided trial motion that ends post-demo deal drift.", url: "/images/qwilr-homepage.png", category: "Trial Optimization" },
 ];
 
 
@@ -93,31 +92,46 @@ export default function Home() {
       {/* Case Studies Section - Natural Horizontal Scroll */}
       <HorizontalCarousel cards={caseStudiesData} />
 
-      {/* Final CTA - Lamp Effect */}
-      <section className="relative bg-black h-screen w-full flex flex-col items-center justify-center overflow-hidden hide-floating-cta">
-        <LampContainer>
-          <motion.div
-            initial={{ opacity: 0.5, y: 100 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.3,
-              duration: 0.8,
-              ease: "easeInOut",
-            }}
-            className="flex flex-col items-center justify-center text-center px-4"
-          >
-            <h2 className="text-2xl md:text-7xl font-black mb-6 md:mb-8 tracking-tighter text-white">
-              One Conversation. <br /> No <span className="text-primary ">Commitment.</span>
-            </h2>
-            <p className="text-base md:text-2xl text-white mb-6 md:mb-8 font-body">Stop guessing. Start closing.</p>
-            <Link href="/contact">
-              <ShimmerButton className="h-12 px-8 md:h-16 md:px-12 rounded-2xl" shimmerColor="#62D2A2">
-                <span className="text-sm md:text-xl font-black uppercase tracking-widest text-white">Book a Working Session</span>
-              </ShimmerButton>
-            </Link>
-            <p className="mt-8 text-white font-bold tracking-[0.3em] uppercase text-xs">Map. Execute. Optimize. Close.</p>
-          </motion.div>
-        </LampContainer>
+      {/* Final CTA - Lamp Effect (desktop) / Clean CTA (mobile) */}
+      <section className="relative bg-black w-full flex flex-col items-center justify-center overflow-hidden hide-floating-cta">
+        {/* Mobile CTA */}
+        <div className="md:hidden w-full flex flex-col items-center text-center px-6 py-20">
+          <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,rgba(98,210,162,0.15),transparent_70%)] pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-px bg-white/10" />
+          <h2 className="text-4xl font-black mb-4 tracking-tighter text-white relative z-10">
+            One Conversation. <br /> No <span className="text-primary">Commitment.</span>
+          </h2>
+          <p className="text-base text-white mb-8 font-body relative z-10">Stop guessing. Start closing.</p>
+          <Link href="/contact" className="relative z-10">
+            <ShimmerButton className="h-12 px-8 rounded-2xl" shimmerColor="#62D2A2">
+              <span className="text-sm font-black uppercase tracking-widest text-white">Book a Working Session</span>
+            </ShimmerButton>
+          </Link>
+          <p className="mt-8 text-white font-bold tracking-[0.3em] uppercase text-xs relative z-10">Map. Execute. Optimize. Close.</p>
+        </div>
+
+        {/* Desktop Lamp */}
+        <div className="hidden md:block w-full h-screen">
+          <LampContainer>
+            <motion.div
+              initial={{ opacity: 0.5, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
+              className="flex flex-col items-center justify-center text-center px-4"
+            >
+              <h2 className="text-7xl font-black mb-8 tracking-tighter text-white">
+                One Conversation. <br /> No <span className="text-primary">Commitment.</span>
+              </h2>
+              <p className="text-2xl text-white mb-8 font-body">Stop guessing. Start closing.</p>
+              <Link href="/contact">
+                <ShimmerButton className="h-16 px-12 rounded-2xl" shimmerColor="#62D2A2">
+                  <span className="text-xl font-black uppercase tracking-widest text-white">Book a Working Session</span>
+                </ShimmerButton>
+              </Link>
+              <p className="mt-8 text-white font-bold tracking-[0.3em] uppercase text-xs">Map. Execute. Optimize. Close.</p>
+            </motion.div>
+          </LampContainer>
+        </div>
       </section>
     </div>
   );

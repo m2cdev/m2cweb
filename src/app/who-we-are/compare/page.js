@@ -341,16 +341,16 @@ export default function ComparePage() {
 
           <div className="flex justify-center mt-4">
             <a
-              href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
+              href="/contact"
               target="_blank"
               rel="noopener noreferrer"
             >
               <ShimmerButton
                 shimmerColor="#62D2A2"
                 background="#111"
-                className="h-16 px-12 rounded-2xl"
+                className="h-12 px-8 md:h-16 md:px-12 rounded-2xl"
               >
-                <span className="font-body font-black text-xl text-white tracking-tight uppercase">Book a Working Session</span>
+                <span className="font-body font-black text-sm md:text-xl text-white tracking-widest uppercase">Book a Working Session</span>
               </ShimmerButton>
             </a>
           </div>

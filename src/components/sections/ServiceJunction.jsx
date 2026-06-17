@@ -116,7 +116,7 @@ export default function ServiceJunction({
       ref={containerRef}
       className="relative w-full h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Green glow — appears after pipe opens, fades when it closes */}
+      {/* Green glow - appears after pipe opens, fades when it closes */}
       <div
         className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-300"
         style={{

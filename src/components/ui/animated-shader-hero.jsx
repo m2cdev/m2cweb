@@ -8,6 +8,7 @@ const useShaderBackground = (shaderSource) => {
   const animationFrameRef = useRef();
   const rendererRef = useRef(null);
   const pointersRef = useRef(null);
+  const activeRef = useRef(true);
 
   // WebGL Renderer class
   class WebGLRenderer {
@@ -247,7 +248,13 @@ void main(){gl_Position=position;}`;
 
   const loop = (now) => {
     if (!rendererRef.current || !pointersRef.current) return;
-    
+
+    // Skip GPU work while the canvas is off-screen or the tab is hidden.
+    if (!activeRef.current) {
+      animationFrameRef.current = requestAnimationFrame(loop);
+      return;
+    }
+
     rendererRef.current.updateMouse(pointersRef.current.first);
     rendererRef.current.updatePointerCount(pointersRef.current.count);
     rendererRef.current.updatePointerCoords(pointersRef.current.coords);
@@ -275,11 +282,24 @@ void main(){gl_Position=position;}`;
     }
     
     loop(0);
-    
+
     window.addEventListener('resize', resize);
-    
+
+    // Pause rendering when the canvas scrolls off-screen or the tab is hidden.
+    let inView = true;
+    const updateActive = () => { activeRef.current = inView && !document.hidden; };
+    const observer = new IntersectionObserver(
+      (entries) => { inView = entries.some((e) => e.isIntersecting); updateActive(); },
+      { rootMargin: '300px' }
+    );
+    observer.observe(canvas);
+    const onVisibility = () => updateActive();
+    document.addEventListener('visibilitychange', onVisibility);
+
     return () => {
       window.removeEventListener('resize', resize);
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', onVisibility);
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }

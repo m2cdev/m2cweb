@@ -111,7 +111,7 @@ export default function ServiceSubpageLayout({
   ctaHeadline,
   ctaSubtext,
   ctaPrimaryText = "Book a Working Session",
-  ctaPrimaryLink = "https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96",
+  ctaPrimaryLink = "/contact",
   ctaExtra,
   isWaitlist = false,
   heroBackground,
@@ -163,14 +163,14 @@ export default function ServiceSubpageLayout({
   return (
     <div className="bg-black text-white min-h-screen selection:bg-primary/30">
       {/* 1. HERO */}
-      <section className="h-screen flex flex-col items-center justify-center relative px-6 text-center">
+      <section className="min-h-screen flex flex-col items-center justify-center relative px-6 text-center py-32 md:py-0">
         {heroBackground && (
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             {heroBackground}
           </div>
         )}
 
-        <div className="max-w-4xl mx-auto z-10 relative mt-16">
+        <div className="max-w-4xl mx-auto z-10 relative mt-0 md:mt-16">
           <WordReveal
             text={heroHeadline}
             className="text-3xl md:text-7xl lg:text-[5.5rem] font-black tracking-tighter leading-tight mb-8"
@@ -200,7 +200,7 @@ export default function ServiceSubpageLayout({
       {/* 2. WHAT WE DO (Approach) */}
       {approachText && (
         <section
-          className="bg-[#0d0d0d] px-6 py-20 md:px-16 md:py-[72px]"
+          className="bg-[#0d0d0d] px-6 py-12 md:px-16 md:py-[72px]"
           style={{ fontFamily: "'Outfit', sans-serif" }}
         >
           <motion.div
@@ -309,7 +309,7 @@ export default function ServiceSubpageLayout({
       {/* 3. SERVICE BLOCKS (Horizontal Scroll with Custom Cursor) */}
       {serviceRows && serviceRows.length > 0 && (
         <section 
-          className="py-24 md:py-32 relative overflow-hidden bg-black group/carousel select-none cursor-none"
+          className="pt-12 pb-6 md:py-32 relative overflow-hidden bg-black group/carousel select-none cursor-none"
           onMouseMove={handleMouseMove}
           onMouseDown={handleMouseDown}
           onMouseUp={() => setIsDragging(false)}
@@ -497,7 +497,7 @@ export default function ServiceSubpageLayout({
       )}
 
       {/* 5. BOTTOM CTA */}
-      <section className="px-6 relative overflow-hidden pb-[120px] pt-32 bg-gradient-to-b from-black to-[#050505] hide-floating-cta">
+      <section className="px-6 relative overflow-hidden pb-16 md:pb-[120px] pt-8 md:pt-32 bg-gradient-to-b from-black to-[#050505] hide-floating-cta">
         <div className="absolute inset-0 bg-primary/5 opacity-50 translate-y-full blur-3xl pointer-events-none" />
         <div className="max-w-3xl mx-auto text-center relative z-10 flex flex-col items-center">
           <h2 className="text-3xl md:text-7xl font-black text-white tracking-tighter mb-6 leading-[0.95]">

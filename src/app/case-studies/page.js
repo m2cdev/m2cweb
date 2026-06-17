@@ -14,41 +14,28 @@ const caseStudies = [
     id: "pinecone",
     company: "Sales Enablement",
     title: "Sales Enablement Hub",
-    description: "Pinecone is the gold standard for vector database infrastructure. The problem wasn't the product. It wasn't the reps. It was that the right content never made it into the right conversation at the right time. We built a live content repository where reps could filter assets by deal stage, buyer persona, and use case in real time, replacing scattered folders with a centralized Sales Enablement Hub.",
+    description: "The right content never made it into the right conversation at the right time. Assets existed but were scattered, outdated, and impossible to surface during an active deal. We built a centralized Sales Enablement Hub where reps filter assets by deal stage, buyer persona, and use case in real time.",
     loomId: "8815fd477dcd444799521d13995e8442",
     thumbnail: "/images/case-studies/pinecone-loom.png",
     color: "#62D2A2",
-    companyName: "Pinecone",
   },
   {
     id: "signpost",
     company: "Signal Intelligence",
     title: "Signal Intelligence Engine",
-    description: "Signpost reps were cold calling blind. Outreach was inconsistent, research was manual, and dials were wasted on the wrong accounts. We built a custom Signal Intelligence Engine that scraped and analyzed public review data across tens of thousands of home-services businesses, pushing high-scoring, pre-enriched leads directly into HubSpot.",
+    description: "Reps were cold calling blind - no way to know which accounts were actively in pain. We built a custom Signal Intelligence Engine that scraped public review data, scored every account across Fit, Demand, Comms Pain, and Growth, and pushed high-scoring leads directly into HubSpot with rep-facing briefs.",
     loomId: "7694a0c1e94d44cc875b8f75e7b4d0e7",
     thumbnail: "/images/case-studies/signpost-loom.png",
     color: "#F96B6B",
-    companyName: "SignPost",
-  },
-  {
-    id: "zenatech",
-    company: "Revenue Systems",
-    title: "Multi-Unit Revenue System",
-    description: "ZenaTech is a fast-growing holding company spanning SaaS, Drones-as-a-Service, land surveying, and defense tech. Each unit had its own reps and motion, none of it connected. We built the entire revenue operating system from the ground up: full HubSpot + Apollo implementation, unified playbooks, and 37 automated workflows that eliminated manual routing across every business unit.",
-    loomId: "17f37feb765d47a3b900d354eb73599f",
-    thumbnail: "/images/case-studies/zenatech-loom.png",
-    color: "#ffffff",
-    companyName: "ZenaTech",
   },
   {
     id: "qwilr",
     company: "Trial Optimization",
     title: "Trial-to-Close Engine",
-    description: "Qwilr's deals would slow down the moment they left the demo stage. We designed and implemented a structured Trial-to-Close Engine: a guided playbook with give/get incentives partnered with a Deal Accelerator Engine that monitored every active trial and flagged deals stalling beyond threshold points.",
+    description: "A California-based SaaS team had deals slow down the moment they left the demo stage. We designed a Trial-to-Close Engine: a guided playbook with give/get incentives, partnered with a Deal Accelerator Engine that monitored every active trial and flagged deals stalling beyond threshold points.",
     loomId: "09630646d94f4811a4186f9e879e4b7c",
     thumbnail: "/images/case-studies/qwilr-loom.png",
     color: "#62D2A2",
-    companyName: "Qwilr",
   },
 ];
 
@@ -61,8 +48,8 @@ const LoomEmbed = ({ loomId, color, thumbnail }) => {
 
       {!isPlaying ? (
         <div
-          className="absolute inset-0 z-10 flex flex-col items-center justify-center cursor-pointer group/overlay transition-all duration-500"
-          onClick={() => setIsPlaying(true)}
+          className={`absolute inset-0 z-10 flex flex-col items-center justify-center group/overlay transition-all duration-500 ${loomId ? "cursor-pointer" : ""}`}
+          onClick={() => loomId && setIsPlaying(true)}
         >
           {thumbnail && (
             <div className="absolute inset-0 z-0">
@@ -74,14 +61,16 @@ const LoomEmbed = ({ loomId, color, thumbnail }) => {
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
             </div>
           )}
-          <div className="relative z-10 flex flex-col items-center">
-            <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-2xl group-hover/overlay:scale-110 group-hover/overlay:bg-primary group-hover/overlay:text-black transition-all duration-300">
-              <Play fill="currentColor" size={32} />
+          {loomId && (
+            <div className="relative z-10 flex flex-col items-center">
+              <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-2xl group-hover/overlay:scale-110 group-hover/overlay:bg-primary group-hover/overlay:text-black transition-all duration-300">
+                <Play fill="currentColor" size={32} />
+              </div>
+              <p className="mt-4 text-sm font-black uppercase tracking-[0.3em] text-white group-hover/overlay:text-primary transition-colors">
+                Watch Case Study
+              </p>
             </div>
-            <p className="mt-4 text-sm font-black uppercase tracking-[0.3em] text-white group-hover/overlay:text-primary transition-colors">
-              Watch Case Study
-            </p>
-          </div>
+          )}
         </div>
       ) : (
         <iframe
@@ -142,10 +131,9 @@ export default function CaseStudies() {
                   <p className="inline-block px-4 py-1 rounded-full border border-[#62D2A2]/30 bg-[#62D2A2]/10 text-sm font-bold text-[#62D2A2] uppercase tracking-widest mb-6">
                     {cs.company}
                   </p>
-                  <h2 className="text-xl md:text-5xl font-bold mb-3 tracking-tight leading-tight">
-                    {cs.companyName}
+                  <h2 className="text-xl md:text-5xl font-bold mb-8 tracking-tight leading-tight">
+                    {cs.title}
                   </h2>
-                  <p className="text-primary font-bold uppercase tracking-widest text-sm mb-8">{cs.title}</p>
                   <p className="text-sm md:text-lg text-white opacity-80 font-body leading-relaxed mb-8 md:mb-10">
                     {cs.description}
                   </p>

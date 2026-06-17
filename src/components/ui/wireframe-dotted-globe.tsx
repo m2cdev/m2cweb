@@ -219,13 +219,22 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
     let autoRotate = true
     const rotationSpeed = 0.5
 
+    let inView = true
+    const isActive = () => inView && !document.hidden
     const rotate = () => {
-      if (autoRotate) {
+      if (autoRotate && isActive()) {
         rotation[0] += rotationSpeed
         projection.rotate(rotation)
         render()
       }
     }
+
+    // Pause the auto-rotation redraw when the globe is off-screen or tab hidden.
+    const observer = new IntersectionObserver(
+      (entries) => { inView = entries.some((e) => e.isIntersecting) },
+      { rootMargin: "200px" }
+    )
+    observer.observe(canvas)
 
     // Auto-rotation timer
     const rotationTimer = d3.timer(rotate)
@@ -279,6 +288,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
     // Cleanup
     return () => {
       rotationTimer.stop()
+      observer.disconnect()
       canvas.removeEventListener("mousedown", handleMouseDown)
       canvas.removeEventListener("wheel", handleWheel)
     }

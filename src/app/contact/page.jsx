@@ -21,6 +21,7 @@ export default function ContactPage() {
         { name: "firstname", value: formData.get("firstName") },
         { name: "lastname", value: formData.get("lastName") },
         { name: "email", value: formData.get("email") },
+        { name: "phone", value: formData.get("phone") },
         { name: "company", value: formData.get("company") },
         { name: "jobtitle", value: formData.get("jobTitle") },
         { name: "company_size_range", value: formData.get("companySize") },
@@ -54,7 +55,7 @@ export default function ContactPage() {
       }
     } catch (error) {
       console.error("Submit error:", error);
-      setErrorMsg("Network error — please try again.");
+      setErrorMsg("Network error, please try again.");
       setFormState("error");
     }
   };
@@ -69,71 +70,22 @@ export default function ContactPage() {
       />
 
       <div className="relative z-10 w-full max-w-screen-xl mx-auto px-8 min-h-screen flex items-center">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-10 lg:gap-16 pt-20">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-10 lg:gap-16 pt-20 lg:items-center">
 
           {/* Left Column */}
-          <div className="flex flex-col justify-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="relative bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-2xl p-8 md:p-10 overflow-hidden h-full"
-            >
-              <div className="absolute -top-40 -left-40 w-80 h-80 bg-primary/20 rounded-full blur-[100px] opacity-40 pointer-events-none" />
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter mb-3 leading-[0.95]">
-                Ready to <span className="text-primary">Close?</span>
-              </h1>
-              <p className="text-sm text-white font-body mb-8">
-                Here&apos;s how it works
-              </p>
-
-              {/* Steps */}
-              <div className="flex flex-col">
-
-                {/* Step 1 */}
-                <div className="flex gap-5 items-start">
-                  <div className="flex flex-col items-center shrink-0">
-                    <div className="flex items-center justify-center w-12 h-12 bg-primary rounded-xl shrink-0">
-                      <span className="text-white font-black text-lg">01</span>
-                    </div>
-                    <div className="w-px h-10 bg-primary/40 mt-2" />
-                  </div>
-                  <div className="pt-2 pb-6">
-                    <h3 className="text-white font-bold text-xl mb-2">Contact <span className="text-primary">Us</span></h3>
-                    <p className="text-white text-sm leading-relaxed">Fill out the form and tell us about your sales motion, team size, and where you&apos;re stuck.</p>
-                  </div>
-                </div>
-
-                {/* Step 2 */}
-                <div className="flex gap-5 items-start">
-                  <div className="flex flex-col items-center shrink-0">
-                    <div className="flex items-center justify-center w-12 h-12 bg-primary rounded-xl shrink-0">
-                      <span className="text-white font-black text-lg">02</span>
-                    </div>
-                    <div className="w-px h-10 bg-primary/40 mt-2" />
-                  </div>
-                  <div className="pt-2 pb-6">
-                    <h3 className="text-white font-bold text-xl mb-2">We Map the <span className="text-primary">Gaps</span></h3>
-                    <p className="text-white text-sm leading-relaxed">Our team audits your process and identifies the fixes that move the needle most.</p>
-                  </div>
-                </div>
-
-                {/* Step 3 */}
-                <div className="flex gap-5 items-start">
-                  <div className="flex flex-col items-center shrink-0">
-                    <div className="flex items-center justify-center w-12 h-12 bg-primary rounded-xl shrink-0">
-                      <span className="text-white font-black text-lg">03</span>
-                    </div>
-                  </div>
-                  <div className="pt-2">
-                    <h3 className="text-white font-bold text-xl mb-2">Start <span className="text-primary">Closing</span></h3>
-                    <p className="text-white text-sm leading-relaxed">We build the systems to help you close the deals. Measurable revenue impact from day one.</p>
-                  </div>
-                </div>
-
-              </div>
-            </motion.div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col justify-center"
+          >
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-normal mb-6 leading-[1.05]">
+              Eliminate the Friction.<br />Start <span className="text-primary">Closing.</span>
+            </h1>
+            <p className="text-base text-white/80 font-body leading-relaxed tracking-wide">
+              Tell us a bit about where you&apos;re seeing friction. We only partner with teams where we know we can move the needle, let&apos;s see if your motion is the right match for our systems.
+            </p>
+          </motion.div>
 
           {/* Right Column: Form */}
           <motion.div
@@ -155,15 +107,15 @@ export default function ContactPage() {
                   <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center border border-primary/30 mb-6">
                     <CheckCircle2 className="w-10 h-10 text-primary" />
                   </div>
-                  <h3 className="text-3xl font-bold text-white mb-4">Request Received</h3>
+                  <h3 className="text-3xl font-bold text-white mb-4">Ball&apos;s in Our Court</h3>
                   <p className="text-white/70 font-body mb-8">
-                    We&apos;ll review your details and get back to you within 24 hours to schedule our first session.
+                    We&apos;ll be in touch soon to get you where you need to be.
                   </p>
                   <button
-                    onClick={() => setFormState("idle")}
+                    onClick={() => window.location.href = '/case-studies'}
                     className="text-white font-medium hover:text-primary transition-colors flex items-center gap-2"
                   >
-                    Submit another request <ArrowRight className="w-4 h-4" />
+                    See Our Work <ArrowRight className="w-4 h-4" />
                   </button>
                 </motion.div>
               ) : (
@@ -188,10 +140,17 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  <div className="space-y-1">
-                    <label className="text-xs font-medium text-white/70">Email *</label>
-                    <input name="email" type="email" required placeholder="john@company.com"
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" />
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <label className="text-xs font-medium text-white/70">Email *</label>
+                      <input name="email" type="email" required placeholder="john@company.com"
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs font-medium text-white/70">Phone *</label>
+                      <input name="phone" type="tel" required placeholder="+1 (555) 000-0000"
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" />
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">

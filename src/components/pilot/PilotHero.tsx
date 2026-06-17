@@ -68,8 +68,8 @@ export function PilotHero() {
   // ── Mobile: lightweight static hero ──────────────────────────
   if (isMobile) {
     return (
-      <section className="relative w-full min-h-screen flex flex-col justify-center px-6 pt-28 pb-16 bg-[#0A0A0A] overflow-hidden">
-        {/* Simple ambient glow — no canvas, no GSAP */}
+      <section className="relative w-full flex flex-col justify-center px-6 pt-28 pb-12 bg-[#0A0A0A] overflow-hidden">
+        {/* Simple ambient glow - no canvas, no GSAP */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[340px] h-[340px] rounded-full bg-[#62D2A2]/10 blur-[100px]" />
         </div>
@@ -82,7 +82,7 @@ export function PilotHero() {
             </span>
           </div>
 
-          <h1 className="text-4xl font-black tracking-tighter leading-[1.05] mb-6 text-white">
+          <h1 className="text-5xl font-black tracking-tighter leading-[1.05] mb-6 text-white">
             <div>Prove It First.</div>
             <div><span className="text-[#62D2A2]">Scale</span> What Works.</div>
           </h1>
@@ -101,7 +101,7 @@ export function PilotHero() {
               <span className="text-sm font-black text-white uppercase tracking-widest">See How The Pilot Works</span>
             </ShimmerButton>
             <Link
-              href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
+              href="/contact"
               target="_blank"
               className="text-white/40 hover:text-white transition-colors text-xs font-black uppercase tracking-widest text-center"
             >
@@ -151,7 +151,7 @@ export function PilotHero() {
                   <span className="text-sm font-black text-white uppercase tracking-widest">See How The Pilot Works</span>
                 </ShimmerButton>
                 <Link
-                  href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
+                  href="/contact"
                   target="_blank"
                   className="text-white/40 hover:text-white transition-colors text-sm font-black uppercase tracking-widest"
                 >

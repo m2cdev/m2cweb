@@ -13,7 +13,7 @@ const navLinks = [
   { name: "Home", href: "/" },
   { name: "Who We Are", href: "/who-we-are", dropdown: [
     { name: "Company", href: "/who-we-are" },
-    { name: "What We Do", href: "/who-we-are/compare" }
+    { name: "How We Compare", href: "/who-we-are/compare" }
   ]},
   { name: "What We Do", href: "/services", mobileHref: "/services/sales-enablement", dropdown: [
     { name: "Overview", href: "/services", desktopOnly: true },
@@ -24,10 +24,9 @@ const navLinks = [
   ]},
   { name: "Case Studies", href: "/case-studies", dropdown: [
     { name: "Overview", href: "/case-studies" },
-    { name: "Signal Intelligence", href: "/case-studies/signpost" },
-    { name: "Sales Enablement", href: "/case-studies/pinecone" },
-    { name: "Revenue Systems", href: "/case-studies/zenatech" },
-    { name: "Trial Optimization", href: "/case-studies/qwilr" },
+    { name: "Signal Intelligence Engine", href: "/case-studies/signpost" },
+    { name: "Sales Enablement Hub", href: "/case-studies/pinecone" },
+    { name: "Trial-to-Close Engine", href: "/case-studies/qwilr" },
   ]},
   { name: "The Pilot", href: "/pilot" },
 ];
@@ -38,10 +37,16 @@ export default function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setIsScrolled(window.scrollY > 50);
+        ticking = false;
+      });
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

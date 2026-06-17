@@ -149,12 +149,22 @@ export function GenerativeMountainScene() {
     scene.add(pointLight);
 
     let frameId;
+    let inView = true;
+    const isActive = () => inView && !document.hidden;
     const animate = (t) => {
-      material.uniforms.time.value = t * 0.0003;
-      renderer.render(scene, camera);
+      if (isActive()) {
+        material.uniforms.time.value = t * 0.0003;
+        renderer.render(scene, camera);
+      }
       frameId = requestAnimationFrame(animate);
     };
     animate(0);
+
+    const observer = new IntersectionObserver(
+      (entries) => { inView = entries.some((e) => e.isIntersecting); },
+      { rootMargin: "300px" }
+    );
+    observer.observe(currentMount);
 
     const handleResize = () => {
       if (!currentMount) return;
@@ -183,6 +193,7 @@ export function GenerativeMountainScene() {
 
     return () => {
       cancelAnimationFrame(frameId);
+      observer.disconnect();
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", handleMouseMove);
       if (currentMount && renderer.domElement.parentNode === currentMount) {

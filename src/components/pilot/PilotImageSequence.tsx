@@ -54,7 +54,7 @@ export function PilotImageSequence({ progress }: PilotImageSequenceProps) {
     };
   }, []);
 
-  // Draw loop — only repaints when the target frame changes
+  // Draw loop - only repaints when the target frame changes
   useEffect(() => {
     if (!isFirstFrameReady) return;
 

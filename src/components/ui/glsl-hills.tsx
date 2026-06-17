@@ -177,10 +177,23 @@ const GLSLHills = ({ width = '100vw', height = '100vh', cameraZ = 125, planeSize
     };
 
     let reqId;
+    let inView = true;
+    const isActive = () => inView && !document.hidden;
     const renderLoop = () => {
-      render();
+      // Off-screen / backgrounded: consume the elapsed delta (so the shader
+      // doesn't jump on resume) but skip the GPU render.
+      if (!isActive()) {
+        clock.getDelta();
+      } else {
+        render();
+      }
       reqId = requestAnimationFrame(renderLoop);
     };
+
+    const observer = new IntersectionObserver(
+      (entries) => { inView = entries.some((e) => e.isIntersecting); },
+      { rootMargin: '300px' }
+    );
 
     const init = () => {
       renderer.setSize(window.innerWidth, window.innerHeight);
@@ -189,6 +202,7 @@ const GLSLHills = ({ width = '100vw', height = '100vh', cameraZ = 125, planeSize
       camera.lookAt(new THREE.Vector3(0, 28, 0));
       scene.add(plane.mesh);
       window.addEventListener('resize', resize);
+      if (containerRef.current) observer.observe(containerRef.current);
       resize();
       renderLoop();
     };
@@ -197,6 +211,7 @@ const GLSLHills = ({ width = '100vw', height = '100vh', cameraZ = 125, planeSize
 
     return () => {
       window.removeEventListener('resize', resize);
+      observer.disconnect();
       cancelAnimationFrame(reqId);
       plane.mesh.geometry.dispose();
       plane.mesh.material.dispose();

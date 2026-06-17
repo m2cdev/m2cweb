@@ -28,6 +28,7 @@ export function Waves({
     const noiseRef = useRef(null)
     const rafRef = useRef(null)
     const boundingRef = useRef(null)
+    const activeRef = useRef(true)
 
     function setSize() {
         if (!containerRef.current || !svgRef.current) return
@@ -217,6 +218,13 @@ export function Waves({
     function tick(time) {
         const { current: mouse } = mouseRef
 
+        // Skip the per-frame point math + SVG path rebuilds while off-screen or
+        // the tab is hidden; keep the loop scheduled so it resumes seamlessly.
+        if (!activeRef.current) {
+            rafRef.current = requestAnimationFrame(tick)
+            return
+        }
+
         // Smooth mouse movement
         mouse.sx += (mouse.x - mouse.sx) * 0.1
         mouse.sy += (mouse.y - mouse.sy) * 0.1
@@ -261,6 +269,17 @@ export function Waves({
         window.addEventListener('mousemove', onMouseMove)
         containerEl.addEventListener('touchmove', onTouchMove, { passive: false })
 
+        // Pause heavy per-frame work when scrolled off-screen or tab hidden.
+        let inView = true
+        const updateActive = () => { activeRef.current = inView && !document.hidden }
+        const observer = new IntersectionObserver(
+            (entries) => { inView = entries.some((e) => e.isIntersecting); updateActive() },
+            { rootMargin: '300px' }
+        )
+        observer.observe(containerEl)
+        const onVisibility = () => updateActive()
+        document.addEventListener('visibilitychange', onVisibility)
+
         // Defer size/lines init until after browser paint so getBoundingClientRect returns real dimensions
         const initRaf = requestAnimationFrame(() => {
             setSize()
@@ -274,6 +293,8 @@ export function Waves({
             window.removeEventListener('resize', onResize)
             window.removeEventListener('mousemove', onMouseMove)
             containerEl.removeEventListener('touchmove', onTouchMove)
+            observer.disconnect()
+            document.removeEventListener('visibilitychange', onVisibility)
         }
     }, [])
 

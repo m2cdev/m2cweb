@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { LampContainer } from "@/components/ui/lamp";
 import { TracingBeam } from "@/components/ui/tracing-beam";
@@ -54,7 +55,7 @@ export default function Pilot() {
       <PilotHero />
 
       {/* Scope & Risk Free Section */}
-      <section className="py-24 px-6 relative z-10 border-b border-white/10 bg-[#0a0a0a] overflow-hidden">
+      <section className="py-12 md:py-24 px-6 relative z-10 border-b border-white/10 bg-[#0a0a0a] overflow-hidden">
         {/* Brand Dual Radial Gradients */}
         {/* Premium Grid Background */}
         <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-0">
@@ -76,7 +77,7 @@ export default function Pilot() {
       </section>
 
       {/* Steps Section - Tracing Beam */}
-      <div id="how-it-works" className="container-custom pt-32 pb-20 relative z-10 overflow-hidden">
+      <div id="how-it-works" className="container-custom pt-16 md:pt-32 pb-12 md:pb-20 relative z-10 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none z-0">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
           <div className="absolute top-[15%] left-[10%] w-[500px] h-[500px] rounded-full bg-[#62D2A2]/[0.08] blur-[130px]" />
@@ -86,7 +87,7 @@ export default function Pilot() {
         <TracingBeam className="px-6">
           <div className="max-w-4xl mx-auto antialiased pt-4 relative">
             {steps.map((item, index) => (
-              <div key={index} className="mb-40">
+              <div key={index} className="mb-16 md:mb-40">
                 <p className="text-primary font-bold text-sm uppercase tracking-widest mb-4">{item.step}</p>
                 <h2 className="text-2xl md:text-6xl font-black mb-6 md:mb-8 tracking-tighter">
                   {index === 0 && <>Define the <span className="text-[#F96B6B]">Outcome</span></>}
@@ -156,7 +157,7 @@ export default function Pilot() {
       </div>
 
       {/* Final CTA */}
-      <div className="py-40 relative flex items-center justify-center min-h-[60vh] overflow-hidden text-center hide-floating-cta">
+      <div className="py-16 md:py-40 relative flex items-center justify-center min-h-[30vh] md:min-h-[60vh] overflow-hidden text-center hide-floating-cta">
         <BackgroundBeams className="opacity-60" />
         <div className="relative z-10 px-6 max-w-4xl mx-auto flex flex-col items-center">
           <h2 className="text-2xl md:text-7xl font-black tracking-tighter mb-6 text-white drop-shadow-2xl">
@@ -164,11 +165,11 @@ export default function Pilot() {
           </h2>
           <p className="text-base md:text-2xl text-white font-body mb-10 md:mb-12 max-w-2xl text-center">We keep it small on purpose. Every pilot gets our full, undivided execution capacity.</p>
           <div className="flex justify-center">
-            <a href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96" target="_blank" rel="noopener noreferrer">
+            <Link href="/contact">
               <ShimmerButton shimmerColor="#62D2A2" background="#111" className="h-12 px-8 md:h-16 md:px-12 rounded-2xl" shimmerSize="0.1em">
                 <span className="text-sm md:text-xl font-black text-white tracking-widest uppercase">Book a Working Session</span>
               </ShimmerButton>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

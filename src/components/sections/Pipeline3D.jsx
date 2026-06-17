@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, PerspectiveCamera } from "@react-three/drei";
 import * as THREE from "three";
 
-import { motion, useTransform } from "framer-motion";
+import { motion, useTransform, useMotionValueEvent } from "framer-motion";
 
 const MINT = "#62D2A2";
 const DARK_METAL = "#2a3530";
@@ -186,19 +186,37 @@ export default function Pipeline3D({ scrollProgress }) {
   // Use scrollProgress to drive Canvas opacity smoothly
   // scrollProgress is a motion value from parent
   const opacity = useTransform(
-    scrollProgress, 
+    scrollProgress,
     [0, 0.12, 0.18, 0.88, 0.92], // progress points
     [0, 0, 0.8, 0.8, 0]        // opacity values
   );
 
+  // Only render while the pipeline is actually faded in on screen. Outside the
+  // [0.1, 0.92] scroll band it's fully transparent, so rendering is wasted GPU.
+  const [tabVisible, setTabVisible] = useState(true);
+  const [inBand, setInBand] = useState(false);
+  useEffect(() => {
+    const onVis = () => setTabVisible(!document.hidden);
+    document.addEventListener("visibilitychange", onVis);
+    setInBand(() => {
+      const v = scrollProgress.get();
+      return v >= 0.1 && v <= 0.92;
+    });
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, [scrollProgress]);
+  useMotionValueEvent(scrollProgress, "change", (v) => {
+    setInBand(v >= 0.1 && v <= 0.92);
+  });
+
   return (
-    <motion.div 
-      style={{ opacity }} 
+    <motion.div
+      style={{ opacity }}
       className="fixed inset-0 pointer-events-none z-0 translate-x-[25%] sm:translate-x-[15%] md:translate-x-0"
     >
-      <Canvas 
-        shadows={false} 
-        dpr={typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1}
+      <Canvas
+        shadows={false}
+        frameloop={inBand && tabVisible ? "always" : "never"}
+        dpr={typeof window !== "undefined" ? Math.min(window.devicePixelRatio || 1, 1.5) : 1}
         performance={{ min: 0.5, max: 1 }}
         gl={{ antialias: true, stencil: false, depth: true, localClippingEnabled: true }}
       >

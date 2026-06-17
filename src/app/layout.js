@@ -58,7 +58,7 @@ const jsonLd = {
         "@type": "ImageObject",
         "url": "https://map2close.com/images/logo.png"
       },
-      "description": "Map2Close builds revenue systems for B2B sales teams — embedding inside organizations to standardize execution and close deals at scale.",
+      "description": "Map2Close builds revenue systems for B2B sales teams - embedding inside organizations to standardize execution and close deals at scale.",
       "sameAs": [
         "https://www.linkedin.com/company/map2close"
       ]

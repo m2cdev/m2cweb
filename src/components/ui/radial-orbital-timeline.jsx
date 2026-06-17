@@ -59,7 +59,24 @@ export default function RadialOrbitalTimeline({ timelineData }) {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       return;
     }
+    let inView = true;
+    const isActive = () => inView && !document.hidden;
+    let observer;
+    if (containerRef.current && typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(
+        (entries) => { inView = entries.some((e) => e.isIntersecting); },
+        { rootMargin: "200px" }
+      );
+      observer.observe(containerRef.current);
+    }
     const tick = (timestamp) => {
+      // Skip the per-frame rotation re-render while off-screen / tab hidden,
+      // but keep time continuous so it doesn't jump on resume.
+      if (!isActive()) {
+        lastTimeRef.current = timestamp;
+        rafRef.current = requestAnimationFrame(tick);
+        return;
+      }
       if (lastTimeRef.current !== null) {
         const delta = timestamp - lastTimeRef.current;
         // ~0.3 degrees per 50ms = 6 deg/s
@@ -70,7 +87,11 @@ export default function RadialOrbitalTimeline({ timelineData }) {
       rafRef.current = requestAnimationFrame(tick);
     };
     rafRef.current = requestAnimationFrame(tick);
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); lastTimeRef.current = null; };
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      if (observer) observer.disconnect();
+      lastTimeRef.current = null;
+    };
   }, [autoRotate]);
 
   const centerViewOnNode = (nodeId) => {

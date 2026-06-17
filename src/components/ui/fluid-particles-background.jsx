@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
+import { useActiveInView } from "@/hooks/useActiveInView";
 
 // Helper function for Perlin Noise
 function createNoise() {
@@ -101,6 +102,7 @@ export const FluidParticlesBackground = ({
   className
 }) => { 
   const canvasRef = useRef(null);
+  const { ref: containerRef, activeRef } = useActiveInView();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -142,6 +144,12 @@ export const FluidParticlesBackground = ({
 
       let reqId;
       const animate = () => {
+        // Skip all drawing/noise work while the hero is scrolled off-screen or
+        // the tab is backgrounded - keeps the loop cheap without changing looks.
+        if (!activeRef.current) {
+          reqId = requestAnimationFrame(animate);
+          return;
+        }
         const time = performance.now() * 0.0001;
         ctx.fillStyle = COLOR_SCHEME.dark.background;
         ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
@@ -211,6 +219,7 @@ export const FluidParticlesBackground = ({
 
   return (
     <div
+      ref={containerRef}
       className={cn(
         "relative w-full h-screen overflow-hidden",
         "bg-white dark:bg-black",

@@ -15,12 +15,12 @@ export default function WhoWeAre() {
     <div className="flex flex-col w-full bg-[#050505] min-h-screen">
       {/* Hero Section */}
       <BackgroundPaths>
-        <div className="container-custom pt-40 pb-20">
-          <div className="max-w-6xl mb-16">
+        <div className="container-custom pt-24 md:pt-40 pb-12 md:pb-20">
+          <div className="max-w-6xl mb-8 md:mb-16">
             <motion.h1
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="text-3xl md:text-5xl lg:text-[5rem] font-black text-white tracking-[-0.04em] mb-8 md:mb-12 leading-[0.95]"
+              className="text-5xl md:text-5xl lg:text-[5rem] font-black text-white tracking-[-0.04em] mb-6 md:mb-12 leading-[0.95]"
             >
               For <span className="text-primary opacity-90">Sales Teams.</span><br />
               By <span className="text-primary opacity-90">Sales Teams.</span>
@@ -113,8 +113,10 @@ export default function WhoWeAre() {
         </motion.div>
       </section>
 
-      {/* Philosophy Spinner - full-bleed, scroll-linked orbital logo */}
-      <PhilosophySpinner />
+      {/* Philosophy Spinner - hidden on mobile, shown on desktop */}
+      <div className="hidden md:block">
+        <PhilosophySpinner />
+      </div>
 
       {/* Green Divider */}
       <div className="w-full px-6 md:px-16">
@@ -134,9 +136,9 @@ export default function WhoWeAre() {
             href="https://www.apollo.io"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col items-center opacity-50 hover:opacity-100 transition-all duration-300 max-w-[140px] md:max-w-[200px]"
+            className="group flex flex-col items-center opacity-100 md:opacity-50 md:hover:opacity-100 transition-all duration-300 max-w-[140px] md:max-w-[200px]"
           >
-            <div className="text-white group-hover:text-[#FACC15] transition-colors duration-300 mb-4">
+            <div className="text-[#FACC15] md:text-white md:group-hover:text-[#FACC15] transition-colors duration-300 mb-4">
               <svg width="180" height="48" viewBox="0 0 152 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
                 <path d="M19.5993 0.0862365L19.605 13.2568C19.6058 15.3375 17.4222 16.6715 15.6079 15.6986L2.58376 8.7153C3.57706 7.05795 4.82616 5.57609 6.27427 4.32386L16.489 13.8945C17.0303 14.4015 17.8835 13.8518 17.6605 13.1398L13.6992 0.493553C15.0326 0.17147 16.4233 0 17.8536 0C18.4428 0 19.0248 0.0296814 19.5993 0.0862365Z" fill="currentColor" /><path d="M16.0635 36.1087L16.0578 23.0046C16.057 20.9239 18.2407 19.5898 20.0549 20.5627L33.0838 27.5486C32.0838 29.2016 30.8289 30.6786 29.3751 31.925L19.1738 22.3668C18.6326 21.8598 17.7793 22.4095 18.0023 23.1215L21.9486 35.72C20.6338 36.0329 19.263 36.1989 17.8539 36.1989C17.2497 36.1989 16.6523 36.1683 16.0635 36.1087Z" fill="currentColor" /><path d="M22.0105 16.77L31.4705 6.39392C30.2362 4.92008 28.7742 3.6486 27.1384 2.63702L20.2306 15.8767C19.2709 17.716 20.5871 19.9298 22.6396 19.9288L35.6183 19.923C35.6775 19.3234 35.7082 18.7151 35.7082 18.0996C35.7082 16.6683 35.5436 15.2761 35.2338 13.9406L22.7549 17.9576C22.0526 18.1837 21.5103 17.3187 22.0105 16.77Z" fill="currentColor" /><path d="M0.0842758 16.3383L13.0237 16.3325C15.0764 16.3317 16.3923 18.5454 15.4327 20.3846L8.56047 33.5561C6.93095 32.547 5.47394 31.2801 4.24344 29.8121L13.653 19.4914C14.1531 18.9427 13.6107 18.0777 12.9084 18.3037L0.485078 22.3029C0.168551 20.954 0 19.5467 0 18.0994C0 17.5051 0.0290814 16.9177 0.0842758 16.3383Z" fill="currentColor" /><path fillRule="evenodd" clipRule="evenodd" d="M57.0218 3.78205H60.6172L72.556 32.4477H68.5958L64.912 23.327H52.6694L49.1387 32.4477H45.3968L57.0218 3.78205ZM58.6968 8.35018L54.052 19.9528H63.4944L58.6968 8.35018Z" fill="currentColor" /><path fillRule="evenodd" clipRule="evenodd" d="M96.0131 22.4209C96.0131 16.3054 100.173 11.8668 105.904 11.8668C111.66 11.8668 115.838 16.3054 115.838 22.4209C115.838 28.5365 111.66 32.9753 105.904 32.9753C100.173 32.9753 96.0131 28.5365 96.0131 22.4209ZM99.7588 22.4209C99.7588 27.0223 102.114 29.8808 105.904 29.8808C109.721 29.8808 112.092 27.0223 112.092 22.4209C112.092 17.8197 109.721 14.9613 105.904 14.9613C102.114 14.9613 99.7588 17.8197 99.7588 22.4209Z" fill="currentColor" /><path fillRule="evenodd" clipRule="evenodd" d="M142.109 11.8668C136.353 11.8668 132.175 16.3054 132.175 22.4209C132.175 28.5365 136.353 32.9753 142.109 32.9753C147.84 32.9753 152 28.5365 152 22.4209C152 16.3054 147.4 11.8668 142.109 11.8668ZM142.109 29.8808C138.292 29.8808 135.92 27.0223 135.92 22.4209C135.92 17.8197 138.292 14.9613 142.109 14.9613C145.9 14.9613 148.254 17.8197 148.254 22.4209C148.254 27.0223 145.9 29.8808 142.109 29.8808Z" fill="currentColor" /><path d="M122.206 32.4477H118.59V3.78205H122.206V32.4477Z" fill="currentColor" /><path d="M125.807 32.4477H129.424V3.78205H125.807V32.4477Z" fill="currentColor" /><path fillRule="evenodd" clipRule="evenodd" d="M84.6895 32.9751C81.7329 32.9751 79.5182 31.5396 78.241 29.7601V40H74.6249V12.3935H78.241V15.1162C79.521 13.318 81.7375 11.8667 84.6895 11.8667C90.1907 11.8667 93.8867 16.1079 93.8867 22.4208C93.8867 28.7337 90.1907 32.9751 84.6895 32.9751ZM84.3427 15.0488C80.6409 15.0488 78.081 17.8451 78.081 21.8605V22.9813C78.081 26.9965 80.6409 29.7926 84.3427 29.7926C87.9732 29.7926 90.1408 27.0369 90.1408 22.4208C90.1408 17.8047 87.9732 15.0488 84.3427 15.0488Z" fill="currentColor" />
               </svg>
@@ -149,9 +151,9 @@ export default function WhoWeAre() {
             href="https://fullenrich.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col items-center opacity-50 hover:opacity-100 transition-all duration-300 max-w-[150px] md:max-w-[220px]"
+            className="group flex flex-col items-center opacity-100 md:opacity-50 md:hover:opacity-100 transition-all duration-300 max-w-[150px] md:max-w-[220px]"
           >
-            <div className="text-white group-hover:text-[#A855F7] transition-colors duration-300 mb-4">
+            <div className="text-[#A855F7] md:text-white md:group-hover:text-[#A855F7] transition-colors duration-300 mb-4">
               <svg width="200" height="37" viewBox="0 0 1834 335" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
                 <g fill="currentColor">
                   <path d="M171.634 53.137c-.784-3.784-6.183-3.8-6.989-.02l-4.953 23.2a27.03 27.03 0 0 1-21.265 20.89l-21.168 4.125c-3.831.746-3.859 6.218-.036 7.003l21.443 4.405a27.034 27.034 0 0 1 20.994 20.819l4.9 22.887c.806 3.768 6.185 3.763 6.985-.007l4.849-22.853a27.033 27.033 0 0 1 20.983-20.864l21.535-4.441c3.825-.789 3.79-6.264-.044-7.004l-21.115-4.074a27.031 27.031 0 0 1-21.347-21.054l-4.772-23.012z" />

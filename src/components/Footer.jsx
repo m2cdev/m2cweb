@@ -7,7 +7,7 @@ import { Linkedin } from "lucide-react";
 
 export default function Footer({ className = "" }) {
   return (
-    <footer className={`bg-black border-t border-white/10 pt-24 pb-12 relative overflow-hidden ${className}`}>
+    <footer className={`bg-black border-t border-white/10 pt-12 md:pt-24 pb-8 md:pb-12 relative overflow-hidden ${className}`}>
       {/* Subtle brand gradients at the bottom */}
       <div className="absolute bottom-0 left-0 w-full h-[500px] bg-[radial-gradient(circle_at_bottom_left,_rgba(98,210,162,0.18)_0%,_transparent_50%)] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-full h-[500px] bg-[radial-gradient(circle_at_bottom_right,_rgba(249,107,107,0.15)_0%,_transparent_50%)] pointer-events-none" />
@@ -41,7 +41,7 @@ export default function Footer({ className = "" }) {
             <ul className="space-y-4">
               <li><Link href="/" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">Home</Link></li>
               <li><Link href="/who-we-are" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">Who We Are</Link></li>
-              <li><Link href="/who-we-are/compare" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">What We Do</Link></li>
+              <li><Link href="/services" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">What We Do</Link></li>
               <li><Link href="/case-studies" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">Case Studies</Link></li>
               <li><Link href="/pilot" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">The Pilot</Link></li>
             </ul>

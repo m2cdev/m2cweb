@@ -110,10 +110,10 @@ const actionExamples = [
     href: "/case-studies/signpost",
   },
   { 
-    title: "Custom CRM Automations", 
-    body: "Automation workflows that qualify, score, and sync data across your stack automatically, so your team spends more time selling and less time on manual entry.", 
-    icon: <Zap className="w-9 h-9 text-[#62D2A2]" />,
-    href: "/case-studies/zenatech",
+    title: "Trial-to-Close Engine", 
+    body: "Structured guided trial playbooks and monitoring engines that track active trials, flag stalling deals, and suggest next steps to accelerate deals post-demo.", 
+    icon: <Cpu className="w-9 h-9 text-[#62D2A2]" />,
+    href: "/case-studies/qwilr",
   },
 ];
 
@@ -136,7 +136,7 @@ export default function RevOpsCustomBuildoutsPage() {
       ────────────────────────────────────────────────────────────────── */}
       <div className="fixed inset-0 z-0 pointer-events-none">
 
-        {/* Layer 1: Mesh Gradient — desktop only (WebGL crashes mobile) */}
+        {/* Layer 1: Mesh Gradient - desktop only (WebGL crashes mobile) */}
         {isDesktop && (
           <MeshGradient
             className="w-full h-full absolute inset-0 opacity-40 shadow-inner"
@@ -208,7 +208,7 @@ export default function RevOpsCustomBuildoutsPage() {
           {/* CTA after Phase 5 */}
           <FadeSection delay={0.3}>
             <a
-              href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
+              href="/contact"
               target="_blank"
               className="inline-flex items-center gap-3 bg-[#62D2A2] text-white px-8 py-4 font-black text-sm uppercase tracking-widest rounded-full"
             >
@@ -246,7 +246,7 @@ export default function RevOpsCustomBuildoutsPage() {
             <FadeSection delay={0.22}>
               <div className="flex flex-row items-center gap-8">
                 <a
-                  href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
+                  href="/contact"
                   target="_blank"
                   className="group relative"
                 >
@@ -366,7 +366,7 @@ export default function RevOpsCustomBuildoutsPage() {
 
               <div className="flex justify-center">
                 <Link
-                  href="https://sales.map2close.com/meetings/kenzo/disco?uuid=f3fa6679-849d-4d9e-85de-c4525efb4f96"
+                  href="/contact"
                   target="_blank"
                 >
                   <ShimmerButton

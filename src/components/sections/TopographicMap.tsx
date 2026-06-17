@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useMemo, useEffect, useState } from "react";
+import { useRef, useMemo, useEffect, useState, memo } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useActiveInView } from "@/hooks/useActiveInView";
 import { Html, useTexture } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { motion, useScroll, MotionValue, AnimatePresence } from "framer-motion";
@@ -169,16 +170,15 @@ function CameraRig({ progress }: { progress: number }) {
     const camera = cameraRef.current;
     if (!camera) return;
 
-    // Faster, snappier progress tracking
-    smoothP.current += (progress - smoothP.current) * 0.065;
+    const mob = window.innerWidth < 768;
+    smoothP.current += (progress - smoothP.current) * (mob ? 0.18 : 0.065);
     const t = Math.max(0, Math.min(1, smoothP.current));
 
     const targetPos  = getCamPos(t);
     const targetLook = getCamLook(t);
 
-    // Snappier lerp for a more visceral "drive" feel
-    camPos.current.lerp(targetPos, 0.12);
-    camLook.current.lerp(targetLook, 0.12);
+    camPos.current.lerp(targetPos, mob ? 0.28 : 0.12);
+    camLook.current.lerp(targetLook, mob ? 0.28 : 0.12);
 
     camera.position.copy(camPos.current);
     camera.lookAt(camLook.current);
@@ -196,7 +196,7 @@ function CameraRig({ progress }: { progress: number }) {
 // TERRAIN
 // ─────────────────────────────────────────────────────────────────────────────
 
-function Terrain() {
+const Terrain = memo(function Terrain() {
   const geo = useMemo(() => {
     const g = new THREE.PlaneGeometry(340, 480, 80, 120);
     g.rotateX(-Math.PI / 2);
@@ -224,7 +224,7 @@ function Terrain() {
       />
     </mesh>
   );
-}
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CONTOUR GRID
@@ -253,7 +253,7 @@ const CONTOUR_MAT = new THREE.LineBasicMaterial({
   opacity: 0.4,
 });
 
-function ContourGrid() {
+const ContourGrid = memo(function ContourGrid() {
   return (
     <group position={[0, -0.6, 0]}>
       {CONTOUR_GEOS.map((g, i) => (
@@ -261,7 +261,7 @@ function ContourGrid() {
       ))}
     </group>
   );
-}
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PIPELINE
@@ -516,7 +516,7 @@ function LeakPin({ phase, progress }: { phase: LeakPhase; progress: number }) {
   const pinY = PIPE_Y + 11.5; // elevated above logo (PIPE_Y + 6)
 
   return (
-    <group position={[pinX, pinY, phase.pipeZ]}>
+    <group position={[pinX, pinY, phase.pipeZ]} scale={isMobile ? 0.5 : 1}>
       {/* Sphere (pin head) */}
       <mesh ref={sphereRef} geometry={PIN_SPHERE_GEO} position={[0, 0.9, 0]}>
         <meshStandardMaterial
@@ -538,79 +538,56 @@ function LeakPin({ phase, progress }: { phase: LeakPhase; progress: number }) {
         />
       </mesh>
       <pointLight ref={lightRef} color={targetColor} intensity={45} distance={28} />
-      {/* Large, legible label so users immediately understand what was fixed */}
-      <Html
-        position={[isMobile ? 1.2 : 3.1, isMobile ? 1.6 : 2.1, 0]}
-        style={{ pointerEvents: 'none', whiteSpace: 'normal' }}
-        distanceFactor={isMobile ? 13 : 22}
-      >
-        <div
-          style={{
-            fontFamily: 'Outfit, Inter, sans-serif',
-            userSelect: 'none',
-            width: isMobile ? 'min(280px, calc(100vw - 56px))' : 'min(580px, calc(100vw - 160px))',
-            maxWidth: isMobile ? 'calc(100vw - 56px)' : '85vw',
-          }}
+      {/* Desktop only - mobile uses MobilePhaseOverlay outside the Canvas */}
+      {!isMobile && (
+        <Html
+          position={[3.1, 2.1, 0]}
+          style={{ pointerEvents: 'none', whiteSpace: 'normal' }}
+          distanceFactor={22}
         >
-          {isSolved ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <span style={{ fontSize: 'clamp(12px, 2vw, 18px)', letterSpacing: '0.22em', textTransform: 'uppercase', color: '#62D2A2', fontFamily: 'monospace', fontWeight: 700 }}>✓ sealed</span>
-              <span style={{ fontSize: 'clamp(20px, 4.2vw, 35px)', fontWeight: 800, color: '#ffffff', lineHeight: 1.05 }}>{phase.solution}</span>
-              {showDetailedCopy && (
-                <>
-                  <span style={{ fontSize: 'clamp(15px, 3.2vw, 28px)', color: 'rgba(255,255,255,0.86)', lineHeight: 1.2, fontWeight: 600, width: '100%', maxWidth: '100%' }}>{phase.solutionSub}</span>
-
-                  
-                  {/* Build Task extensions for id:2 */}
-                  {phase.id === 2 && (
-                    <div style={{ marginTop: '24px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? '16px' : '32px', pointerEvents: 'auto', width: '100%' }}>
-                      <div style={{ 
-                        background: 'rgba(98, 210, 162, 0.1)', 
-                        borderLeft: '3px solid #62D2A2', 
-                        padding: '16px 20px', 
-                        width: isMobile ? '100%' : '300px',
-                        backdropFilter: 'blur(12px)',
-                        borderRadius: '0 12px 12px 0'
-                      }}>
-                        <h4 style={{ color: '#ffffff', fontSize: '18px', fontWeight: 900, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Rep Enablement</h4>
-                        <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.9)', lineHeight: 1.5, fontWeight: 500 }}>Transforming reps into surgical deal-closers with repeatable playbooks.</p>
-                      </div>
-
-                      <div style={{ 
-                        background: 'rgba(255, 255, 255, 0.05)', 
-                        borderLeft: '3px solid rgba(255,255,255,0.4)', 
-                        padding: '16px 20px', 
-                        width: isMobile ? '100%' : '350px',
-                        backdropFilter: 'blur(12px)',
-                        borderRadius: '0 12px 12px 0'
-                      }}>
-                        <h4 style={{ color: '#ffffff', fontSize: '18px', fontWeight: 900, marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Rev Ops</h4>
-                        <div style={{ height: '1px', background: 'rgba(255,255,255,0.2)', margin: '12px 0' }} />
-                        <div style={{ marginBottom: '16px' }}>
-                          <p style={{ fontSize: '16px', color: '#fff', fontWeight: 800, marginBottom: '4px' }}>Existing Tech Stack</p>
-                          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)', marginBottom: '8px', lineHeight: 1.4 }}>Optimizing CRM for speed.</p>
-                          <a href="/services/implementations" className="hover:text-primary transition-colors" style={{ fontSize: '13px', color: '#62D2A2', fontWeight: 900, textDecoration: 'none', borderBottom: '1px solid rgba(98, 210, 162, 0.3)' }}>VIEW IMPLEMENTATION →</a>
+          <div style={{ fontFamily: 'Outfit, Inter, sans-serif', userSelect: 'none', width: 'min(580px, calc(100vw - 160px))', maxWidth: '85vw' }}>
+            {isSolved ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <span style={{ fontSize: 'clamp(12px, 2vw, 18px)', letterSpacing: '0.22em', textTransform: 'uppercase', color: '#62D2A2', fontFamily: 'monospace', fontWeight: 700 }}>✓ sealed</span>
+                <span style={{ fontSize: 'clamp(20px, 4.2vw, 35px)', fontWeight: 800, color: '#ffffff', lineHeight: 1.05 }}>{phase.solution}</span>
+                {showDetailedCopy && (
+                  <>
+                    <span style={{ fontSize: 'clamp(15px, 3.2vw, 28px)', color: 'rgba(255,255,255,0.86)', lineHeight: 1.2, fontWeight: 600, width: '100%', maxWidth: '100%' }}>{phase.solutionSub}</span>
+                    {phase.id === 2 && (
+                      <div style={{ marginTop: '24px', display: 'flex', flexDirection: 'row', gap: '32px', pointerEvents: 'auto', width: '100%' }}>
+                        <div style={{ background: 'rgba(98, 210, 162, 0.1)', borderLeft: '3px solid #62D2A2', padding: '16px 20px', width: '300px', backdropFilter: 'blur(12px)', borderRadius: '0 12px 12px 0' }}>
+                          <h4 style={{ color: '#ffffff', fontSize: '18px', fontWeight: 900, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Rep Enablement</h4>
+                          <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.9)', lineHeight: 1.5, fontWeight: 500 }}>Transforming reps into surgical deal-closers with repeatable playbooks.</p>
                         </div>
-                        <div>
-                          <p style={{ fontSize: '16px', color: '#fff', fontWeight: 800, marginBottom: '4px' }}>Custom Tools</p>
-                          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)', marginBottom: '8px', lineHeight: 1.4 }}>Bespoke software solutions.</p>
-                          <a href="/services/custom-buildouts" className="hover:text-primary transition-colors" style={{ fontSize: '13px', color: '#62D2A2', fontWeight: 900, textDecoration: 'none', borderBottom: '1px solid rgba(98, 210, 162, 0.3)' }}>VIEW BUILDOUTS →</a>
+                        <div style={{ background: 'rgba(255, 255, 255, 0.05)', borderLeft: '3px solid rgba(255,255,255,0.4)', padding: '16px 20px', width: '350px', backdropFilter: 'blur(12px)', borderRadius: '0 12px 12px 0' }}>
+                          <h4 style={{ color: '#ffffff', fontSize: '18px', fontWeight: 900, marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Rev Ops</h4>
+                          <div style={{ height: '1px', background: 'rgba(255,255,255,0.2)', margin: '12px 0' }} />
+                          <div style={{ marginBottom: '16px' }}>
+                            <p style={{ fontSize: '16px', color: '#fff', fontWeight: 800, marginBottom: '4px' }}>Existing Tech Stack</p>
+                            <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)', marginBottom: '8px', lineHeight: 1.4 }}>Optimizing CRM for speed.</p>
+                            <a href="/services/implementations" className="hover:text-primary transition-colors" style={{ fontSize: '13px', color: '#62D2A2', fontWeight: 900, textDecoration: 'none', borderBottom: '1px solid rgba(98, 210, 162, 0.3)' }}>VIEW IMPLEMENTATION →</a>
+                          </div>
+                          <div>
+                            <p style={{ fontSize: '16px', color: '#fff', fontWeight: 800, marginBottom: '4px' }}>Custom Tools</p>
+                            <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)', marginBottom: '8px', lineHeight: 1.4 }}>Bespoke software solutions.</p>
+                            <a href="/services/custom-buildouts" className="hover:text-primary transition-colors" style={{ fontSize: '13px', color: '#62D2A2', fontWeight: 900, textDecoration: 'none', borderBottom: '1px solid rgba(98, 210, 162, 0.3)' }}>VIEW BUILDOUTS →</a>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )}
-                </>
-              )}
-            </div>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <span style={{ fontSize: 'clamp(12px, 2vw, 18px)', letterSpacing: '0.22em', textTransform: 'uppercase', color: '#F96B6B', fontFamily: 'monospace', fontWeight: 700 }}>● leak detected</span>
-              <span style={{ fontSize: 'clamp(20px, 4.2vw, 35px)', fontWeight: 800, color: '#ffffff', lineHeight: 1.05 }}>{phase.label}</span>
-              <span style={{ fontSize: 'clamp(15px, 3.2vw, 28px)', color: 'rgba(255,255,255,0.78)', lineHeight: 1.2, fontWeight: 600 }}>{phase.sub}</span>
-            </div>
-          )}
-        </div>
-      </Html>
+                    )}
+                  </>
+                )}
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <span style={{ fontSize: 'clamp(12px, 2vw, 18px)', letterSpacing: '0.22em', textTransform: 'uppercase', color: '#F96B6B', fontFamily: 'monospace', fontWeight: 700 }}>● leak detected</span>
+                <span style={{ fontSize: 'clamp(20px, 4.2vw, 35px)', fontWeight: 800, color: '#ffffff', lineHeight: 1.05 }}>{phase.label}</span>
+                <span style={{ fontSize: 'clamp(15px, 3.2vw, 28px)', color: 'rgba(255,255,255,0.78)', lineHeight: 1.2, fontWeight: 600 }}>{phase.sub}</span>
+              </div>
+            )}
+          </div>
+        </Html>
+      )}
     </group>
   );
 }
@@ -959,6 +936,41 @@ function FixesOverview({ progress }: { progress: number }) {
   );
 }
 
+function MobilePhaseOverlay({ progress }: { progress: number }) {
+  if (progress >= OUTRO_START) return null;
+  let active: typeof LEAK_PHASES[0] | null = null;
+  for (const phase of LEAK_PHASES) {
+    if (progress >= phase.pStart - 0.04) active = phase;
+  }
+  if (!active) return null;
+  const isSolved = progress >= active.pFix;
+  const color = isSolved ? '#62D2A2' : '#F96B6B';
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={active.id + (isSolved ? '-s' : '-l')}
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 8 }}
+        transition={{ duration: 0.3 }}
+        className="absolute top-20 left-0 right-0 z-30 flex md:hidden justify-center px-6 pointer-events-none"
+      >
+        <div style={{ textAlign: 'center', maxWidth: '280px' }}>
+          <span style={{ fontSize: '10px', letterSpacing: '0.25em', textTransform: 'uppercase', color, fontFamily: 'monospace', fontWeight: 700, display: 'block', marginBottom: '8px', textShadow: '0 1px 6px rgba(0,0,0,0.9)' }}>
+            {isSolved ? '✓ sealed' : '● leak detected'}
+          </span>
+          <span style={{ fontSize: '22px', fontWeight: 800, color: '#ffffff', lineHeight: 1.1, display: 'block', marginBottom: '6px', textShadow: '0 2px 12px rgba(0,0,0,1), 0 1px 4px rgba(0,0,0,0.9)' }}>
+            {isSolved ? active.solution : active.label}
+          </span>
+          <span style={{ fontSize: '13px', color: '#ffffff', lineHeight: 1.45, fontWeight: 500, display: 'block', textShadow: '0 1px 8px rgba(0,0,0,1), 0 1px 3px rgba(0,0,0,0.9)', opacity: 0.85 }}>
+            {isSolved ? active.solutionSub : active.sub}
+          </span>
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 function useProgressValue(sv: MotionValue<number>) {
   const [p, setP] = useState(0);
   useEffect(() => sv.onChange(setP), [sv]);
@@ -1001,12 +1013,26 @@ export default function TopographicMap() {
     offset: ["start start", "end end"],
   });
   const progress = useProgressValue(scrollYProgress);
+  const [isMobile, setIsMobile] = useState(false);
+  // Pause the (expensive Bloom-postprocessed) render loop whenever the scene is
+  // scrolled out of view or the tab is backgrounded. The section is 1200vh tall,
+  // so it stays "active" the whole time it's actually being scrolled through.
+  const { ref: viewRef, isActive } = useActiveInView();
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   return (
     <section
-      ref={sectionRef}
+      ref={(node) => {
+        sectionRef.current = node;
+        viewRef.current = node;
+      }}
       className="relative w-full bg-[#060c0a]"
-      style={{ height: "1200vh" }}
+      style={{ height: isMobile ? "700vh" : "1200vh" }}
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <Canvas
@@ -1017,8 +1043,8 @@ export default function TopographicMap() {
             toneMapping: THREE.ACESFilmicToneMapping,
             toneMappingExposure: 1.4,
           }}
-          frameloop="always"
-          dpr={1}
+          frameloop={isActive ? "always" : "never"}
+          dpr={[0.5, 1]}
           performance={{ min: 0.1, max: 0.5 }}
           camera={{ fov: 58, near: 0.5, far: 320, position: [30, 140, 160] }}
           shadows
@@ -1041,6 +1067,7 @@ export default function TopographicMap() {
         {/* UI layers */}
         <LeakCounter progress={progress} />
         <StoryOverlay progress={progress} />
+        <MobilePhaseOverlay progress={progress} />
         <FixesOverview progress={progress} />
         <ScrollCue progress={progress} />
       </div>
