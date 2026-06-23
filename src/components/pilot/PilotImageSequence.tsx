@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import styles from "./pilotHero.module.css";
+import { useIsLowTier } from "@/providers/DeviceTierProvider";
 
 interface PilotImageSequenceProps {
   progress: number;
@@ -20,6 +21,11 @@ export function PilotImageSequence({ progress }: PilotImageSequenceProps) {
   const [isFirstFrameReady, setIsFirstFrameReady] = useState(false);
   const lastFrameRef = useRef<number>(-1);
   const rafRef = useRef<number>();
+  const lastRafTimeRef = useRef<number>(0);
+  const isLowTier = useIsLowTier();
+
+  // On low-tier devices, cap the rAF loop to ~30fps to reduce GPU raster cost.
+  const RAF_INTERVAL_MS = isLowTier ? 33 : 0; // 33ms ≈ 30fps; 0 = uncapped
 
   // Preload all frames as ImageBitmaps (GPU-ready, ~3x faster to draw than <img>)
   useEffect(() => {
@@ -63,7 +69,14 @@ export function PilotImageSequence({ progress }: PilotImageSequenceProps) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const render = () => {
+    const render = (timestamp: number) => {
+      // Low-tier: throttle to ~30fps to reduce raster/GPU cost
+      if (RAF_INTERVAL_MS > 0 && timestamp - lastRafTimeRef.current < RAF_INTERVAL_MS) {
+        rafRef.current = requestAnimationFrame(render);
+        return;
+      }
+      lastRafTimeRef.current = timestamp;
+
       const targetFrame = Math.min(TOTAL_FRAMES - 1, Math.floor(progress * TOTAL_FRAMES));
 
       if (targetFrame !== lastFrameRef.current) {
@@ -97,22 +110,25 @@ export function PilotImageSequence({ progress }: PilotImageSequenceProps) {
 
     rafRef.current = requestAnimationFrame(render);
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
-  }, [progress, isFirstFrameReady]);
+  }, [progress, isFirstFrameReady, RAF_INTERVAL_MS]);
 
-  // Handle resize
+  // Handle resize — on low-tier devices render canvas at 0.4x backing resolution
+  // (CSS-stretched via width/height:100%) to drastically reduce pixels per drawImage.
   useEffect(() => {
     const handleResize = () => {
       const canvas = canvasRef.current;
       if (!canvas) return;
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      // Low-tier: 0.4x backing store; high-tier: native pixel resolution
+      const scale = isLowTier ? 0.4 : 1;
+      canvas.width = Math.round(window.innerWidth * scale);
+      canvas.height = Math.round(window.innerHeight * scale);
       lastFrameRef.current = -1; // force redraw
     };
 
     window.addEventListener("resize", handleResize);
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [isLowTier]);
 
   return (
     <div className="w-full h-full relative bg-neutral-950">

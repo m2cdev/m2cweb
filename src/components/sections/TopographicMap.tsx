@@ -7,6 +7,7 @@ import { Html, useTexture } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { motion, useScroll, MotionValue, AnimatePresence } from "framer-motion";
 import * as THREE from "three";
+import { useIsLowTier } from "@/providers/DeviceTierProvider";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA
@@ -155,7 +156,7 @@ function getCamLook(t: number): THREE.Vector3 {
 // CAMERA RIG - pure linear, no orbiting, just forward flight
 // ─────────────────────────────────────────────────────────────────────────────
 
-function CameraRig({ progress }: { progress: number }) {
+function CameraRig({ sv }: { sv: MotionValue<number> }) {
   const sceneCamera = useThree((state) => state.camera);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const smoothP = useRef(0);
@@ -170,6 +171,7 @@ function CameraRig({ progress }: { progress: number }) {
     const camera = cameraRef.current;
     if (!camera) return;
 
+    const progress = sv.get();
     const mob = window.innerWidth < 768;
     smoothP.current += (progress - smoothP.current) * (mob ? 0.18 : 0.065);
     const t = Math.max(0, Math.min(1, smoothP.current));
@@ -286,12 +288,57 @@ const patchGeo = new THREE.CylinderGeometry(PIPE_R + 0.8, PIPE_R + 0.8, 7, 28);
 const crackOuterGeo = new THREE.CylinderGeometry(PIPE_R + 0.12, PIPE_R + 0.12, 5.5, 28, 1, true);
 const crackRingGeo = new THREE.TorusGeometry(PIPE_R + 0.3, 0.35, 10, 32);
 
-function Pipeline({ progress }: { progress: number }) {
+function Pipeline({ sv }: { sv: MotionValue<number> }) {
+  const spineGlowRef = useRef<THREE.Mesh>(null);
+  const segMatRefs = useRef<(THREE.MeshStandardMaterial | null)[]>(
+    new Array(PIPE_ZONES.length - 1).fill(null)
+  );
+  const [fixedMask, setFixedMask] = useState(0);
+  const [visibleMask, setVisibleMask] = useState(0);
+  const lastFixed = useRef(0);
+  const lastVisible = useRef(0);
+
+  useFrame(() => {
+    const progress = sv.get();
+
+    if (spineGlowRef.current) {
+      (spineGlowRef.current.material as THREE.MeshBasicMaterial).opacity =
+        progress >= OUTRO_START ? 0.14 : 0.08;
+    }
+
+    PIPE_ZONES.slice(0, -1).forEach((_, i) => {
+      const mat = segMatRefs.current[i];
+      if (!mat) return;
+      const leakPhase = LEAK_PHASES[i - 1];
+      const isFixed = leakPhase ? progress >= leakPhase.pFix : true;
+      const isPreLeak = i === 0;
+      const healthy = isFixed || isPreLeak;
+      mat.color.set(healthy ? "#2daa72" : "#416358");
+      mat.emissive.set(healthy ? "#0d4028" : "#1a3a30");
+      mat.emissiveIntensity = healthy ? 0.8 : 0.28;
+    });
+
+    let nextFixed = 0;
+    let nextVisible = 0;
+    LEAK_PHASES.forEach((phase, idx) => {
+      if (progress >= phase.pFix) nextFixed |= (1 << idx);
+      if (progress >= phase.pStart - 0.05) nextVisible |= (1 << idx);
+    });
+    if (nextFixed !== lastFixed.current) {
+      lastFixed.current = nextFixed;
+      setFixedMask(nextFixed);
+    }
+    if (nextVisible !== lastVisible.current) {
+      lastVisible.current = nextVisible;
+      setVisibleMask(nextVisible);
+    }
+  });
+
   return (
     <group>
       {/* Base spine to remove harsh black glitching and keep the line readable */}
-      <mesh position={[0, PIPE_Y, (PIPE_START_Z + PIPE_END_Z) / 2]} rotation={[Math.PI / 2, 0, 0]} geometry={pipeSpineGlowGeo}>
-        <meshBasicMaterial color="#59d6a4" transparent opacity={progress >= OUTRO_START ? 0.14 : 0.08} />
+      <mesh ref={spineGlowRef} position={[0, PIPE_Y, (PIPE_START_Z + PIPE_END_Z) / 2]} rotation={[Math.PI / 2, 0, 0]} geometry={pipeSpineGlowGeo}>
+        <meshBasicMaterial color="#59d6a4" transparent opacity={0.08} />
       </mesh>
       <mesh position={[0, PIPE_Y, (PIPE_START_Z + PIPE_END_Z) / 2]} rotation={[Math.PI / 2, 0, 0]} geometry={pipeSpineCoreGeo}>
         <meshStandardMaterial color="#2d6f58" emissive="#11392d" emissiveIntensity={0.4} roughness={0.34} metalness={0.86} />
@@ -301,14 +348,6 @@ function Pipeline({ progress }: { progress: number }) {
       {PIPE_ZONES.slice(0, -1).map((zStart, i) => {
         const zEnd = PIPE_ZONES[i + 1];
         const midZ = (zStart + zEnd) / 2;
-        const leakPhase = LEAK_PHASES[i - 1];
-        const isFixed = leakPhase ? progress >= leakPhase.pFix : true;
-        const isPreLeak = i === 0; // before first leak - always clean
-
-        const col = isFixed || isPreLeak ? "#2daa72" : "#416358";
-        const emissive = isFixed || isPreLeak ? "#0d4028" : "#1a3a30";
-        const emInt = isFixed || isPreLeak ? 0.8 : 0.28;
-
         return (
           <mesh
             key={i}
@@ -317,9 +356,10 @@ function Pipeline({ progress }: { progress: number }) {
             rotation={[Math.PI / 2, 0, 0]}
           >
             <meshStandardMaterial
-              color={col}
-              emissive={emissive}
-              emissiveIntensity={emInt}
+              ref={(m) => { segMatRefs.current[i] = m; }}
+              color="#2daa72"
+              emissive="#0d4028"
+              emissiveIntensity={0.8}
               roughness={0.28}
               metalness={0.88}
             />
@@ -328,9 +368,9 @@ function Pipeline({ progress }: { progress: number }) {
       })}
 
       {/* Leak joints */}
-      {LEAK_PHASES.map((phase) => {
-        const isFixed = progress >= phase.pFix;
-        const isVisible = progress >= phase.pStart - 0.05;
+      {LEAK_PHASES.map((phase, idx) => {
+        const isFixed = (fixedMask & (1 << idx)) !== 0;
+        const isVisible = (visibleMask & (1 << idx)) !== 0;
         if (!isVisible) return null;
 
         return (
@@ -421,7 +461,7 @@ const DRIP_SEEDS = Array.from({ length: DRIP_COUNT }, (_, i) => {
   };
 });
 
-function LeakDrips({ z, active }: { z: number; active: boolean }) {
+function LeakDrips({ z, phase, sv }: { z: number; phase: LeakPhase; sv: MotionValue<number> }) {
   const ref = useRef<THREE.Points>(null);
   const { geo, vel } = useMemo(() => {
     const arr = new Float32Array(DRIP_COUNT * 3);
@@ -443,7 +483,11 @@ function LeakDrips({ z, active }: { z: number; active: boolean }) {
   }, []);
 
   useFrame(() => {
-    if (!ref.current || !active) return;
+    if (!ref.current) return;
+    const progress = sv.get();
+    const active = progress >= phase.pStart && progress < phase.pFix && progress < 0.89;
+    ref.current.visible = active;
+    if (!active) return;
     const pos = ref.current.geometry.attributes.position as THREE.BufferAttribute;
     for (let i = 0; i < DRIP_COUNT; i++) {
       let py = pos.getY(i) + vel[i * 3 + 1];
@@ -460,7 +504,6 @@ function LeakDrips({ z, active }: { z: number; active: boolean }) {
     pos.needsUpdate = true;
   });
 
-  if (!active) return null;
   return (
     <points ref={ref} geometry={geo} position={[0, PIPE_Y, z]}>
       <pointsMaterial color="#FF4040" size={0.16} transparent opacity={0.85} sizeAttenuation />
@@ -477,26 +520,50 @@ const PIN_CONE_GEO   = new THREE.ConeGeometry(0.62, 2.0, 16);
 
 type LeakPhase = typeof LEAK_PHASES[0];
 
-function LeakPin({ phase, progress }: { phase: LeakPhase; progress: number }) {
+function LeakPin({ phase, sv }: { phase: LeakPhase; sv: MotionValue<number> }) {
   const { size } = useThree();
+  const groupRef = useRef<THREE.Group>(null);
   const sphereRef = useRef<THREE.Mesh>(null);
   const coneRef   = useRef<THREE.Mesh>(null);
   const lightRef  = useRef<THREE.PointLight>(null);
 
   const isMobile = size.width < 768;
-  const isSolved  = progress >= phase.pFix;
-  const isVisible = progress >= phase.pStart - 0.04;
-
-  const targetColor = isSolved ? '#62D2A2' : '#F96B6B';
-  const targetEmissive = isSolved ? '#3dbd8a' : '#cc3333';
-  const targetIntensity = isSolved ? 3.5 : 4.0;
-  const showDetailedCopy = progress >= OUTRO_START || isSolved;
+  const [isVisible, setIsVisible] = useState(false);
+  const [isSolved, setIsSolved] = useState(false);
+  const [showDetailedCopy, setShowDetailedCopy] = useState(false);
+  const lastVisible = useRef(false);
+  const lastSolved = useRef(false);
+  const lastDetailed = useRef(false);
 
   useFrame(({ clock }) => {
-    if (!sphereRef.current || !coneRef.current) return;
+    const progress = sv.get();
+    const nextVisible = progress >= phase.pStart - 0.04;
+    const nextSolved = progress >= phase.pFix;
+    const nextDetailed = progress >= OUTRO_START || nextSolved;
+
+    if (nextVisible !== lastVisible.current) {
+      lastVisible.current = nextVisible;
+      setIsVisible(nextVisible);
+    }
+    if (nextSolved !== lastSolved.current) {
+      lastSolved.current = nextSolved;
+      setIsSolved(nextSolved);
+    }
+    if (nextDetailed !== lastDetailed.current) {
+      lastDetailed.current = nextDetailed;
+      setShowDetailedCopy(nextDetailed);
+    }
+
+    if (!groupRef.current) return;
+    groupRef.current.visible = nextVisible;
+    if (!nextVisible || !sphereRef.current || !coneRef.current) return;
+
+    const targetColor = nextSolved ? '#62D2A2' : '#F96B6B';
+    const targetEmissive = nextSolved ? '#3dbd8a' : '#cc3333';
+    const targetIntensity = nextSolved ? 3.5 : 4.0;
     const sm = sphereRef.current.material as THREE.MeshStandardMaterial;
     const cm = coneRef.current.material as THREE.MeshStandardMaterial;
-    const pulse = 1 + Math.sin(clock.elapsedTime * (isSolved ? 1.5 : 5)) * 0.3;
+    const pulse = 1 + Math.sin(clock.elapsedTime * (nextSolved ? 1.5 : 5)) * 0.3;
     sm.color.set(targetColor);
     sm.emissive.set(targetEmissive);
     sm.emissiveIntensity = targetIntensity * pulse;
@@ -505,24 +572,22 @@ function LeakPin({ phase, progress }: { phase: LeakPhase; progress: number }) {
     cm.emissiveIntensity = (targetIntensity - 1) * pulse;
     if (lightRef.current) {
       lightRef.current.color.set(targetColor);
-      lightRef.current.intensity = isSolved ? 30 : 45;
+      lightRef.current.intensity = nextSolved ? 30 : 45;
     }
   });
-
-  if (!isVisible) return null;
 
   // Pin sits directly above the pipe
   const pinX = 0;
   const pinY = PIPE_Y + 11.5; // elevated above logo (PIPE_Y + 6)
 
   return (
-    <group position={[pinX, pinY, phase.pipeZ]} scale={isMobile ? 0.5 : 1}>
+    <group ref={groupRef} position={[pinX, pinY, phase.pipeZ]} scale={isMobile ? 0.5 : 1} visible={false}>
       {/* Sphere (pin head) */}
       <mesh ref={sphereRef} geometry={PIN_SPHERE_GEO} position={[0, 0.9, 0]}>
         <meshStandardMaterial
-          color={targetColor}
-          emissive={targetEmissive}
-          emissiveIntensity={targetIntensity}
+          color="#F96B6B"
+          emissive="#cc3333"
+          emissiveIntensity={4.0}
           roughness={0.1}
           metalness={0.2}
         />
@@ -530,16 +595,16 @@ function LeakPin({ phase, progress }: { phase: LeakPhase; progress: number }) {
       {/* Cone (pin tail, pointing down) */}
       <mesh ref={coneRef} geometry={PIN_CONE_GEO} position={[0, -0.55, 0]} rotation={[Math.PI, 0, 0]}>
         <meshStandardMaterial
-          color={targetColor}
-          emissive={targetEmissive}
-          emissiveIntensity={targetIntensity - 1}
+          color="#F96B6B"
+          emissive="#cc3333"
+          emissiveIntensity={3.0}
           roughness={0.1}
           metalness={0.2}
         />
       </mesh>
-      <pointLight ref={lightRef} color={targetColor} intensity={45} distance={28} />
+      <pointLight ref={lightRef} color="#F96B6B" intensity={45} distance={28} />
       {/* Desktop only - mobile uses MobilePhaseOverlay outside the Canvas */}
-      {!isMobile && (
+      {!isMobile && isVisible && (
         <Html
           position={[3.1, 2.1, 0]}
           style={{ pointerEvents: 'none', whiteSpace: 'normal' }}
@@ -596,12 +661,13 @@ function LeakPin({ phase, progress }: { phase: LeakPhase; progress: number }) {
 // AMBIENT COLOR - shifts atmosphere between red (danger) and green (fixed)
 // ─────────────────────────────────────────────────────────────────────────────
 
-function AtmosphericLight({ progress }: { progress: number }) {
+function AtmosphericLight({ sv }: { sv: MotionValue<number> }) {
   const ref = useRef<THREE.PointLight>(null);
   const smooth = useRef(0);
 
   useFrame(() => {
     // How "red" is the current moment?
+    const progress = sv.get();
     let danger = 0;
     for (const phase of LEAK_PHASES) {
       if (progress >= phase.pStart && progress < (phase.pFix || phase.pEnd)) {
@@ -626,12 +692,15 @@ function AtmosphericLight({ progress }: { progress: number }) {
 // M2C FLOATING ICON - billboard sprite that leads the camera like a guide
 // ─────────────────────────────────────────────────────────────────────────────
 
-function M2CLeader({ progress }: { progress: number }) {
+function M2CLeader({ sv }: { sv: MotionValue<number> }) {
   const ref = useRef<THREE.Group>(null);
   const texture = useTexture("/m2c-icon-float.png");
 
   useFrame(({ clock }) => {
     if (!ref.current) return;
+    const progress = sv.get();
+    ref.current.visible = progress < 0.88;
+    if (!ref.current.visible) return;
     const t = Math.max(0, Math.min(0.88, progress)); 
     const z = PIPE_START_Z + (PIPE_END_Z - PIPE_START_Z) * (t / 0.88);
     // Float 10 units ahead of the camera focus to perfectly coincide with the pFix math calculation
@@ -640,8 +709,6 @@ function M2CLeader({ progress }: { progress: number }) {
     // face camera exactly
     ref.current.rotation.y = 0;
   });
-
-  if (progress >= 0.88) return null;
 
   return (
     <group ref={ref}>
@@ -680,50 +747,78 @@ function M2CLeader({ progress }: { progress: number }) {
 // SCENE
 // ─────────────────────────────────────────────────────────────────────────────
 
-function Scene({ progress }: { progress: number }) {
-  const isOutro = progress >= 0.89;
-  const hidePipeline = progress >= OUTRO_START + 0.025;
+function Scene({ sv, lowTier = false }: { sv: MotionValue<number>; lowTier?: boolean }) {
+  const [isOutro, setIsOutro] = useState(false);
+  const [hidePipeline, setHidePipeline] = useState(false);
+  const lastOutro = useRef(false);
+  const lastHide = useRef(false);
+  const fogRef = useRef<THREE.Fog>(null);
+
+  useEffect(() => {
+    return sv.onChange((v) => {
+      const nextOutro = v >= 0.89;
+      const nextHide = v >= OUTRO_START + 0.025;
+      if (nextOutro !== lastOutro.current) {
+        lastOutro.current = nextOutro;
+        setIsOutro(nextOutro);
+      }
+      if (nextHide !== lastHide.current) {
+        lastHide.current = nextHide;
+        setHidePipeline(nextHide);
+      }
+    });
+  }, [sv]);
+
+  useFrame(() => {
+    if (!fogRef.current) return;
+    const v = sv.get();
+    fogRef.current.near = v >= 0.89 ? 300 : 120;
+    fogRef.current.far = v >= 0.89 ? 700 : 260;
+  });
 
   return (
     <>
       <ambientLight intensity={0.22} color="#d0f0e0" />
-      <directionalLight position={[20, 45, 15]} intensity={0.6} color="#c8ead8" castShadow />
+      <directionalLight position={[20, 45, 15]} intensity={0.6} color="#c8ead8" />
       <pointLight position={[0, 30, -60]} color="#62D2A2" intensity={22} distance={120} />
-      <AtmosphericLight progress={progress} />
+      <AtmosphericLight sv={sv} />
 
-      <CameraRig progress={progress} />
+      <CameraRig sv={sv} />
       <Terrain />
       <ContourGrid />
       
-      {!hidePipeline && <Pipeline progress={progress} />}
+      {!hidePipeline && <Pipeline sv={sv} />}
 
       {/* Floating M2C icon - leads the camera through the pipeline */}
-      {!hidePipeline && <M2CLeader progress={progress} />}
+      {!hidePipeline && <M2CLeader sv={sv} />}
 
       {/* Drip particles - stop during outro */}
       {LEAK_PHASES.map((phase) => (
         <LeakDrips
           key={phase.id}
           z={phase.pipeZ}
-          active={progress >= phase.pStart && progress < phase.pFix && !isOutro}
+          phase={phase}
+          sv={sv}
         />
       ))}
 
       {/* Google Maps teardrop pins */}
       {!hidePipeline && LEAK_PHASES.map((phase) => (
-        <LeakPin key={phase.id} phase={phase} progress={progress} />
+        <LeakPin key={phase.id} phase={phase} sv={sv} />
       ))}
 
-      <fog attach="fog" color="#060c0a" near={isOutro ? 300 : 120} far={isOutro ? 700 : 260} />
+      <fog ref={fogRef} attach="fog" color="#060c0a" near={120} far={260} />
 
-      <EffectComposer>
-        <Bloom
-          intensity={isOutro ? 1.8 : 1.3}
-          luminanceThreshold={0.22}
-          luminanceSmoothing={0.9}
-          mipmapBlur
-        />
-      </EffectComposer>
+      {!lowTier && (
+        <EffectComposer disableNormalPass multisampling={0}>
+          <Bloom
+            intensity={isOutro ? 1.8 : 1.3}
+            luminanceThreshold={0.22}
+            luminanceSmoothing={0.9}
+            mipmapBlur={false}
+          />
+        </EffectComposer>
+      )}
     </>
   );
 }
@@ -973,13 +1068,33 @@ function MobilePhaseOverlay({ progress }: { progress: number }) {
 
 function useProgressValue(sv: MotionValue<number>) {
   const [p, setP] = useState(0);
-  useEffect(() => sv.onChange(setP), [sv]);
+  useEffect(() => {
+    let frame = 0;
+    let latest = sv.get();
+    let rendered = latest;
+
+    const flush = () => {
+      frame = 0;
+      if (Math.abs(latest - rendered) < 0.001) return;
+      rendered = latest;
+      setP(latest);
+    };
+
+    const unsubscribe = sv.onChange((v) => {
+      latest = v;
+      if (!frame) frame = requestAnimationFrame(flush);
+    });
+
+    return () => {
+      unsubscribe();
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [sv]);
   return p;
 }
 
-function SceneCanvas({ sv }: { sv: MotionValue<number> }) {
-  const progress = useProgressValue(sv);
-  return <Scene progress={progress} />;
+function SceneCanvas({ sv, lowTier }: { sv: MotionValue<number>; lowTier: boolean }) {
+  return <Scene sv={sv} lowTier={lowTier} />;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1014,6 +1129,9 @@ export default function TopographicMap() {
   });
   const progress = useProgressValue(scrollYProgress);
   const [isMobile, setIsMobile] = useState(false);
+  const providerLowTier = useIsLowTier();
+  const [tierReady, setTierReady] = useState(false);
+  const [isLowTier, setIsLowTier] = useState(true);
   // Pause the (expensive Bloom-postprocessed) render loop whenever the scene is
   // scrolled out of view or the tab is backgrounded. The section is 1200vh tall,
   // so it stays "active" the whole time it's actually being scrolled through.
@@ -1024,6 +1142,16 @@ export default function TopographicMap() {
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
   }, []);
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const lowCpu = (navigator.hardwareConcurrency ?? 8) <= 4;
+      const lowRam = ((navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 8) <= 4;
+      setIsLowTier(providerLowTier || reducedMotion || (lowCpu && lowRam));
+      setTierReady(true);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [providerLowTier]);
 
   return (
     <section
@@ -1035,23 +1163,25 @@ export default function TopographicMap() {
       style={{ height: isMobile ? "700vh" : "1200vh" }}
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <Canvas
-          gl={{
-            antialias: true,
-            alpha: false,
-            powerPreference: "high-performance",
-            toneMapping: THREE.ACESFilmicToneMapping,
-            toneMappingExposure: 1.4,
-          }}
-          frameloop={isActive ? "always" : "never"}
-          dpr={[0.5, 1]}
-          performance={{ min: 0.1, max: 0.5 }}
-          camera={{ fov: 58, near: 0.5, far: 320, position: [30, 140, 160] }}
-          shadows
-          style={{ background: "#060c0a", position: "absolute", inset: 0 }}
-        >
-          <SceneCanvas sv={scrollYProgress} />
-        </Canvas>
+        {tierReady && (
+          <Canvas
+            gl={{
+              antialias: !isLowTier,
+              alpha: false,
+              powerPreference: "high-performance",
+              toneMapping: THREE.ACESFilmicToneMapping,
+              toneMappingExposure: 1.4,
+            }}
+            frameloop={isActive ? "always" : "never"}
+            dpr={isLowTier ? [0.5, 0.8] : [1, 1.5]}
+            performance={{ min: isLowTier ? 0.1 : 0.35, max: isLowTier ? 0.45 : 0.8 }}
+            camera={{ fov: 58, near: 0.5, far: 320, position: [30, 140, 160] }}
+            shadows={false}
+            style={{ background: "#060c0a", position: "absolute", inset: 0 }}
+          >
+            <SceneCanvas sv={scrollYProgress} lowTier={isLowTier} />
+          </Canvas>
+        )}
 
         {/* Edge vignette */}
         <div

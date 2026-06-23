@@ -45,6 +45,7 @@ export const metadata = {
 };
 
 import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
+import { DeviceTierProvider } from "@/providers/DeviceTierProvider";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -88,14 +89,16 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={`${outfit.variable} ${sora.variable} ${jetbrainsMono.variable} font-body bg-[#050505] text-white antialiased`}>
-        <Navbar />
-        <SmoothScrollProvider>
-          <main className="relative z-10 min-h-screen">
-            {children}
-            <Footer className="relative z-50" />
-          </main>
-        </SmoothScrollProvider>
-        <FloatingCTA />
+        <DeviceTierProvider>
+          <Navbar />
+          <SmoothScrollProvider>
+            <main className="relative z-10 min-h-screen">
+              {children}
+              <Footer className="relative z-50" />
+            </main>
+          </SmoothScrollProvider>
+          <FloatingCTA />
+        </DeviceTierProvider>
       </body>
     </html>
   );

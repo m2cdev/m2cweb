@@ -2,6 +2,7 @@
 import React, { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { useActiveInView } from "@/hooks/useActiveInView";
+import { useIsLowTier } from "@/providers/DeviceTierProvider";
 
 // Helper function for Perlin Noise
 function createNoise() {
@@ -103,6 +104,7 @@ export const FluidParticlesBackground = ({
 }) => { 
   const canvasRef = useRef(null);
   const { ref: containerRef, activeRef } = useActiveInView();
+  const isLowTier = useIsLowTier();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -127,8 +129,12 @@ export const FluidParticlesBackground = ({
 
     resizeCanvas();
 
-    const effectiveParticleCount =
-      window.innerWidth < 768 ? Math.max(350, Math.floor(particleCount * 0.45)) : particleCount;
+    // Low-tier: max 400 particles; mobile: 45% of count; high-tier: full count
+    const effectiveParticleCount = isLowTier
+      ? Math.min(400, Math.floor(particleCount * 0.2))
+      : window.innerWidth < 768
+      ? Math.max(350, Math.floor(particleCount * 0.45))
+      : particleCount;
 
     const particles = Array.from({ length: effectiveParticleCount }, () => ({
       x: Math.random() * canvas.width,
@@ -143,7 +149,15 @@ export const FluidParticlesBackground = ({
     }));
 
       let reqId;
-      const animate = () => {
+      // Low-tier: throttle to ~24fps to reduce CPU noise + draw cost
+      const RAF_INTERVAL = isLowTier ? 42 : 0;
+      let lastTime = 0;
+      const animate = (timestamp) => {
+        if (RAF_INTERVAL > 0 && timestamp - lastTime < RAF_INTERVAL) {
+          reqId = requestAnimationFrame(animate);
+          return;
+        }
+        lastTime = timestamp;
         // Skip all drawing/noise work while the hero is scrolled off-screen or
         // the tab is backgrounded - keeps the loop cheap without changing looks.
         if (!activeRef.current) {
@@ -204,7 +218,7 @@ export const FluidParticlesBackground = ({
         reqId = requestAnimationFrame(animate);
       };
 
-      animate(); // Start the animation loop
+      animate(0); // Start the animation loop
 
       const handleResize = () => {
         resizeCanvas();
@@ -215,7 +229,7 @@ export const FluidParticlesBackground = ({
         window.removeEventListener("resize", handleResize);
         cancelAnimationFrame(reqId);
       };
-    }, [particleCount, noiseIntensity, particleSize]);
+    }, [particleCount, noiseIntensity, particleSize, isLowTier]);
 
   return (
     <div

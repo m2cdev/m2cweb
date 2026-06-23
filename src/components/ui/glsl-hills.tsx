@@ -176,24 +176,46 @@ const GLSLHills = ({ width = '100vw', height = '100vh', cameraZ = 125, planeSize
       renderer.render(scene, camera);
     };
 
-    let reqId;
+    let reqId: number | null = null;
     let inView = true;
     const isActive = () => inView && !document.hidden;
-    const renderLoop = () => {
-      // Off-screen / backgrounded: consume the elapsed delta (so the shader
-      // doesn't jump on resume) but skip the GPU render.
-      if (!isActive()) {
-        clock.getDelta();
+
+    const stopLoop = () => {
+      if (reqId === null) return;
+      cancelAnimationFrame(reqId);
+      reqId = null;
+    };
+
+    const startLoop = () => {
+      if (reqId !== null || !isActive()) return;
+      clock.getDelta();
+      reqId = requestAnimationFrame(renderLoop);
+    };
+
+    const updateLoop = () => {
+      if (isActive()) {
+        startLoop();
       } else {
-        render();
+        stopLoop();
       }
+    };
+
+    const renderLoop = () => {
+      reqId = null;
+      if (!isActive()) return;
+      render();
       reqId = requestAnimationFrame(renderLoop);
     };
 
     const observer = new IntersectionObserver(
-      (entries) => { inView = entries.some((e) => e.isIntersecting); },
+      (entries) => {
+        inView = entries.some((e) => e.isIntersecting);
+        updateLoop();
+      },
       { rootMargin: '300px' }
     );
+
+    const onVisibility = () => updateLoop();
 
     const init = () => {
       renderer.setSize(window.innerWidth, window.innerHeight);
@@ -202,17 +224,19 @@ const GLSLHills = ({ width = '100vw', height = '100vh', cameraZ = 125, planeSize
       camera.lookAt(new THREE.Vector3(0, 28, 0));
       scene.add(plane.mesh);
       window.addEventListener('resize', resize);
+      document.addEventListener('visibilitychange', onVisibility);
       if (containerRef.current) observer.observe(containerRef.current);
       resize();
-      renderLoop();
+      startLoop();
     };
 
     init();
 
     return () => {
       window.removeEventListener('resize', resize);
+      document.removeEventListener('visibilitychange', onVisibility);
       observer.disconnect();
-      cancelAnimationFrame(reqId);
+      stopLoop();
       plane.mesh.geometry.dispose();
       plane.mesh.material.dispose();
       renderer.dispose();

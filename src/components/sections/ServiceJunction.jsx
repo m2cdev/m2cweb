@@ -26,8 +26,8 @@ export default function ServiceJunction({
   const containerRef = useRef(null);
   const leftColRef = useRef(null);
   const rightColRef = useRef(null);
+  const glowRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -62,16 +62,24 @@ export default function ServiceJunction({
         id: `junction-${index}`,
         trigger: containerRef.current,
         start: "top top",
-        end: "+=1000",
+        end: "+=3000",
         pin: true,
-        scrub: 1,
+        scrub: 1.2,
         anticipatePin: 1,
         refreshPriority: 10 - index, // Forces top-to-bottom calculation order
         onUpdate: (self) => {
           if (typeof window !== "undefined") {
             window[`m2c_junction_${index}`] = self.progress;
           }
-          setProgress(self.progress);
+          if (glowRef.current) {
+            const p = self.progress;
+            glowRef.current.style.opacity = String(Math.max(0, Math.min(1,
+              p < 0.3 ? 0 :
+              p < 0.5 ? (p - 0.3) / 0.2 :
+              p < 0.85 ? 1 :
+              1 - (p - 0.85) / 0.15
+            )));
+          }
         },
       }
     });
@@ -118,14 +126,10 @@ export default function ServiceJunction({
     >
       {/* Green glow - appears after pipe opens, fades when it closes */}
       <div
+        ref={glowRef}
         className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-300"
         style={{
-          opacity: Math.max(0, Math.min(1,
-            progress < 0.3 ? 0 :
-            progress < 0.5 ? (progress - 0.3) / 0.2 :
-            progress < 0.85 ? 1 :
-            1 - (progress - 0.85) / 0.15
-          )),
+          opacity: 0,
           background: `
             radial-gradient(ellipse 6% 18% at 50% 50%, rgba(180,255,220,0.95) 0%, rgba(98,210,162,0.85) 30%, transparent 100%),
             radial-gradient(ellipse 20% 45% at 50% 50%, rgba(98,210,162,0.45) 0%, rgba(98,210,162,0.15) 50%, transparent 100%),

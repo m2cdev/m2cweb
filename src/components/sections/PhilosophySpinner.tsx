@@ -4,6 +4,7 @@ import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useIsLowTier } from "@/providers/DeviceTierProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,6 +50,7 @@ export default function PhilosophySpinner() {
   const triggerRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const isLowTier = useIsLowTier();
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -58,7 +60,9 @@ export default function PhilosophySpinner() {
   }, []);
 
   useLayoutEffect(() => {
-    if (isMobile) return;
+    // Skip the GSAP scrub entirely on mobile OR low-tier devices.
+    // Low-tier: per-frame SVG DOM writes saturate the main thread.
+    if (isMobile || isLowTier) return;
 
     const trigger = triggerRef.current;
     if (!trigger) return;
@@ -74,7 +78,7 @@ export default function PhilosophySpinner() {
     }, trigger);
 
     return () => ctx.revert();
-  }, [isMobile]);
+  }, [isMobile, isLowTier]);
 
   /* ─── SVG Geometry Mathematics ─── */
   const CENTER = 200;
@@ -86,7 +90,7 @@ export default function PhilosophySpinner() {
   const N2 = { x: 303.92, y: 260 }; // Bottom-Right (+30 deg)
   const N3 = { x: 96.08, y: 260 }; // Bottom-Left (+150 deg)
 
-  if (isMobile) {
+  if (isMobile || isLowTier) {
     return (
       <div className="relative bg-[#050505] py-24 pb-32">
         <div className="flex flex-col items-center max-w-lg mx-auto px-6">

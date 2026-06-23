@@ -2,13 +2,35 @@
 import * as React from 'react'
 import { useEffect, useRef } from 'react'
 import { createNoise2D } from 'simplex-noise'
+import { useIsLowTier } from '@/providers/DeviceTierProvider'
 
 export function Waves({
     className = "",
-    strokeColor = "#62D2A2",  // Using Map2Close Mint for branding
-    backgroundColor = "#000000",  // Black background
+    strokeColor = "#62D2A2",
+    backgroundColor = "#000000",
     pointerSize = 0.5
 }) {
+    const isLowTier = useIsLowTier();
+
+    // ── Low-tier: replace the expensive per-frame SVG path rebuilds with a
+    //    static gradient that still evokes the "wave" feel without any JS work.
+    if (isLowTier) {
+        return (
+            <div
+                className={`waves-component relative overflow-hidden ${className}`}
+                style={{
+                    backgroundColor,
+                    position: 'absolute',
+                    top: 0, left: 0,
+                    width: '100%',
+                    height: '100%',
+                    overflow: 'hidden',
+                    background: `linear-gradient(135deg, ${backgroundColor} 0%, rgba(98,210,162,0.06) 50%, ${backgroundColor} 100%)`,
+                }}
+            />
+        );
+    }
+
     const containerRef = useRef(null)
     const svgRef = useRef(null)
     const mouseRef = useRef({

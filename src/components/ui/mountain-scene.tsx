@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect } from "react";
 import * as THREE from "three";
+import { useIsLowTier } from "@/providers/DeviceTierProvider";
 
 /**
  * GenerativeMountainScene
@@ -11,6 +12,7 @@ import * as THREE from "three";
 export function GenerativeMountainScene() {
   const mountRef = useRef(null);
   const lightRef = useRef(null);
+  const isLowTier = useIsLowTier();
 
   useEffect(() => {
     const currentMount = mountRef.current;
@@ -29,13 +31,19 @@ export function GenerativeMountainScene() {
     camera.position.set(0, 1.5, 3);
     camera.rotation.x = -0.3;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({
+      antialias: !isLowTier,
+      alpha: true,
+    });
     renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    // Low-tier: cap DPR at 1 to avoid supersampling cost
+    renderer.setPixelRatio(isLowTier ? 1 : Math.min(window.devicePixelRatio, 2));
     currentMount.appendChild(renderer.domElement);
 
     // GEOMETRY
-    const geometry = new THREE.PlaneGeometry(12, 8, 128, 128); 
+    // Low-tier: 48x48 segments (vs 128x128) — 87% fewer vertices
+    const segments = isLowTier ? 48 : 128;
+    const geometry = new THREE.PlaneGeometry(12, 8, segments, segments);
 
     // SHADER MATERIAL
     const material = new THREE.ShaderMaterial({
@@ -203,7 +211,7 @@ export function GenerativeMountainScene() {
       material.dispose();
       renderer.dispose();
     };
-  }, []);
+  }, [isLowTier]);
 
   return <div ref={mountRef} className="absolute inset-0 w-full h-full z-0" />;
 }
