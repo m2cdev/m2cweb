@@ -9,7 +9,7 @@ import { TextReveal } from "@/components/ui/text-reveal";
 import { LampContainer } from "@/components/ui/lamp";
 import HorizontalCarousel from "@/components/ui/horizontal-scroll-carousel";
 import { LogoMarquee } from "@/components/LogoMarquee";
-import TopographicMap from "@/components/sections/TopographicMap";
+import ProcessScroll from "@/components/sections/ProcessScroll";
 
 
 const caseStudiesData = [
@@ -87,7 +87,7 @@ export default function Home() {
         </motion.h2>
       </div>
 
-      <TopographicMap />
+      <ProcessScroll />
 
       {/* Case Studies Section - Natural Horizontal Scroll */}
       <HorizontalCarousel cards={caseStudiesData} />

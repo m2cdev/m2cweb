@@ -502,7 +502,7 @@ export default function AISalesAssistantPage() {
           <FadeSection delay={0.28}>
             <p className="mt-10 text-white opacity-100 text-sm">
               Or{" "}
-              <Link href="/services" className="text-white opacity-100 hover:text-white transition-colors underline underline-offset-4">
+              <Link href="/services/sales-enablement" className="text-white opacity-100 hover:text-white transition-colors underline underline-offset-4">
                 explore all services
               </Link>
             </p>

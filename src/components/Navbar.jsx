@@ -15,8 +15,7 @@ const navLinks = [
     { name: "Company", href: "/who-we-are" },
     { name: "How We Compare", href: "/who-we-are/compare" }
   ]},
-  { name: "What We Do", href: "/services", mobileHref: "/services/sales-enablement", dropdown: [
-    { name: "Overview", href: "/services", desktopOnly: true },
+  { name: "What We Do", href: "/services/sales-enablement", mobileHref: "/services/sales-enablement", dropdown: [
     { name: "Sales Enablement", href: "/services/sales-enablement" },
     { name: "Implementations", href: "/services/implementations" },
     { name: "Custom Buildouts", href: "/services/custom-buildouts" },

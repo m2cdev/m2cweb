@@ -18,7 +18,9 @@ export function PilotHero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  // Live scroll progress kept in a ref so updating it (every scroll tick) never
+  // re-renders this component — the canvas reads it directly each animation frame.
+  const progressRef = useRef(0);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -47,7 +49,7 @@ export function PilotHero() {
         end: "+=130%",
         scrub: 0.6,
         onUpdate: (self) => {
-            setScrollProgress(self.progress);
+            progressRef.current = self.progress;
         }
     });
 
@@ -118,10 +120,10 @@ export function PilotHero() {
     <div ref={triggerRef} className="relative w-full overflow-visible">
         <section ref={containerRef} className={`${styles.heroContainer} overflow-hidden h-[100vh]`}>
           <div className={styles.canvasWrapper}>
-            <PilotImageSequence progress={scrollProgress} />
+            <PilotImageSequence progressRef={progressRef} />
           </div>
 
-          <div ref={textRef} className={styles.contentWrapper} style={{ opacity: scrollProgress > 0.8 ? 0 : 1 }}>
+          <div ref={textRef} className={styles.contentWrapper}>
             <div className={styles.textBlock}>
               <div className="flex items-center gap-3 mb-8">
                 <div className="w-10 h-[1px] bg-[#62D2A2]/40" />
