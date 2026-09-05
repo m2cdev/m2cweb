@@ -11,7 +11,7 @@ const brands = [
   { name: "Constant Contact", logo: "https://images.ctfassets.net/t21gix3kzulv/3m1hheB7Okv7IdppkEMSxl/b0107620062968f8c479eef7f9f77f53/CTCT_Logo_H_Stack_FC_RGB.svg", url: "https://www.constantcontact.com/", invert: false },
   { name: "Tech2Clean", logo: "https://tech2clean.com/cdn/shop/files/download-52.webp?height=50&v=1755584470", url: "https://tech2clean.com/", invert: true },
   { name: "NOSAI Innovations", logo: "https://www.nosaiinnovations.com/wp-content/uploads/2024/06/download-63.png", url: "https://www.nosaiinnovations.com/", invert: false },
-  { name: "Solaris Robots", logo: "https://solarisrobots.com/wp-content/uploads/2025/02/solaris-logo-white-web.png", url: "https://solarisrobots.com/", invert: false },
+  { name: "Solaris Robots", logo: "https://solarisrobots.com/assets/home/solaris-logo-white-sm.png", url: "https://solarisrobots.com/", invert: false },
   { name: "WBFC", logo: "https://wbfc.ca/wp-content/uploads/2025/03/WBFC_logo.png", url: "https://wbfc.ca/", invert: false },
   { name: "Adam Tools", logo: "https://adam-tools.com/cdn/shop/files/AT_New_Logo_Black_PNG_Cropped_1e147572-adca-46ff-9611-d796c997d455_240x165.png?v=1666558949", url: "https://adam-tools.com/", invert: true },
   { name: "Walmart", logo: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Walmart_logo_%282008%29.svg", url: "https://www.walmart.com/", invert: false },
