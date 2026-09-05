@@ -254,6 +254,7 @@ function terrainHeight(x: number, z: number) {
 }
 
 const Terrain = memo(function Terrain() {
+  const isMobile = useIsMobileViewport();
   const geo = useMemo(() => {
     const g = new THREE.PlaneGeometry(340, 480, 80, 120);
     g.rotateX(-Math.PI / 2);
@@ -266,9 +267,16 @@ const Terrain = memo(function Terrain() {
     return g;
   }, []);
 
+  // The terrain fills the screen, so its fragment shader is the single biggest
+  // GPU cost. At roughness 0.92 / metalness 0.04 it is effectively diffuse, so
+  // phones get the much cheaper Lambert model; the look is indistinguishable.
   return (
     <mesh geometry={geo}>
-      <meshStandardMaterial color="#0c1a14" roughness={0.92} metalness={0.04} />
+      {isMobile ? (
+        <meshLambertMaterial color="#0c1a14" />
+      ) : (
+        <meshStandardMaterial color="#0c1a14" roughness={0.92} metalness={0.04} />
+      )}
     </mesh>
   );
 });
@@ -304,16 +312,35 @@ const ContourGrid = memo(function ContourGrid() {
 const COLOR_RED = new THREE.Color("#F96B6B");
 const COLOR_GREEN = new THREE.Color("#62D2A2");
 
-function LeakLights({ fsRef }: { fsRef: React.MutableRefObject<FrameState> }) {
-  const refs = useRef<(THREE.PointLight | null)[]>(new Array(LEAK_COUNT).fill(null));
+// Two pooled lights instead of one per leak. Every point light is evaluated
+// per fragment across the full-screen terrain whether or not it reaches
+// anything, so light count is the dominant fragment cost on phones. Leak
+// zones sit 60 units apart, each light reaches 34, and a zone's light only
+// turns on once the camera is ~40 units short of it, so only the two zones
+// nearest the camera can ever light visible terrain. The pool follows those
+// two; the count never changes, so no shader recompiles.
+const LEAK_LIGHT_POOL = 2;
 
-  useFrame(({ clock }) => {
+function LeakLights({ fsRef }: { fsRef: React.MutableRefObject<FrameState> }) {
+  const refs = useRef<(THREE.PointLight | null)[]>(new Array(LEAK_LIGHT_POOL).fill(null));
+  const order = useRef<number[]>(LEAK_PHASES.map((_, i) => i));
+
+  useFrame(({ camera, clock }) => {
     const p = fsRef.current.progress;
     const hide = p >= HIDE_PIPELINE_AT;
-    for (let i = 0; i < LEAK_COUNT; i++) {
-      const light = refs.current[i];
+    const camZ = camera.position.z;
+    const idx = order.current;
+    idx.sort((a, b) => Math.abs(LEAK_PHASES[a].pipeZ - camZ) - Math.abs(LEAK_PHASES[b].pipeZ - camZ));
+    // Stable slot assignment: nearest two, in zone order, so a set change only
+    // ever moves a light that was already out of view.
+    const a = Math.min(idx[0], idx[1]);
+    const b = Math.max(idx[0], idx[1]);
+    const chosen = [a, b];
+    for (let slot = 0; slot < LEAK_LIGHT_POOL; slot++) {
+      const light = refs.current[slot];
       if (!light) continue;
-      const phase = LEAK_PHASES[i];
+      const phase = LEAK_PHASES[chosen[slot]];
+      light.position.z = phase.pipeZ;
       const visible = p >= phase.pStart - 0.05 && !hide;
       if (!visible) {
         light.intensity = 0;
@@ -332,13 +359,13 @@ function LeakLights({ fsRef }: { fsRef: React.MutableRefObject<FrameState> }) {
 
   return (
     <>
-      {LEAK_PHASES.map((phase, i) => (
+      {Array.from({ length: LEAK_LIGHT_POOL }, (_, slot) => (
         <pointLight
-          key={phase.id}
+          key={slot}
           ref={(l) => {
-            refs.current[i] = l;
+            refs.current[slot] = l;
           }}
-          position={[0, PIPE_Y + 5, phase.pipeZ]}
+          position={[0, PIPE_Y + 5, LEAK_PHASES[slot].pipeZ]}
           color="#F96B6B"
           intensity={0}
           distance={34}
@@ -912,20 +939,27 @@ function Scene({
 
 type Tier = 0 | 1 | 2;
 const TIER_DPR: Record<Tier, number | [number, number]> = { 2: [1, 2], 1: [1, 1.5], 0: 0.75 };
+// Phones: cap at 1.5 (the cap the previous version shipped with). A 3x phone at
+// dpr 2 pushes 4x the CSS pixels through bloom + terrain lighting vs 2.25x at
+// 1.5, for no visible gain on a 6" screen. First step down keeps bloom.
+const TIER_DPR_MOBILE: Record<Tier, number | [number, number]> = { 2: [1, 1.5], 1: 1, 0: 0.75 };
 
 // Only ever steps DOWN, and only on sustained low fps (average under 30 for
 // ~2.5s). Every tier change costs a composer rebuild and, for the bloom
 // on/off step, a round of shader compiles, so oscillating would be worse than
 // either tier on its own. Mounted only after precompile has finished so the
 // startup compile burst can't trigger it.
-function QualityGovernor({ tier, setTier }: { tier: Tier; setTier: (t: Tier) => void }) {
+// Phones use a higher floor: "a little choppy" on a phone is 40-50 fps, which
+// a 30 fps floor never reacts to.
+function QualityGovernor({ tier, setTier, isMobile }: { tier: Tier; setTier: (t: Tier) => void; isMobile: boolean }) {
   const onDecline = useCallback(() => setTier(Math.max(0, tier - 1) as Tier), [tier, setTier]);
   const onFallback = useCallback(() => setTier(0), [setTier]);
+  const bounds = useCallback((): [number, number] => [isMobile ? 45 : 30, 1000], [isMobile]);
   return (
     <PerformanceMonitor
       ms={250}
       iterations={10}
-      bounds={() => [30, 1000]}
+      bounds={bounds}
       flipflops={3}
       onDecline={onDecline}
       onFallback={onFallback}
@@ -1269,19 +1303,22 @@ export default function TopographicMap() {
         {maxTier !== null && (
           <Canvas
             gl={{
-              antialias: true,
+              // Under the EffectComposer the canvas MSAA only antialiases the
+              // final fullscreen quad: no visual gain, one full-res resolve per
+              // frame. Phones skip it.
+              antialias: !isMobile,
               alpha: false,
               powerPreference: "high-performance",
               toneMapping: THREE.ACESFilmicToneMapping,
               toneMappingExposure: 1.4,
             }}
             frameloop={isActive ? "always" : "never"}
-            dpr={TIER_DPR[tier]}
+            dpr={(isMobile ? TIER_DPR_MOBILE : TIER_DPR)[tier]}
             camera={{ fov: 58, near: 0.5, far: 320, position: [30, 140, 160] }}
             shadows={false}
             style={{ background: "#060c0a", position: "absolute", inset: 0 }}
           >
-            {compiled && <QualityGovernor tier={tier} setTier={setTier} />}
+            {compiled && <QualityGovernor tier={tier} setTier={setTier} isMobile={isMobile} />}
             <Scene sv={scrollYProgress} fsRef={fsRef} labelElsRef={labelElsRef} bloom={tier >= 1} onCompiled={onCompiled} />
           </Canvas>
         )}
