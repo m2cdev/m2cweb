@@ -857,14 +857,17 @@ function Scene({
   labelElsRef,
   bloom,
   onCompiled,
+  perfRef,
 }: {
   sv: MotionValue<number>;
   fsRef: React.MutableRefObject<FrameState>;
   labelElsRef: React.MutableRefObject<(HTMLDivElement | null)[]>;
   bloom: boolean;
   onCompiled?: () => void;
+  perfRef?: React.MutableRefObject<PerfStats>;
 }) {
   const fogRef = useRef<THREE.Fog>(null);
+  const isMobile = useIsMobileViewport();
   // postprocessing's BloomEffect exposes an `intensity` setter; we drive it per
   // frame. The effect is located through the composer (passing a ref to <Bloom>
   // breaks its prop-stringify memo key), and cached once found.
@@ -916,6 +919,8 @@ function Scene({
 
       <fog ref={fogRef} attach="fog" args={["#060c0a", 120, 260]} />
 
+      {perfRef && <PerfProbe perfRef={perfRef} />}
+
       {bloom && (
         <EffectComposer ref={composerRef as any} multisampling={0}>
           <Bloom
@@ -923,10 +928,67 @@ function Scene({
             luminanceThreshold={0.22}
             luminanceSmoothing={0.9}
             mipmapBlur
+            // Each mip level is two framebuffer switches per frame. Tile-based
+            // phone GPUs pay a tile load/store on every switch, independent of
+            // resolution, so phones get a shorter chain.
+            levels={isMobile ? 4 : 8}
           />
         </EffectComposer>
       )}
     </>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PERF HUD (?perf=1) - on-device measurement. Main-thread ms is stamped before
+// the first useFrame and read after the composer's render (priority 1), so it
+// covers scene updates + draw submission. Low fps with small main-thread ms
+// means the GPU or the display cap (Low Power Mode, thermal) is the limit.
+// ─────────────────────────────────────────────────────────────────────────────
+
+type PerfStats = { fps: number; mainMs: number; frames: number; t0: number; frameStart: number; msAccum: number; renderer: string; pixels: string };
+
+function PerfProbe({ perfRef }: { perfRef: React.MutableRefObject<PerfStats> }) {
+  const { gl } = useThree();
+  useEffect(() => {
+    const ctx = gl.getContext();
+    const info = ctx.getExtension("WEBGL_debug_renderer_info");
+    perfRef.current.renderer = info ? String(ctx.getParameter(info.UNMASKED_RENDERER_WEBGL)) : "n/a";
+  }, [gl, perfRef]);
+  useFrame(() => {
+    perfRef.current.frameStart = performance.now();
+  }, -100);
+  useFrame(() => {
+    const s = perfRef.current;
+    const now = performance.now();
+    s.msAccum += now - s.frameStart;
+    s.frames++;
+    if (now - s.t0 >= 1000) {
+      s.fps = (s.frames * 1000) / (now - s.t0);
+      s.mainMs = s.msAccum / s.frames;
+      s.pixels = `${gl.domElement.width}x${gl.domElement.height}`;
+      s.frames = 0;
+      s.msAccum = 0;
+      s.t0 = now;
+    }
+  }, 100);
+  return null;
+}
+
+function PerfHud({ perfRef, tier, bloom, dpr }: { perfRef: React.MutableRefObject<PerfStats>; tier: Tier; bloom: boolean; dpr: string }) {
+  const [s, setSnap] = useState<PerfStats>(() => ({ fps: 0, mainMs: 0, frames: 0, t0: 0, frameStart: 0, msAccum: 0, renderer: "", pixels: "" }));
+  useEffect(() => {
+    const id = window.setInterval(() => setSnap({ ...perfRef.current }), 500);
+    return () => window.clearInterval(id);
+  }, [perfRef]);
+  return (
+    <div className="absolute bottom-24 left-2 z-50 pointer-events-none font-mono text-[11px] leading-snug text-[#62D2A2] bg-black/80 px-2 py-1.5 rounded">
+      <div>fps {s.fps.toFixed(0)} · main {s.mainMs.toFixed(1)} ms</div>
+      <div>tier {tier} · bloom {bloom ? "on" : "off"} · dpr {dpr} · {s.pixels}</div>
+      <div>screen dpr {typeof window !== "undefined" ? window.devicePixelRatio : "?"} · lpm-ish {s.fps > 0 && s.fps < 50 && s.mainMs < 4 ? "likely" : "no"}</div>
+      <div className="max-w-[80vw] truncate">{s.renderer}</div>
+      <div className="max-w-[80vw] truncate">{typeof navigator !== "undefined" ? navigator.userAgent : ""}</div>
+    </div>
   );
 }
 
@@ -939,27 +1001,26 @@ function Scene({
 
 type Tier = 0 | 1 | 2;
 const TIER_DPR: Record<Tier, number | [number, number]> = { 2: [1, 2], 1: [1, 1.5], 0: 0.75 };
-// Phones: cap at 1.5 (the cap the previous version shipped with). A 3x phone at
-// dpr 2 pushes 4x the CSS pixels through bloom + terrain lighting vs 2.25x at
-// 1.5, for no visible gain on a 6" screen. First step down keeps bloom.
-const TIER_DPR_MOBILE: Record<Tier, number | [number, number]> = { 2: [1, 1.5], 1: 1, 0: 0.75 };
+// Phones use the same ladder. A 1.5 cap was tried on 2026-09-05 and read as
+// pixelated on a 3x phone, and cutting pixels 44% did not change the chop, so
+// fragment fill is not the mobile bottleneck.
 
 // Only ever steps DOWN, and only on sustained low fps (average under 30 for
 // ~2.5s). Every tier change costs a composer rebuild and, for the bloom
 // on/off step, a round of shader compiles, so oscillating would be worse than
 // either tier on its own. Mounted only after precompile has finished so the
 // startup compile burst can't trigger it.
-// Phones use a higher floor: "a little choppy" on a phone is 40-50 fps, which
-// a 30 fps floor never reacts to.
-function QualityGovernor({ tier, setTier, isMobile }: { tier: Tier; setTier: (t: Tier) => void; isMobile: boolean }) {
+// The floor stays at 30 on phones too: a 45 floor (tried 2026-09-05) fires on
+// a display capped at ~30-48 fps (Low Power Mode, thermal) and only makes the
+// image pixelated without helping the chop.
+function QualityGovernor({ tier, setTier }: { tier: Tier; setTier: (t: Tier) => void }) {
   const onDecline = useCallback(() => setTier(Math.max(0, tier - 1) as Tier), [tier, setTier]);
   const onFallback = useCallback(() => setTier(0), [setTier]);
-  const bounds = useCallback((): [number, number] => [isMobile ? 45 : 30, 1000], [isMobile]);
   return (
     <PerformanceMonitor
       ms={250}
       iterations={10}
-      bounds={bounds}
+      bounds={() => [30, 1000]}
       flipflops={3}
       onDecline={onDecline}
       onFallback={onFallback}
@@ -1265,6 +1326,13 @@ export default function TopographicMap() {
   const [compiled, setCompiled] = useState(false);
   const setTier = useCallback((t: Tier) => setTierState((prev) => (t < prev ? t : prev)), []);
   const onCompiled = useCallback(() => setCompiled(true), []);
+  const [perfOn, setPerfOn] = useState(false);
+  const perfRef = useRef<PerfStats>({ fps: 0, mainMs: 0, frames: 0, t0: 0, frameStart: 0, msAccum: 0, renderer: "", pixels: "" });
+  useEffect(() => {
+    // Deferred a frame so the check doesn't run synchronously inside the effect.
+    const frame = requestAnimationFrame(() => setPerfOn(new URLSearchParams(window.location.search).has("perf")));
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   // Pause the render loop while the section is off-screen or the tab is hidden.
   const { ref: viewRef, isActive } = useActiveInView() as { ref: React.MutableRefObject<HTMLElement | null>; isActive: boolean };
@@ -1313,13 +1381,13 @@ export default function TopographicMap() {
               toneMappingExposure: 1.4,
             }}
             frameloop={isActive ? "always" : "never"}
-            dpr={(isMobile ? TIER_DPR_MOBILE : TIER_DPR)[tier]}
+            dpr={TIER_DPR[tier]}
             camera={{ fov: 58, near: 0.5, far: 320, position: [30, 140, 160] }}
             shadows={false}
             style={{ background: "#060c0a", position: "absolute", inset: 0 }}
           >
-            {compiled && <QualityGovernor tier={tier} setTier={setTier} isMobile={isMobile} />}
-            <Scene sv={scrollYProgress} fsRef={fsRef} labelElsRef={labelElsRef} bloom={tier >= 1} onCompiled={onCompiled} />
+            {compiled && <QualityGovernor tier={tier} setTier={setTier} />}
+            <Scene sv={scrollYProgress} fsRef={fsRef} labelElsRef={labelElsRef} bloom={tier >= 1} onCompiled={onCompiled} perfRef={perfOn ? perfRef : undefined} />
           </Canvas>
         )}
 
@@ -1344,6 +1412,7 @@ export default function TopographicMap() {
         <MobilePhaseOverlay sv={scrollYProgress} />
         <FixesOverview sv={scrollYProgress} />
         <ScrollCue sv={scrollYProgress} />
+        {perfOn && <PerfHud perfRef={perfRef} tier={tier} bloom={tier >= 1} dpr={JSON.stringify(TIER_DPR[tier])} />}
       </div>
     </section>
   );
