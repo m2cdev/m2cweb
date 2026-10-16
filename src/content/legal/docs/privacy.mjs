@@ -196,7 +196,7 @@ const doc = {
         ],
         [
           "Call recordings",
-          "[TBD]"
+          "Kept indefinitely; not deleted automatically"
         ],
         [
           "Account and billing data",
@@ -204,11 +204,11 @@ const doc = {
         ],
         [
           "Usage logs",
-          "[TBD]"
+          "Kept indefinitely; not deleted automatically"
         ],
         [
           "Backups",
-          "Rolled off within [TBD] days"
+          "Rolled off within 7 days"
         ],
         [
           "Marketing data",
@@ -249,7 +249,7 @@ const doc = {
     },
     {
       "type": "p",
-      "text": "We are based in Canada. We and our service providers may store and process personal information in Canada, the United States and other countries [TBD: confirm hosting regions], whose laws may differ from those where you live. Where required, we protect transfers with appropriate safeguards; see Section 15 for Europe and the UK."
+      "text": "We are based in Canada. We and our service providers may store and process personal information in Canada, the United States and other countries (our primary database is hosted in Canada), whose laws may differ from those where you live. Where required, we protect transfers with appropriate safeguards; see Section 15 for Europe and the UK."
     },
     {
       "type": "h2",
@@ -293,7 +293,7 @@ const doc = {
     {
       "type": "ul",
       "items": [
-        "Accountability. The person in charge of the protection of personal information at Map2Close is our Privacy Officer, [TBD: name and title], reachable at legal@map2close.com.",
+        "Accountability. The person in charge of the protection of personal information at Map2Close is our Privacy Officer, reachable at legal@map2close.com.",
         "Consent. We rely on your consent, which may be express or implied depending on the sensitivity of the information and your reasonable expectations. For Customer Data, Customers are responsible for obtaining consent from Call Participants and contacts, including consent for recording and AI analysis. You may withdraw consent at any time, subject to legal or contractual restrictions, and we will explain the consequences.",
         "Your rights. You may request access to and correction of your personal information. In Quebec, you may also request portability in a structured, commonly used technological format, ask to be informed of personal information used to make a decision based exclusively on automated processing, and request de-indexation where applicable.",
         "Service providers outside Quebec or Canada. Before transferring personal information outside Quebec, we assess whether it will receive adequate protection, as Quebec law requires.",
@@ -395,8 +395,7 @@ const doc = {
     {
       "type": "ul",
       "items": [
-        "Controller. Map2Close Inc. is the controller for the processing described in this Privacy Policy, except where we act as a processor for Customers (Section 1), in which case the Customer is the controller.",
-        "Representatives. [TBD: counsel to confirm.] Our EU representative under Article 27 of the EU GDPR is [name, email, postal address]. Our UK representative is [name, email, postal address]."
+        "Controller. Map2Close Inc. is the controller for the processing described in this Privacy Policy, except where we act as a processor for Customers (Section 1), in which case the Customer is the controller."
       ]
     },
     {
