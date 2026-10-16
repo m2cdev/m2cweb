@@ -1,3 +1,5 @@
+import { LEGAL_DOCS } from "@/content/legal/config.mjs";
+
 export default function sitemap() {
   const base = "https://map2close.com";
   const lastModified = new Date();
@@ -13,5 +15,12 @@ export default function sitemap() {
     { url: `${base}/pilot`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/how-we-compare`, lastModified, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/contact`, lastModified, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${base}/legal`, lastModified, changeFrequency: "monthly", priority: 0.3 },
+    ...LEGAL_DOCS.filter((d) => d.published).map((d) => ({
+      url: `${base}${d.path}`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.3,
+    })),
   ];
 }

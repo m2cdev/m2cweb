@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import FloatingCTA from "@/components/FloatingCTA";
 import Footer from "@/components/Footer";
+import { CookieBanner, ConsentScripts } from "@/components/consent/CookieConsent";
 
 const outfit = Outfit({ 
   subsets: ["latin"], 
@@ -98,6 +99,8 @@ export default function RootLayout({ children }) {
             </main>
           </SmoothScrollProvider>
           <FloatingCTA />
+          <CookieBanner />
+          <ConsentScripts />
         </DeviceTierProvider>
       </body>
     </html>

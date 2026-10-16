@@ -1,3 +1,5 @@
+import { isLegalPublished } from "./src/content/legal/config.mjs";
+
 const nextConfig = {
   serverExternalPackages: ['@splinetool/runtime'],
   images: {
@@ -14,6 +16,15 @@ const nextConfig = {
       { protocol: 'https', hostname: 'adam-tools.com' },
       { protocol: 'https', hostname: 'upload.wikimedia.org' },
     ],
+  },
+
+  async redirects() {
+    return [
+      // The legal docs cite map2close.com/subprocessors.
+      { source: "/subprocessors", destination: "/legal/subprocessors", permanent: false },
+      // The existing /privacy page stays until the new Privacy Policy is published.
+      ...(isLegalPublished("privacy") ? [{ source: "/privacy", destination: "/legal/privacy", permanent: false }] : []),
+    ];
   },
 
   webpack: (config, { isServer }) => {
