@@ -15,7 +15,7 @@ export const LEGAL_DOCS = [
   // Unpublished until every sub-processor location is confirmed (several are still [TBD]).
   { slug: "subprocessors", title: "Sub-processor List", path: "/legal/subprocessors", published: false, effectiveDate: null },
   { slug: "cookies", title: "Cookie Notice", path: "/legal/cookies", published: true, effectiveDate: "October 16, 2026" },
-  { slug: "privacy", title: "Privacy Policy", path: "/legal/privacy", published: false, effectiveDate: null },
+  { slug: "privacy", title: "Privacy Policy", path: "/legal/privacy", published: true, effectiveDate: "October 16, 2026" },
   { slug: "terms", title: "Terms of Service", path: "/legal/terms", published: false, effectiveDate: null },
   { slug: "dpa", title: "Data Processing Addendum", path: "/legal/dpa", published: false, effectiveDate: null },
   { slug: "ai-data-use", title: "AI & Data Use Policy", path: "/legal/ai-data-use", published: false, effectiveDate: null },
