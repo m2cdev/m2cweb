@@ -10,11 +10,11 @@
 // /privacy redirect), so it stays plain ESM with no imports.
 
 export const LEGAL_DOCS = [
-  { slug: "website-terms", title: "Website Terms of Use", path: "/legal/website-terms", published: true, effectiveDate: null },
-  { slug: "acceptable-use", title: "Acceptable Use Policy", path: "/legal/acceptable-use", published: true, effectiveDate: null },
+  { slug: "website-terms", title: "Website Terms of Use", path: "/legal/website-terms", published: true, effectiveDate: "October 16, 2026" },
+  { slug: "acceptable-use", title: "Acceptable Use Policy", path: "/legal/acceptable-use", published: true, effectiveDate: "October 16, 2026" },
   // Unpublished until every sub-processor location is confirmed (several are still [TBD]).
   { slug: "subprocessors", title: "Sub-processor List", path: "/legal/subprocessors", published: false, effectiveDate: null },
-  { slug: "cookies", title: "Cookie Notice", path: "/legal/cookies", published: true, effectiveDate: null },
+  { slug: "cookies", title: "Cookie Notice", path: "/legal/cookies", published: true, effectiveDate: "October 16, 2026" },
   { slug: "privacy", title: "Privacy Policy", path: "/legal/privacy", published: false, effectiveDate: null },
   { slug: "terms", title: "Terms of Service", path: "/legal/terms", published: false, effectiveDate: null },
   { slug: "dpa", title: "Data Processing Addendum", path: "/legal/dpa", published: false, effectiveDate: null },
