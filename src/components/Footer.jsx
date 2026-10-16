@@ -4,6 +4,21 @@ import React from "react";
 import Link from "next/link";
 import Map2CloseLogo from "./Logo";
 import { Linkedin } from "lucide-react";
+import { isLegalPublished, legalDoc } from "@/content/legal/config.mjs";
+import { CookieSettingsButton } from "@/components/consent/CookieConsent";
+
+const linkClass = "text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm";
+
+// Unpublished docs never render here. Privacy points at the existing /privacy
+// page until the new Privacy Policy is published, then follows the flag.
+const LEGAL_LINKS = [
+  { slug: "website-terms", label: "Terms of Use" },
+  { slug: "acceptable-use", label: "Acceptable Use" },
+  { slug: "subprocessors", label: "Sub-processors" },
+  { slug: "cookies", label: "Cookie Notice" },
+].filter((l) => isLegalPublished(l.slug));
+
+const privacyHref = isLegalPublished("privacy") ? legalDoc("privacy").path : "/privacy";
 
 export default function Footer({ className = "" }) {
   return (
@@ -14,7 +29,7 @@ export default function Footer({ className = "" }) {
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[300px] bg-[radial-gradient(circle_at_bottom,_rgba(255,255,255,0.03)_0%,_transparent_70%)] pointer-events-none" />
       
       <div className="container-custom px-6 md:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 mb-16">
           {/* Logo & Intro */}
           <div className="md:col-span-1">
             <div className="mb-8 scale-110 origin-left">
@@ -44,6 +59,19 @@ export default function Footer({ className = "" }) {
               <li><Link href="/services/sales-enablement" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">What We Do</Link></li>
               <li><Link href="/case-studies" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">Case Studies</Link></li>
               <li><Link href="/pilot" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">The Pilot</Link></li>
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div className="md:ml-auto">
+            <h3 className="text-white font-black uppercase tracking-widest text-[10px] mb-8 opacity-50">Legal</h3>
+            <ul className="space-y-4">
+              <li><Link href={privacyHref} className={linkClass}>Privacy Policy</Link></li>
+              {LEGAL_LINKS.map((l) => (
+                <li key={l.slug}><Link href={legalDoc(l.slug).path} className={linkClass}>{l.label}</Link></li>
+              ))}
+              <li><CookieSettingsButton className={`${linkClass} text-left`} /></li>
+              <li><Link href="/legal" className={linkClass}>All legal docs</Link></li>
             </ul>
           </div>
 
