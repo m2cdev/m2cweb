@@ -56,7 +56,8 @@ export default function Footer({ className = "" }) {
             <ul className="space-y-4">
               <li><Link href="/" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">Home</Link></li>
               <li><Link href="/who-we-are" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">Who We Are</Link></li>
-              <li><Link href="/services/sales-enablement" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">What We Do</Link></li>
+              <li><Link href="/what-we-do" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">What We Do</Link></li>
+              <li><Link href="/products" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">Products</Link></li>
               <li><Link href="/case-studies" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">Case Studies</Link></li>
               <li><Link href="/pilot" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">The Pilot</Link></li>
             </ul>
@@ -106,7 +107,7 @@ export default function Footer({ className = "" }) {
         {/* Copyright */}
         <div className="pt-10 border-t border-white/5 text-center">
           <p className="text-white/40 text-[10px] font-bold uppercase tracking-[0.3em]">
-            Copyright © 2025. Map2Close. All Rights Reserved.
+            Copyright © {new Date().getFullYear()} Map2Close. All Rights Reserved.
           </p>
         </div>
       </div>

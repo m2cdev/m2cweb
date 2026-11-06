@@ -11,11 +11,11 @@ gsap.registerPlugin(ScrollTrigger);
 /* ─── Pillar data ─── */
 const PILLARS = [
   {
-    id: "systems",
+    id: "people",
     num: "01",
-    label: "SYSTEMS",
-    title: "Systems",
-    body: "The infrastructure your team runs on. CRM, tooling, automation built to support the way deals actually move.",
+    label: "PEOPLE",
+    title: "People",
+    body: "Where most partners tap out. We stay in it coaching reps, supporting live deals, and driving the motion until the new habits stick.",
   },
   {
     id: "process",
@@ -25,11 +25,11 @@ const PILLARS = [
     body: "The oil your sales motion runs on. Clear, repeatable, and designed around how your buyers make decisions.",
   },
   {
-    id: "execution",
+    id: "platforms",
     num: "03",
-    label: "EXECUTION",
-    title: "Execution",
-    body: "Where most partners tap out. We stay in it coaching reps, supporting live deals, and driving the motion until results show up.",
+    label: "PLATFORMS",
+    title: "Platforms",
+    body: "The infrastructure your team runs on. CRM, tooling, automation built to support the way deals actually move.",
   },
 ];
 

@@ -23,8 +23,8 @@ const PHASES = [
     solutionSub:
       "We prototype the solution and pressure test it with your team at no cost.",
     links: [
-      { href: "/services/implementations", text: "View Implementation" },
-      { href: "/services/custom-buildouts", text: "View Buildouts" },
+      { href: "/what-we-do/platforms", text: "View Implementation" },
+      { href: "/what-we-do/platforms#custom-builds", text: "View Buildouts" },
     ],
   },
   {
@@ -33,7 +33,7 @@ const PHASES = [
     label: "Follow-ups that fall through the cracks.",
     sub: "Missed pipeline.",
     solutionSub:
-      "3 to 6 month engagement. One measurable outcome. If we don't hit it, we keep working, a risk-free POC.",
+      "90-day engagement. One measurable outcome. If we don't hit it, we keep working, a risk-free POC.",
   },
   {
     step: "04",

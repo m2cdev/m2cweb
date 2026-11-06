@@ -64,7 +64,7 @@ const PHASES: Phase[] = [
   {
     id: 1,
     label: "Broken sales motions that stall your momentum.",
-    sub: "Leaking revenue.",
+    sub: "Leaking revenue → Process",
     solution: "Diagnose",
     solutionSub: "We audit your full sales motion and identify where deals are breaking down.",
     pStart: 0.08,
@@ -76,7 +76,7 @@ const PHASES: Phase[] = [
   {
     id: 2,
     label: "Marketing & Sales initiatives working in silos.",
-    sub: "Broken alignment.",
+    sub: "Broken alignment → People",
     solution: "Build",
     solutionSub: "We prototype the solution and pressure test it with your team at no cost.",
     pStart: 0.26,
@@ -88,9 +88,9 @@ const PHASES: Phase[] = [
   {
     id: 3,
     label: "Follow-ups that fall through the cracks.",
-    sub: "Missed pipeline.",
+    sub: "Missed pipeline → Process",
     solution: "Pilot",
-    solutionSub: "3 to 6 month engagement. One measurable outcome. If we don't hit it, we keep working, a risk-free POC.",
+    solutionSub: "90-day engagement. One measurable outcome. If we don't hit it, we keep working, a risk-free POC.",
     pStart: 0.45,
     pEnd: 0.63,
     pFix: 0.494,
@@ -100,7 +100,7 @@ const PHASES: Phase[] = [
   {
     id: 4,
     label: "Processes that become more inefficient as you get bigger.",
-    sub: "Diminishing returns.",
+    sub: "Diminishing returns → Platforms",
     solution: "Scale",
     solutionSub: "Once we prove it works, we build it out. Full solution, no limits.",
     pStart: 0.63,
@@ -1000,14 +1000,14 @@ function PinLabel({
                 <div style={{ marginBottom: "16px" }}>
                   <p style={{ fontSize: "16px", color: "#fff", fontWeight: 800, marginBottom: "4px" }}>Existing Tech Stack</p>
                   <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.7)", marginBottom: "8px", lineHeight: 1.4 }}>Optimizing CRM for speed.</p>
-                  <a href="/services/implementations" style={{ fontSize: "13px", color: "#62D2A2", fontWeight: 900, textDecoration: "none", borderBottom: "1px solid rgba(98, 210, 162, 0.3)" }}>
+                  <a href="/what-we-do/platforms" style={{ fontSize: "13px", color: "#62D2A2", fontWeight: 900, textDecoration: "none", borderBottom: "1px solid rgba(98, 210, 162, 0.3)" }}>
                     VIEW IMPLEMENTATION →
                   </a>
                 </div>
                 <div>
                   <p style={{ fontSize: "16px", color: "#fff", fontWeight: 800, marginBottom: "4px" }}>Custom Tools</p>
                   <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.7)", marginBottom: "8px", lineHeight: 1.4 }}>Bespoke software solutions.</p>
-                  <a href="/services/custom-buildouts" style={{ fontSize: "13px", color: "#62D2A2", fontWeight: 900, textDecoration: "none", borderBottom: "1px solid rgba(98, 210, 162, 0.3)" }}>
+                  <a href="/what-we-do/platforms#custom-builds" style={{ fontSize: "13px", color: "#62D2A2", fontWeight: 900, textDecoration: "none", borderBottom: "1px solid rgba(98, 210, 162, 0.3)" }}>
                     VIEW BUILDOUTS →
                   </a>
                 </div>

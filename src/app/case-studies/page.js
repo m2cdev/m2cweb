@@ -11,30 +11,30 @@ import { BackgroundAura } from "@/components/ui/background-aura";
 
 const caseStudies = [
   {
-    id: "pinecone",
+    id: "sales-enablement-hub",
     company: "Sales Enablement",
     title: "Sales Enablement Hub",
     description: "The right content never made it into the right conversation at the right time. Assets existed but were scattered, outdated, and impossible to surface during an active deal. We built a centralized Sales Enablement Hub where reps filter assets by deal stage, buyer persona, and use case in real time.",
     loomId: "8815fd477dcd444799521d13995e8442",
-    thumbnail: "/images/case-studies/pinecone-loom.png",
+    thumbnail: "/images/case-studies/sales-enablement-hub-loom.png",
     color: "#62D2A2",
   },
   {
-    id: "signpost",
+    id: "signal-intelligence-engine",
     company: "Signal Intelligence",
     title: "Signal Intelligence Engine",
     description: "Reps were cold calling blind - no way to know which accounts were actively in pain. We built a custom Signal Intelligence Engine that scraped public review data, scored every account across Fit, Demand, Comms Pain, and Growth, and pushed high-scoring leads directly into HubSpot with rep-facing briefs.",
     loomId: "7694a0c1e94d44cc875b8f75e7b4d0e7",
-    thumbnail: "/images/case-studies/signpost-loom.png",
+    thumbnail: "/images/case-studies/signal-intelligence-engine-loom.png",
     color: "#F96B6B",
   },
   {
-    id: "qwilr",
+    id: "trial-to-close-engine",
     company: "Trial Optimization",
     title: "Trial-to-Close Engine",
     description: "A California-based SaaS team had deals slow down the moment they left the demo stage. We designed a Trial-to-Close Engine: a guided playbook with give/get incentives, partnered with a Deal Accelerator Engine that monitored every active trial and flagged deals stalling beyond threshold points.",
     loomId: "09630646d94f4811a4186f9e879e4b7c",
-    thumbnail: "/images/case-studies/qwilr-loom.png",
+    thumbnail: "/images/case-studies/trial-to-close-engine-loom.png",
     color: "#62D2A2",
   },
 ];

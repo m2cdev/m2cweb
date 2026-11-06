@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,6 +8,7 @@ import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Map2CloseLogo from "@/components/Logo";
+import { MegaMenu, MobileWhatWeDo } from "@/components/revamp/MegaMenu";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -15,17 +16,12 @@ const navLinks = [
     { name: "Company", href: "/who-we-are" },
     { name: "How We Compare", href: "/who-we-are/compare" }
   ]},
-  { name: "What We Do", href: "/services/sales-enablement", mobileHref: "/services/sales-enablement", dropdown: [
-    { name: "Sales Enablement", href: "/services/sales-enablement" },
-    { name: "Implementations", href: "/services/implementations" },
-    { name: "Custom Buildouts", href: "/services/custom-buildouts" },
-    { name: "AI Sales Assistant", href: "/services/ai-sales-assistant" },
-  ]},
+  { name: "What We Do", href: "/what-we-do", mobileHref: "/what-we-do", mega: true },
   { name: "Case Studies", href: "/case-studies", dropdown: [
     { name: "Overview", href: "/case-studies" },
-    { name: "Signal Intelligence Engine", href: "/case-studies/signpost" },
-    { name: "Sales Enablement Hub", href: "/case-studies/pinecone" },
-    { name: "Trial-to-Close Engine", href: "/case-studies/qwilr" },
+    { name: "Signal Intelligence Engine", href: "/case-studies/signal-intelligence-engine" },
+    { name: "Sales Enablement Hub", href: "/case-studies/sales-enablement-hub" },
+    { name: "Trial-to-Close Engine", href: "/case-studies/trial-to-close-engine" },
   ]},
   { name: "The Pilot", href: "/pilot" },
 ];
@@ -33,7 +29,23 @@ const navLinks = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [megaOpen, setMegaOpen] = useState(false);
+  const openTimer = useRef(null);
+  const closeTimer = useRef(null);
   const pathname = usePathname();
+
+  const clearTimers = () => { clearTimeout(openTimer.current); clearTimeout(closeTimer.current); };
+  const intentOpen = useCallback(() => {
+    clearTimers();
+    openTimer.current = setTimeout(() => setMegaOpen(true), 120);
+  }, []);
+  const intentClose = useCallback(() => {
+    clearTimers();
+    closeTimer.current = setTimeout(() => setMegaOpen(false), 200);
+  }, []);
+
+
+  useEffect(() => () => clearTimers(), []);
 
   useEffect(() => {
     let ticking = false;
@@ -65,6 +77,17 @@ export default function Navbar() {
         {/* Desktop Nav Items */}
         <div className="hidden md:flex items-center gap-8 bg-white/5 border border-white/10 px-6 py-2 rounded-full backdrop-blur-md">
           {navLinks.map((link) => (
+            link.mega ? (
+              <div key={link.name} className="relative" onMouseEnter={intentOpen} onMouseLeave={intentClose}>
+                <MegaMenu
+                  open={megaOpen}
+                  setOpen={setMegaOpen}
+                  active={pathname.startsWith("/what-we-do") || pathname.startsWith("/products")}
+                  label={link.name}
+                  href={link.href}
+                />
+              </div>
+            ) : (
             <div key={link.name} className="relative group">
               <Link
                 href={link.href}
@@ -101,6 +124,7 @@ export default function Navbar() {
                 </div>
               )}
             </div>
+            )
           ))}
         </div>
 
@@ -138,6 +162,9 @@ export default function Navbar() {
           >
             <div className="flex flex-col gap-6">
               {navLinks.map((link) => (
+                link.mega ? (
+                  <MobileWhatWeDo key={link.name} label={link.name} href={link.href} pathname={pathname} onNavigate={() => setIsMobileMenuOpen(false)} />
+                ) : (
                 <div key={link.name} className="flex flex-col gap-2">
                   <Link
                     href={link.mobileHref || link.href}
@@ -171,6 +198,7 @@ export default function Navbar() {
                     </div>
                   )}
                 </div>
+                )
               ))}
             </div>
             <div className="mt-8 pt-8 border-t border-white/10">

@@ -66,7 +66,7 @@ export default function Pilot() {
           <CardSpotlight className="bg-white/[0.02] border-white/10 rounded-3xl p-6 md:p-16 hover:border-primary/50 transition-colors shadow-2xl">
             <h3 className="text-secondary font-bold text-sm uppercase tracking-widest mb-6 border border-secondary/20 bg-secondary/10 w-fit px-4 py-1.5 rounded-full relative z-20">Scoping</h3>
             <h4 className="text-2xl md:text-5xl font-black text-white mb-6 tracking-tighter relative z-20">Hyper-Focused Scope</h4>
-            <p className="text-white text-base md:text-lg leading-relaxed font-body relative z-20">We don&apos;t try to boil the ocean. The pilot targets a specific, high-friction area of your pipeline where we can prove momentum inside a measurable 3 to 6 month window. We define that outcome together before we start.</p>
+            <p className="text-white text-base md:text-lg leading-relaxed font-body relative z-20">We don&apos;t try to boil the ocean. The pilot targets a specific, high-friction area of your pipeline where we can prove momentum inside a measurable 90-day window. We define that outcome together before we start.</p>
           </CardSpotlight>
           <CardSpotlight className="bg-white/[0.02] border-white/10 rounded-3xl p-6 md:p-16 hover:border-primary/50 transition-colors shadow-2xl">
             <h3 className="text-primary font-bold text-sm uppercase tracking-widest mb-6 border border-primary/20 bg-primary/10 w-fit px-4 py-1.5 rounded-full relative z-20">De-Risked</h3>
@@ -115,16 +115,22 @@ export default function Pilot() {
               </div>
             ))}
 
-            {/* Step 4 - Neon Card */}
+            {/* Step 4 */}
             <div className="mb-20">
               <p className="text-primary font-bold text-sm uppercase tracking-widest mb-4">Step 04</p>
-              <h2 className="text-2xl md:text-6xl font-black mb-8 md:mb-12 tracking-tighter">Deliverables</h2>
+              <h2 className="text-2xl md:text-6xl font-black mb-6 md:mb-8 tracking-tighter">Review and <span className="text-[#F96B6B]">Decide</span></h2>
+              <p className="text-base md:text-xl text-white font-body leading-relaxed max-w-3xl">
+                At the end of the 90 days we review the result against the outcome we agreed on at the start. Then you choose: continue, adjust the target, or keep everything we built and walk away.
+              </p>
+            </div>
 
+            {/* What you get from the working session */}
+            <div className="mb-20">
               <NeonGradientCard neonColors={{ firstColor: "#62d2a2", secondColor: "#f96b6b" }} className="p-1">
                 <div className="bg-neutral-900 rounded-[var(--radius)] p-6 md:p-12 text-center">
-                  <h3 className="text-xl md:text-4xl font-black mb-6">Deliverables</h3>
+                  <h3 className="text-xl md:text-4xl font-black mb-6">What you get from the working session</h3>
                   <p className="text-base md:text-xl text-white font-body mb-8 max-w-2xl mx-auto">
-                    Even if we never work together again. Leave the working session with a clear Path-to-Close Plan. Execute it yourself, with another partner, or with us.
+                    Even if we never work together again, you leave the working session with a clear Path-to-Close Plan. Execute it yourself, with another partner, or with us.
                   </p>
                   <div className="flex flex-wrap justify-center gap-4">
                     {["Clear action plan", "Highest-ROI fixes identified", "People vs system problems", "Funnel friction points", "Written summary you keep forever"].map((tag) => (

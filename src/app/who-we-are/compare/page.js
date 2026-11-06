@@ -1,6 +1,7 @@
 "use client";
 
 import React, { Suspense } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import RotatingEarth from "@/components/ui/wireframe-dotted-globe";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
@@ -34,6 +35,7 @@ const comparisons = [
       "Identify exactly where the breakdown is happening",
       "Fix what's breaking, not just flag it",
     ],
+    productLine: true,
   },
   {
     category: "Sales Strategy & Consulting",
@@ -237,6 +239,12 @@ export default function ComparePage() {
                       </motion.li>
                     ))}
                   </ul>
+                  {block.productLine && (
+                    <p className="mt-8 font-body text-[17px] text-white/90 font-medium">
+                      And we built our own: Qmo for live coaching, Grdr for grading.{" "}
+                      <Link href="/products" className="text-[#62D2A2] underline underline-offset-4 hover:text-white transition-colors">See our products</Link>
+                    </p>
+                  )}
                 </div>
 
               </div>

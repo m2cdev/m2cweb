@@ -10,12 +10,13 @@ import { LampContainer } from "@/components/ui/lamp";
 import HorizontalCarousel from "@/components/ui/horizontal-scroll-carousel";
 import { LogoMarquee } from "@/components/LogoMarquee";
 import TopographicMap from "@/components/sections/TopographicMap";
+import ProductStrip from "@/components/revamp/ProductStrip";
 
 
 const caseStudiesData = [
-  { id: "pinecone", title: "Sales Enablement Hub", subtitle: "The right content, surfaced at the right moment in every deal.", url: "/images/pinecone-homepage.png", category: "Sales Enablement" },
-  { id: "signpost", title: "Signal Intelligence Engine", subtitle: "Public review data, scored and pushed straight into HubSpot.", url: "/images/signpost-homepage.png", category: "Signal Intelligence" },
-  { id: "qwilr", title: "Trial-to-Close Engine", subtitle: "A guided trial motion that ends post-demo deal drift.", url: "/images/qwilr-homepage.png", category: "Trial Optimization" },
+  { id: "sales-enablement-hub", title: "Sales Enablement Hub", subtitle: "The right content, surfaced at the right moment in every deal.", url: "/images/pinecone-homepage.png", category: "Sales Enablement" },
+  { id: "signal-intelligence-engine", title: "Signal Intelligence Engine", subtitle: "Public review data, scored and pushed straight into HubSpot.", url: "/images/signpost-homepage.png", category: "Signal Intelligence" },
+  { id: "trial-to-close-engine", title: "Trial-to-Close Engine", subtitle: "A guided trial motion that ends post-demo deal drift.", url: "/images/qwilr-homepage.png", category: "Trial Optimization" },
 ];
 
 
@@ -69,7 +70,7 @@ export default function Home() {
         greenWords={["Map2Close", "close"]}
         redWords={["process"]}
       >
-        Map2Close embeds directly into your sales team to audit your pipeline, fix your process, and train your reps so every lead that comes in has a real path to close.
+        Map2Close embeds directly into your sales team to coach your people, fix your process, and build your platforms, so every lead that comes in has a real path to close.
       </TextReveal>
 
       {/* Trust Section - Logo Marquee */}
@@ -91,6 +92,22 @@ export default function Home() {
 
       {/* Case Studies Section - Natural Horizontal Scroll */}
       <HorizontalCarousel cards={caseStudiesData} />
+
+      {/* Product band */}
+      <section className="relative w-full bg-black px-6 md:px-16 py-20 md:py-32 border-t border-white/5">
+        <div className="max-w-6xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="text-3xl md:text-6xl font-black tracking-tighter text-white mb-12 max-w-4xl"
+          >
+            We Don&apos;t Just Fix the Motion. We Build the <span className="text-primary">Tools That Run It.</span>
+          </motion.h2>
+          <ProductStrip showHeading={false} />
+        </div>
+      </section>
 
       {/* Final CTA - Lamp Effect (desktop) / Clean CTA (mobile) */}
       <section className="relative bg-black w-full flex flex-col items-center justify-center overflow-hidden hide-floating-cta">

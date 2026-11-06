@@ -90,7 +90,7 @@ export function PilotHero() {
           </h1>
 
           <p className="text-base text-white leading-relaxed mb-10 font-body">
-            A focused 3 to 6 month engagement. We work inside your systems and pipeline to remove friction and prove the ROI before we scale out.
+            A focused 90-day engagement. We work inside your systems and pipeline to remove friction and prove the ROI before we scale out.
           </p>
 
           <div className="flex flex-col gap-4">
@@ -140,7 +140,7 @@ export function PilotHero() {
               </h1>
 
               <p className="text-xl md:text-2xl text-white leading-relaxed mb-12 max-w-lg font-medium font-body">
-                A focused 3 to 6 month engagement, we work inside your systems and pipeline to remove friction and prove the ROI before we scale out.
+                A focused 90-day engagement, we work inside your systems and pipeline to remove friction and prove the ROI before we scale out.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-6 mb-8">

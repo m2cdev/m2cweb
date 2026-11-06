@@ -8,12 +8,12 @@ import { CheckCircle, Play, ArrowRight } from "lucide-react";
 import { Waves } from "@/components/ui/wave-background";
 
 const caseStudies = {
-  pinecone: {
+  "sales-enablement-hub": {
     title: "Sales Enablement Hub",
     category: "Sales Enablement",
     label: "Sales Enablement Hub",
     color: "#62D2A2",
-    thumbnail: "/images/case-studies/pinecone-loom.png",
+    thumbnail: "/images/case-studies/sales-enablement-hub-loom.png",
     loomId: "8815fd477dcd444799521d13995e8442",
     resultTitle: "Projected ROI and Impact",
     problem: [
@@ -31,12 +31,12 @@ const caseStudies = {
       "Sharper competitive messaging against established market leaders",
     ],
   },
-  signpost: {
+  "signal-intelligence-engine": {
     title: "Signal Intelligence Engine",
     category: "Signal Intelligence",
     label: "Signal Intelligence Engine",
     color: "#F96B6B",
-    thumbnail: "/images/case-studies/signpost-loom.png",
+    thumbnail: "/images/case-studies/signal-intelligence-engine-loom.png",
     loomId: "7694a0c1e94d44cc875b8f75e7b4d0e7",
     resultTitle: "Projected ROI and Impact",
     problem: [
@@ -57,12 +57,12 @@ const caseStudies = {
       "Research time per account reduced to zero",
     ],
   },
-  qwilr: {
+  "trial-to-close-engine": {
     title: "Trial-to-Close Engine",
     category: "Trial Optimization",
     label: "Trial-to-Close Engine",
     color: "#62D2A2",
-    thumbnail: "/images/case-studies/qwilr-loom.png",
+    thumbnail: "/images/case-studies/trial-to-close-engine-loom.png",
     loomId: "09630646d94f4811a4186f9e879e4b7c",
     resultTitle: "Projected ROI and Impact",
     problem: [
@@ -87,9 +87,9 @@ const caseStudies = {
 };
 
 const nextStudyMap = {
-  pinecone: ["signpost", "qwilr"],
-  signpost: ["pinecone", "qwilr"],
-  qwilr: ["pinecone", "signpost"],
+  "sales-enablement-hub": ["signal-intelligence-engine", "trial-to-close-engine"],
+  "signal-intelligence-engine": ["sales-enablement-hub", "trial-to-close-engine"],
+  "trial-to-close-engine": ["sales-enablement-hub", "signal-intelligence-engine"],
 };
 
 function LoomEmbed({ loomId, thumbnail }) {

@@ -1,0 +1,248 @@
+"use client";
+
+import React, { useRef } from "react";
+import Link from "next/link";
+import { motion, useInView } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+export const MINT = "#62D2A2";
+export const CORAL = "#F96B6B";
+export const QMO_YELLOW = "#FFC801";
+export const GRDR_CYAN = "#00D1FF";
+
+export function Reveal({ children, delay = 0, className = "", y = 18 }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y }}
+      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+// Renders text where words starting with ^ are mint and ! are coral.
+export function Marked({ text, mint = MINT, coral = CORAL }) {
+  return text.split(" ").map((w, i) => {
+    const c = w.startsWith("^") ? mint : w.startsWith("!") ? coral : null;
+    const clean = w.replace(/^[\^!]/, "");
+    return (
+      <span key={i} style={c ? { color: c } : undefined}>
+        {clean}{" "}
+      </span>
+    );
+  });
+}
+
+export function GridBackdrop({ glow = MINT }) {
+  return (
+    <div className="absolute inset-0 pointer-events-none -z-0 overflow-hidden" aria-hidden="true">
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_30%,#000_10%,transparent_100%)]" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[720px] h-[720px] rounded-full blur-[160px] opacity-[0.10]" style={{ background: glow }} />
+    </div>
+  );
+}
+
+export function Eyebrow({ children, color = MINT }) {
+  return (
+    <div className="mb-6 flex items-center gap-3">
+      <div className="h-px w-6" style={{ background: color }} />
+      <span className="text-[12px] md:text-[13px] font-black uppercase tracking-[0.3em]" style={{ color }}>
+        {children}
+      </span>
+    </div>
+  );
+}
+
+export function PageHero({ eyebrow, headline, sub, children, accent = MINT, align = "left" }) {
+  return (
+    <section className="relative min-h-[80vh] flex items-center pt-32 pb-20 px-6 md:px-16 overflow-hidden">
+      <GridBackdrop glow={accent} />
+      <div className={cn("relative z-10 max-w-6xl mx-auto w-full", align === "center" && "text-center")}>
+        <Reveal>
+          <div className={cn(align === "center" && "flex justify-center")}>
+            <Eyebrow color={accent}>{eyebrow}</Eyebrow>
+          </div>
+        </Reveal>
+        <h1 className="text-4xl md:text-7xl lg:text-[5.5rem] font-black tracking-tighter leading-[0.98] text-white max-w-5xl">
+          {headline.split(" ").map((w, i) => {
+            const c = w.startsWith("^") ? MINT : w.startsWith("!") ? CORAL : null;
+            const clean = w.replace(/^[\^!]/, "");
+            return (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                className="inline-block mr-[0.28em]"
+                style={c ? { color: c } : undefined}
+              >
+                {clean}
+              </motion.span>
+            );
+          })}
+        </h1>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+          className={cn("mt-8 text-lg md:text-xl text-white font-body leading-relaxed max-w-3xl", align === "center" && "mx-auto")}
+        >
+          {sub}
+        </motion.p>
+        {children && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.6 }} className="mt-10">
+            {children}
+          </motion.div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+export function Btn({ href, children, external, variant = "primary", className = "", onClick, ...rest }) {
+  const base = "inline-flex items-center gap-3 px-8 py-4 rounded-full font-black text-xs md:text-sm uppercase tracking-widest transition-all duration-300";
+  const styles =
+    variant === "primary"
+      ? "bg-[#62D2A2] text-black hover:bg-white"
+      : "border border-white/20 text-white hover:border-[#62D2A2] hover:text-[#62D2A2]";
+  const cls = cn(base, styles, className);
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={cls} onClick={onClick} {...rest}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={cls} onClick={onClick} {...rest}>
+      {children}
+    </Link>
+  );
+}
+
+export function SectionTitle({ eyebrow, title, sub, accent = MINT, center = false, mint, coral }) {
+  return (
+    <div className={cn("mb-12 md:mb-16", center && "text-center")}>
+      {eyebrow && (
+        <div className={cn(center && "flex justify-center")}>
+          <Eyebrow color={accent}>{eyebrow}</Eyebrow>
+        </div>
+      )}
+      <h2 className="text-3xl md:text-6xl font-black tracking-tighter leading-[1.02] text-white max-w-5xl mx-auto md:mx-0" style={center ? { margin: "0 auto" } : undefined}>
+        <Marked text={title} mint={mint || accent} coral={coral || CORAL} />
+      </h2>
+      {sub && <p className={cn("mt-6 text-base md:text-xl text-white font-body leading-relaxed max-w-3xl", center && "mx-auto")}>{sub}</p>}
+    </div>
+  );
+}
+
+export function Section({ children, className = "", id, tone = "black" }) {
+  return (
+    <section id={id} className={cn("relative px-6 md:px-16 py-16 md:py-28 overflow-hidden", tone === "dark" ? "bg-[#080808]" : "bg-black", className)}>
+      <div className="relative z-10 max-w-6xl mx-auto">{children}</div>
+    </section>
+  );
+}
+
+export function CardGrid({ items, cols = 3, accent = MINT }) {
+  return (
+    <div className={cn("grid gap-5 md:gap-6", cols === 4 ? "md:grid-cols-2 lg:grid-cols-4" : cols === 2 ? "md:grid-cols-2" : "md:grid-cols-2 lg:grid-cols-3")}>
+      {items.map((it, i) => (
+        <Reveal key={it.title} delay={(i % 4) * 0.08}>
+          <div className="group relative h-full rounded-3xl border border-white/10 bg-white/[0.02] p-7 md:p-8 transition-all duration-300 hover:border-white/25 hover:bg-white/[0.04] overflow-hidden">
+            <span className="absolute top-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-500" style={{ background: accent }} />
+            <span className="block text-sm font-black tracking-widest mb-6" style={{ color: accent }}>
+              {it.tag || String(i + 1).padStart(2, "0")}
+            </span>
+            <h3 className="text-xl md:text-2xl font-black text-white tracking-tight leading-tight mb-3">{it.title}</h3>
+            <p className="font-body text-base text-white leading-relaxed">{it.description}</p>
+            {it.href && (
+              <Link href={it.href} className="mt-5 inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest" style={{ color: accent }}>
+                {it.linkText || "Read the case study"} <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            )}
+          </div>
+        </Reveal>
+      ))}
+    </div>
+  );
+}
+
+export function Steps({ steps, accent = MINT }) {
+  return (
+    <div className="relative grid gap-5">
+      <div className="absolute left-[27px] top-6 bottom-6 w-px bg-white/10 hidden md:block" aria-hidden="true" />
+      {steps.map((s, i) => (
+        <Reveal key={s.title} delay={i * 0.1}>
+          <div className="relative grid md:grid-cols-[56px_1fr] gap-5 rounded-3xl border border-white/10 bg-white/[0.025] p-6 md:p-8">
+            <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border bg-black font-mono text-sm font-black" style={{ borderColor: accent, color: accent }}>
+              {String(i + 1).padStart(2, "0")}
+            </div>
+            <div>
+              <h3 className="text-lg md:text-2xl font-black text-white tracking-tight">{s.title}</h3>
+              {s.body && <p className="mt-3 font-body text-base md:text-lg text-white leading-relaxed">{s.body}</p>}
+            </div>
+          </div>
+        </Reveal>
+      ))}
+    </div>
+  );
+}
+
+export function ProductTieIn({ headline, body, cta = "See our products", href = "/products" }) {
+  return (
+    <Section className="!py-12 md:!py-20">
+      <Reveal>
+        <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#FFC801]/[0.06] via-transparent to-[#00D1FF]/[0.06] p-8 md:p-12 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+          <div className="max-w-2xl">
+            <p className="text-[11px] font-black uppercase tracking-[0.3em] text-white/60 mb-3">Product Portfolio</p>
+            <h3 className="text-2xl md:text-4xl font-black tracking-tighter text-white mb-4">{headline}</h3>
+            <p className="font-body text-base md:text-lg text-white leading-relaxed">{body}</p>
+          </div>
+          <Link href={href} className="inline-flex shrink-0 items-center gap-3 text-xs font-black uppercase tracking-widest text-[#62D2A2] hover:text-white transition-colors">
+            {cta} <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </Reveal>
+    </Section>
+  );
+}
+
+export function CtaBand({ headline, sub, primary, secondary, extra }) {
+  return (
+    <section className="relative px-6 py-20 md:py-32 text-center overflow-hidden bg-gradient-to-b from-black to-[#050505] hide-floating-cta">
+      <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,rgba(98,210,162,0.15),transparent_70%)] pointer-events-none" />
+      <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
+        <h2 className="text-3xl md:text-7xl font-black tracking-tighter leading-[0.98] text-white mb-6">
+          <Marked text={headline} />
+        </h2>
+        {sub && <p className="text-lg md:text-xl text-white font-body mb-10">{sub}</p>}
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          {primary && <Btn {...primary}>{primary.label}</Btn>}
+          {secondary && <Btn variant="ghost" {...secondary}>{secondary.label}</Btn>}
+        </div>
+        {extra}
+      </div>
+    </section>
+  );
+}
+
+export function QmoMark({ className = "h-5" }) {
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src="/brand/qmo-wordmark-white.svg" alt="Qmo" className={className} />;
+}
+
+export function GrdrMark({ className = "text-xl" }) {
+  return (
+    <span className={cn("font-black tracking-tight text-white", className)} aria-label="Grdr">
+      Grdr<span style={{ color: GRDR_CYAN }}>.</span>
+    </span>
+  );
+}
