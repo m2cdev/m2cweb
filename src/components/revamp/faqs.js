@@ -5,3 +5,6 @@ export const FAQS = [
   { q: "What does Grdr grade against?", a: "The 4 Ds for cold calls and MEDDPICC plus CLOSER for deals, with anchored 0 to 3 scoring." },
   { q: "Can I try them free?", a: "Qmo has a 2 week free trial. Grdr gives you a free grade on your first call." },
 ];
+
+export const QMO_FAQS = [FAQS[0], FAQS[1], FAQS[2], FAQS[4]];
+export const GRDR_FAQS = [FAQS[0], FAQS[3], FAQS[4]];

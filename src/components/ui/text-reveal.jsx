@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-export const TextReveal = ({ children, className, greenWords = [], redWords = [] }) => {
+export const TextReveal = ({ children, className, greenWords = [], redWords = [], light = false }) => {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -26,7 +26,7 @@ export const TextReveal = ({ children, className, greenWords = [], redWords = []
   const revealEnd = 0.6;
 
   return (
-    <div ref={containerRef} className={cn("relative z-10 h-[250vh]", className)}>
+    <div ref={containerRef} className={cn("relative z-10 h-[250vh]", light && "bg-white", className)}>
       <div className="sticky top-0 mx-auto flex h-screen max-w-5xl items-center justify-center bg-transparent px-6">
         <p
           className="flex flex-wrap items-center justify-center text-center p-5 text-3xl font-bold md:p-8 md:text-4xl lg:p-10 lg:text-5xl xl:text-6xl leading-[1.4] tracking-tight"
@@ -50,8 +50,8 @@ export const TextReveal = ({ children, className, greenWords = [], redWords = []
                 <motion.span
                   style={{ opacity, y }}
                   className={cn(
-                    "block text-white transition-colors duration-500",
-                    isGreen && "text-primary font-black",
+                    light ? "block text-black transition-colors duration-500" : "block text-white transition-colors duration-500",
+                    isGreen && (light ? "!text-[#12905D] font-black" : "text-primary font-black"),
                     isRed   && "text-[#F96B6B] font-black"
                   )}
                 >

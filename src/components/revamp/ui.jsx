@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import Link from "next/link";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -40,11 +40,23 @@ export function Marked({ text, mint = MINT, coral = CORAL }) {
   });
 }
 
+export function Waves({ className = "", color = MINT, flip = false }) {
+  return (
+    <svg viewBox="0 0 320 220" className={className} fill="none" aria-hidden="true" style={flip ? { transform: "scaleX(-1) scaleY(-1)" } : undefined}>
+      {[0, 1, 2, 3, 4, 5].map((i) => (
+        <path key={i} d={`M-10 ${150 + i * 14} C 70 ${60 + i * 10}, 150 ${210 - i * 6}, 330 ${70 + i * 12}`} stroke={color} strokeOpacity={0.5 - i * 0.06} strokeWidth="1" />
+      ))}
+    </svg>
+  );
+}
+
 export function GridBackdrop({ glow = MINT }) {
   return (
     <div className="absolute inset-0 pointer-events-none -z-0 overflow-hidden" aria-hidden="true">
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_30%,#000_10%,transparent_100%)]" />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[720px] h-[720px] rounded-full blur-[160px] opacity-[0.10]" style={{ background: glow }} />
+      <div className="absolute -top-40 -right-40 w-[760px] h-[760px] rounded-full blur-[150px] opacity-[0.20]" style={{ background: `radial-gradient(circle, ${glow}, transparent 70%)` }} />
+      <Waves className="absolute -bottom-6 -left-10 w-[300px] md:w-[460px] h-auto opacity-70" color={glow} />
+      <Waves className="absolute top-14 -right-10 w-[220px] md:w-[340px] h-auto opacity-40 hidden md:block" color={glow} flip />
     </div>
   );
 }
@@ -244,5 +256,160 @@ export function GrdrMark({ className = "text-xl" }) {
     <span className={cn("font-black tracking-tight text-white", className)} aria-label="Grdr">
       Grdr<span style={{ color: GRDR_CYAN }}>.</span>
     </span>
+  );
+}
+
+// ---------- Letter-split headline (animates each letter, keeps words unbroken) ----------
+export function SplitLetters({ text, className = "", delay = 0, stagger = 0.025 }) {
+  const reduce = useReducedMotion();
+  let n = 0;
+  return (
+    <span className={className} aria-label={text.replace(/[\^!]/g, "")}>
+      {text.split(" ").map((w, wi) => {
+        const c = w.startsWith("^") ? MINT : w.startsWith("!") ? CORAL : null;
+        const clean = w.replace(/^[\^!]/, "");
+        return (
+          <span key={wi} className="inline-block whitespace-nowrap mr-[0.28em]" aria-hidden="true" style={c ? { color: c } : undefined}>
+            {clean.split("").map((ch, ci) => {
+              const d = delay + n++ * stagger;
+              return (
+                <motion.span
+                  key={ci}
+                  className="inline-block"
+                  initial={reduce ? false : { opacity: 0, y: "0.5em", rotateX: -60 }}
+                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                  transition={{ duration: 0.55, delay: d, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  {ch}
+                </motion.span>
+              );
+            })}
+          </span>
+        );
+      })}
+    </span>
+  );
+}
+
+// ---------- White section kit (deck pattern) ----------
+export const GREEN_ON_WHITE = "#12905D";
+
+export function WhiteSection({ children, className = "", id, tone = "white" }) {
+  return (
+    <section id={id} className={cn("relative px-6 md:px-16 py-16 md:py-28 overflow-hidden text-black", tone === "grey" ? "bg-[#F3F3F1]" : "bg-white", className)}>
+      <div className="relative z-10 max-w-6xl mx-auto">{children}</div>
+    </section>
+  );
+}
+
+export function WhiteTitle({ eyebrow, title, sub, center = false, className = "" }) {
+  return (
+    <div className={cn("mb-10 md:mb-14", center && "text-center", className)}>
+      {eyebrow && (
+        <p className={cn("mb-4 text-[12px] md:text-[13px] font-black uppercase tracking-[0.3em]", center && "text-center")} style={{ color: GREEN_ON_WHITE }}>{eyebrow}</p>
+      )}
+      <h2 className={cn("text-3xl md:text-6xl font-black tracking-tighter leading-[1.02] text-black max-w-5xl", center && "mx-auto")}>
+        {title.split(" ").map((w, i) => {
+          const g = w.startsWith("^");
+          return <span key={i} style={g ? { color: GREEN_ON_WHITE } : undefined}>{w.replace(/^[\^!]/, "")}{" "}</span>;
+        })}
+      </h2>
+      {sub && <p className={cn("mt-5 text-base md:text-xl text-[#5E5E5A] font-body leading-relaxed max-w-3xl", center && "mx-auto")}>{sub}</p>}
+    </div>
+  );
+}
+
+export function NumDot({ n, variant = "mint", className = "" }) {
+  const mint = variant === "mint";
+  return (
+    <span
+      className={cn("inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full font-black text-sm tabular-nums", className)}
+      style={mint ? { background: MINT, color: "#000" } : { background: "#000", color: MINT }}
+    >
+      {typeof n === "number" ? String(n).padStart(2, "0") : n}
+    </span>
+  );
+}
+
+export function CoralPill({ children, className = "" }) {
+  return (
+    <span className={cn("inline-block rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-white", className)} style={{ background: CORAL }}>
+      {children}
+    </span>
+  );
+}
+
+export function LightCard({ children, dark = false, className = "", ...rest }) {
+  return (
+    <div
+      className={cn(
+        "rounded-3xl border p-7 md:p-8 transition-all duration-300",
+        dark ? "bg-black border-black text-white" : "bg-[#F4F4F2] border-black/10 text-black hover:border-black/30 hover:-translate-y-0.5",
+        className
+      )}
+      {...rest}
+    >
+      {children}
+    </div>
+  );
+}
+
+// ---------- Swipe slider (native scroll-snap + drag + arrows + progress) ----------
+export function SwipeSlider({ children, dark = true, label = "Slides" }) {
+  const ref = useRef(null);
+  const [p, setP] = React.useState(0);
+  const drag = useRef({ down: false, x: 0, left: 0, moved: false });
+  const onScroll = () => {
+    const el = ref.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    setP(max > 0 ? el.scrollLeft / max : 1);
+  };
+  const by = (dir) => {
+    const el = ref.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * Math.min(el.clientWidth * 0.8, 440), behavior: "smooth" });
+  };
+  const col = dark ? "#fff" : "#000";
+  return (
+    <div role="region" aria-label={label}>
+      <div
+        ref={ref}
+        onScroll={onScroll}
+        onPointerDown={(e) => {
+          if (e.pointerType !== "mouse") return;
+          drag.current = { down: true, x: e.clientX, left: ref.current.scrollLeft, moved: false };
+        }}
+        onPointerMove={(e) => {
+          const d = drag.current;
+          if (!d.down) return;
+          const dx = e.clientX - d.x;
+          if (Math.abs(dx) > 4) d.moved = true;
+          ref.current.style.scrollSnapType = "none";
+          ref.current.scrollLeft = d.left - dx;
+        }}
+        onPointerUp={() => { drag.current.down = false; if (ref.current) ref.current.style.scrollSnapType = ""; }}
+        onPointerLeave={() => { drag.current.down = false; if (ref.current) ref.current.style.scrollSnapType = ""; }}
+        className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 -mx-6 px-6 md:mx-0 md:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing"
+        tabIndex={0}
+      >
+        {React.Children.map(children, (c) => (
+          <div className="snap-start shrink-0 w-[82%] sm:w-[52%] lg:w-[34%]">{c}</div>
+        ))}
+      </div>
+      <div className="mt-6 flex items-center gap-5">
+        <div className="relative h-px flex-1" style={{ background: dark ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.15)" }}>
+          <div className="absolute left-0 top-[-1px] h-[3px]" style={{ width: `${Math.max(8, p * 100)}%`, background: MINT, transition: "width 150ms" }} />
+        </div>
+        <div className="flex gap-2">
+          <button aria-label="Previous" onClick={() => by(-1)} className="h-10 w-10 rounded-full border flex items-center justify-center transition-colors hover:bg-[#62D2A2] hover:border-[#62D2A2] hover:text-black" style={{ borderColor: dark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.25)", color: col }}>
+            <ArrowRight className="h-4 w-4 rotate-180" />
+          </button>
+          <button aria-label="Next" onClick={() => by(1)} className="h-10 w-10 rounded-full border flex items-center justify-center transition-colors hover:bg-[#62D2A2] hover:border-[#62D2A2] hover:text-black" style={{ borderColor: dark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.25)", color: col }}>
+            <ArrowRight className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }

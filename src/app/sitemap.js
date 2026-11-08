@@ -12,6 +12,8 @@ export default function sitemap() {
     { url: `${base}/what-we-do/process`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/what-we-do/platforms`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/products`, lastModified, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${base}/products/qmo`, lastModified, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${base}/products/grdr`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/case-studies`, lastModified, changeFrequency: "weekly", priority: 0.8 },
     { url: `${base}/case-studies/sales-enablement-hub`, lastModified, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/case-studies/signal-intelligence-engine`, lastModified, changeFrequency: "monthly", priority: 0.6 },

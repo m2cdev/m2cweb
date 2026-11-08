@@ -51,20 +51,8 @@ export default function WhoWeAre() {
         </div>
       </BackgroundPaths>
 
-      {/* Built From the Field Section */}
-      <section id="narrative" className="w-full py-16 md:py-40 px-6 md:px-12 lg:px-20 border-b border-white/5 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none -z-10">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,#000_18%,transparent_100%)]" />
-          <div className="absolute -left-24 top-20 h-[420px] w-[420px] rounded-full bg-primary/8 blur-[140px]" />
-          <div className="absolute right-[-120px] top-1/3 h-[360px] w-[360px] rounded-full bg-primary/6 blur-[150px]" />
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-          <div className="absolute left-0 top-[18%] h-px w-[38vw] min-w-[260px] bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 rotate-[10deg] origin-left" />
-          <div className="absolute right-0 bottom-[24%] h-px w-[34vw] min-w-[220px] bg-gradient-to-l from-primary/0 via-primary/15 to-primary/0 -rotate-[12deg] origin-right" />
-          <div className="absolute left-[12%] top-[22%] h-2 w-2 rounded-full bg-primary/35 shadow-[0_0_20px_rgba(98,210,162,0.35)]" />
-          <div className="absolute right-[16%] bottom-[28%] h-2 w-2 rounded-full bg-primary/30 shadow-[0_0_18px_rgba(98,210,162,0.3)]" />
-        </div>
-
+      {/* Built From the Field Section (white) */}
+      <section id="narrative" className="w-full py-20 md:py-40 px-6 md:px-12 lg:px-20 relative overflow-hidden bg-white text-black">
         <div className="max-w-[1400px] mx-auto w-full relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -74,21 +62,17 @@ export default function WhoWeAre() {
             className="max-w-6xl mx-auto"
           >
             <div className="space-y-10 text-left">
-              <div className="flex items-center gap-4">
-                <h2 className="text-xl md:text-4xl font-black text-white tracking-tight">
-                  Built From the <span className="text-primary">Field</span>
-                </h2>
-                <div className="h-px flex-1 bg-gradient-to-r from-primary/40 to-transparent" />
-              </div>
-
-              <p className="max-w-6xl text-lg md:text-4xl text-white font-body leading-tight tracking-tight">
-                With <span className="text-primary">20+ years</span> of experience across B2B sales, tech, finance, retail, and operator-led growth environments, we kept seeing the same pattern: generic software built for the masses, one-size-fits-all playbooks, and real sales friction left untouched.
+              <p className="text-[12px] md:text-[13px] font-black uppercase tracking-[0.3em] text-[#12905D]">Our story</p>
+              <h2 className="text-3xl md:text-6xl font-black text-black tracking-tighter leading-[1.02]">
+                Built From the <span className="text-[#12905D]">Field</span>
+              </h2>
+              <p className="max-w-5xl text-lg md:text-3xl text-[#3A3A37] font-body leading-snug tracking-tight">
+                With <span className="font-black text-black">20+ years</span> of experience across B2B sales, tech, finance, retail, and operator-led growth environments, we kept seeing the same pattern: generic software built for the masses, one-size-fits-all playbooks, and real sales friction left untouched.
               </p>
-
-              <div className="pt-2">
-                <div className="mb-6 h-px w-28 bg-gradient-to-r from-primary/70 to-transparent" />
-                <p className="text-lg md:text-4xl font-black tracking-[-0.01em] text-white leading-[1.1]">
-                  So We Built the Thing We <span className="text-primary opacity-90">Always Wished Existed.</span>
+              <div className="rounded-[2rem] bg-black p-8 md:p-12 relative overflow-hidden">
+                <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full blur-[90px] opacity-30 bg-[#62D2A2]" />
+                <p className="relative text-2xl md:text-5xl font-black tracking-tighter text-white leading-[1.05]">
+                  So We Built the Thing We <span className="text-primary">Always Wished Existed.</span>
                 </p>
               </div>
             </div>
@@ -96,20 +80,25 @@ export default function WhoWeAre() {
         </div>
       </section>
 
-      {/* Operating Principles */}
-      <section className="container-custom py-24 overflow-hidden">
+      {/* Operating Principles (white section, black highlight panel) */}
+      <section className="w-full bg-[#F3F3F1] text-black py-20 md:py-32 px-6 md:px-12 lg:px-20 overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
+          className="max-w-6xl mx-auto"
         >
-          <div className="flex flex-col mb-16 px-4">
-             <h2 className="text-2xl md:text-6xl font-black text-white tracking-[-0.02em]">
-                Our Operating <span className="text-primary opacity-90">Principles</span>
-             </h2>
+          <div className="mb-12">
+            <p className="mb-4 text-[12px] md:text-[13px] font-black uppercase tracking-[0.3em] text-[#12905D]">Values</p>
+            <h2 className="text-3xl md:text-6xl font-black text-black tracking-tighter leading-[1.02]">
+              Our Operating <span className="text-[#12905D]">Principles</span>
+            </h2>
+            <p className="mt-5 text-base md:text-xl text-[#5E5E5A] font-body max-w-3xl">Three rules we run every engagement by.</p>
           </div>
-          <FeatureCarousel />
+          <div className="rounded-[2rem] bg-black text-white p-4 md:p-8 overflow-hidden">
+            <FeatureCarousel />
+          </div>
         </motion.div>
       </section>
 

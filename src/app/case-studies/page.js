@@ -115,10 +115,13 @@ export default function CaseStudies() {
         className="mb-20"
       />
 
-      <div className="container-custom relative z-10 pb-40">
-
-
-
+      <div className="relative z-10 bg-white text-black pb-28 md:pb-40 pt-16 md:pt-28 px-6 md:px-12">
+       <div className="max-w-[1400px] mx-auto">
+        <div className="mb-12 md:mb-20">
+          <p className="mb-4 text-[12px] md:text-[13px] font-black uppercase tracking-[0.3em] text-[#12905D]">Case studies</p>
+          <h2 className="text-3xl md:text-6xl font-black tracking-tighter leading-[1.02] text-black max-w-4xl">Real problems. <span className="text-[#12905D]">Real builds.</span></h2>
+          <p className="mt-5 text-base md:text-xl text-[#5E5E5A] font-body max-w-3xl">Three systems we built inside live revenue motions.</p>
+        </div>
         <div className="space-y-20 md:space-y-40">
           {caseStudies.map((cs, index) => (
             <section key={cs.id} className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-20 items-center">
@@ -128,20 +131,20 @@ export default function CaseStudies() {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8 }}
                 >
-                  <p className="inline-block px-4 py-1 rounded-full border border-[#62D2A2]/30 bg-[#62D2A2]/10 text-sm font-bold text-[#62D2A2] uppercase tracking-widest mb-6">
+                  <p className="inline-block px-4 py-1.5 rounded-full bg-[#F96B6B] text-[11px] font-black text-white uppercase tracking-[0.18em] mb-6">
                     {cs.company}
                   </p>
-                  <h2 className="text-xl md:text-5xl font-bold mb-8 tracking-tight leading-tight">
+                  <h2 className="text-2xl md:text-5xl font-black mb-8 tracking-tight leading-tight text-black">
                     {cs.title}
                   </h2>
-                  <p className="text-sm md:text-lg text-white opacity-80 font-body leading-relaxed mb-8 md:mb-10">
+                  <p className="text-sm md:text-lg text-[#4A4A46] font-body leading-relaxed mb-8 md:mb-10">
                     {cs.description}
                   </p>
                   <div className="flex gap-4 flex-wrap">
                     <Link href={`/case-studies/${cs.id}`}>
                       <ShimmerButton
                         shimmerColor="#62D2A2"
-                        background="#050505"
+                        background="#000"
                         className="h-12 px-8 rounded-full"
                         shimmerSize="0.1em"
                       >
@@ -163,6 +166,7 @@ export default function CaseStudies() {
             </section>
           ))}
         </div>
+       </div>
       </div>
     </div>
   );

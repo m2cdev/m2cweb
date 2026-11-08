@@ -17,15 +17,15 @@ const brands = [
   { name: "Walmart", logo: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Walmart_logo_%282008%29.svg", url: "https://www.walmart.com/", invert: false },
 ];
 
-export const LogoMarquee = () => {
+export const LogoMarquee = ({ light = false }) => {
   return (
-    <section className="bg-black py-24 overflow-hidden border-y border-white/5">
+    <section className={cn("py-24 overflow-hidden", light ? "bg-white border-y border-black/10" : "bg-black border-y border-white/5")}>
       <div className="container-custom mb-16 text-center">
-        <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter mb-4">
+        <h2 className={cn("text-3xl md:text-5xl font-black tracking-tighter mb-4", light ? "text-black" : "text-white")}>
           Trusted by Leading Brands <br />
-          <span className="text-primary ">Worldwide</span>
+          <span className={light ? "text-[#12905D]" : "text-primary"}>Worldwide</span>
         </h2>
-        <p className="text-white font-bold tracking-[0.3em] uppercase text-xs">From Growth-Stage to Enterprise</p>
+        <p className={cn("font-bold tracking-[0.3em] uppercase text-xs", light ? "text-[#5E5E5A]" : "text-white")}>From Growth-Stage to Enterprise</p>
       </div>
       
       <div className="relative flex overflow-hidden group">
@@ -36,7 +36,7 @@ export const LogoMarquee = () => {
               href={brand.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center px-10 transition-all duration-500 grayscale hover:grayscale-0 opacity-40 hover:opacity-100 scale-100 hover:scale-110"
+              className={cn("flex items-center justify-center px-10 transition-all duration-500 grayscale hover:grayscale-0 hover:opacity-100 scale-100 hover:scale-110", light ? "opacity-70" : "opacity-40")}
             >
               <div className="relative h-12 w-32 transition-all duration-500 hover:drop-shadow-[0_0_20px_rgba(98,210,162,0.3)]">
                 <Image
@@ -45,7 +45,7 @@ export const LogoMarquee = () => {
                   fill
                   className={cn(
                     "object-contain",
-                    brand.invert && "invert brightness-200"
+                    light ? (brand.name === "Solaris Robots" && "invert") : (brand.invert && "invert brightness-200")
                   )}
                 />
               </div>

@@ -13,8 +13,8 @@ const left = [
   { name: "Platforms", href: "/what-we-do/platforms", blurb: "CRM, automation and custom builds wired around how deals move.", tint: "rgba(98,210,162,0.08)" },
 ];
 const right = [
-  { name: "Qmo", href: "/products#qmo", blurb: "Live AI coaching on every call, right inside your CRM.", tint: "rgba(255,200,1,0.10)", badge: "NEW", mark: <QmoMark className="h-4" />, color: QMO_YELLOW },
-  { name: "Grdr", href: "/products#grdr", blurb: "Grade every cold call and deal in seconds.", tint: "rgba(0,209,255,0.10)", mark: <GrdrMark className="text-base" />, color: GRDR_CYAN },
+  { name: "Qmo", href: "/products/qmo", blurb: "Live AI coaching on every call, right inside your CRM.", tint: "rgba(255,200,1,0.10)", badge: "NEW", mark: <QmoMark className="h-4" />, color: QMO_YELLOW },
+  { name: "Grdr", href: "/products/grdr", blurb: "Grade every cold call and deal in seconds.", tint: "rgba(0,209,255,0.10)", mark: <GrdrMark className="text-base" />, color: GRDR_CYAN },
 ];
 
 const item = (reduce, i) => ({
@@ -134,7 +134,7 @@ export function MobileWhatWeDo({ label, href, pathname, onNavigate }) {
   const [open, setOpen] = useState(false);
   const groups = [
     { title: "The Map2Close Experience", links: left.map((l) => ({ name: l.name, href: l.href })).concat([{ name: "How it works together", href: "/what-we-do" }]) },
-    { title: "Product Portfolio", links: [{ name: "Qmo", href: "/products#qmo" }, { name: "Grdr", href: "/products#grdr" }, { name: "See all products", href: "/products" }] },
+    { title: "Product Portfolio", links: [{ name: "Qmo", href: "/products/qmo" }, { name: "Grdr", href: "/products/grdr" }, { name: "See all products", href: "/products" }] },
   ];
   return (
     <div className="flex flex-col gap-2">

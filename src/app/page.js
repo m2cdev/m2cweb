@@ -67,6 +67,7 @@ export default function Home() {
 
       {/* Problem Section - words animate in on entry, full sentence visible before 3D section */}
       <TextReveal
+        light
         greenWords={["Map2Close", "close"]}
         redWords={["process"]}
       >
@@ -74,7 +75,7 @@ export default function Home() {
       </TextReveal>
 
       {/* Trust Section - Logo Marquee */}
-      <LogoMarquee />
+      <LogoMarquee light />
 
       <div className="w-full pt-24 pb-16 px-6 md:px-16 max-w-7xl mx-auto">
         <motion.h2

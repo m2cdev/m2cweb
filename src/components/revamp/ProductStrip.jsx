@@ -7,8 +7,8 @@ import { Reveal, QmoMark, GrdrMark, QMO_YELLOW, GRDR_CYAN } from "./ui";
 
 export default function ProductStrip({ title = "Powered by what we built", showHeading = true }) {
   const cards = [
-    { href: "/products#qmo", color: QMO_YELLOW, mark: <QmoMark className="h-7" />, line: "Live AI coaching on every call, right inside your CRM." },
-    { href: "/products#grdr", color: GRDR_CYAN, mark: <GrdrMark className="text-3xl" />, line: "Grade every cold call and deal in seconds." },
+    { href: "/products/qmo", color: QMO_YELLOW, mark: <QmoMark className="h-7" />, line: "Live AI coaching on every call, right inside your CRM." },
+    { href: "/products/grdr", color: GRDR_CYAN, mark: <GrdrMark className="text-3xl" />, line: "Grade every cold call and deal in seconds." },
   ];
   return (
     <div>
