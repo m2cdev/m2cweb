@@ -43,7 +43,7 @@ export default function QmoDemo() {
 
   return (
     <div ref={ref} className="mx-auto max-w-4xl">
-      <div className="rounded-3xl border border-white/10 bg-[#0B0B0C] overflow-hidden shadow-[0_0_60px_rgba(255,200,1,0.08)]" role="img" aria-label="Example call: Dana, VP of Sales at Northwind, says they are too busy. Qmo shows an objection card with the words to say.">
+      <div className="rounded-2xl border border-white/10 bg-[#0B0B0C] overflow-hidden shadow-[0_0_60px_rgba(255,200,1,0.08)]" role="img" aria-label="Example call: Dana, VP of Sales at Northwind, says they are too busy. Qmo shows an objection card with the words to say.">
         <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
           <div className="flex items-center gap-3">
             <span className="relative flex h-2.5 w-2.5">

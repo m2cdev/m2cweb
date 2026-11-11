@@ -33,15 +33,15 @@ export default function ProductsHub() {
             <Reveal key={c.href} delay={i * 0.1}>
               <Link
                 href={c.href}
-                className={`group relative block h-full overflow-hidden rounded-3xl border p-8 md:p-10 transition-all duration-300 hover:-translate-y-1 ${c.dark ? "bg-black border-black text-white" : "bg-[#F4F4F2] border-black/10 text-black"}`}
+                className={`group relative block h-full overflow-hidden rounded-3xl border p-8 md:p-10 transition-all duration-300 hover:-translate-y-1 ${c.dark ? "bg-black border-black text-white" : "bg-[#F2F2F2] border-black/10 text-black"}`}
               >
                 <div className="mb-8 flex items-center justify-between">
                   <div className="h-9 flex items-center">{c.dark ? c.mark : <span className="text-3xl font-black tracking-tight text-black">Grdr<span style={{ color: "#00A8CC" }}>.</span></span>}</div>
                   <CoralPill>{c.tag}</CoralPill>
                 </div>
                 <h3 className="text-2xl md:text-4xl font-black tracking-tight">{c.line}</h3>
-                <p className={`mt-3 font-body text-base md:text-lg ${c.dark ? "text-white/80" : "text-[#5E5E5A]"}`}>{c.who}</p>
-                <span className="mt-8 inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest" style={{ color: c.dark ? c.color : "#12905D" }}>
+                <p className={`mt-3 font-body text-base md:text-lg ${c.dark ? "text-white/80" : "text-[#5C5C5C]"}`}>{c.who}</p>
+                <span className="mt-8 inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest" style={{ color: c.dark ? c.color : "#63D2A3" }}>
                   See {c.href.endsWith("qmo") ? "Qmo" : "Grdr"} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
               </Link>
@@ -50,11 +50,11 @@ export default function ProductsHub() {
         </div>
       </WhiteSection>
       <section className="relative px-6 py-20 md:py-28 text-center overflow-hidden bg-gradient-to-b from-black to-[#050505] hide-floating-cta">
-        <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,rgba(98,210,162,0.15),transparent_70%)] pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,rgba(99,210,163,0.15),transparent_70%)] pointer-events-none" />
         <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
           <h2 className="text-3xl md:text-6xl font-black tracking-tighter text-white mb-6">Want Help Running Them?</h2>
           <p className="text-lg text-white font-body mb-8">Use them on your own, or let Map2Close set them up and run them with your team.</p>
-          <Link href="/contact" className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#62D2A2] text-black font-black text-xs md:text-sm uppercase tracking-widest hover:bg-white transition-colors">Book a Working Session</Link>
+          <Link href="/contact" className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#63D2A3] text-black font-black text-xs md:text-sm uppercase tracking-widest hover:bg-white transition-colors">Book a Working Session</Link>
         </div>
       </section>
     </div>

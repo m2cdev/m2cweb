@@ -2,12 +2,13 @@
 
 import React, { useRef } from "react";
 import Link from "next/link";
-import { motion, useInView, useReducedMotion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { motion, useInView, useReducedMotion, useMotionValue, useSpring } from "framer-motion";
+import dynamic from "next/dynamic";
+import { ArrowRight, ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export const MINT = "#62D2A2";
-export const CORAL = "#F96B6B";
+export const MINT = "#63D2A3";
+export const CORAL = "#FF6B6B";
 export const QMO_YELLOW = "#FFC801";
 export const GRDR_CYAN = "#00D1FF";
 
@@ -55,8 +56,6 @@ export function GridBackdrop({ glow = MINT }) {
     <div className="absolute inset-0 pointer-events-none -z-0 overflow-hidden" aria-hidden="true">
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_30%,#000_10%,transparent_100%)]" />
       <div className="absolute -top-40 -right-40 w-[760px] h-[760px] rounded-full blur-[150px] opacity-[0.20]" style={{ background: `radial-gradient(circle, ${glow}, transparent 70%)` }} />
-      <Waves className="absolute -bottom-6 -left-10 w-[300px] md:w-[460px] h-auto opacity-70" color={glow} />
-      <Waves className="absolute top-14 -right-10 w-[220px] md:w-[340px] h-auto opacity-40 hidden md:block" color={glow} flip />
     </div>
   );
 }
@@ -122,8 +121,8 @@ export function Btn({ href, children, external, variant = "primary", className =
   const base = "inline-flex items-center gap-3 px-8 py-4 rounded-full font-black text-xs md:text-sm uppercase tracking-widest transition-all duration-300";
   const styles =
     variant === "primary"
-      ? "bg-[#62D2A2] text-black hover:bg-white"
-      : "border border-white/20 text-white hover:border-[#62D2A2] hover:text-[#62D2A2]";
+      ? "bg-[#63D2A3] text-black hover:bg-white"
+      : "border border-white/20 text-white hover:border-[#63D2A3] hover:text-[#63D2A3]";
   const cls = cn(base, styles, className);
   if (external) {
     return (
@@ -218,7 +217,7 @@ export function ProductTieIn({ headline, body, cta = "See our products", href = 
             <h3 className="text-2xl md:text-4xl font-black tracking-tighter text-white mb-4">{headline}</h3>
             <p className="font-body text-base md:text-lg text-white leading-relaxed">{body}</p>
           </div>
-          <Link href={href} className="inline-flex shrink-0 items-center gap-3 text-xs font-black uppercase tracking-widest text-[#62D2A2] hover:text-white transition-colors">
+          <Link href={href} className="inline-flex shrink-0 items-center gap-3 text-xs font-black uppercase tracking-widest text-[#63D2A3] hover:text-white transition-colors">
             {cta} <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -292,11 +291,11 @@ export function SplitLetters({ text, className = "", delay = 0, stagger = 0.025 
 }
 
 // ---------- White section kit (deck pattern) ----------
-export const GREEN_ON_WHITE = "#12905D";
+export const GREEN_ON_WHITE = "#63D2A3";
 
 export function WhiteSection({ children, className = "", id, tone = "white" }) {
   return (
-    <section id={id} className={cn("relative px-6 md:px-16 py-16 md:py-28 overflow-hidden text-black", tone === "grey" ? "bg-[#F3F3F1]" : "bg-white", className)}>
+    <section id={id} className={cn("relative px-6 md:px-16 py-16 md:py-28 overflow-hidden text-black", tone === "grey" ? "bg-white border-t border-black/[0.06]" : "bg-white", className)}>
       <div className="relative z-10 max-w-6xl mx-auto">{children}</div>
     </section>
   );
@@ -314,7 +313,7 @@ export function WhiteTitle({ eyebrow, title, sub, center = false, className = ""
           return <span key={i} style={g ? { color: GREEN_ON_WHITE } : undefined}>{w.replace(/^[\^!]/, "")}{" "}</span>;
         })}
       </h2>
-      {sub && <p className={cn("mt-5 text-base md:text-xl text-[#5E5E5A] font-body leading-relaxed max-w-3xl", center && "mx-auto")}>{sub}</p>}
+      {sub && <p className={cn("mt-5 text-base md:text-xl text-[#5C5C5C] font-body leading-relaxed max-w-3xl", center && "mx-auto")}>{sub}</p>}
     </div>
   );
 }
@@ -344,7 +343,7 @@ export function LightCard({ children, dark = false, className = "", ...rest }) {
     <div
       className={cn(
         "rounded-3xl border p-7 md:p-8 transition-all duration-300",
-        dark ? "bg-black border-black text-white" : "bg-[#F4F4F2] border-black/10 text-black hover:border-black/30 hover:-translate-y-0.5",
+        dark ? "bg-black border-black text-white" : "bg-[#F2F2F2] border-black/10 text-black hover:border-black/30 hover:-translate-y-0.5",
         className
       )}
       {...rest}
@@ -371,8 +370,38 @@ export function SwipeSlider({ children, dark = true, label = "Slides" }) {
     el.scrollBy({ left: dir * Math.min(el.clientWidth * 0.8, 440), behavior: "smooth" });
   };
   const col = dark ? "#fff" : "#000";
+  const [hover, setHover] = React.useState(false);
+  const [down, setDown] = React.useState(false);
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const cx = useSpring(mx, { damping: 25, stiffness: 400 });
+  const cy = useSpring(my, { damping: 25, stiffness: 400 });
   return (
-    <div role="region" aria-label={label}>
+    <div
+      role="region"
+      aria-label={label}
+      className="relative md:cursor-none"
+      onMouseMove={(e) => { const r = e.currentTarget.getBoundingClientRect(); mx.set(e.clientX - r.left); my.set(e.clientY - r.top); }}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => { setHover(false); setDown(false); }}
+      onMouseDown={() => setDown(true)}
+      onMouseUp={() => setDown(false)}
+    >
+      <motion.div
+        aria-hidden="true"
+        style={{ left: cx, top: cy, translateX: "-50%", translateY: "-50%" }}
+        animate={{ scale: hover ? (down ? 0.9 : 1) : 0, opacity: hover ? 1 : 0 }}
+        className="pointer-events-none absolute z-30 hidden md:flex h-28 w-28 flex-col items-center justify-center rounded-full border-2 border-white/30 shadow-[0_0_50px_rgba(99,210,163,0.55)]"
+      >
+        <div className="absolute inset-0 rounded-full" style={{ background: MINT }} />
+        <div className="relative flex items-center gap-1.5 text-black">
+          <ArrowLeft size={14} strokeWidth={4} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/m2c-icon.png" alt="" className="h-9 w-9 object-contain mix-blend-multiply" />
+          <ArrowRight size={14} strokeWidth={4} />
+        </div>
+        <span className="relative mt-1 text-[10px] font-black uppercase tracking-[0.3em] text-black">Swipe</span>
+      </motion.div>
       <div
         ref={ref}
         onScroll={onScroll}
@@ -401,15 +430,63 @@ export function SwipeSlider({ children, dark = true, label = "Slides" }) {
         <div className="relative h-px flex-1" style={{ background: dark ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.15)" }}>
           <div className="absolute left-0 top-[-1px] h-[3px]" style={{ width: `${Math.max(8, p * 100)}%`, background: MINT, transition: "width 150ms" }} />
         </div>
-        <div className="flex gap-2">
-          <button aria-label="Previous" onClick={() => by(-1)} className="h-10 w-10 rounded-full border flex items-center justify-center transition-colors hover:bg-[#62D2A2] hover:border-[#62D2A2] hover:text-black" style={{ borderColor: dark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.25)", color: col }}>
+        <div className="flex gap-2 md:cursor-auto">
+          <button aria-label="Previous" onClick={() => by(-1)} className="h-10 w-10 rounded-full border flex items-center justify-center transition-colors hover:bg-[#63D2A3] hover:border-[#63D2A3] hover:text-black" style={{ borderColor: dark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.25)", color: col }}>
             <ArrowRight className="h-4 w-4 rotate-180" />
           </button>
-          <button aria-label="Next" onClick={() => by(1)} className="h-10 w-10 rounded-full border flex items-center justify-center transition-colors hover:bg-[#62D2A2] hover:border-[#62D2A2] hover:text-black" style={{ borderColor: dark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.25)", color: col }}>
+          <button aria-label="Next" onClick={() => by(1)} className="h-10 w-10 rounded-full border flex items-center justify-center transition-colors hover:bg-[#63D2A3] hover:border-[#63D2A3] hover:text-black" style={{ borderColor: dark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.25)", color: col }}>
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>
       </div>
+    </div>
+  );
+}
+
+
+// ---------- Hero backgrounds (ported from the original service pages) ----------
+const WaveField = dynamic(() => import("@/components/ui/wave-background").then((m) => ({ default: m.Waves })), { ssr: false });
+
+// Sales Enablement hero: interactive flowing wave field across the whole banner, hairlines top and bottom.
+export function WaveHeroBg({ color = MINT }) {
+  return (
+    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
+      <div className="absolute top-0 left-0 w-full h-px bg-white/20 z-10" />
+      <WaveField strokeColor={color} backgroundColor="black" className="opacity-50" />
+      <div className="absolute -top-40 -right-40 h-[760px] w-[760px] rounded-full blur-[150px] opacity-[0.22]" style={{ background: `radial-gradient(circle, ${color}, transparent 70%)` }} />
+      <div className="absolute bottom-0 left-0 w-full h-px bg-white/20 z-10" />
+    </div>
+  );
+}
+
+// Implementations hero: soft ambient glows (mint left, coral right).
+export function GlowHeroBg() {
+  return (
+    <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden" aria-hidden="true">
+      <div className="absolute top-1/3 left-0 w-[700px] h-[700px] rounded-full blur-[160px] opacity-[0.10]" style={{ background: MINT }} />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full blur-[140px] opacity-[0.08]" style={{ background: CORAL }} />
+    </div>
+  );
+}
+
+// Custom Buildouts hero: animated mesh gradient (desktop only) plus a pulsing glow.
+const MeshGradient = dynamic(() => import("@paper-design/shaders-react").then((m) => ({ default: m.MeshGradient })), { ssr: false });
+export function MeshHeroBg() {
+  const [desktop, setDesktop] = React.useState(false);
+  React.useEffect(() => {
+    const check = () => setDesktop(window.innerWidth >= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  return (
+    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden bg-black" aria-hidden="true">
+      {desktop ? (
+        <MeshGradient className="w-full h-full absolute inset-0 opacity-40" colors={["#000000", "#0a0a0a", MINT, "#000000"]} speed={0.8} />
+      ) : (
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_30%,rgba(99,210,163,0.10)_0%,transparent_70%)]" />
+      )}
+      <div className="absolute top-1/4 left-1/3 w-[600px] h-[600px] rounded-full blur-[160px] animate-pulse opacity-[0.12]" style={{ background: MINT, animationDuration: "10s" }} />
     </div>
   );
 }

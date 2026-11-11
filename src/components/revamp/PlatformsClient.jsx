@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Layout, Search, Cpu } from "lucide-react";
 import {
-  GridBackdrop, Eyebrow, Btn, Reveal, Section, SectionTitle, WhiteSection, WhiteTitle,
+  GlowHeroBg, Btn, Reveal, Section, SectionTitle, WhiteSection, WhiteTitle,
   NumDot, CoralPill, CtaBand, MINT, CORAL,
 } from "./ui";
 import DashboardMock from "./DashboardMock";
@@ -33,21 +33,31 @@ const systems = [
 
 function Hero() {
   return (
-    <section className="relative min-h-[85vh] flex flex-col md:flex-row items-center gap-12 md:gap-16 pt-32 pb-20 px-6 md:px-16 max-w-[1400px] mx-auto overflow-hidden">
-      <GridBackdrop />
+    <section className="relative min-h-screen flex flex-col md:flex-row items-center gap-12 md:gap-16 pt-32 pb-20 px-6 md:px-16 max-w-[1400px] mx-auto overflow-visible">
+      <GlowHeroBg />
       <div className="relative z-10 flex-1 md:max-w-[52%]">
-        <Eyebrow>Platforms</Eyebrow>
-        <h1 className="text-4xl md:text-6xl lg:text-[5rem] font-black tracking-tight leading-[0.98] mb-6 text-white">
-          Your Stack Should Be <span className="text-[#62D2A2]">Working</span> Harder Than You Are.
-        </h1>
-        <p className="font-body text-white text-lg md:text-xl leading-relaxed mb-10 max-w-xl">
-          We configure your CRM and tools around a process built to convert, and build what your stack can&apos;t do on its own.
-        </p>
-        <Btn href="/contact">Book a Working Session</Btn>
+        <Reveal><span className="inline-block text-[11px] font-black tracking-[0.4em] uppercase mb-6" style={{ color: MINT }}>Platforms</span></Reveal>
+        <Reveal delay={0.08}>
+          <h1 className="text-4xl md:text-6xl lg:text-[5rem] font-black tracking-tight leading-[0.95] mb-6 md:mb-8 text-white">
+            Your Stack Should Be <span style={{ color: MINT }}>Working</span> Harder Than You Are.
+          </h1>
+        </Reveal>
+        <Reveal delay={0.14}>
+          <p className="font-body text-white text-base md:text-xl leading-relaxed mb-8 md:mb-10 max-w-xl">
+            We configure your CRM and tools around a process built to convert, and build what your stack can&apos;t do on its own.
+          </p>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <div className="flex flex-wrap items-center gap-6">
+            <Btn href="/contact">Book a Working Session</Btn>
+            <a href="#custom-builds" className="text-white/70 hover:text-white transition-colors text-sm font-black uppercase tracking-widest">See what we build &rarr;</a>
+          </div>
+        </Reveal>
       </div>
-      <div className="relative z-10 flex-1 w-full">
+      <Reveal delay={0.1} className="relative z-10 flex-1 w-full">
         <DashboardMock />
-      </div>
+        <div className="absolute -inset-4 blur-[60px] rounded-[2rem] -z-10 opacity-10" style={{ background: MINT }} />
+      </Reveal>
     </section>
   );
 }
@@ -68,7 +78,7 @@ function Stack() {
               aria-selected={k === i}
               onClick={() => setI(k)}
               onMouseEnter={() => setI(k)}
-              className={`group relative shrink-0 text-left rounded-2xl border px-5 py-4 transition-all duration-300 ${k === i ? "border-[#62D2A2] bg-[#62D2A2]/10" : "border-white/10 hover:border-white/30"}`}
+              className={`group relative shrink-0 text-left rounded-2xl border px-5 py-4 transition-all duration-300 ${k === i ? "border-[#63D2A3] bg-[#63D2A3]/10" : "border-white/10 hover:border-white/30"}`}
             >
               <span className="font-mono text-xs font-black tracking-widest" style={{ color: MINT }}>{String(k + 1).padStart(2, "0")}</span>
               <span className="ml-3 text-base md:text-lg font-black text-white whitespace-nowrap lg:whitespace-normal">{t.title}</span>
@@ -99,11 +109,11 @@ function Approach() {
         <ol className="space-y-4">
           {approach.map((a, i) => (
             <Reveal key={a.title} delay={0.05}>
-              <li className={`flex gap-5 rounded-3xl border p-6 md:p-7 ${i === 0 ? "bg-black border-black text-white" : "bg-[#F4F4F2] border-black/10"}`}>
+              <li className={`flex gap-5 rounded-3xl border p-6 md:p-7 ${i === 0 ? "bg-black border-black text-white" : "bg-[#F2F2F2] border-black/10"}`}>
                 <NumDot n={i + 1} variant={i === 0 ? "mint" : "black"} />
                 <div>
                   <h3 className="text-xl md:text-2xl font-black tracking-tight">{a.title}</h3>
-                  <p className={`mt-2 font-body text-base leading-relaxed ${i === 0 ? "text-white/85" : "text-[#5E5E5A]"}`}>{a.body}</p>
+                  <p className={`mt-2 font-body text-base leading-relaxed ${i === 0 ? "text-white/85" : "text-[#5C5C5C]"}`}>{a.body}</p>
                 </div>
               </li>
             </Reveal>
@@ -114,48 +124,44 @@ function Approach() {
   );
 }
 
-function FlipCard({ s }) {
-  const [flipped, setFlipped] = useState(false);
-  return (
-    <div className="[perspective:1200px]">
-      <button
-        type="button"
-        aria-pressed={flipped}
-        onClick={() => setFlipped((f) => !f)}
-        onMouseEnter={() => setFlipped(true)}
-        onMouseLeave={() => setFlipped(false)}
-        className="relative block w-full h-[360px] md:h-[380px] text-left transition-transform duration-700 [transform-style:preserve-3d]"
-        style={{ transform: flipped ? "rotateY(180deg)" : "none" }}
-      >
-        <div className="absolute inset-0 rounded-3xl border border-white/10 bg-white/[0.03] p-7 flex flex-col [backface-visibility:hidden]">
-          <CoralPill className="self-start">The problem</CoralPill>
-          <h3 className="mt-6 text-2xl font-black tracking-tight text-white">{s.title}</h3>
-          <p className="mt-3 font-body text-lg text-white/90 leading-relaxed">{s.problem}</p>
-          <span className="mt-auto text-xs font-black uppercase tracking-widest text-[#62D2A2]">Hover or tap to flip</span>
-        </div>
-        <div className="absolute inset-0 rounded-3xl border border-[#62D2A2] bg-[#0b1511] p-7 flex flex-col [backface-visibility:hidden] [transform:rotateY(180deg)]">
-          <span className="self-start rounded-full bg-[#62D2A2] px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-black">What we built</span>
-          <h3 className="mt-6 text-2xl font-black tracking-tight text-white">{s.title}</h3>
-          <p className="mt-3 font-body text-lg text-white/90 leading-relaxed">{s.solution}</p>
-        </div>
-      </button>
-      <Link href={s.href} className="mt-4 inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#62D2A2] hover:text-white transition-colors">
-        Read the case study <ArrowRight className="h-3.5 w-3.5" />
-      </Link>
-    </div>
-  );
-}
+const icons = [Layout, Search, Cpu];
 
 function Systems() {
   return (
     <Section>
-      <SectionTitle eyebrow="Systems we build" title="From ^Problem to System" sub="Flip each card to see what we built." />
-      <div className="grid gap-6 md:grid-cols-3">
-        {systems.map((s, i) => (
-          <Reveal key={s.title} delay={i * 0.1}>
-            <FlipCard s={s} />
-          </Reveal>
-        ))}
+      <SectionTitle eyebrow="Systems we build" title="From ^Problem to System" sub="What it looks like when we build inside a real revenue motion." />
+      <div className="grid gap-8 md:grid-cols-3">
+        {systems.map((s, i) => {
+          const Icon = icons[i % icons.length];
+          return (
+            <Reveal key={s.title} delay={i * 0.1}>
+              <Link
+                href={s.href}
+                className="group relative flex h-full flex-col gap-6 overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#050505] p-8 md:p-10 transition-all duration-500 hover:border-[#63D2A3]/50 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#63D2A3]"
+              >
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#63D2A3]/0 to-transparent transition-colors duration-500 group-hover:from-[#63D2A3]/[0.07]" />
+                <div className="absolute right-7 top-7 flex h-9 w-9 items-center justify-center rounded-full border border-[#63D2A3]/40 text-[#63D2A3] transition-all duration-300 group-hover:translate-x-1 group-hover:bg-[#63D2A3] group-hover:text-black">
+                  <ArrowRight className="h-4 w-4" />
+                </div>
+                <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-[#63D2A3]/25 bg-[#63D2A3]/10 shadow-[0_0_20px_rgba(99,210,163,0.12)]">
+                  <Icon className="h-8 w-8 text-[#63D2A3]" />
+                </div>
+                <h3 className="relative text-2xl md:text-3xl font-black leading-tight text-white transition-colors group-hover:text-[#63D2A3]">{s.title}</h3>
+                <div className="relative space-y-4">
+                  <div>
+                    <CoralPill>The problem</CoralPill>
+                    <p className="mt-3 font-body text-base text-white/80 leading-relaxed">{s.problem}</p>
+                  </div>
+                  <div>
+                    <span className="inline-block rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-black" style={{ background: MINT }}>What we built</span>
+                    <p className="mt-3 font-body text-base text-white leading-relaxed">{s.solution}</p>
+                  </div>
+                </div>
+                <span className="relative mt-auto inline-flex items-center gap-2 pt-2 text-xs font-black uppercase tracking-widest text-[#63D2A3]">Read the case study <ArrowRight className="h-3.5 w-3.5" /></span>
+              </Link>
+            </Reveal>
+          );
+        })}
       </div>
     </Section>
   );

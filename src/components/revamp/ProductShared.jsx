@@ -50,14 +50,14 @@ export function Together({ tone = "black" }) {
           <Reveal key={t} delay={i * 0.1}>
             <div className={`h-full rounded-3xl border p-8 ${white ? "bg-white border-black/10" : "border-white/10 bg-white/[0.02]"}`}>
               <h3 className="text-2xl font-black" style={{ color: white ? GREEN_ON_WHITE : MINT }}>{t}</h3>
-              <p className={`mt-3 font-body text-base md:text-lg leading-relaxed ${white ? "text-[#4A4A46]" : "text-white"}`}>{d}</p>
+              <p className={`mt-3 font-body text-base md:text-lg leading-relaxed ${white ? "text-[#4D4D4D]" : "text-white"}`}>{d}</p>
             </div>
           </Reveal>
         ))}
       </div>
       <div className="mt-10 text-center">
         <Btn href="/contact">Book a Working Session</Btn>
-        <p className={`mt-5 text-sm ${white ? "text-[#5E5E5A]" : "text-white/70"}`}>Qmo and Grdr work on their own. You never need a Map2Close engagement to use them.</p>
+        <p className={`mt-5 text-sm ${white ? "text-[#5C5C5C]" : "text-white/70"}`}>Qmo and Grdr work on their own. You never need a Map2Close engagement to use them.</p>
       </div>
     </Wrap>
   );
@@ -81,7 +81,7 @@ export function Faq({ faqs, tone = "black" }) {
               </button>
               <div id={`faq-${i}`} role="region" className="grid transition-all duration-[250ms]" style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}>
                 <div className="overflow-hidden">
-                  <p className={`pb-6 font-body text-base md:text-lg leading-relaxed ${white ? "text-[#4A4A46]" : "text-white/90"}`}>{f.a}</p>
+                  <p className={`pb-6 font-body text-base md:text-lg leading-relaxed ${white ? "text-[#4D4D4D]" : "text-white/90"}`}>{f.a}</p>
                 </div>
               </div>
             </div>
@@ -99,13 +99,13 @@ export function FinalCta({ product }) {
     : { href: "https://grdr.app/", label: "Get a Free Grade", accent: GRDR_CYAN };
   return (
     <section className="relative px-6 py-20 md:py-32 text-center overflow-hidden bg-gradient-to-b from-black to-[#050505] hide-floating-cta">
-      <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,rgba(98,210,162,0.15),transparent_70%)] pointer-events-none" />
+      <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,rgba(99,210,163,0.15),transparent_70%)] pointer-events-none" />
       <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
-        <h2 className="text-4xl md:text-7xl font-black tracking-tighter leading-[0.98] text-white mb-6">One Conversation. No <span className="text-[#62D2A2]">Commitment.</span></h2>
+        <h2 className="text-4xl md:text-7xl font-black tracking-tighter leading-[0.98] text-white mb-6">One Conversation. No <span className="text-[#63D2A3]">Commitment.</span></h2>
         <div className="mt-6 flex flex-wrap justify-center gap-4">
           <ProductCta product={product} href={cfg.href} accent={cfg.accent}>{cfg.label}</ProductCta>
         </div>
-        <Link href="/contact" className="mt-8 text-sm font-black uppercase tracking-widest text-[#62D2A2] hover:text-white transition-colors">Or talk to Map2Close about your whole motion &rarr;</Link>
+        <Link href="/contact" className="mt-8 text-sm font-black uppercase tracking-widest text-[#63D2A3] hover:text-white transition-colors">Or talk to Map2Close about your whole motion &rarr;</Link>
       </div>
     </section>
   );

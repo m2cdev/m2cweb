@@ -2,10 +2,14 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import dynamic from "next/dynamic";
+import { Target, GitBranch, Wrench, Zap, Database } from "lucide-react";
 import {
-  GridBackdrop, Eyebrow, PageHero, Btn, Reveal, Section, SectionTitle, WhiteSection, WhiteTitle,
+  GridBackdrop, MeshHeroBg, SplitLetters, Btn, Reveal, Section, SectionTitle, WhiteSection, WhiteTitle,
   NumDot, CoralPill, SwipeSlider, ProductTieIn, CtaBand, MINT, CORAL,
 } from "./ui";
+
+const RadialOrbitalTimeline = dynamic(() => import("@/components/ui/radial-orbital-timeline"), { ssr: false });
 
 const frameworks = ["MEDDPICC", "BANT", "SPIN", "Challenger", "SPICED", "Sandler", "Command of the Message", "+ more"];
 
@@ -38,22 +42,73 @@ const runIt = [
   { title: "Pressure-test against live pipeline", body: "We watch where it breaks on real deals and tune it until it holds." },
 ];
 
+const phases = [
+  { id: 1, title: "Map", date: "Step 1", content: "We audit how calls, handoffs and pipeline actually run today, before changing a thing.", category: "Audit", icon: Target, relatedIds: [2], status: "completed", energy: 95 },
+  { id: 2, title: "Rebuild", date: "Step 2", content: "We redesign the steps around how your buyers decide, not around your org chart.", category: "Design", icon: GitBranch, relatedIds: [1, 3], status: "completed", energy: 80 },
+  { id: 3, title: "Assets", date: "Step 3", content: "Talk tracks, objection guides and battlecards your reps reach for mid-call.", category: "Build", icon: Wrench, relatedIds: [2, 4], status: "in-progress", energy: 65 },
+  { id: 4, title: "Pressure-test", date: "Step 4", content: "We watch where it breaks on live pipeline and tune it until it holds.", category: "Test", icon: Zap, relatedIds: [3, 5], status: "pending", energy: 40 },
+  { id: 5, title: "Hand off", date: "Step 5", content: "Managers inherit the cadence, scorecards and rituals so the process keeps running.", category: "Adopt", icon: Database, relatedIds: [4], status: "pending", energy: 20 },
+];
+
 function Hero() {
   const row = [...frameworks, ...frameworks];
   return (
     <div className="bg-black">
-      <PageHero
-        eyebrow="Process"
-        headline="A Process Your Reps Can !Actually !Run."
-        sub="We take the frameworks everyone talks about and turn them into the calls, handoffs and pipeline habits your team runs every day."
-      >
-        <Btn href="/contact">Book a Working Session</Btn>
-      </PageHero>
-      <div className="relative z-10 -mt-14 pb-16 overflow-hidden" aria-label="Frameworks we work with">
+      <section className="relative overflow-hidden">
+        <MeshHeroBg />
+        {/* mobile: phase stepper */}
+        <div className="md:hidden relative z-10 flex flex-col pt-28 pb-12 px-6">
+          <p className="text-[11px] font-black tracking-[0.4em] uppercase mb-4" style={{ color: MINT }}>Process</p>
+          <h1 className="text-3xl font-black tracking-tight leading-[1] mb-5 text-white">A Process Your Reps Can <span style={{ color: CORAL }}>Actually</span> <span style={{ color: CORAL }}>Run.</span></h1>
+          <p className="text-base text-white leading-relaxed mb-8 font-body">We take the frameworks everyone talks about and turn them into the calls, handoffs and pipeline habits your team runs every day.</p>
+          <div className="relative mb-10">
+            <div className="absolute left-5 top-0 bottom-0 w-px bg-white/10" />
+            {phases.map((n, i) => {
+              const Icon = n.icon;
+              return (
+                <Reveal key={n.id} delay={0.05 * i}>
+                  <div className="relative flex gap-5 mb-6 last:mb-0">
+                    <div className="z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-black border" style={{ borderColor: `${MINT}99` }}><Icon size={16} style={{ color: MINT }} /></div>
+                    <div className="flex-1 rounded-2xl border border-white/[0.07] bg-white/[0.03] p-5">
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: MINT }}>{n.date}</span>
+                        <span className="text-[10px] font-bold uppercase tracking-wide text-white/50">{n.category}</span>
+                      </div>
+                      <h3 className="text-base font-black text-white mb-2">{n.title}</h3>
+                      <p className="text-sm text-white/80 leading-relaxed font-body">{n.content}</p>
+                    </div>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+          <div><Btn href="/contact">Book a Working Session</Btn></div>
+        </div>
+        {/* desktop: orbital */}
+        <div className="hidden md:flex relative z-10 min-h-screen flex-row items-center gap-10 lg:gap-14 pt-24 pb-16 px-16 max-w-[1400px] mx-auto">
+          <div className="flex-1 max-w-[52%]">
+            <Reveal><p className="text-[11px] font-black tracking-[0.4em] uppercase mb-6" style={{ color: MINT }}>Process</p></Reveal>
+            <h1 className="text-6xl lg:text-[5rem] font-black tracking-tight leading-[0.97] mb-8 text-white [perspective:800px] drop-shadow-[0_2px_20px_rgba(0,0,0,0.8)]">
+              <SplitLetters text="A Process Your Reps Can !Actually !Run." />
+            </h1>
+            <Reveal delay={0.3}><p className="max-w-2xl text-xl text-white leading-[1.7] mb-10 font-body">We take the frameworks everyone talks about and turn them into the calls, handoffs and pipeline habits your team runs every day.</p></Reveal>
+            <Reveal delay={0.45}>
+              <div className="flex items-center gap-8">
+                <Btn href="/contact">Book a Working Session</Btn>
+                <a href="#process-meets" className="text-white/70 hover:text-white transition-colors text-sm font-black uppercase tracking-widest">See how it works &rarr;</a>
+              </div>
+            </Reveal>
+          </div>
+          <div className="flex-1 min-w-0 h-[640px] relative flex items-center justify-center">
+            <RadialOrbitalTimeline timelineData={phases} />
+          </div>
+        </div>
+      </section>
+      <div className="relative z-10 pt-10 pb-16 overflow-hidden border-t border-white/[0.06]" aria-label="Frameworks we work with">
         <p className="mb-5 px-6 md:px-16 max-w-6xl mx-auto text-[11px] font-black uppercase tracking-[0.3em] text-white">Frameworks we work with</p>
         <div className="flex w-max fw-marquee hover:[animation-play-state:paused] gap-3 pr-3">
           {row.map((f, i) => (
-            <span key={i} className="whitespace-nowrap rounded-full border border-white/20 bg-[#161616] px-6 py-2.5 text-[15px] md:text-base text-white transition-colors hover:border-[#62D2A2] hover:text-[#62D2A2]">{f}</span>
+            <span key={i} className="whitespace-nowrap rounded-full border border-white/20 bg-[#161616] px-6 py-2.5 text-[15px] md:text-base text-white transition-colors hover:border-[#63D2A3] hover:text-[#63D2A3]">{f}</span>
           ))}
         </div>
         <style jsx global>{`
@@ -75,7 +130,7 @@ function Meets() {
     return () => clearInterval(id);
   }, [paused]);
   return (
-    <WhiteSection>
+    <WhiteSection id="process-meets">
       <WhiteTitle eyebrow="How it works" title="The Methodology Meets ^Your Motion" sub="Four places where we turn a framework into something your reps run." />
       <div className="grid gap-5 md:grid-cols-2" onMouseLeave={() => setPaused(false)}>
         {meets.map((m, i) => {
@@ -86,7 +141,7 @@ function Meets() {
                 onClick={() => { setActive(i); setPaused(true); }}
                 onMouseEnter={() => { setActive(i); setPaused(true); }}
                 onFocus={() => { setActive(i); setPaused(true); }}
-                className={`relative h-full w-full text-left rounded-3xl border p-7 md:p-9 transition-all duration-500 ${on ? "bg-black border-black text-white" : "bg-[#F4F4F2] border-black/10 text-black"}`}
+                className={`relative h-full w-full text-left rounded-3xl border p-7 md:p-9 transition-all duration-500 ${on ? "bg-black border-black text-white" : "bg-[#F2F2F2] border-black/10 text-black"}`}
                 aria-pressed={on}
               >
                 <div className="flex items-center justify-between">
@@ -94,7 +149,7 @@ function Meets() {
                   <span className={`rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] transition-colors ${on ? "text-white" : "text-black/60 border border-black/15"}`} style={on ? { background: CORAL } : undefined}>{m.tag}</span>
                 </div>
                 <h3 className="mt-7 text-2xl md:text-3xl font-black tracking-tight leading-tight">{m.title}</h3>
-                <p className={`mt-3 font-body text-base md:text-lg leading-relaxed transition-colors ${on ? "text-white/85" : "text-[#5E5E5A]"}`}>{m.body}</p>
+                <p className={`mt-3 font-body text-base md:text-lg leading-relaxed transition-colors ${on ? "text-white/85" : "text-[#5C5C5C]"}`}>{m.body}</p>
               </button>
             </Reveal>
           );
@@ -162,7 +217,7 @@ function Playbook() {
           <div key={p.title} className={`h-full min-h-[300px] rounded-3xl border p-7 flex flex-col select-none ${i === 0 ? "bg-black border-black text-white" : "bg-white border-black/10 text-black"}`}>
             <NumDot n={i + 1} variant={i === 0 ? "mint" : "black"} />
             <h3 className="mt-8 text-2xl font-black tracking-tight leading-tight">{p.title}</h3>
-            <p className={`mt-3 font-body text-base leading-relaxed ${i === 0 ? "text-white/85" : "text-[#5E5E5A]"}`}>{p.d}</p>
+            <p className={`mt-3 font-body text-base leading-relaxed ${i === 0 ? "text-white/85" : "text-[#5C5C5C]"}`}>{p.d}</p>
           </div>
         ))}
       </SwipeSlider>
