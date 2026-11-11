@@ -497,7 +497,7 @@ export default function ServiceSubpageLayout({
       )}
 
       {/* 5. BOTTOM CTA */}
-      <section className="px-6 relative overflow-hidden pb-16 md:pb-[120px] pt-8 md:pt-32 bg-gradient-to-b from-black to-[#050505] hide-floating-cta">
+      <section className="px-6 relative overflow-hidden pb-10 md:pb-16 pt-8 md:pt-32 bg-black hide-floating-cta">
         <div className="absolute inset-0 bg-primary/5 opacity-50 translate-y-full blur-3xl pointer-events-none" />
         <div className="max-w-3xl mx-auto text-center relative z-10 flex flex-col items-center">
           <h2 className="text-3xl md:text-7xl font-black text-white tracking-tighter mb-6 leading-[0.95]">

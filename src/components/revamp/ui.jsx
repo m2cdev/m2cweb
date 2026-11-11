@@ -187,7 +187,7 @@ export function CardGrid({ items, cols = 3, accent = MINT }) {
     <div className={cn("grid gap-5 md:gap-6", cols === 4 ? "md:grid-cols-2 lg:grid-cols-4" : cols === 2 ? "md:grid-cols-2" : "md:grid-cols-2 lg:grid-cols-3")}>
       {items.map((it, i) => (
         <Reveal key={it.title} delay={(i % 4) * 0.08}>
-          <div className="group relative h-full rounded-3xl border border-white/10 bg-white/[0.02] p-7 md:p-8 transition-all duration-300 hover:border-white/25 hover:bg-white/[0.04] overflow-hidden">
+          <div className="group relative h-full rounded-3xl border border-white/10 bg-[#0e0e0e] p-7 md:p-8 transition-all duration-300 hover:border-white/25 hover:bg-[#151515] overflow-hidden">
             <span className="absolute top-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-500" style={{ background: accent }} />
             <span className="block text-sm font-black tracking-widest mb-6" style={{ color: accent }}>
               {it.tag || String(i + 1).padStart(2, "0")}
@@ -212,7 +212,7 @@ export function Steps({ steps, accent = MINT }) {
       <div className="absolute left-[27px] top-6 bottom-6 w-px bg-white/10 hidden md:block" aria-hidden="true" />
       {steps.map((s, i) => (
         <Reveal key={s.title} delay={i * 0.1}>
-          <div className="relative grid md:grid-cols-[56px_1fr] gap-5 rounded-3xl border border-white/10 bg-white/[0.025] p-6 md:p-8">
+          <div className="relative grid md:grid-cols-[56px_1fr] gap-5 rounded-3xl border border-white/10 bg-[#0e0e0e] p-6 md:p-8">
             <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border bg-black font-mono text-sm font-black" style={{ borderColor: accent, color: accent }}>
               {String(i + 1).padStart(2, "0")}
             </div>
@@ -231,7 +231,7 @@ export function ProductTieIn({ headline, body, cta = "See our products", href = 
   return (
     <Section tone={tone} className="!py-12 md:!py-20">
       <Reveal>
-        <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#FFC801]/[0.06] via-transparent to-[#00D1FF]/[0.06] p-8 md:p-12 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+        <div className="rounded-[2rem] border border-white/10 bg-[#0b0b0b] p-8 md:p-12 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           <div className="max-w-2xl">
             <p className="text-[11px] font-black uppercase tracking-[0.3em] text-white/60 mb-3">Product Portfolio</p>
             <h3 className="text-2xl md:text-4xl font-black tracking-tighter text-white mb-4">{headline}</h3>
@@ -248,7 +248,7 @@ export function ProductTieIn({ headline, body, cta = "See our products", href = 
 
 export function CtaBand({ headline, sub, primary, secondary, extra }) {
   return (
-    <section className="relative px-6 py-20 md:py-32 text-center overflow-hidden bg-gradient-to-b from-black to-[#050505] hide-floating-cta">
+    <section data-seamless-end className="relative px-6 pt-20 pb-12 md:pt-32 md:pb-16 text-center overflow-hidden bg-black hide-floating-cta">
       <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,rgba(99,210,163,0.15),transparent_70%)] pointer-events-none" />
       <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
         <h2 className="text-3xl md:text-7xl font-black tracking-tighter leading-[0.98] text-white mb-6">

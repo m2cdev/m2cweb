@@ -48,7 +48,7 @@ export function Together({ tone = "black" }) {
       <div className="grid gap-5 md:grid-cols-3">
         {cols.map(([t, d], i) => (
           <Reveal key={t} delay={i * 0.1}>
-            <div className={`h-full rounded-3xl border p-8 ${white ? "bg-white border-black/10" : "border-white/10 bg-white/[0.02]"}`}>
+            <div className={`h-full rounded-3xl border p-8 ${white ? "bg-white border-black/10" : "border-white/10 bg-[#0e0e0e]"}`}>
               <h3 className="text-2xl font-black" style={{ color: white ? GREEN_ON_WHITE : MINT }}>{t}</h3>
               <p className={`mt-3 font-body text-base md:text-lg leading-relaxed ${white ? "text-[#4D4D4D]" : "text-white"}`}>{d}</p>
             </div>
@@ -98,7 +98,7 @@ export function FinalCta({ product }) {
     ? { href: "https://heyqmo.com/", label: "Explore Qmo", accent: QMO_YELLOW }
     : { href: "https://grdr.app/", label: "Get a Free Grade", accent: GRDR_CYAN };
   return (
-    <section className="relative px-6 py-20 md:py-32 text-center overflow-hidden bg-gradient-to-b from-black to-[#050505] hide-floating-cta">
+    <section className="relative px-6 pt-20 pb-12 md:pt-32 md:pb-16 text-center overflow-hidden bg-black hide-floating-cta">
       <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,rgba(99,210,163,0.15),transparent_70%)] pointer-events-none" />
       <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
         <h2 className="text-4xl md:text-7xl font-black tracking-tighter leading-[0.98] text-white mb-6">One Conversation. No <span className="text-[#63D2A3]">Commitment.</span></h2>

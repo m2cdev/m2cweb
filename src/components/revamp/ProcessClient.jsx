@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import { Target, GitBranch, Wrench, Zap, Database } from "lucide-react";
 import CoreServices from "./CoreServices";
 import {
-  GridBackdrop, GridField, Marked, MeshHeroBg, SplitLetters, Btn, Reveal, Section, SectionTitle, WhiteSection, WhiteTitle,
+  GridBackdrop, Marked, MeshHeroBg, SplitLetters, Btn, Reveal, Section, SectionTitle, WhiteSection, WhiteTitle,
   NumDot, ProductTieIn, CtaBand, MINT, CORAL,
 } from "./ui";
 
@@ -61,7 +61,7 @@ function Hero() {
                 <Reveal key={n.id} delay={0.05 * i}>
                   <div className="relative flex gap-5 mb-6 last:mb-0">
                     <div className="z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-black border" style={{ borderColor: `${MINT}99` }}><Icon size={16} style={{ color: MINT }} /></div>
-                    <div className="flex-1 rounded-2xl border border-white/[0.07] bg-white/[0.03] p-5">
+                    <div className="flex-1 rounded-2xl border border-white/[0.07] bg-[#0e0e0e] p-5">
                       <div className="flex items-center gap-3 mb-2">
                         <span className="text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: MINT }}>{n.date}</span>
                         <span className="text-[10px] font-bold uppercase tracking-wide text-white/50">{n.category}</span>
@@ -233,7 +233,7 @@ function Handoffs() {
               ))}
             </div>
             {/* detail */}
-            <motion.div key={stage.role} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }} className="rounded-3xl border border-white/10 bg-white/[0.04] p-7 md:p-10" aria-live="polite">
+            <motion.div key={stage.role} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }} className="rounded-3xl border border-white/10 bg-[#0e0e0e] p-7 md:p-10" aria-live="polite">
               <p className="text-[12px] font-black uppercase tracking-[0.25em]" style={{ color: MINT }}>Step {idx + 1} of {n}</p>
               <h3 className="mt-4 text-2xl md:text-4xl font-black tracking-tight leading-tight"><Marked text={stage.title} /></h3>
               <p className="mt-4 font-body text-base md:text-lg text-white/90 leading-relaxed">{stage.body}</p>
@@ -250,66 +250,67 @@ function Handoffs() {
   );
 }
 
-const PIPE = "linear-gradient(180deg,#0c0c0c 0%,#2a2f2c 18%,#7d8782 42%,#3a413d 62%,#121413 100%)";
-const PIPE_V = "linear-gradient(90deg,#0c0c0c 0%,#2a2f2c 18%,#7d8782 42%,#3a413d 62%,#121413 100%)";
-
-function Collar({ n, vertical = false }) {
-  return (
-    <div className={`relative z-10 ${vertical ? "h-14 w-[4.25rem]" : "h-[4.25rem] w-14"} flex items-center justify-center rounded-md border border-black/70`} style={{ background: vertical ? PIPE_V : PIPE, boxShadow: "0 0 0 2px #1a1d1b, 0 6px 18px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.18)" }}>
-      {[0, 1].map((k) => (
-        <span key={k} className={`absolute h-1.5 w-1.5 rounded-full bg-black/70 ${vertical ? (k ? "right-1.5 top-1/2 -translate-y-1/2" : "left-1.5 top-1/2 -translate-y-1/2") : (k ? "bottom-1.5 left-1/2 -translate-x-1/2" : "top-1.5 left-1/2 -translate-x-1/2")}`} />
-      ))}
-      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-black font-mono text-sm font-black" style={{ color: MINT, boxShadow: `0 0 0 2px ${MINT}` }}>{String(n).padStart(2, "0")}</span>
-    </div>
-  );
-}
-
 function RunIt() {
   return (
-    <Section tone="clear">
-      <SectionTitle eyebrow="How we run it" title="Four Steps, ^Live Pipeline." />
-      {/* desktop: horizontal pipe */}
-      <div className="hidden md:block relative pt-2">
-        <div className="absolute left-0 right-0 top-6 h-[2.25rem]" aria-hidden="true">
-          <div className="absolute inset-0 rounded-[0.4rem]" style={{ background: PIPE, boxShadow: "0 10px 30px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.12)" }} />
-          <div className="absolute inset-x-6 top-[0.9rem] h-[0.35rem] rounded-full opacity-70" style={{ background: `linear-gradient(90deg, transparent, ${MINT}, transparent)`, filter: "blur(3px)" }} />
-          <div className="absolute -left-2 -top-2 h-[3.25rem] w-3 rounded-sm bg-[#2a2f2c] border border-white/15" />
-          <div className="absolute -right-2 -top-2 h-[3.25rem] w-3 rounded-sm bg-[#2a2f2c] border border-white/15" />
-        </div>
-        <div className="relative grid grid-cols-4">
-          {runIt.map((s, i) => (
-            <Reveal key={s.title} delay={i * 0.12}>
-              <div className="flex h-full flex-col items-center px-4 text-center">
-                <Collar n={i + 1} />
-                <div className="h-7 w-3.5" style={{ background: PIPE_V, boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.12)" }} aria-hidden="true" />
-                <div className="w-full flex-1 rounded-2xl border border-white/10 bg-black/60 p-5 backdrop-blur-sm">
-                  <h3 className="text-lg font-black text-white leading-snug">{s.title}</h3>
-                  <p className="mt-2 font-body text-[15px] text-white/85 leading-relaxed">{s.body}</p>
+    <section className="relative overflow-hidden px-6 md:px-16 py-16 md:py-28 bg-[#020a06]">
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div className="absolute -top-40 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full blur-[160px] opacity-[0.22]" style={{ background: `radial-gradient(circle, ${MINT}, transparent 70%)` }} />
+        <div className="absolute -bottom-52 -right-32 h-[520px] w-[520px] rounded-full blur-[150px] opacity-[0.14]" style={{ background: `radial-gradient(circle, ${MINT}, transparent 70%)` }} />
+      </div>
+      <div className="relative z-10 max-w-6xl mx-auto">
+        <SectionTitle eyebrow="How we run it" title="Four Steps, ^Live Pipeline." />
+        {/* desktop: one thin line, four nodes, a pulse travelling through */}
+        <div className="hidden md:block relative">
+          <div className="absolute left-0 right-0 top-[19px] h-px bg-white/15" aria-hidden="true" />
+          <motion.div
+            className="absolute left-0 right-0 top-[19px] h-px origin-left"
+            style={{ background: `linear-gradient(90deg, ${MINT}, ${MINT}66)` }}
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+            aria-hidden="true"
+          />
+          <motion.span
+            className="absolute top-[16px] h-[7px] w-[7px] rounded-full"
+            style={{ background: MINT, boxShadow: `0 0 14px 3px ${MINT}` }}
+            animate={{ left: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "linear", repeatDelay: 0.6 }}
+            aria-hidden="true"
+          />
+          <div className="relative grid grid-cols-4 gap-5">
+            {runIt.map((s, i) => (
+              <Reveal key={s.title} delay={i * 0.14}>
+                <div className="flex h-full flex-col">
+                  <span className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border bg-[#020a06] font-mono text-xs font-black" style={{ borderColor: MINT, color: MINT, boxShadow: `0 0 0 5px #020a06, 0 0 22px ${MINT}33` }}>{String(i + 1).padStart(2, "0")}</span>
+                  <div className="mt-6 flex-1 rounded-2xl border border-white/10 bg-[#0a110d] p-5">
+                    <h3 className="text-lg font-black text-white leading-snug">{s.title}</h3>
+                    <p className="mt-2 font-body text-[15px] text-white/85 leading-relaxed">{s.body}</p>
+                  </div>
                 </div>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            ))}
+          </div>
+        </div>
+        {/* mobile: vertical line */}
+        <div className="md:hidden relative">
+          <div className="absolute left-[19px] top-2 bottom-2 w-px bg-white/15" aria-hidden="true" />
+          <div className="relative space-y-5">
+            {runIt.map((s, i) => (
+              <Reveal key={s.title} delay={0.05}>
+                <div className="flex items-start gap-4">
+                  <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border bg-[#020a06] font-mono text-xs font-black" style={{ borderColor: MINT, color: MINT, boxShadow: `0 0 0 4px #020a06` }}>{String(i + 1).padStart(2, "0")}</span>
+                  <div className="flex-1 rounded-2xl border border-white/10 bg-[#0a110d] p-4">
+                    <h3 className="text-base font-black text-white leading-snug">{s.title}</h3>
+                    <p className="mt-1.5 font-body text-sm text-white/85 leading-relaxed">{s.body}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
-      {/* mobile: vertical pipe */}
-      <div className="md:hidden relative">
-        <div className="absolute left-[1.55rem] top-0 bottom-0 w-[2.25rem] rounded-[0.4rem]" style={{ background: PIPE_V, boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.12)" }} aria-hidden="true" />
-        <div className="relative space-y-6">
-          {runIt.map((s, i) => (
-            <Reveal key={s.title} delay={0.05}>
-              <div className="flex items-center gap-3">
-                <Collar n={i + 1} vertical />
-                <div className="h-3.5 w-4 shrink-0" style={{ background: PIPE, boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.12)" }} aria-hidden="true" />
-                <div className="flex-1 rounded-2xl border border-white/10 bg-black/60 p-4">
-                  <h3 className="text-base font-black text-white leading-snug">{s.title}</h3>
-                  <p className="mt-1.5 font-body text-sm text-white/85 leading-relaxed">{s.body}</p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </Section>
+    </section>
   );
 }
 
@@ -320,13 +321,8 @@ export default function ProcessClient() {
       <Meets />
       <Handoffs />
       <CoreServices page="process" id="core-services" headline="Ten Pieces Of Your Sales Engine" />
-      <div className="relative">
-        <GridField />
-        <div className="relative">
-          <RunIt />
-          <ProductTieIn tone="clear" headline="Your playbook, live on every call." body="Qmo turns the playbook into Q Cards that surface mid-call and keeps improving them from real recordings." />
-        </div>
-      </div>
+      <RunIt />
+      <ProductTieIn headline="Your playbook, live on every call." body="Qmo turns the playbook into Q Cards that surface mid-call and keeps improving them from real recordings." />
       <CtaBand headline="Ready To Make It ^Run?" primary={{ href: "/contact", label: "Book a Working Session" }} />
     </div>
   );

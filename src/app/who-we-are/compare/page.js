@@ -173,7 +173,7 @@ export default function ComparePage() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
               viewport={{ once: true, margin: "-60px" }}
-              className="relative rounded-[2.5rem] bg-white/[0.02] border border-white/[0.06] overflow-hidden backdrop-blur-sm"
+              className="relative rounded-[2.5rem] bg-[#0e0e0e] border border-white/[0.06] overflow-hidden backdrop-blur-sm"
             >
               {/* Subtle brand color glow behind each card */}
               <div className="absolute inset-0 pointer-events-none">
@@ -311,7 +311,7 @@ export default function ComparePage() {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.06 }}
                   viewport={{ once: true, margin: "-40px" }}
-                  className={`grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr] hover:bg-white/[0.03] transition-colors duration-300 ${index % 2 === 0 ? 'bg-white/[0.01]' : 'bg-transparent'}`}
+                  className={`grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr] hover:bg-[#151515] transition-colors duration-300 ${index % 2 === 0 ? 'bg-white/[0.01]' : 'bg-transparent'}`}
                 >
                 <div className="px-6 py-6 flex items-center">
                   <span className="font-black text-white text-[15px] tracking-tight">{row.dimension}</span>
@@ -331,7 +331,7 @@ export default function ComparePage() {
 
 
       {/* ── Bottom CTA ───────────────────────────────────────────────── */}
-      <section className="container-custom py-16 md:py-40 text-center hide-floating-cta border-t border-white/10">
+      <section className="container-custom pt-16 pb-10 md:pt-40 md:pb-16 text-center hide-floating-cta border-t border-white/10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -94,7 +94,7 @@ export default function ContactPage() {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
           >
-            <div className="relative bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-2xl p-6 md:p-8 overflow-hidden">
+            <div className="relative bg-[#0e0e0e] backdrop-blur-3xl border border-white/10 rounded-2xl p-6 md:p-8 overflow-hidden">
               <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/20 rounded-full blur-[100px] opacity-50 pointer-events-none" />
               <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-[#63D2A3]/20 rounded-full blur-[100px] opacity-50 pointer-events-none" />
 
@@ -131,12 +131,12 @@ export default function ContactPage() {
                     <div className="space-y-1">
                       <label className="text-xs font-medium text-white/70">First Name *</label>
                       <input name="firstName" type="text" required placeholder="John"
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" />
+                        className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" />
                     </div>
                     <div className="space-y-1">
                       <label className="text-xs font-medium text-white/70">Last Name *</label>
                       <input name="lastName" type="text" required placeholder="Doe"
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" />
+                        className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" />
                     </div>
                   </div>
 
@@ -144,12 +144,12 @@ export default function ContactPage() {
                     <div className="space-y-1">
                       <label className="text-xs font-medium text-white/70">Email *</label>
                       <input name="email" type="email" required placeholder="john@company.com"
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" />
+                        className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" />
                     </div>
                     <div className="space-y-1">
                       <label className="text-xs font-medium text-white/70">Phone *</label>
                       <input name="phone" type="tel" required placeholder="+1 (555) 000-0000"
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" />
+                        className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" />
                     </div>
                   </div>
 
@@ -157,19 +157,19 @@ export default function ContactPage() {
                     <div className="space-y-1">
                       <label className="text-xs font-medium text-white/70">Company Name *</label>
                       <input name="company" type="text" required placeholder="Acme Inc."
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" />
+                        className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" />
                     </div>
                     <div className="space-y-1">
                       <label className="text-xs font-medium text-white/70">Job Title *</label>
                       <input name="jobTitle" type="text" required placeholder="VP of Sales"
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" />
+                        className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" />
                     </div>
                   </div>
 
                   <div className="space-y-1">
                     <label className="text-xs font-medium text-white/70">Company Size (Range) *</label>
                     <select name="companySize" required defaultValue=""
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all appearance-none">
+                      className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all appearance-none">
                       <option value="" disabled className="bg-black">Select range</option>
                       <option value="1-10" className="bg-black">1-10</option>
                       <option value="11-50" className="bg-black">11-50</option>
@@ -184,7 +184,7 @@ export default function ContactPage() {
                     <label className="text-xs font-medium text-white/70">What&apos;s Your Biggest Sales Challenge? *</label>
                     <p className="text-[10px] text-white/40">If you had to fix one thing in your sales motion tomorrow, what would it be?</p>
                     <select name="salesChallenge" required defaultValue=""
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all appearance-none">
+                      className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all appearance-none">
                       <option value="" disabled className="bg-black">Select your biggest challenge</option>
                       <option value="Not enough pipeline coming in, or working with weak buyer intel" className="bg-black">Not enough pipeline coming in, or working with weak buyer intel</option>
                       <option value="Our reps are inconsistent, no playbook, no real process" className="bg-black">Our reps are inconsistent, no playbook, no real process</option>
@@ -197,7 +197,7 @@ export default function ContactPage() {
                   <div className="space-y-1">
                     <label className="text-xs font-medium text-white/70">Anything Else We Should Know?</label>
                     <textarea name="message" rows={2} placeholder="Any additional context..."
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all resize-none" />
+                      className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all resize-none" />
                   </div>
 
                   <ShimmerButton type="submit" disabled={formState === "submitting"} className="w-full h-11 rounded-xl mt-1" shimmerColor="#63D2A3" background="#111">

@@ -285,7 +285,7 @@ export default function CaseStudyPage() {
               {study.impact}
             </p>
             <div className="border border-white/[0.08] rounded-2xl overflow-hidden">
-              <div className="px-6 py-4 border-b border-white/[0.08] bg-white/[0.02]">
+              <div className="px-6 py-4 border-b border-white/[0.08] bg-[#0e0e0e]">
                 <p className="text-[11px] font-black tracking-[0.3em] text-[#63D2A3] uppercase">Key Outcomes</p>
               </div>
               <div className="divide-y divide-white/[0.06]">
@@ -305,7 +305,7 @@ export default function CaseStudyPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center py-16 border-t border-white/[0.06] hide-floating-cta"
+            className="text-center pt-16 pb-8 border-t border-white/[0.06] hide-floating-cta"
           >
             <h3 className="text-2xl md:text-6xl font-black tracking-tighter mb-8 md:mb-10">
               Let&apos;s Build Your <span className="text-[#63D2A3]">Motion.</span>
@@ -325,7 +325,7 @@ export default function CaseStudyPage() {
       </article>
 
       {/* ── NEXT UP ──────────────────────────────────────────────────────── */}
-      <section className="py-24 bg-white/[0.02] border-t border-white/[0.06]">
+      <section className="py-24 bg-[#0e0e0e] border-t border-white/[0.06]">
         <div className="container mx-auto px-6 md:px-16">
           <p className="text-[11px] font-black tracking-[0.35em] text-[#63D2A3] uppercase mb-12">Next Up</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">

@@ -86,7 +86,7 @@ export default function QmoDemo() {
                 </AnimatePresence>
               </div>
 
-              <div className="md:col-span-2 p-5 md:p-6 bg-white/[0.02] flex items-end">
+              <div className="md:col-span-2 p-5 md:p-6 bg-[#0e0e0e] flex items-end">
                 <AnimatePresence>
                   {showCard ? (
                     <motion.div

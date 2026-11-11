@@ -66,7 +66,7 @@ function Execution() {
       <SectionTitle eyebrow="Swipe through" title="This Is What We Mean By ^Execution" sub="Five moments where the work happens, from the room to the rep's next call." />
       <SwipeSlider label="Execution moments">
         {execution.map((e) => (
-          <div key={e.n} className="group h-full min-h-[360px] rounded-3xl border border-white/10 bg-white/[0.03] p-7 flex flex-col transition-colors hover:border-[#63D2A3]/60 select-none">
+          <div key={e.n} className="group h-full min-h-[360px] rounded-3xl border border-white/10 bg-[#0e0e0e] p-7 flex flex-col transition-colors hover:border-[#63D2A3]/60 select-none">
             <div className="flex items-center justify-between">
               <span className="text-4xl font-black tracking-tighter" style={{ color: MINT }}>{e.n}</span>
               <span className="rounded-full border border-white/20 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-white">{e.k}</span>
@@ -143,47 +143,56 @@ function LiveCoach() {
     return () => clearInterval(id);
   }, [inView]);
   return (
-    <section ref={ref} className="relative overflow-hidden bg-black px-6 md:px-16 py-16 md:py-24">
-      <div className="absolute -top-32 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full blur-[140px] opacity-[0.16]" style={{ background: QMO_YELLOW }} aria-hidden="true" />
-      <Reveal>
-        <div className="relative max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1fr_1.1fr] items-center rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#FFC801]/[0.07] via-transparent to-transparent p-8 md:p-12">
-          <div>
-            <p className="text-[11px] font-black uppercase tracking-[0.3em] text-white/60 mb-4">Product Portfolio</p>
-            <QmoMark className="h-7 mb-5" />
+    <section ref={ref} className="relative overflow-hidden bg-black px-6 md:px-16 py-20 md:py-32">
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div className="absolute -top-40 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full blur-[160px] opacity-[0.16]" style={{ background: QMO_YELLOW }} />
+        <div className="absolute -bottom-52 -left-40 h-[520px] w-[520px] rounded-full blur-[150px] opacity-[0.12]" style={{ background: MINT }} />
+      </div>
+      <div className="relative z-10 max-w-6xl mx-auto">
+        <SectionTitle
+          eyebrow="The tools behind the lift"
+          title="How We Make It ^Happen"
+          sub="Coaching only sticks when it reaches the rep at the moment of the call. This is the tool we put in their hands, so what we teach in the room shows up on the next dial."
+        />
+        <div className="grid gap-10 lg:gap-14 lg:grid-cols-[1fr_1.1fr] items-center">
+          <Reveal>
+            <QmoMark className="h-7 mb-6" />
             <h3 className="text-3xl md:text-5xl font-black tracking-tighter leading-[1.02] text-white">Coach reps <span style={{ color: QMO_YELLOW }}>on the call</span>, not after the fact.</h3>
             <p className="mt-5 font-body text-base md:text-lg text-white/90 leading-relaxed">A review tomorrow fixes tomorrow&apos;s call. Qmo puts the next best line in front of your rep while the buyer is still talking, so the coaching lands on the deal it was meant for.</p>
             <div className="mt-7 grid grid-cols-2 gap-3 max-w-md text-sm">
-              <div className="rounded-2xl border border-white/10 p-4 text-white/55"><p className="text-[10px] font-black uppercase tracking-[0.2em]">After the fact</p><p className="mt-1 font-body">Feedback next week. The deal has moved on.</p></div>
-              <div className="rounded-2xl border p-4 text-white" style={{ borderColor: QMO_YELLOW }}><p className="text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: QMO_YELLOW }}>Live</p><p className="mt-1 font-body">Coached in the moment. The rep acts on it.</p></div>
+              <div className="rounded-2xl border border-white/10 bg-[#0e0e0e] p-4 text-white/55"><p className="text-[10px] font-black uppercase tracking-[0.2em]">After the fact</p><p className="mt-1 font-body">Feedback next week. The deal has moved on.</p></div>
+              <div className="rounded-2xl border bg-[#0e0e0e] p-4 text-white" style={{ borderColor: QMO_YELLOW }}><p className="text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: QMO_YELLOW }}>Live</p><p className="mt-1 font-body">Coached in the moment. The rep acts on it.</p></div>
             </div>
             <Link href="/products/qmo" className="mt-8 inline-flex items-center gap-3 text-xs font-black uppercase tracking-widest hover:text-white transition-colors" style={{ color: MINT }}>See Qmo <ArrowRight className="h-4 w-4" /></Link>
-          </div>
-          <div className="relative rounded-3xl border border-white/10 bg-[#0B0B0C] p-5 md:p-6 min-h-[300px]" aria-hidden="true">
-            <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-[0.2em] text-white/50">
-              <span className="flex items-center gap-2"><span className="h-2 w-2 rounded-full" style={{ background: CORAL }} />Live call</span>
-              <span>0:4{Math.min(5, 2 + Math.min(step, 3))}</span>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="relative rounded-3xl border border-white/10 bg-[#0B0B0C] p-5 md:p-6 min-h-[300px]" aria-hidden="true">
+              <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-[0.2em] text-white/50">
+                <span className="flex items-center gap-2"><span className="h-2 w-2 rounded-full" style={{ background: CORAL }} />Live call</span>
+                <span>0:4{Math.min(5, 2 + Math.min(step, 3))}</span>
+              </div>
+              <div className="mt-5 space-y-3">
+                {callLines.map((l, i) => {
+                  const vis = i === 0 || step >= i;
+                  return (
+                    <motion.div
+                      key={i}
+                      initial={false}
+                      animate={{ opacity: vis ? 1 : 0, y: vis ? 0 : 10, scale: vis ? 1 : 0.98 }}
+                      transition={{ duration: 0.4 }}
+                      className={l.card ? "rounded-2xl p-4 text-black" : "rounded-2xl border border-white/10 bg-[#151515] p-4 text-white"}
+                      style={l.card ? { background: QMO_YELLOW, boxShadow: "0 0 40px rgba(255,200,1,0.25)" } : undefined}
+                    >
+                      <p className="text-[10px] font-black uppercase tracking-[0.2em]" style={l.card ? undefined : { color: l.who === "Rep" ? MINT : "rgba(255,255,255,0.55)" }}>{l.who} · {l.at}</p>
+                      <p className="mt-1 font-body text-[15px] leading-snug">{l.t}</p>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </div>
-            <div className="mt-5 space-y-3">
-              {callLines.map((l, i) => {
-                const vis = i === 0 || step >= i;
-                return (
-                  <motion.div
-                    key={i}
-                    initial={false}
-                    animate={{ opacity: vis ? 1 : 0, y: vis ? 0 : 10, scale: vis ? 1 : 0.98 }}
-                    transition={{ duration: 0.4 }}
-                    className={l.card ? "rounded-2xl p-4 text-black" : "rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-white"}
-                    style={l.card ? { background: QMO_YELLOW, boxShadow: "0 0 40px rgba(255,200,1,0.25)" } : undefined}
-                  >
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em]" style={l.card ? undefined : { color: l.who === "Rep" ? MINT : "rgba(255,255,255,0.55)" }}>{l.who} · {l.at}</p>
-                    <p className="mt-1 font-body text-[15px] leading-snug">{l.t}</p>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
+          </Reveal>
         </div>
-      </Reveal>
+      </div>
     </section>
   );
 }

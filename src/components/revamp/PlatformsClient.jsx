@@ -87,7 +87,7 @@ function Stack() {
             </button>
           ))}
         </div>
-        <div className="relative rounded-3xl border border-white/10 bg-white/[0.03] p-8 md:p-10 min-h-[220px]" role="tabpanel">
+        <div className="relative rounded-3xl border border-white/10 bg-[#0e0e0e] p-8 md:p-10 min-h-[220px]" role="tabpanel">
           <AnimatePresence mode="wait">
             <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3 }}>
               <h3 className="text-2xl md:text-4xl font-black tracking-tight text-white">{cur.title}</h3>
@@ -109,7 +109,7 @@ function Approach() {
         <p className="text-sm font-black uppercase tracking-[0.25em]" style={{ color: CORAL }}>Built in 30</p>
       </div>
       <div className="relative">
-        <div className="absolute left-0 right-0 top-[22px] hidden h-px bg-black/15 lg:block" aria-hidden="true" />
+        <div className="absolute left-0 right-0 top-[22px] hidden h-px bg-[#0e0e0e] lg:block" aria-hidden="true" />
         <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {approach.map((a, i) => (
             <Reveal key={a.title} delay={i * 0.08}>
@@ -141,7 +141,7 @@ function Systems() {
           <Reveal key={s.title} delay={i * 0.08} y={10}>
             <Link
               href={s.href}
-              className="group grid items-center gap-3 px-6 py-6 transition-colors hover:bg-white/[0.04] md:grid-cols-[1fr_1.3fr_2rem_1.5fr] md:gap-x-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#63D2A3]"
+              className="group grid items-center gap-3 px-6 py-6 transition-colors hover:bg-[#151515] md:grid-cols-[1fr_1.3fr_2rem_1.5fr] md:gap-x-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#63D2A3]"
             >
               <h3 className="text-xl md:text-2xl font-black leading-tight text-white transition-colors group-hover:text-[#63D2A3]">
                 <span className="mr-3 font-mono text-sm" style={{ color: MINT }}>{String(i + 1).padStart(2, "0")}</span>{s.title}

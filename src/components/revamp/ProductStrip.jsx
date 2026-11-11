@@ -18,7 +18,7 @@ export default function ProductStrip({ title = "Powered by what we built", showH
           <Reveal key={c.href} delay={i * 0.1}>
             <Link
               href={c.href}
-              className="group relative block h-full rounded-3xl border border-white/10 bg-white/[0.02] p-8 md:p-10 transition-all duration-300 hover:-translate-y-1"
+              className="group relative block h-full rounded-3xl border border-white/10 bg-[#0e0e0e] p-8 md:p-10 transition-all duration-300 hover:-translate-y-1"
               style={{ "--accent": c.color }}
             >
               <span className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ boxShadow: `0 0 0 1px ${c.color}, 0 0 40px ${c.color}22` }} />

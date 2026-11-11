@@ -117,7 +117,7 @@ export default function Pilot() {
       </section>
 
       {/* Final CTA */}
-      <div className="py-16 md:py-40 relative flex items-center justify-center min-h-[30vh] md:min-h-[60vh] overflow-hidden text-center hide-floating-cta">
+      <div className="pt-16 pb-10 md:pt-32 md:pb-16 relative flex items-center justify-center min-h-[30vh] md:min-h-[45vh] overflow-hidden text-center hide-floating-cta">
         <BackgroundBeams className="opacity-60" />
         <div className="relative z-10 px-6 max-w-4xl mx-auto flex flex-col items-center">
           <h2 className="text-3xl md:text-7xl font-black tracking-tighter mb-6 text-white drop-shadow-2xl">

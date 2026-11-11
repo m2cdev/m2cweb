@@ -107,8 +107,9 @@
 .animate-spotlight {
   animation: spotlight 2s ease 0.75s 1 forwards;
 }
-/* Product pages: the closing section runs straight into the footer with no gap. */
-main:has([data-seamless-end]) > footer { border-top-color: transparent; padding-top: 3rem; }
+/* Every page: the closing section runs straight into the footer with no gap. */
+main > footer { border-top-width: 0 !important; padding-top: 3rem !important; }
+@media (min-width: 768px) { main > footer { padding-top: 4rem !important; } }
 @keyframes qmo-marquee { to { transform: translateX(-25%); } }
 .qmo-marquee { animation: qmo-marquee 28s linear infinite; }
 @media (prefers-reduced-motion: reduce) { .qmo-marquee { animation: none; } }
