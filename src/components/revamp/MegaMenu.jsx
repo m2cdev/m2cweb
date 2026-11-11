@@ -78,26 +78,18 @@ export function MegaMenu({ open, setOpen, active, label, href }) {
 
   return (
     <>
-      <div className="flex items-center">
-        <Link
-          href={href}
-          className={cn("text-sm font-medium transition-colors duration-300", active ? "text-primary" : "text-white hover:text-[#FF6B6B]")}
-        >
-          {label}
-        </Link>
-        <button
-          ref={triggerRef}
-          type="button"
-          aria-expanded={open}
-          aria-haspopup="true"
-          aria-controls="what-we-do-menu"
-          aria-label={`${label} menu`}
-          onClick={() => setOpen(!open)}
-          className="ml-1 rounded p-0.5 text-white/60 hover:text-white"
-        >
-          <ChevronDown className={cn("h-4 w-4 transition-transform duration-200", open && "rotate-180")} />
-        </button>
-      </div>
+      <button
+        ref={triggerRef}
+        type="button"
+        aria-expanded={open}
+        aria-haspopup="true"
+        aria-controls="what-we-do-menu"
+        onClick={() => setOpen(!open)}
+        className={cn("flex items-center gap-1 text-sm font-medium transition-colors duration-300", active ? "text-primary" : "text-white hover:text-[#FF6B6B]")}
+      >
+        {label}
+        <ChevronDown className={cn("h-4 w-4 text-white/60 transition-transform duration-200", open && "rotate-180")} />
+      </button>
       <AnimatePresence>
         {open && (
           <motion.div
@@ -114,7 +106,6 @@ export function MegaMenu({ open, setOpen, active, label, href }) {
               <div>
                 <p className="px-4 pb-2 pt-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#63D2A3]">The Map2Close Experience</p>
                 {left.map((it, i) => <Row key={it.name} it={it} i={i} reduce={reduce} onNavigate={() => setOpen(false)} />)}
-                <Link href="/what-we-do" onClick={() => setOpen(false)} className="mx-4 mt-3 mb-1 inline-block text-xs font-bold text-white/70 hover:text-[#63D2A3]">How it works together &rarr;</Link>
               </div>
               <div className="mx-3 w-px bg-white/10" aria-hidden="true" />
               <div>
@@ -133,19 +124,15 @@ export function MegaMenu({ open, setOpen, active, label, href }) {
 export function MobileWhatWeDo({ label, href, pathname, onNavigate }) {
   const [open, setOpen] = useState(false);
   const groups = [
-    { title: "The Map2Close Experience", links: left.map((l) => ({ name: l.name, href: l.href })).concat([{ name: "How it works together", href: "/what-we-do" }]) },
+    { title: "The Map2Close Experience", links: left.map((l) => ({ name: l.name, href: l.href })) },
     { title: "Product Portfolio", links: [{ name: "Qmo", href: "/products/qmo" }, { name: "Grdr", href: "/products/grdr" }, { name: "See all products", href: "/products" }] },
   ];
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex items-center justify-between">
-        <Link href={href} onClick={onNavigate} className={cn("text-2xl font-bold", pathname.startsWith("/what-we-do") ? "text-primary" : "text-white")}>
-          {label}
-        </Link>
-        <button type="button" aria-expanded={open} aria-label={`${label} sections`} onClick={() => setOpen(!open)} className="p-2 text-white/70">
-          <ChevronDown className={cn("h-5 w-5 transition-transform", open && "rotate-180")} />
-        </button>
-      </div>
+      <button type="button" aria-expanded={open} onClick={() => setOpen(!open)} className="flex items-center justify-between w-full text-left">
+        <span className={cn("text-2xl font-bold", pathname.startsWith("/what-we-do") ? "text-primary" : "text-white")}>{label}</span>
+        <ChevronDown className={cn("h-5 w-5 text-white/70 transition-transform", open && "rotate-180")} />
+      </button>
       {open && (
         <div className="ml-4 flex flex-col gap-6 border-l border-white/10 pl-6 my-2">
           {groups.map((g) => (

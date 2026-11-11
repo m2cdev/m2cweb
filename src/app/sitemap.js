@@ -7,7 +7,6 @@ export default function sitemap() {
   return [
     { url: base, lastModified, changeFrequency: "weekly", priority: 1 },
     { url: `${base}/who-we-are`, lastModified, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${base}/what-we-do`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/what-we-do/people`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/what-we-do/process`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/what-we-do/platforms`, lastModified, changeFrequency: "monthly", priority: 0.8 },

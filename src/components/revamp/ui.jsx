@@ -51,11 +51,31 @@ export function Waves({ className = "", color = MINT, flip = false }) {
   );
 }
 
-export function GridBackdrop({ glow = MINT }) {
+export function GridBackdrop({ glow = MINT, strong = false }) {
+  const line = strong ? "rgba(99,210,163,0.16)" : "rgba(255,255,255,0.03)";
   return (
     <div className="absolute inset-0 pointer-events-none -z-0 overflow-hidden" aria-hidden="true">
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_30%,#000_10%,transparent_100%)]" />
-      <div className="absolute -top-40 -right-40 w-[760px] h-[760px] rounded-full blur-[150px] opacity-[0.20]" style={{ background: `radial-gradient(circle, ${glow}, transparent 70%)` }} />
+      <div
+        className={cn("absolute inset-0 bg-[size:64px_64px]", strong ? "[mask-image:radial-gradient(ellipse_90%_90%_at_50%_45%,#000_30%,transparent_100%)]" : "[mask-image:radial-gradient(ellipse_70%_70%_at_50%_30%,#000_10%,transparent_100%)]")}
+        style={{ backgroundImage: `linear-gradient(${line} 1px,transparent 1px),linear-gradient(90deg,${line} 1px,transparent 1px)` }}
+      />
+      <div className={cn("absolute -top-40 -right-40 w-[760px] h-[760px] rounded-full blur-[150px]", strong ? "opacity-[0.38]" : "opacity-[0.20]")} style={{ background: `radial-gradient(circle, ${glow}, transparent 70%)` }} />
+      {strong && <div className="absolute -bottom-52 -left-40 w-[700px] h-[700px] rounded-full blur-[150px] opacity-[0.28]" style={{ background: `radial-gradient(circle, ${glow}, transparent 70%)` }} />}
+    </div>
+  );
+}
+
+// Tall dark grid with green hues, for a stack of sections that should read as one surface.
+export function GridField({ glow = MINT, className = "" }) {
+  return (
+    <div className={cn("absolute inset-0 pointer-events-none overflow-hidden bg-black", className)} aria-hidden="true">
+      <div
+        className="absolute inset-0 bg-[size:64px_64px] [mask-image:linear-gradient(to_bottom,transparent,#000_8%,#000_92%,transparent)]"
+        style={{ backgroundImage: "linear-gradient(rgba(99,210,163,0.14) 1px,transparent 1px),linear-gradient(90deg,rgba(99,210,163,0.14) 1px,transparent 1px)" }}
+      />
+      {[["-top-32 -right-40", 0.34], ["top-[38%] -left-56", 0.26], ["bottom-0 -right-48", 0.30]].map(([pos, o], i) => (
+        <div key={i} className={cn("absolute w-[720px] h-[720px] rounded-full blur-[150px]", pos)} style={{ opacity: o, background: `radial-gradient(circle, ${glow}, transparent 70%)` }} />
+      ))}
     </div>
   );
 }
@@ -156,7 +176,7 @@ export function SectionTitle({ eyebrow, title, sub, accent = MINT, center = fals
 
 export function Section({ children, className = "", id, tone = "black" }) {
   return (
-    <section id={id} className={cn("relative px-6 md:px-16 py-16 md:py-28 overflow-hidden", tone === "dark" ? "bg-[#080808]" : "bg-black", className)}>
+    <section id={id} className={cn("relative px-6 md:px-16 py-16 md:py-28 overflow-hidden", tone === "dark" ? "bg-[#080808]" : tone === "clear" ? "bg-transparent" : "bg-black", className)}>
       <div className="relative z-10 max-w-6xl mx-auto">{children}</div>
     </section>
   );
@@ -207,9 +227,9 @@ export function Steps({ steps, accent = MINT }) {
   );
 }
 
-export function ProductTieIn({ headline, body, cta = "See our products", href = "/products" }) {
+export function ProductTieIn({ headline, body, cta = "See our products", href = "/products", tone = "black" }) {
   return (
-    <Section className="!py-12 md:!py-20">
+    <Section tone={tone} className="!py-12 md:!py-20">
       <Reveal>
         <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#FFC801]/[0.06] via-transparent to-[#00D1FF]/[0.06] p-8 md:p-12 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           <div className="max-w-2xl">

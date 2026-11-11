@@ -3,10 +3,10 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Layout, Search, Cpu } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import {
-  GlowHeroBg, Btn, Reveal, Section, SectionTitle, WhiteSection, WhiteTitle,
-  NumDot, CoralPill, CtaBand, MINT, CORAL,
+  GlowHeroBg, GridField, Btn, Reveal, Section, SectionTitle, WhiteSection, WhiteTitle,
+  NumDot, CtaBand, MINT, CORAL,
 } from "./ui";
 import DashboardMock from "./DashboardMock";
 import ProductStrip from "./ProductStrip";
@@ -66,9 +66,10 @@ function Stack() {
   const [i, setI] = useState(0);
   const cur = implementation[i];
   return (
-    <Section tone="dark">
+    <section className="sticky top-0 z-0 h-screen overflow-hidden bg-black px-6 md:px-16 pt-20 flex items-center" aria-label="Implementations">
+      <GridField />
+      <div className="relative z-10 w-full max-w-6xl mx-auto">
       <SectionTitle eyebrow="Implementations" title="Everything ^Connected. Everything ^Automated." />
-      <CoralPill className="-mt-6 mb-10">45 to Live</CoralPill>
       <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
         <div role="tablist" aria-label="Implementations" className="flex lg:flex-col gap-2 overflow-x-auto [scrollbar-width:none]">
           {implementation.map((t, k) => (
@@ -94,27 +95,27 @@ function Stack() {
           </AnimatePresence>
         </div>
       </div>
-    </Section>
+      </div>
+    </section>
   );
 }
 
 function Approach() {
   return (
-    <WhiteSection id="custom-builds">
-      <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
-        <div className="lg:sticky lg:top-28 self-start">
-          <WhiteTitle eyebrow="Custom builds" title="Every Build Starts With A ^Problem" sub="Systems we build inside real revenue motions." />
-          <CoralPill>Built in 30</CoralPill>
-        </div>
-        <ol className="space-y-4">
+    <WhiteSection id="custom-builds" className="!py-14 md:!py-20">
+      <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
+        <WhiteTitle className="!mb-0" eyebrow="Custom builds" title="Every Build Starts With A ^Problem" sub="Systems we build inside real revenue motions." />
+        <p className="text-sm font-black uppercase tracking-[0.25em]" style={{ color: CORAL }}>Built in 30</p>
+      </div>
+      <div className="relative">
+        <div className="absolute left-0 right-0 top-[22px] hidden h-px bg-black/15 lg:block" aria-hidden="true" />
+        <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {approach.map((a, i) => (
-            <Reveal key={a.title} delay={0.05}>
-              <li className={`flex gap-5 rounded-3xl border p-6 md:p-7 ${i === 0 ? "bg-black border-black text-white" : "bg-[#F2F2F2] border-black/10"}`}>
-                <NumDot n={i + 1} variant={i === 0 ? "mint" : "black"} />
-                <div>
-                  <h3 className="text-xl md:text-2xl font-black tracking-tight">{a.title}</h3>
-                  <p className={`mt-2 font-body text-base leading-relaxed ${i === 0 ? "text-white/85" : "text-[#5A5A5A]"}`}>{a.body}</p>
-                </div>
+            <Reveal key={a.title} delay={i * 0.08}>
+              <li className={`relative h-full rounded-3xl border p-6 ${i === 0 ? "bg-black border-black text-white" : "bg-[#F2F2F2] border-black/10"}`}>
+                <NumDot n={i + 1} variant={i === 0 ? "mint" : "black"} className="ring-4 ring-white" />
+                <h3 className="mt-5 text-xl font-black tracking-tight leading-snug">{a.title}</h3>
+                <p className={`mt-2 font-body text-[15px] leading-relaxed ${i === 0 ? "text-white/85" : "text-[#5A5A5A]"}`}>{a.body}</p>
               </li>
             </Reveal>
           ))}
@@ -124,44 +125,42 @@ function Approach() {
   );
 }
 
-const icons = [Layout, Search, Cpu];
-
 function Systems() {
   return (
-    <Section>
-      <SectionTitle eyebrow="Systems we build" title="From ^Problem to System" sub="What it looks like when we build inside a real revenue motion." />
-      <div className="grid gap-8 md:grid-cols-3">
-        {systems.map((s, i) => {
-          const Icon = icons[i % icons.length];
-          return (
-            <Reveal key={s.title} delay={i * 0.1}>
-              <Link
-                href={s.href}
-                className="group relative flex h-full flex-col gap-6 overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#050505] p-8 md:p-10 transition-all duration-500 hover:border-[#63D2A3]/50 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#63D2A3]"
-              >
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#63D2A3]/0 to-transparent transition-colors duration-500 group-hover:from-[#63D2A3]/[0.07]" />
-                <div className="absolute right-7 top-7 flex h-9 w-9 items-center justify-center rounded-full border border-[#63D2A3]/40 text-[#63D2A3] transition-all duration-300 group-hover:translate-x-1 group-hover:bg-[#63D2A3] group-hover:text-black">
-                  <ArrowRight className="h-4 w-4" />
-                </div>
-                <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-[#63D2A3]/25 bg-[#63D2A3]/10 shadow-[0_0_20px_rgba(99,210,163,0.12)]">
-                  <Icon className="h-8 w-8 text-[#63D2A3]" />
-                </div>
-                <h3 className="relative text-2xl md:text-3xl font-black leading-tight text-white transition-colors group-hover:text-[#63D2A3]">{s.title}</h3>
-                <div className="relative space-y-4">
-                  <div>
-                    <CoralPill>The problem</CoralPill>
-                    <p className="mt-3 font-body text-base text-white/80 leading-relaxed">{s.problem}</p>
-                  </div>
-                  <div>
-                    <span className="inline-block rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-black" style={{ background: MINT }}>What we built</span>
-                    <p className="mt-3 font-body text-base text-white leading-relaxed">{s.solution}</p>
-                  </div>
-                </div>
-                <span className="relative mt-auto inline-flex items-center gap-2 pt-2 text-xs font-black uppercase tracking-widest text-[#63D2A3]">Read the case study <ArrowRight className="h-3.5 w-3.5" /></span>
-              </Link>
-            </Reveal>
-          );
-        })}
+    <Section className="!py-14 md:!py-20">
+      <SectionTitle eyebrow="Systems we build" title="From ^Problem to System" />
+      <div className="hidden md:grid grid-cols-[1fr_1.3fr_2rem_1.5fr] gap-x-8 px-6 pb-3 text-[11px] font-black uppercase tracking-[0.25em] border-b border-white/15">
+        <span className="text-white/50">System</span>
+        <span style={{ color: CORAL }}>The problem</span>
+        <span />
+        <span style={{ color: MINT }}>What we built</span>
+      </div>
+      <div className="divide-y divide-white/10">
+        {systems.map((s, i) => (
+          <Reveal key={s.title} delay={i * 0.08} y={10}>
+            <Link
+              href={s.href}
+              className="group grid items-center gap-3 px-6 py-6 transition-colors hover:bg-white/[0.04] md:grid-cols-[1fr_1.3fr_2rem_1.5fr] md:gap-x-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#63D2A3]"
+            >
+              <h3 className="text-xl md:text-2xl font-black leading-tight text-white transition-colors group-hover:text-[#63D2A3]">
+                <span className="mr-3 font-mono text-sm" style={{ color: MINT }}>{String(i + 1).padStart(2, "0")}</span>{s.title}
+              </h3>
+              <p className="font-body text-[15px] leading-relaxed text-white/60"><span className="md:hidden font-black uppercase tracking-widest text-[11px] mr-2" style={{ color: CORAL }}>Problem</span>{s.problem}</p>
+              <span className="hidden md:flex items-center" aria-hidden="true">
+                <motion.span
+                  className="block h-px w-full origin-left"
+                  style={{ background: `linear-gradient(90deg, ${CORAL}, ${MINT})` }}
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.3 + i * 0.1 }}
+                />
+                <ArrowRight className="-ml-1 h-4 w-4 shrink-0" style={{ color: MINT }} />
+              </span>
+              <p className="font-body text-[15px] leading-relaxed text-white"><span className="md:hidden font-black uppercase tracking-widest text-[11px] mr-2" style={{ color: MINT }}>Built</span>{s.solution}</p>
+            </Link>
+          </Reveal>
+        ))}
       </div>
     </Section>
   );
@@ -170,9 +169,16 @@ function Systems() {
 export default function PlatformsClient() {
   return (
     <div className="bg-black text-white">
-      <Hero />
-      <Stack />
-      <Approach />
+      <div className="relative bg-black">
+        <Stack />
+        <div className="relative z-10 -mt-[100vh] bg-black">
+          <Hero />
+        </div>
+        <div className="h-[70vh]" aria-hidden="true" />
+        <div className="relative z-10 bg-white">
+          <Approach />
+        </div>
+      </div>
       <Systems />
       <Section tone="dark">
         <SectionTitle eyebrow="Product Portfolio" title="Some Builds Became ^Products." sub="Both sit on top of your existing CRM." />

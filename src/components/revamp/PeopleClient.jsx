@@ -1,19 +1,25 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useSpring, useTransform, useReducedMotion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { motion, useScroll, useSpring, useTransform, useReducedMotion, useMotionValueEvent, useInView } from "framer-motion";
 import {
   WaveHeroBg, SplitLetters, Btn, Reveal, Section, SectionTitle, WhiteSection, WhiteTitle,
-  NumDot, CoralPill, SwipeSlider, ProductTieIn, CtaBand, MINT, CORAL,
+  NumDot, SwipeSlider, CtaBand, QmoMark, MINT, CORAL, QMO_YELLOW,
 } from "./ui";
 
 const services = [
-  { title: "Live Deal Coaching", d: "We shadow active deals, find where momentum is slipping, and coach reps through the next move in real time." },
-  { title: "Cold Call Labs", d: "Live sessions where reps practice outreach, get immediate feedback, and sharpen openers and objection handling." },
-  { title: "1-1 Coaching", d: "Individual sessions built around each rep's gaps: discovery, objections, closing or consistency." },
-  { title: "Group Training Sessions", d: "Team-wide sessions that turn the winning motion into shared language and plays for the next call." },
-  { title: "Manager Enablement", d: "Frontline leaders get the language, dashboards and coaching structure to reinforce the motion." },
-  { title: "Rep Onboarding + Ramp", d: "New reps ramped with our framework, a CRM walkthrough and call reviews, productive within 30 days." },
+  { title: "1:1 Rep Coaching", d: "Each rep gets full attention on their own gaps, backed by real call and deal data." },
+  { title: "Group Training Sessions", d: "Recurring skill building on discovery, objections and closing, as a team." },
+  { title: "Deal Coaching", d: "Live, deal specific coaching on the opportunities actually in the pipeline." },
+  { title: "Leadership Alignment", d: "Working sessions with sales leadership on coaching cadence, standards and performance." },
+  { title: "Compensation and Growth Strategy", d: "Comp plan and career path design built to drive the right rep behavior." },
+  { title: "New Rep Ramp and Onboarding", d: "A structured 30 day onboarding system so new hires sell like veterans faster." },
+  { title: "Objection Handling", d: "Drilling reps on their toughest objections until it is second nature." },
+  { title: "Manager Coaching and Enablement", d: "Equipping frontline managers to coach consistently, not just manage pipeline." },
+  { title: "Hiring and Interview Process Design", d: "A structured scorecard so you hire reps who actually ramp." },
+  { title: "Culture and Accountability Systems", d: "Standups, pipeline reviews and scorecards that keep the team accountable daily." },
 ];
 
 const execution = [
@@ -52,54 +58,32 @@ function Hero() {
 }
 
 function DeckSlide() {
-  const lines = [
-    ["Rep", "I think they went quiet after pricing."],
-    ["Coach", "Then the next move is to reconnect the pain, not the price. Try it now."],
-    ["Rep", "Walking in with the cost of waiting. Got it."],
-  ];
   return (
-    <WhiteSection>
-      <div className="grid gap-10 lg:grid-cols-[1.7fr_1fr] lg:gap-14 items-start">
-        <div>
-          <CoralPill>Hands-on, not theory</CoralPill>
-          <WhiteTitle className="!mt-5 !mb-10" eyebrow={null} title="Six ways we put coaching on the floor" sub="Pick one, or run the full program." />
-          <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
-            {services.map((s, i) => (
-              <Reveal key={s.title} delay={(i % 2) * 0.08} y={14}>
-                <div className="flex gap-4 border-t border-black/10 pt-5">
-                  <NumDot n={i + 1} />
-                  <div>
-                    <h3 className="text-lg md:text-xl font-black tracking-tight text-black">{s.title}</h3>
-                    <p className="mt-1.5 font-body text-[15px] leading-relaxed text-[#5A5A5A]">{s.d}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-        <Reveal delay={0.15}>
-          <div className="rounded-[2rem] bg-black p-7 md:p-8 text-white lg:sticky lg:top-28 overflow-hidden relative">
+    <WhiteSection className="!py-14 md:!py-20">
+      <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr] lg:gap-14 items-end mb-10 md:mb-12">
+        <WhiteTitle className="!mb-0" eyebrow={null} title="Ten ways we put coaching on the floor" sub="We partner with your reps at every stage of the deal cycle, from cold calling to closing deals." />
+        <Reveal delay={0.1}>
+          <Link href="/case-studies/pinecone" className="group relative block overflow-hidden rounded-[2rem] bg-black p-7 md:p-8 text-white">
             <div className="absolute -top-20 -right-20 h-56 w-56 rounded-full blur-[80px] opacity-30" style={{ background: MINT }} />
-            <p className="relative text-[11px] font-black uppercase tracking-[0.3em]" style={{ color: MINT }}>See an example in action</p>
-            <h3 className="relative mt-3 text-2xl font-black tracking-tight">A live deal, coached in the moment</h3>
-            <div className="relative mt-6 space-y-3">
-              {lines.map(([who, t], i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ delay: 0.3 + i * 0.5, duration: 0.5 }}
-                  className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm"
-                >
-                  <span className="mr-2 font-black" style={{ color: who === "Coach" ? MINT : "rgba(255,255,255,0.6)" }}>{who}</span>
-                  <span className="text-white">{t}</span>
-                </motion.div>
-              ))}
-            </div>
-            <Btn href="/contact" className="relative mt-7 !px-6 !py-3">Book a Working Session</Btn>
-          </div>
+            <p className="relative text-[11px] font-black uppercase tracking-[0.3em]" style={{ color: MINT }}>Case study</p>
+            <h3 className="relative mt-3 text-2xl font-black tracking-tight">Sales Enablement Hub</h3>
+            <p className="relative mt-2 font-body text-[15px] text-white/80 leading-relaxed">The right content, surfaced at the right moment in every deal.</p>
+            <span className="relative mt-5 inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest" style={{ color: MINT }}>
+              Read the case study <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+            </span>
+          </Link>
         </Reveal>
+      </div>
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+        {services.map((s, i) => (
+          <Reveal key={s.title} delay={(i % 5) * 0.06} y={12}>
+            <div className="h-full rounded-2xl border border-black/10 bg-[#F2F2F2] p-5 transition-colors hover:border-black/30">
+              <NumDot n={i + 1} className="!h-9 !w-9 !text-xs" />
+              <h3 className="mt-4 text-[15px] font-black leading-snug tracking-tight text-black">{s.title}</h3>
+              <p className="mt-2 font-body text-[13px] leading-relaxed text-[#5A5A5A]">{s.d}</p>
+            </div>
+          </Reveal>
+        ))}
       </div>
     </WhiteSection>
   );
@@ -129,32 +113,39 @@ function Execution() {
 function Ramp() {
   const ref = useRef(null);
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 75%", "end 55%"] });
-  const fill = useSpring(scrollYProgress, { stiffness: 90, damping: 24 });
-  const height = useTransform(fill, [0, 1], ["0%", "100%"]);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 85%", "center 45%"] });
+  const p = useSpring(scrollYProgress, { stiffness: 80, damping: 22, mass: 0.6 });
+  const width = useTransform(p, [0, 1], ["100%", "33.333%"]);
+  const [days, setDays] = useState(reduce ? 30 : 90);
+  useMotionValueEvent(p, "change", (v) => setDays(Math.round(90 - Math.min(1, Math.max(0, v)) * 60)));
+  const done = days <= 30;
   return (
-    <WhiteSection tone="grey">
-      <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr]">
-        <div className="lg:sticky lg:top-28 self-start">
-          <WhiteTitle eyebrow="30 by 30" title="From first day to productive in ^30 days" sub="The ramp fills in as you scroll." />
-          <div className="mt-2 flex items-baseline gap-3">
-            <span className="text-7xl md:text-8xl font-black tracking-tighter text-black">30</span>
-            <span className="text-xl font-black text-[#5A5A5A]">days to productive</span>
+    <WhiteSection tone="grey" className="!py-14 md:!py-20">
+      <div ref={ref}>
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <WhiteTitle className="!mb-0" eyebrow="30 by 30" title="From First Day to Productive in ^30 ^Days" />
+          <div className="flex items-baseline gap-3">
+            <span className="text-7xl md:text-9xl font-black tracking-tighter tabular-nums leading-none" style={{ color: done ? MINT : "#000" }}>{days}</span>
+            <span className="text-lg font-black text-[#5A5A5A]">days to ramp</span>
           </div>
         </div>
-        <div ref={ref} className="relative pl-14">
-          <div className="absolute left-[21px] top-2 bottom-2 w-px bg-black/15" aria-hidden="true" />
-          <motion.div className="absolute left-[20px] top-2 w-[3px] rounded-full" style={{ height: reduce ? "100%" : height, background: MINT, maxHeight: "calc(100% - 1rem)" }} aria-hidden="true" />
-          <div className="space-y-8">
+        <div className="mt-10">
+          <div className="mb-2 flex justify-between text-[11px] font-black uppercase tracking-[0.2em] text-[#5A5A5A]">
+            <span>A typical ramp, about 90 days</span>
+            <span style={{ color: CORAL }}>60 days cut</span>
+          </div>
+          <div className="relative h-14 md:h-16 rounded-full bg-[#F2F2F2] border border-black/10 overflow-hidden">
+            <div className="absolute inset-y-0 right-0 w-2/3 flex items-center justify-center text-[11px] font-black uppercase tracking-[0.25em]" style={{ color: CORAL, backgroundImage: `repeating-linear-gradient(135deg, rgba(255,107,107,0.14) 0 8px, transparent 8px 16px)` }}>Time we take out</div>
+            <motion.div className="absolute inset-y-0 left-0 rounded-full flex items-center justify-end pr-5 text-sm md:text-base font-black text-black" style={{ width: reduce ? "33.333%" : width, background: MINT }}>
+              {days <= 33 ? "Day 30" : `Day ${days}`}
+            </motion.div>
+          </div>
+          <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
             {ramp.map((r, i) => (
-              <Reveal key={r.when} delay={0.05}>
-                <div className="relative">
-                  <NumDot n={i + 1} variant={i === ramp.length - 1 ? "black" : "mint"} className="absolute -left-14 top-0 ring-4 ring-[#FFFFFF]" />
-                  <div className={i === ramp.length - 1 ? "rounded-3xl bg-black p-6 text-white" : "rounded-3xl border border-black/10 bg-white p-6"}>
-                    <p className="text-[11px] font-black uppercase tracking-[0.25em]" style={{ color: i === ramp.length - 1 ? MINT : "#63D2A3" }}>{r.when}</p>
-                    <h3 className="mt-2 text-xl md:text-2xl font-black tracking-tight">{r.title}</h3>
-                    <p className={i === ramp.length - 1 ? "mt-2 font-body text-white/85" : "mt-2 font-body text-[#5A5A5A]"}>{r.body}</p>
-                  </div>
+              <Reveal key={r.when} delay={i * 0.06} y={10}>
+                <div className={i === ramp.length - 1 ? "h-full rounded-2xl bg-black p-4 text-white" : "h-full rounded-2xl border border-black/10 bg-white p-4"}>
+                  <p className="text-[11px] font-black uppercase tracking-[0.25em]" style={{ color: MINT }}>{r.when}</p>
+                  <h3 className="mt-1.5 text-[15px] font-black leading-snug tracking-tight">{r.title}</h3>
                 </div>
               </Reveal>
             ))}
@@ -165,6 +156,67 @@ function Ramp() {
   );
 }
 
+const callLines = [
+  { who: "Prospect", t: "We already have a tool for that.", at: "0:42" },
+  { who: "Qmo card", t: "Ask what it costs them when it breaks. Then pause.", at: "0:43", card: true },
+  { who: "Rep", t: "What happens to your pipeline when it goes down?", at: "0:45" },
+];
+
+function LiveCoach() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { margin: "-80px" });
+  const [step, setStep] = useState(0);
+  useEffect(() => {
+    if (!inView) return;
+    const id = setInterval(() => setStep((s) => (s + 1) % (callLines.length + 2)), 1700);
+    return () => clearInterval(id);
+  }, [inView]);
+  return (
+    <section ref={ref} className="relative overflow-hidden bg-black px-6 md:px-16 py-16 md:py-24">
+      <div className="absolute -top-32 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full blur-[140px] opacity-[0.16]" style={{ background: QMO_YELLOW }} aria-hidden="true" />
+      <Reveal>
+        <div className="relative max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1fr_1.1fr] items-center rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#FFC801]/[0.07] via-transparent to-transparent p-8 md:p-12">
+          <div>
+            <p className="text-[11px] font-black uppercase tracking-[0.3em] text-white/60 mb-4">Product Portfolio</p>
+            <QmoMark className="h-7 mb-5" />
+            <h3 className="text-3xl md:text-5xl font-black tracking-tighter leading-[1.02] text-white">Coach reps <span style={{ color: QMO_YELLOW }}>on the call</span>, not after the fact.</h3>
+            <p className="mt-5 font-body text-base md:text-lg text-white/90 leading-relaxed">A review tomorrow fixes tomorrow&apos;s call. Qmo puts the next best line in front of your rep while the buyer is still talking, so the coaching lands on the deal it was meant for.</p>
+            <div className="mt-7 grid grid-cols-2 gap-3 max-w-md text-sm">
+              <div className="rounded-2xl border border-white/10 p-4 text-white/55"><p className="text-[10px] font-black uppercase tracking-[0.2em]">After the fact</p><p className="mt-1 font-body">Feedback next week. The deal has moved on.</p></div>
+              <div className="rounded-2xl border p-4 text-white" style={{ borderColor: QMO_YELLOW }}><p className="text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: QMO_YELLOW }}>Live</p><p className="mt-1 font-body">Coached in the moment. The rep acts on it.</p></div>
+            </div>
+            <Link href="/products/qmo" className="mt-8 inline-flex items-center gap-3 text-xs font-black uppercase tracking-widest hover:text-white transition-colors" style={{ color: MINT }}>See Qmo <ArrowRight className="h-4 w-4" /></Link>
+          </div>
+          <div className="relative rounded-3xl border border-white/10 bg-[#0B0B0C] p-5 md:p-6 min-h-[300px]" aria-hidden="true">
+            <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-[0.2em] text-white/50">
+              <span className="flex items-center gap-2"><span className="h-2 w-2 rounded-full" style={{ background: CORAL }} />Live call</span>
+              <span>0:4{Math.min(5, 2 + Math.min(step, 3))}</span>
+            </div>
+            <div className="mt-5 space-y-3">
+              {callLines.map((l, i) => {
+                const vis = i === 0 || step >= i;
+                return (
+                  <motion.div
+                    key={i}
+                    initial={false}
+                    animate={{ opacity: vis ? 1 : 0, y: vis ? 0 : 10, scale: vis ? 1 : 0.98 }}
+                    transition={{ duration: 0.4 }}
+                    className={l.card ? "rounded-2xl p-4 text-black" : "rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-white"}
+                    style={l.card ? { background: QMO_YELLOW, boxShadow: "0 0 40px rgba(255,200,1,0.25)" } : undefined}
+                  >
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em]" style={l.card ? undefined : { color: l.who === "Rep" ? MINT : "rgba(255,255,255,0.55)" }}>{l.who} · {l.at}</p>
+                    <p className="mt-1 font-body text-[15px] leading-snug">{l.t}</p>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
 export default function PeopleClient() {
   return (
     <div className="bg-black text-white">
@@ -172,10 +224,7 @@ export default function PeopleClient() {
       <DeckSlide />
       <Execution />
       <Ramp />
-      <ProductTieIn
-        headline="Coaching that doesn't stop when we leave the call."
-        body="Qmo puts live cards in front of reps on every call. Grdr grades every call against your playbook."
-      />
+      <LiveCoach />
       <CtaBand headline="Think Your Team Could Be ^Closing ^More?" sub="Let's find out." primary={{ href: "/contact", label: "Book a Working Session" }} />
     </div>
   );

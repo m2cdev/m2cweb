@@ -16,7 +16,7 @@ const navLinks = [
     { name: "Company", href: "/who-we-are" },
     { name: "How We Compare", href: "/who-we-are/compare" }
   ]},
-  { name: "What We Do", href: "/what-we-do", mobileHref: "/what-we-do", mega: true },
+  { name: "What We Do", href: "/what-we-do/people", mobileHref: "/what-we-do/people", mega: true },
   { name: "Case Studies", href: "/case-studies", dropdown: [
     { name: "Overview", href: "/case-studies" },
     { name: "Signal Intelligence Engine", href: "/case-studies/signpost" },
