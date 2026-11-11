@@ -21,7 +21,7 @@ const nextConfig = {
   async redirects() {
     return [
       // Website revamp: old service and case study URLs (permanent).
-      { source: "/what-we-do", destination: "/what-we-do/people", permanent: true },
+      { source: "/what-we-do", destination: "/what-we-do/people", statusCode: 301 },
       { source: "/services", destination: "/what-we-do/people", permanent: true },
       { source: "/services/sales-enablement", destination: "/what-we-do/people", permanent: true },
       { source: "/services/implementations", destination: "/what-we-do/platforms", permanent: true },
