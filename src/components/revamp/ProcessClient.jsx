@@ -4,9 +4,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import dynamic from "next/dynamic";
 import { Target, GitBranch, Wrench, Zap, Database } from "lucide-react";
+import CoreServices from "./CoreServices";
 import {
   GridBackdrop, MeshHeroBg, SplitLetters, Btn, Reveal, Section, SectionTitle, WhiteSection, WhiteTitle,
-  NumDot, CoralPill, SwipeSlider, ProductTieIn, CtaBand, MINT, CORAL,
+  NumDot, CoralPill, ProductTieIn, CtaBand, MINT, CORAL,
 } from "./ui";
 
 const RadialOrbitalTimeline = dynamic(() => import("@/components/ui/radial-orbital-timeline"), { ssr: false });
@@ -18,15 +19,6 @@ const meets = [
   { tag: "Objections", title: "The pushback they hear", body: "Mapped to your product, your market and the personas your team sells into." },
   { tag: "Handoffs", title: "How deals move through your team", body: "SDR to AE, AE to CS. Every transition defined and documented so nothing falls out." },
   { tag: "Live pipeline", title: "Applied to deals in flight now", body: "We work on your actual open opportunities, not hypothetical case studies." },
-];
-
-const playbook = [
-  { title: "Playbooks + Talk Tracks", d: "Cold call, discovery and demo talk tracks built around your buyers and embedded in the way your reps already work." },
-  { title: "Objection Handling + Battlecards", d: "Guides and battlecards your reps can use mid-call, written from the pushback your team really hears." },
-  { title: "Handoff Design", d: "SDR to AE to CS handoffs defined end to end, so context travels with the deal." },
-  { title: "Pipeline Rituals", d: "Weekly deal review, next-step discipline and stalled-opportunity triage, so pipeline meetings become execution sessions." },
-  { title: "Call Review Systems", d: "The review cadence, scorecards and feedback loops so coaching does not depend on who has time that week." },
-  { title: "Enablement Assets", d: "Playbooks, messaging frameworks and one-pagers built around your buyers and kept where reps will find them." },
 ];
 
 const stages = [
@@ -208,23 +200,6 @@ function Handoffs() {
   );
 }
 
-function Playbook() {
-  return (
-    <WhiteSection tone="grey">
-      <WhiteTitle eyebrow="Core services" title="What We Build Into ^Your Process" sub="Swipe through the playbook pieces your team gets." />
-      <SwipeSlider dark={false} label="Process services">
-        {playbook.map((p, i) => (
-          <div key={p.title} className={`h-full min-h-[300px] rounded-3xl border p-7 flex flex-col select-none ${i === 0 ? "bg-black border-black text-white" : "bg-white border-black/10 text-black"}`}>
-            <NumDot n={i + 1} variant={i === 0 ? "mint" : "black"} />
-            <h3 className="mt-8 text-2xl font-black tracking-tight leading-tight">{p.title}</h3>
-            <p className={`mt-3 font-body text-base leading-relaxed ${i === 0 ? "text-white/85" : "text-[#5A5A5A]"}`}>{p.d}</p>
-          </div>
-        ))}
-      </SwipeSlider>
-    </WhiteSection>
-  );
-}
-
 function RunIt() {
   return (
     <Section tone="dark">
@@ -250,7 +225,7 @@ export default function ProcessClient() {
       <Hero />
       <Meets />
       <Handoffs />
-      <Playbook />
+      <CoreServices page="process" id="core-services" headline="Ten Pieces Of Your Sales Engine" />
       <RunIt />
       <ProductTieIn headline="Your playbook, live on every call." body="Qmo turns the playbook into Q Cards that surface mid-call and keeps improving them from real recordings." />
       <CtaBand headline="Ready To Make It ^Run?" primary={{ href: "/contact", label: "Book a Working Session" }} />

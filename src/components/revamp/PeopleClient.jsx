@@ -2,19 +2,11 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useSpring, useTransform, useReducedMotion } from "framer-motion";
+import CoreServices from "./CoreServices";
 import {
   WaveHeroBg, SplitLetters, Btn, Reveal, Section, SectionTitle, WhiteSection, WhiteTitle,
-  NumDot, CoralPill, SwipeSlider, ProductTieIn, CtaBand, MINT, CORAL,
+  NumDot, SwipeSlider, ProductTieIn, CtaBand, MINT, CORAL,
 } from "./ui";
-
-const services = [
-  { title: "Live Deal Coaching", d: "We shadow active deals, find where momentum is slipping, and coach reps through the next move in real time." },
-  { title: "Cold Call Labs", d: "Live sessions where reps practice outreach, get immediate feedback, and sharpen openers and objection handling." },
-  { title: "1-1 Coaching", d: "Individual sessions built around each rep's gaps: discovery, objections, closing or consistency." },
-  { title: "Group Training Sessions", d: "Team-wide sessions that turn the winning motion into shared language and plays for the next call." },
-  { title: "Manager Enablement", d: "Frontline leaders get the language, dashboards and coaching structure to reinforce the motion." },
-  { title: "Rep Onboarding + Ramp", d: "New reps ramped with our framework, a CRM walkthrough and call reviews, productive within 30 days." },
-];
 
 const execution = [
   { n: "01", k: "In the room", title: "We coach on live pipeline", body: "Reps bring the deals they are working this week. We pick the next move together, then watch them make it.", after: "Reps leave with a next step, not a framework." },
@@ -48,60 +40,6 @@ function Hero() {
         </motion.div>
       </div>
     </section>
-  );
-}
-
-function DeckSlide() {
-  const lines = [
-    ["Rep", "I think they went quiet after pricing."],
-    ["Coach", "Then the next move is to reconnect the pain, not the price. Try it now."],
-    ["Rep", "Walking in with the cost of waiting. Got it."],
-  ];
-  return (
-    <WhiteSection>
-      <div className="grid gap-10 lg:grid-cols-[1.7fr_1fr] lg:gap-14 items-start">
-        <div>
-          <CoralPill>Hands-on, not theory</CoralPill>
-          <WhiteTitle className="!mt-5 !mb-10" eyebrow={null} title="Six ways we put coaching on the floor" sub="Pick one, or run the full program." />
-          <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
-            {services.map((s, i) => (
-              <Reveal key={s.title} delay={(i % 2) * 0.08} y={14}>
-                <div className="flex gap-4 border-t border-black/10 pt-5">
-                  <NumDot n={i + 1} />
-                  <div>
-                    <h3 className="text-lg md:text-xl font-black tracking-tight text-black">{s.title}</h3>
-                    <p className="mt-1.5 font-body text-[15px] leading-relaxed text-[#5A5A5A]">{s.d}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-        <Reveal delay={0.15}>
-          <div className="rounded-[2rem] bg-black p-7 md:p-8 text-white lg:sticky lg:top-28 overflow-hidden relative">
-            <div className="absolute -top-20 -right-20 h-56 w-56 rounded-full blur-[80px] opacity-30" style={{ background: MINT }} />
-            <p className="relative text-[11px] font-black uppercase tracking-[0.3em]" style={{ color: MINT }}>See an example in action</p>
-            <h3 className="relative mt-3 text-2xl font-black tracking-tight">A live deal, coached in the moment</h3>
-            <div className="relative mt-6 space-y-3">
-              {lines.map(([who, t], i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ delay: 0.3 + i * 0.5, duration: 0.5 }}
-                  className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm"
-                >
-                  <span className="mr-2 font-black" style={{ color: who === "Coach" ? MINT : "rgba(255,255,255,0.6)" }}>{who}</span>
-                  <span className="text-white">{t}</span>
-                </motion.div>
-              ))}
-            </div>
-            <Btn href="/contact" className="relative mt-7 !px-6 !py-3">Book a Working Session</Btn>
-          </div>
-        </Reveal>
-      </div>
-    </WhiteSection>
   );
 }
 
@@ -169,7 +107,7 @@ export default function PeopleClient() {
   return (
     <div className="bg-black text-white">
       <Hero />
-      <DeckSlide />
+      <CoreServices page="people" id="core-services" headline="Ten Ways We Put Coaching On The Floor" />
       <Execution />
       <Ramp />
       <ProductTieIn
