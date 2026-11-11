@@ -4,9 +4,10 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Layout, Search, Cpu } from "lucide-react";
+import CoreServices from "./CoreServices";
 import {
   GlowHeroBg, Btn, Reveal, Section, SectionTitle, WhiteSection, WhiteTitle,
-  NumDot, CoralPill, CtaBand, MINT, CORAL,
+  NumDot, CoralPill, CtaBand, MINT,
 } from "./ui";
 import DashboardMock from "./DashboardMock";
 import ProductStrip from "./ProductStrip";
@@ -171,6 +172,7 @@ export default function PlatformsClient() {
   return (
     <div className="bg-black text-white">
       <Hero />
+      <CoreServices page="platforms" id="core-services" headline="Ten Ways We Fill The Gap In Your Stack" />
       <Stack />
       <Approach />
       <Systems />
