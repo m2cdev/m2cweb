@@ -8,12 +8,12 @@ import { CheckCircle, Play, ArrowRight } from "lucide-react";
 import { Waves } from "@/components/ui/wave-background";
 
 const caseStudies = {
-  "sales-enablement-hub": {
+  pinecone: {
     title: "Sales Enablement Hub",
     category: "Sales Enablement",
     label: "Sales Enablement Hub",
     color: "#63D2A3",
-    thumbnail: "/images/case-studies/sales-enablement-hub-loom.png",
+    thumbnail: "/images/case-studies/pinecone-loom.png",
     loomId: "8815fd477dcd444799521d13995e8442",
     resultTitle: "Projected ROI and Impact",
     problem: [
@@ -31,12 +31,12 @@ const caseStudies = {
       "Sharper competitive messaging against established market leaders",
     ],
   },
-  "signal-intelligence-engine": {
+  signpost: {
     title: "Signal Intelligence Engine",
     category: "Signal Intelligence",
     label: "Signal Intelligence Engine",
     color: "#FF6B6B",
-    thumbnail: "/images/case-studies/signal-intelligence-engine-loom.png",
+    thumbnail: "/images/case-studies/signpost-loom.png",
     loomId: "7694a0c1e94d44cc875b8f75e7b4d0e7",
     resultTitle: "Projected ROI and Impact",
     problem: [
@@ -57,12 +57,12 @@ const caseStudies = {
       "Research time per account reduced to zero",
     ],
   },
-  "trial-to-close-engine": {
+  qwilr: {
     title: "Trial-to-Close Engine",
     category: "Trial Optimization",
     label: "Trial-to-Close Engine",
     color: "#63D2A3",
-    thumbnail: "/images/case-studies/trial-to-close-engine-loom.png",
+    thumbnail: "/images/case-studies/qwilr-loom.png",
     loomId: "09630646d94f4811a4186f9e879e4b7c",
     resultTitle: "Projected ROI and Impact",
     problem: [
@@ -87,9 +87,9 @@ const caseStudies = {
 };
 
 const nextStudyMap = {
-  "sales-enablement-hub": ["signal-intelligence-engine", "trial-to-close-engine"],
-  "signal-intelligence-engine": ["sales-enablement-hub", "trial-to-close-engine"],
-  "trial-to-close-engine": ["sales-enablement-hub", "signal-intelligence-engine"],
+  pinecone: ["signpost", "qwilr"],
+  signpost: ["pinecone", "qwilr"],
+  qwilr: ["pinecone", "signpost"],
 };
 
 function LoomEmbed({ loomId, thumbnail }) {
@@ -157,7 +157,7 @@ export default function CaseStudyPage() {
       <section className="relative min-h-[90vh] flex items-center overflow-hidden border-b border-white/[0.06]">
         {/* Green waves background on right */}
         <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_10%_50%,rgba(99,210,163,0.06)_0%,transparent_70%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_10%_50%,rgba(98,210,162,0.06)_0%,transparent_70%)]" />
           <div className="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden opacity-30">
             <Waves strokeColor="#63D2A3" backgroundColor="transparent" className="w-full h-full" />
           </div>

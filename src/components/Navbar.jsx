@@ -19,9 +19,9 @@ const navLinks = [
   { name: "What We Do", href: "/what-we-do", mobileHref: "/what-we-do", mega: true },
   { name: "Case Studies", href: "/case-studies", dropdown: [
     { name: "Overview", href: "/case-studies" },
-    { name: "Signal Intelligence Engine", href: "/case-studies/signal-intelligence-engine" },
-    { name: "Sales Enablement Hub", href: "/case-studies/sales-enablement-hub" },
-    { name: "Trial-to-Close Engine", href: "/case-studies/trial-to-close-engine" },
+    { name: "Signal Intelligence Engine", href: "/case-studies/signpost" },
+    { name: "Sales Enablement Hub", href: "/case-studies/pinecone" },
+    { name: "Trial-to-Close Engine", href: "/case-studies/qwilr" },
   ]},
   { name: "The Pilot", href: "/pilot" },
 ];

@@ -26,9 +26,9 @@ const approach = [
 ];
 
 const systems = [
-  { title: "Sales Enablement Hub", problem: "Assets existed but were scattered, outdated and impossible to surface during an active deal.", solution: "A centralized hub where reps filter live assets, battlecards and deal kits by deal stage, persona or use case.", href: "/case-studies/sales-enablement-hub" },
-  { title: "Signal Intelligence Engine", problem: "Reps were cold calling blind, with no way to know which accounts were in pain.", solution: "Signals such as funding, leadership changes and intent land directly inside the workflow, scored and ready to act on.", href: "/case-studies/signal-intelligence-engine" },
-  { title: "Trial-to-Close Engine", problem: "Deals slowed down the moment they left the demo stage.", solution: "Guided trial playbooks and monitoring that flag stalling deals and suggest the next step after the demo.", href: "/case-studies/trial-to-close-engine" },
+  { title: "Sales Enablement Hub", problem: "Assets existed but were scattered, outdated and impossible to surface during an active deal.", solution: "A centralized hub where reps filter live assets, battlecards and deal kits by deal stage, persona or use case.", href: "/case-studies/pinecone" },
+  { title: "Signal Intelligence Engine", problem: "Reps were cold calling blind, with no way to know which accounts were in pain.", solution: "Signals such as funding, leadership changes and intent land directly inside the workflow, scored and ready to act on.", href: "/case-studies/signpost" },
+  { title: "Trial-to-Close Engine", problem: "Deals slowed down the moment they left the demo stage.", solution: "Guided trial playbooks and monitoring that flag stalling deals and suggest the next step after the demo.", href: "/case-studies/qwilr" },
 ];
 
 function Hero() {

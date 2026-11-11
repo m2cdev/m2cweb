@@ -162,19 +162,6 @@ export function PilotHero() {
               </div>
             </div>
           </div>
-
-          <div className="absolute inset-0 pointer-events-none z-20 flex flex-col justify-between p-12 mix-blend-overlay opacity-30">
-            <div className="flex justify-between items-start">
-               <div className="flex flex-col gap-2 font-mono text-[10px] text-[#63D2A3]">
-                  <div>TRK // 248.5</div>
-                  <div>ALT // 34,000</div>
-               </div>
-               <div className="flex flex-col gap-2 font-mono text-[10px] text-[#63D2A3] text-right">
-                  <div>SPD // 0.82 MACH</div>
-                  <div>NAV // ON</div>
-               </div>
-            </div>
-          </div>
         </section>
     </div>
   );

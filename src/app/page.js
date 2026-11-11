@@ -14,9 +14,9 @@ import ProductStrip from "@/components/revamp/ProductStrip";
 
 
 const caseStudiesData = [
-  { id: "sales-enablement-hub", title: "Sales Enablement Hub", subtitle: "The right content, surfaced at the right moment in every deal.", url: "/images/pinecone-homepage.png", category: "Sales Enablement" },
-  { id: "signal-intelligence-engine", title: "Signal Intelligence Engine", subtitle: "Public review data, scored and pushed straight into HubSpot.", url: "/images/signpost-homepage.png", category: "Signal Intelligence" },
-  { id: "trial-to-close-engine", title: "Trial-to-Close Engine", subtitle: "A guided trial motion that ends post-demo deal drift.", url: "/images/qwilr-homepage.png", category: "Trial Optimization" },
+  { id: "pinecone", title: "Sales Enablement Hub", subtitle: "The right content, surfaced at the right moment in every deal.", url: "/images/pinecone-homepage.png", category: "Sales Enablement" },
+  { id: "signpost", title: "Signal Intelligence Engine", subtitle: "Public review data, scored and pushed straight into HubSpot.", url: "/images/signpost-homepage.png", category: "Signal Intelligence" },
+  { id: "qwilr", title: "Trial-to-Close Engine", subtitle: "A guided trial motion that ends post-demo deal drift.", url: "/images/qwilr-homepage.png", category: "Trial Optimization" },
 ];
 
 
