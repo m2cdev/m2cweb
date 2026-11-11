@@ -34,7 +34,7 @@ const PILLARS = [
 ];
 
 /* ─── Global Config ─── */
-const MINT = "#62D2A2";
+const MINT = "#63D2A3";
 const DIM = "#1A1A1A";
 
 // Utils
@@ -120,7 +120,7 @@ export default function PhilosophySpinner() {
                 viewport={{ once: true, margin: "-20%" }}
                 className="flex flex-col"
               >
-                <div className="text-[#62D2A2] font-mono font-medium text-[16px] tracking-[0.15em] uppercase mb-2">
+                <div className="text-[#63D2A3] font-mono font-medium text-[16px] tracking-[0.15em] uppercase mb-2">
                   {pillar.num} {pillar.label}
                 </div>
                 <div className="text-white font-heading font-bold text-[36px] mb-3">
@@ -142,7 +142,7 @@ export default function PhilosophySpinner() {
             <p className="text-white font-black text-[24px] tracking-[-0.02em] mb-2">
               Most teams focus on just one.
             </p>
-            <h2 className="text-[#62D2A2] font-black text-[32px] tracking-[-0.04em] leading-tight">
+            <h2 className="text-[#63D2A3] font-black text-[32px] tracking-[-0.04em] leading-tight">
               We focus on all three at the same time.
             </h2>
           </motion.div>
@@ -182,7 +182,7 @@ export default function PhilosophySpinner() {
   const closing1Op = progress > 0.90 ? Math.min(1, mapRange(progress, 0.90, 0.92, 0, 1)) : 0;
   const closing2Op = progress > 0.93 ? Math.min(1, mapRange(progress, 0.93, 0.95, 0, 1)) : 0;
 
-  const getGlow = (active: boolean) => active ? `drop-shadow(0 0 16px rgba(98, 210, 162, 0.6))` : 'none';
+  const getGlow = (active: boolean) => active ? `drop-shadow(0 0 16px rgba(99,210,163, 0.6))` : 'none';
 
   return (
     <>
@@ -194,7 +194,7 @@ export default function PhilosophySpinner() {
             className="absolute top-[18%] left-1/2 -translate-x-1/2 text-center z-10 w-full"
             style={{ opacity: introOp, pointerEvents: introOp > 0 ? 'auto' : 'none' }}
           >
-            <p className="text-[#62D2A2] font-mono text-[14px] uppercase tracking-[0.25em]">
+            <p className="text-[#63D2A3] font-mono text-[14px] uppercase tracking-[0.25em]">
               Sales improves when three things work together:
             </p>
           </div>
@@ -274,7 +274,7 @@ export default function PhilosophySpinner() {
             }}
           >
             <div className="max-w-[450px] text-right">
-              <div className="text-[#62D2A2] font-mono font-medium text-[16px] tracking-[0.15em] uppercase mb-2">
+              <div className="text-[#63D2A3] font-mono font-medium text-[16px] tracking-[0.15em] uppercase mb-2">
                 {PILLARS[0].num} {PILLARS[0].label}
               </div>
               <div className="text-white font-black text-[48px] tracking-[-0.04em] mb-3 leading-none">
@@ -298,7 +298,7 @@ export default function PhilosophySpinner() {
             }}
           >
             <div className="max-w-[400px] text-right">
-              <div className="text-[#62D2A2] font-mono font-medium text-[16px] tracking-[0.15em] uppercase mb-2">
+              <div className="text-[#63D2A3] font-mono font-medium text-[16px] tracking-[0.15em] uppercase mb-2">
                 {PILLARS[1].num} {PILLARS[1].label}
               </div>
               <div className="text-white font-black text-[48px] tracking-[-0.04em] mb-3 leading-none">
@@ -322,7 +322,7 @@ export default function PhilosophySpinner() {
             }}
           >
             <div className="max-w-[400px]">
-              <div className="text-[#62D2A2] font-mono font-medium text-[16px] tracking-[0.15em] uppercase mb-2">
+              <div className="text-[#63D2A3] font-mono font-medium text-[16px] tracking-[0.15em] uppercase mb-2">
                 {PILLARS[2].num} {PILLARS[2].label}
               </div>
               <div className="text-white font-black text-[48px] tracking-[-0.04em] mb-3 leading-none">
@@ -349,7 +349,7 @@ export default function PhilosophySpinner() {
               Most teams focus on just one.
             </p>
             <h2 
-              className="text-[#62D2A2] font-black text-[54px] md:text-[72px] tracking-[-0.04em] leading-[0.95]"
+              className="text-[#63D2A3] font-black text-[54px] md:text-[72px] tracking-[-0.04em] leading-[0.95]"
               style={{ opacity: closing2Op, transform: `translateY(${(1-closing2Op)*20}px)` }}
             >
               We focus on all three at the same time.

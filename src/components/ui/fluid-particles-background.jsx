@@ -203,7 +203,7 @@ export const FluidParticlesBackground = ({
           ctx.beginPath();
           if (particle.isGreen) {
             ctx.globalAlpha = Math.min(1, opacity * 2);
-            ctx.fillStyle = "#62D2A2";
+            ctx.fillStyle = "#63D2A3";
           } else {
             ctx.globalAlpha = Math.min(1, opacity);
             ctx.fillStyle = "#ffffff";

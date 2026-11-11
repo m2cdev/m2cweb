@@ -45,8 +45,8 @@ const PHASES = [
   },
 ];
 
-const GREEN = "#62D2A2";
-const CORAL = "#F96B6B";
+const GREEN = "#63D2A3";
+const CORAL = "#FF6B6B";
 
 export default function ProcessScroll() {
   const trackRef = useRef(null);
@@ -89,8 +89,8 @@ export default function ProcessScroll() {
   return (
     <section className="relative w-full overflow-hidden bg-[#060c0a] py-24 md:py-36">
       {/* Ambient brand glows */}
-      <div className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(249,107,107,0.12),transparent_70%)]" />
-      <div className="pointer-events-none absolute -bottom-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(98,210,162,0.14),transparent_70%)]" />
+      <div className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,107,107,0.12),transparent_70%)]" />
+      <div className="pointer-events-none absolute -bottom-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(99,210,163,0.14),transparent_70%)]" />
 
       <div className="relative z-10 mx-auto w-full max-w-5xl px-6 md:px-10">
         {/* Intro */}
@@ -101,12 +101,12 @@ export default function ProcessScroll() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="mb-20 text-center md:mb-28"
         >
-          <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.4em] text-[#F96B6B]">
+          <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.4em] text-[#FF6B6B]">
             The problem
           </p>
           <h3 className="text-3xl font-black leading-[1.05] tracking-tighter text-white md:text-6xl">
             Your revenue pipeline is{" "}
-            <span className="text-[#F96B6B]">leaking.</span>
+            <span className="text-[#FF6B6B]">leaking.</span>
           </h3>
         </motion.div>
 
@@ -117,9 +117,9 @@ export default function ProcessScroll() {
           {/* Filling rail */}
           <motion.div
             style={{ height: fillHeight }}
-            className="absolute left-[14px] top-0 w-px bg-[#62D2A2] shadow-[0_0_12px_2px_rgba(98,210,162,0.5)] md:left-[18px]"
+            className="absolute left-[14px] top-0 w-px bg-[#63D2A3] shadow-[0_0_12px_2px_rgba(99,210,163,0.5)] md:left-[18px]"
           >
-            <span className="absolute -bottom-1 -left-[3.5px] h-2 w-2 rounded-full bg-[#62D2A2] shadow-[0_0_16px_5px_rgba(98,210,162,0.8)]" />
+            <span className="absolute -bottom-1 -left-[3.5px] h-2 w-2 rounded-full bg-[#63D2A3] shadow-[0_0_16px_5px_rgba(99,210,163,0.8)]" />
           </motion.div>
 
           <div className="flex flex-col gap-20 md:gap-32">
@@ -137,9 +137,9 @@ export default function ProcessScroll() {
                       data-index={i}
                       animate={{
                         backgroundColor: isActive ? GREEN : "#060c0a",
-                        borderColor: isActive ? GREEN : "rgba(249,107,107,0.5)",
+                        borderColor: isActive ? GREEN : "rgba(255,107,107,0.5)",
                         boxShadow: isActive
-                          ? "0 0 24px 4px rgba(98,210,162,0.55)"
+                          ? "0 0 24px 4px rgba(99,210,163,0.55)"
                           : "0 0 0px 0px rgba(0,0,0,0)",
                         scale: isActive ? 1 : 0.85,
                       }}
@@ -154,7 +154,7 @@ export default function ProcessScroll() {
                         <motion.span
                           animate={{ opacity: [0.35, 1, 0.35] }}
                           transition={{ repeat: Infinity, duration: 1.8 }}
-                          className="h-2 w-2 rounded-full bg-[#F96B6B]"
+                          className="h-2 w-2 rounded-full bg-[#FF6B6B]"
                         />
                       )}
                     </motion.div>
@@ -190,13 +190,13 @@ export default function ProcessScroll() {
                       animate={{
                         opacity: isActive ? 1 : 0.3,
                         borderColor: isActive
-                          ? "rgba(98,210,162,0.6)"
+                          ? "rgba(99,210,163,0.6)"
                           : "rgba(255,255,255,0.1)",
                       }}
                       transition={{ duration: 0.5 }}
                       className="mt-6 border-l-2 pl-5"
                     >
-                      <p className="text-xl font-black tracking-tight text-[#62D2A2] md:text-3xl">
+                      <p className="text-xl font-black tracking-tight text-[#63D2A3] md:text-3xl">
                         {phase.solution}
                       </p>
                       <p className="mt-2 max-w-xl text-base font-medium text-white/80 md:text-xl">
@@ -217,7 +217,7 @@ export default function ProcessScroll() {
                             <Link
                               key={l.href}
                               href={l.href}
-                              className="border-b border-[#62D2A2]/30 text-xs font-black uppercase tracking-wider text-[#62D2A2] transition-colors hover:text-white md:text-sm"
+                              className="border-b border-[#63D2A3]/30 text-xs font-black uppercase tracking-wider text-[#63D2A3] transition-colors hover:text-white md:text-sm"
                             >
                               {l.text} →
                             </Link>
@@ -240,18 +240,18 @@ export default function ProcessScroll() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="mt-28 flex flex-col items-center text-center md:mt-40"
         >
-          <p className="mb-4 text-xs font-black uppercase tracking-[0.4em] text-[#62D2A2]">
+          <p className="mb-4 text-xs font-black uppercase tracking-[0.4em] text-[#63D2A3]">
             We&apos;re essentially plumbers for your pipeline
           </p>
           <h3 className="mb-6 text-4xl font-black leading-[1.0] tracking-tighter text-white md:text-7xl">
             If there&apos;s a leak, <br />
-            <span className="text-[#62D2A2]">We Fix it.</span>
+            <span className="text-[#63D2A3]">We Fix it.</span>
           </h3>
           <p className="mb-12 text-xl font-bold tracking-tight text-white md:text-2xl">
             And Prove that we can before you commit
           </p>
           <Link href="/pilot">
-            <button className="transform rounded-full bg-[#62D2A2] px-12 py-5 text-sm font-black uppercase tracking-[0.2em] text-white shadow-[0_0_50px_rgba(98,210,162,0.3)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#F96B6B] hover:shadow-[0_0_50px_rgba(249,107,107,0.4)]">
+            <button className="transform rounded-full bg-[#63D2A3] px-12 py-5 text-sm font-black uppercase tracking-[0.2em] text-white shadow-[0_0_50px_rgba(99,210,163,0.3)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#FF6B6B] hover:shadow-[0_0_50px_rgba(255,107,107,0.4)]">
               How our Pilot Program Works
             </button>
           </Link>

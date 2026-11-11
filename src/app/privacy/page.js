@@ -23,7 +23,7 @@ function Section({ title, children }) {
 
 function List({ items }) {
   return (
-    <ul className="space-y-3 pl-5 list-disc marker:text-[#62D2A2]">
+    <ul className="space-y-3 pl-5 list-disc marker:text-[#63D2A3]">
       {items.map((item, i) => (
         <li key={i}>{item}</li>
       ))}
@@ -31,15 +31,15 @@ function List({ items }) {
   );
 }
 
-const linkClass = "text-[#62D2A2] underline underline-offset-4 hover:text-white transition-colors";
+const linkClass = "text-[#63D2A3] underline underline-offset-4 hover:text-white transition-colors";
 
 export default function PrivacyPage() {
   return (
     <div className="bg-black text-white min-h-screen selection:bg-primary/30">
       <article className="max-w-3xl mx-auto px-6 pt-40 pb-32">
         <div className="mb-7 flex items-center gap-3">
-          <div className="h-px w-6 bg-[#62D2A2]" />
-          <span className="text-[14px] font-bold uppercase tracking-[0.18em] text-[#62D2A2]">
+          <div className="h-px w-6 bg-[#63D2A3]" />
+          <span className="text-[14px] font-bold uppercase tracking-[0.18em] text-[#63D2A3]">
             Legal
           </span>
         </div>

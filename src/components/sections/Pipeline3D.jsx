@@ -8,7 +8,7 @@ import * as THREE from "three";
 import { motion, useTransform, useMotionValueEvent } from "framer-motion";
 import { useIsLowTier } from "@/providers/DeviceTierProvider";
 
-const MINT = "#62D2A2";
+const MINT = "#63D2A3";
 const DARK_METAL = "#2a3530";
 const RADIAL_SEGMENTS = 32;
 

@@ -38,7 +38,7 @@ function Hero() {
       <div className="relative z-10 flex-1 md:max-w-[52%]">
         <Eyebrow>Platforms</Eyebrow>
         <h1 className="text-4xl md:text-6xl lg:text-[5rem] font-black tracking-tight leading-[0.98] mb-6 text-white">
-          Your Stack Should Be <span className="text-[#62D2A2]">Working</span> Harder Than You Are.
+          Your Stack Should Be <span className="text-[#63D2A3]">Working</span> Harder Than You Are.
         </h1>
         <p className="font-body text-white text-lg md:text-xl leading-relaxed mb-10 max-w-xl">
           We configure your CRM and tools around a process built to convert, and build what your stack can&apos;t do on its own.
@@ -58,7 +58,6 @@ function Stack() {
   return (
     <Section tone="dark">
       <SectionTitle eyebrow="Implementations" title="Everything ^Connected. Everything ^Automated." />
-      <CoralPill className="-mt-6 mb-10">45 to Live</CoralPill>
       <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
         <div role="tablist" aria-label="Implementations" className="flex lg:flex-col gap-2 overflow-x-auto [scrollbar-width:none]">
           {implementation.map((t, k) => (
@@ -68,7 +67,7 @@ function Stack() {
               aria-selected={k === i}
               onClick={() => setI(k)}
               onMouseEnter={() => setI(k)}
-              className={`group relative shrink-0 text-left rounded-2xl border px-5 py-4 transition-all duration-300 ${k === i ? "border-[#62D2A2] bg-[#62D2A2]/10" : "border-white/10 hover:border-white/30"}`}
+              className={`group relative shrink-0 text-left rounded-2xl border px-5 py-4 transition-all duration-300 ${k === i ? "border-[#63D2A3] bg-[#63D2A3]/10" : "border-white/10 hover:border-white/30"}`}
             >
               <span className="font-mono text-xs font-black tracking-widest" style={{ color: MINT }}>{String(k + 1).padStart(2, "0")}</span>
               <span className="ml-3 text-base md:text-lg font-black text-white whitespace-nowrap lg:whitespace-normal">{t.title}</span>
@@ -99,11 +98,11 @@ function Approach() {
         <ol className="space-y-4">
           {approach.map((a, i) => (
             <Reveal key={a.title} delay={0.05}>
-              <li className={`flex gap-5 rounded-3xl border p-6 md:p-7 ${i === 0 ? "bg-black border-black text-white" : "bg-[#F4F4F2] border-black/10"}`}>
+              <li className={`flex gap-5 rounded-3xl border p-6 md:p-7 ${i === 0 ? "bg-black border-black text-white" : "bg-white border-black/10"}`}>
                 <NumDot n={i + 1} variant={i === 0 ? "mint" : "black"} />
                 <div>
                   <h3 className="text-xl md:text-2xl font-black tracking-tight">{a.title}</h3>
-                  <p className={`mt-2 font-body text-base leading-relaxed ${i === 0 ? "text-white/85" : "text-[#5E5E5A]"}`}>{a.body}</p>
+                  <p className={`mt-2 font-body text-base leading-relaxed ${i === 0 ? "text-white/85" : "text-[#5A5A5A]"}`}>{a.body}</p>
                 </div>
               </li>
             </Reveal>
@@ -131,15 +130,15 @@ function FlipCard({ s }) {
           <CoralPill className="self-start">The problem</CoralPill>
           <h3 className="mt-6 text-2xl font-black tracking-tight text-white">{s.title}</h3>
           <p className="mt-3 font-body text-lg text-white/90 leading-relaxed">{s.problem}</p>
-          <span className="mt-auto text-xs font-black uppercase tracking-widest text-[#62D2A2]">Hover or tap to flip</span>
+          <span className="mt-auto text-xs font-black uppercase tracking-widest text-[#63D2A3]">Hover or tap to flip</span>
         </div>
-        <div className="absolute inset-0 rounded-3xl border border-[#62D2A2] bg-[#0b1511] p-7 flex flex-col [backface-visibility:hidden] [transform:rotateY(180deg)]">
-          <span className="self-start rounded-full bg-[#62D2A2] px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-black">What we built</span>
+        <div className="absolute inset-0 rounded-3xl border border-[#63D2A3] bg-[#0b1511] p-7 flex flex-col [backface-visibility:hidden] [transform:rotateY(180deg)]">
+          <span className="self-start rounded-full bg-[#63D2A3] px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-black">What we built</span>
           <h3 className="mt-6 text-2xl font-black tracking-tight text-white">{s.title}</h3>
           <p className="mt-3 font-body text-lg text-white/90 leading-relaxed">{s.solution}</p>
         </div>
       </button>
-      <Link href={s.href} className="mt-4 inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#62D2A2] hover:text-white transition-colors">
+      <Link href={s.href} className="mt-4 inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#63D2A3] hover:text-white transition-colors">
         Read the case study <ArrowRight className="h-3.5 w-3.5" />
       </Link>
     </div>

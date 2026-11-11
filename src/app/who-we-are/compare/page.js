@@ -88,7 +88,7 @@ const verticalComparisons = [
 
 export default function ComparePage() {
   return (
-    <div className="flex flex-col w-full bg-[#050505] min-h-screen text-white antialiased selection:bg-[#62D2A2]/30">
+    <div className="flex flex-col w-full bg-[#050505] min-h-screen text-white antialiased selection:bg-[#63D2A3]/30">
 
       {/* ── Hero Section ─────────────────────────────────────────────── */}
       <section className="relative w-full h-[90vh] md:h-screen flex items-center overflow-hidden border-b border-white/10">
@@ -105,7 +105,7 @@ export default function ComparePage() {
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="font-mono font-bold text-[11px] text-[#62D2A2] tracking-[0.2em] uppercase mb-6"
+              className="font-mono font-bold text-[11px] text-[#63D2A3] tracking-[0.2em] uppercase mb-6"
             >
               The difference is execution
             </motion.p>
@@ -177,8 +177,8 @@ export default function ComparePage() {
             >
               {/* Subtle brand color glow behind each card */}
               <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute -left-20 -top-20 w-[300px] h-[300px] rounded-full bg-[#62D2A2]/5 blur-[80px]" />
-                <div className="absolute -right-20 -bottom-20 w-[300px] h-[300px] rounded-full bg-[#F96B6B]/5 blur-[80px]" />
+                <div className="absolute -left-20 -top-20 w-[300px] h-[300px] rounded-full bg-[#63D2A3]/5 blur-[80px]" />
+                <div className="absolute -right-20 -bottom-20 w-[300px] h-[300px] rounded-full bg-[#FF6B6B]/5 blur-[80px]" />
               </div>
 
               {/* Competitor label row */}
@@ -219,7 +219,7 @@ export default function ComparePage() {
 
                 {/* MAP2CLOSE column */}
                 <div className="px-10 py-10 bg-primary/[0.02]">
-                  <h4 className="font-mono font-black text-[13px] uppercase tracking-[0.15em] text-[#62D2A2] mb-8">
+                  <h4 className="font-mono font-black text-[13px] uppercase tracking-[0.15em] text-[#63D2A3] mb-8">
                     THE MAP2CLOSE METHOD
                   </h4>
                   <ul className="space-y-6">
@@ -232,7 +232,7 @@ export default function ComparePage() {
                         viewport={{ once: true, margin: "-60px" }}
                         className="flex items-start gap-4"
                       >
-                        <div className="w-2 h-2 rounded-full bg-[#62D2A2] mt-[9px] shrink-0 shadow-[0_0_12px_rgba(98,210,162,0.6)]" />
+                        <div className="w-2 h-2 rounded-full bg-[#63D2A3] mt-[9px] shrink-0 shadow-[0_0_12px_rgba(99,210,163,0.6)]" />
                         <p className="font-body text-[17px] text-white/90 leading-[1.75] tracking-tight font-medium">
                           {item}
                         </p>
@@ -242,7 +242,7 @@ export default function ComparePage() {
                   {block.productLine && (
                     <p className="mt-8 font-body text-[17px] text-white/90 font-medium">
                       And we built our own: Qmo for live coaching, Grdr for grading.{" "}
-                      <Link href="/products" className="text-[#62D2A2] underline underline-offset-4 hover:text-white transition-colors">See our products</Link>
+                      <Link href="/products" className="text-[#63D2A3] underline underline-offset-4 hover:text-white transition-colors">See our products</Link>
                     </p>
                   )}
                 </div>
@@ -258,7 +258,7 @@ export default function ComparePage() {
       <div className="w-full py-24 relative overflow-hidden border-t border-white/[0.06]">
         <div className="absolute inset-0 pointer-events-none -z-10">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,#000_10%,transparent_100%)]" />
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-64 bg-[radial-gradient(ellipse_at_top,rgba(98,210,162,0.06),transparent_70%)]" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-64 bg-[radial-gradient(ellipse_at_top,rgba(99,210,163,0.06),transparent_70%)]" />
         </div>
 
         <div className="container-custom relative z-20">
@@ -267,7 +267,7 @@ export default function ComparePage() {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="font-mono font-bold text-[11px] text-[#62D2A2] tracking-[0.2em] uppercase mb-4"
+              className="font-mono font-bold text-[11px] text-[#63D2A3] tracking-[0.2em] uppercase mb-4"
             >
               Side by Side
             </motion.p>
@@ -278,9 +278,9 @@ export default function ComparePage() {
               transition={{ delay: 0.1 }}
               className="text-3xl md:text-5xl font-black tracking-[-0.01em] text-white mb-4"
             >
-              Execution vs <span className="text-[#F96B6B]">Everything Else</span>
+              Execution vs <span className="text-[#FF6B6B]">Everything Else</span>
             </motion.h2>
-            <div className="h-1 w-20 bg-[#F96B6B] mx-auto rounded-full" />
+            <div className="h-1 w-20 bg-[#FF6B6B] mx-auto rounded-full" />
           </div>
 
           {/* Header row */}
@@ -292,7 +292,7 @@ export default function ComparePage() {
               <span className="font-mono font-black text-[12px] uppercase tracking-[0.2em] text-coral">Others</span>
             </div>
             <div className="px-6 py-3 border-l border-white/[0.06]">
-              <span className="font-mono font-black text-[12px] uppercase tracking-[0.2em] text-[#62D2A2]">Map2Close</span>
+              <span className="font-mono font-black text-[12px] uppercase tracking-[0.2em] text-[#63D2A3]">Map2Close</span>
             </div>
           </div>
 
@@ -300,7 +300,7 @@ export default function ComparePage() {
             {/* Subtle brand color glows behind the table */}
             <div className="absolute inset-0 pointer-events-none">
               <div className="absolute -left-10 top-0 w-[300px] h-full bg-coral/[0.04] blur-[80px]" />
-              <div className="absolute -right-10 bottom-0 w-[300px] h-full bg-[#62D2A2]/[0.04] blur-[80px]" />
+              <div className="absolute -right-10 bottom-0 w-[300px] h-full bg-[#63D2A3]/[0.04] blur-[80px]" />
             </div>
 
             <div className="relative z-10 divide-y divide-white/[0.06]">
@@ -340,7 +340,7 @@ export default function ComparePage() {
         >
           <h2 className="font-black text-[clamp(28px,5vw,72px)] leading-[1.1] tracking-[-0.03em] mb-4">
             <span className="block text-white">Still Comparing?</span>
-            <span className="block text-white">See the Difference <span className="text-[#62D2A2] opacity-90">Firsthand.</span></span>
+            <span className="block text-white">See the Difference <span className="text-[#63D2A3] opacity-90">Firsthand.</span></span>
           </h2>
 
           <p className="font-body text-white text-base md:text-2xl mb-10 max-w-2xl mx-auto leading-relaxed">
@@ -354,7 +354,7 @@ export default function ComparePage() {
               rel="noopener noreferrer"
             >
               <ShimmerButton
-                shimmerColor="#62D2A2"
+                shimmerColor="#63D2A3"
                 background="#111"
                 className="h-12 px-8 md:h-16 md:px-12 rounded-2xl"
               >

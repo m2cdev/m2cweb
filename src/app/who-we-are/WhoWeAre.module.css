@@ -65,8 +65,8 @@
 }
 
 .cardPositive {
-  background: linear-gradient(145deg, rgba(0, 255, 194, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
-  border: 1px solid rgba(0, 255, 194, 0.2);
+  background: linear-gradient(145deg, rgba(99,210,163, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+  border: 1px solid rgba(99,210,163, 0.2);
 }
 
 .cardTitle {
@@ -149,7 +149,7 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  background: rgba(0, 255, 194, 0.1);
+  background: rgba(99,210,163, 0.1);
   color: var(--accent-primary);
   border-radius: 50%;
   font-size: 1.25rem;
@@ -184,7 +184,7 @@
   height: 200px;
   border-radius: 50%;
   border: 1px solid var(--accent-primary);
-  background: rgba(0, 255, 194, 0.05);
+  background: rgba(99,210,163, 0.05);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
@@ -215,7 +215,7 @@
   background: var(--bg-primary);
   border-radius: 50%;
   padding: 8px;
-  box-shadow: 0 0 20px rgba(0, 255, 194, 0.5);
+  box-shadow: 0 0 20px rgba(99,210,163, 0.5);
 }
 
 .grid4 {
@@ -238,14 +238,14 @@
 .serviceCard:hover {
   transform: translateY(-5px);
   background: var(--surface-2);
-  border-color: rgba(0, 255, 194, 0.3);
+  border-color: rgba(99,210,163, 0.3);
 }
 
 .iconWrapper {
   width: 60px;
   height: 60px;
   border-radius: 12px;
-  background: rgba(0, 255, 194, 0.1);
+  background: rgba(99,210,163, 0.1);
   color: var(--accent-primary);
   display: flex;
   align-items: center;
@@ -289,7 +289,7 @@
   background: var(--accent-primary);
   color: var(--bg-primary);
   transform: scale(1.05);
-  box-shadow: 0 10px 40px rgba(0, 255, 194, 0.2);
+  box-shadow: 0 10px 40px rgba(99,210,163, 0.2);
 }
 
 .compareTitle {

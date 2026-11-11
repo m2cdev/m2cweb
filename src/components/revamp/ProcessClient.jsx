@@ -53,7 +53,7 @@ function Hero() {
         <p className="mb-5 px-6 md:px-16 max-w-6xl mx-auto text-[11px] font-black uppercase tracking-[0.3em] text-white">Frameworks we work with</p>
         <div className="flex w-max fw-marquee hover:[animation-play-state:paused] gap-3 pr-3">
           {row.map((f, i) => (
-            <span key={i} className="whitespace-nowrap rounded-full border border-white/20 bg-[#161616] px-6 py-2.5 text-[15px] md:text-base text-white transition-colors hover:border-[#62D2A2] hover:text-[#62D2A2]">{f}</span>
+            <span key={i} className="whitespace-nowrap rounded-full border border-white/20 bg-[#161616] px-6 py-2.5 text-[15px] md:text-base text-white transition-colors hover:border-[#63D2A3] hover:text-[#63D2A3]">{f}</span>
           ))}
         </div>
         <style jsx global>{`
@@ -86,7 +86,7 @@ function Meets() {
                 onClick={() => { setActive(i); setPaused(true); }}
                 onMouseEnter={() => { setActive(i); setPaused(true); }}
                 onFocus={() => { setActive(i); setPaused(true); }}
-                className={`relative h-full w-full text-left rounded-3xl border p-7 md:p-9 transition-all duration-500 ${on ? "bg-black border-black text-white" : "bg-[#F4F4F2] border-black/10 text-black"}`}
+                className={`relative h-full w-full text-left rounded-3xl border p-7 md:p-9 transition-all duration-500 ${on ? "bg-black border-black text-white" : "bg-white border-black/10 text-black"}`}
                 aria-pressed={on}
               >
                 <div className="flex items-center justify-between">
@@ -94,7 +94,7 @@ function Meets() {
                   <span className={`rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] transition-colors ${on ? "text-white" : "text-black/60 border border-black/15"}`} style={on ? { background: CORAL } : undefined}>{m.tag}</span>
                 </div>
                 <h3 className="mt-7 text-2xl md:text-3xl font-black tracking-tight leading-tight">{m.title}</h3>
-                <p className={`mt-3 font-body text-base md:text-lg leading-relaxed transition-colors ${on ? "text-white/85" : "text-[#5E5E5A]"}`}>{m.body}</p>
+                <p className={`mt-3 font-body text-base md:text-lg leading-relaxed transition-colors ${on ? "text-white/85" : "text-[#5A5A5A]"}`}>{m.body}</p>
               </button>
             </Reveal>
           );
@@ -162,7 +162,7 @@ function Playbook() {
           <div key={p.title} className={`h-full min-h-[300px] rounded-3xl border p-7 flex flex-col select-none ${i === 0 ? "bg-black border-black text-white" : "bg-white border-black/10 text-black"}`}>
             <NumDot n={i + 1} variant={i === 0 ? "mint" : "black"} />
             <h3 className="mt-8 text-2xl font-black tracking-tight leading-tight">{p.title}</h3>
-            <p className={`mt-3 font-body text-base leading-relaxed ${i === 0 ? "text-white/85" : "text-[#5E5E5A]"}`}>{p.d}</p>
+            <p className={`mt-3 font-body text-base leading-relaxed ${i === 0 ? "text-white/85" : "text-[#5A5A5A]"}`}>{p.d}</p>
           </div>
         ))}
       </SwipeSlider>

@@ -52,7 +52,7 @@ export function GenerativeMountainScene() {
       uniforms: {
         time: { value: 0 },
         pointLightPosition: { value: new THREE.Vector3(0, 0, 5) },
-        color: { value: new THREE.Color("#62D2A2") }, // Map2Close Primary Green
+        color: { value: new THREE.Color("#63D2A3") }, // Map2Close Primary Green
       },
       vertexShader: `
         uniform float time;

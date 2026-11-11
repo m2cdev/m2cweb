@@ -141,14 +141,14 @@ export default function RadialOrbitalTimeline({ timelineData }) {
             onClick={(e) => { e.stopPropagation(); toggleItem(1); }}
           >
             {/* Pulsing click indicator rings - outside clip boundary */}
-            <div className="absolute w-20 h-20 rounded-full border border-[#62D2A2]/40 animate-ping opacity-60 pointer-events-none" />
-            <div className="absolute w-24 h-24 rounded-full border border-[#62D2A2]/20 animate-ping opacity-40 pointer-events-none" style={{ animationDelay: '0.4s' }} />
+            <div className="absolute w-20 h-20 rounded-full border border-[#63D2A3]/40 animate-ping opacity-60 pointer-events-none" />
+            <div className="absolute w-24 h-24 rounded-full border border-[#63D2A3]/20 animate-ping opacity-40 pointer-events-none" style={{ animationDelay: '0.4s' }} />
             {/* "Click" label - outside clip boundary */}
-            <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap text-[13px] font-black uppercase tracking-[0.25em] text-[#62D2A2] pointer-events-none">
+            <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap text-[13px] font-black uppercase tracking-[0.25em] text-[#63D2A3] pointer-events-none">
               click
             </div>
             {/* Clipped circle with icon */}
-            <div className="w-14 h-14 rounded-full bg-black border border-white/30 flex items-center justify-center overflow-hidden shadow-[0_0_30px_rgba(98,210,162,0.25)]">
+            <div className="w-14 h-14 rounded-full bg-black border border-white/30 flex items-center justify-center overflow-hidden shadow-[0_0_30px_rgba(99,210,163,0.25)]">
               <img
                 src="/m2c-icon.png"
                 alt="M2C Icon"
@@ -183,7 +183,7 @@ export default function RadialOrbitalTimeline({ timelineData }) {
                 <div
                   className={`absolute rounded-full ${isPulsing ? "animate-pulse" : ""}`}
                   style={{
-                    background: `radial-gradient(circle, rgba(98,210,162,0.15) 0%, rgba(98,210,162,0) 70%)`,
+                    background: `radial-gradient(circle, rgba(99,210,163,0.15) 0%, rgba(99,210,163,0) 70%)`,
                     width: `${item.energy * 0.4 + 40}px`,
                     height: `${item.energy * 0.4 + 40}px`,
                     left: `-${(item.energy * 0.4 + 40 - 40) / 2}px`,
@@ -195,9 +195,9 @@ export default function RadialOrbitalTimeline({ timelineData }) {
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300 transform ${
                     isExpanded
-                      ? "bg-[#62D2A2] text-black border-[#62D2A2] shadow-[0_0_20px_rgba(98,210,162,0.5)] scale-150"
+                      ? "bg-[#63D2A3] text-black border-[#63D2A3] shadow-[0_0_20px_rgba(99,210,163,0.5)] scale-150"
                       : isRelated
-                      ? "bg-[#62D2A2]/20 text-[#62D2A2] border-[#62D2A2]/60 animate-pulse"
+                      ? "bg-[#63D2A3]/20 text-[#63D2A3] border-[#63D2A3]/60 animate-pulse"
                       : "bg-black text-white border-white/50 hover:border-white/80"
                   }`}
                 >
@@ -207,7 +207,7 @@ export default function RadialOrbitalTimeline({ timelineData }) {
                 {/* Label */}
                 <div
                   className={`absolute top-12 whitespace-nowrap text-xs font-semibold tracking-wider transition-all duration-300 ${
-                    isExpanded ? "text-[#62D2A2] scale-110" : "text-white/90"
+                    isExpanded ? "text-[#63D2A3] scale-110" : "text-white/90"
                   }`}
                   style={{ left: "50%", transform: isExpanded ? "translateX(-50%) scale(1.1)" : "translateX(-50%)" }}
                 >
@@ -217,12 +217,12 @@ export default function RadialOrbitalTimeline({ timelineData }) {
                 {/* Expanded card */}
                 {isExpanded && (
                   <div className="absolute top-20 left-1/2 -translate-x-1/2 w-64 bg-black/95 backdrop-blur-lg border border-white/10 rounded-xl shadow-2xl shadow-black/80 overflow-visible z-50">
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-px h-3 bg-[#62D2A2]/40" />
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-px h-3 bg-[#63D2A3]/40" />
                     <div className="p-4">
                       <div className="flex justify-between items-center mb-3">
                         <span className={`px-2 py-0.5 text-[10px] font-bold tracking-wider rounded-full border ${
                           item.status === "completed"
-                            ? "bg-[#62D2A2]/10 text-[#62D2A2] border-[#62D2A2]/30"
+                            ? "bg-[#63D2A3]/10 text-[#63D2A3] border-[#63D2A3]/30"
                             : item.status === "in-progress"
                             ? "bg-white/10 text-white border-white/20"
                             : "bg-white/5 text-white/40 border-white/10"
@@ -243,7 +243,7 @@ export default function RadialOrbitalTimeline({ timelineData }) {
                               return (
                                 <button
                                   key={relatedId}
-                                  className="flex items-center gap-1 px-2 py-1 text-[10px] rounded border border-white/10 bg-white/5 hover:bg-[#62D2A2]/10 hover:border-[#62D2A2]/30 text-white/50 hover:text-[#62D2A2] transition-all"
+                                  className="flex items-center gap-1 px-2 py-1 text-[10px] rounded border border-white/10 bg-white/5 hover:bg-[#63D2A3]/10 hover:border-[#63D2A3]/30 text-white/50 hover:text-[#63D2A3] transition-all"
                                   onClick={(e) => { e.stopPropagation(); toggleItem(relatedId); }}
                                 >
                                   {relatedItem?.title}

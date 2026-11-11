@@ -51,8 +51,8 @@ export const TextReveal = ({ children, className, greenWords = [], redWords = []
                   style={{ opacity, y }}
                   className={cn(
                     light ? "block text-black transition-colors duration-500" : "block text-white transition-colors duration-500",
-                    isGreen && (light ? "!text-[#12905D] font-black" : "text-primary font-black"),
-                    isRed   && "text-[#F96B6B] font-black"
+                    isGreen && (light ? "!text-[#63D2A3] font-black" : "text-primary font-black"),
+                    isRed   && "text-[#FF6B6B] font-black"
                   )}
                 >
                   {word}
