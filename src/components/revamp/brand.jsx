@@ -11,7 +11,7 @@ import { trackProductCta, withUtm } from "./track";
 
 export const QMO = {
   yellow: "#FFC801", ink: "#0B0B0C", mist: "#F4F5F3", line: "#E3E5E2", stone: "#9AA19D", slate: "#5C615E", coral: "#F96B6B", wash: "#FFF8DB",
-  cueText: "#7A5A00", raised: "#161817", lineDark: "#242725",
+  raised: "#161817", lineDark: "#242725",
 };
 export const GRDR = { cyan: "#00D1FF", bg: "#0B0F0E", surface: "#1A1F1E", line: "rgba(255,255,255,0.10)" };
 
@@ -22,9 +22,9 @@ export const THEMES = {
     headWeight: 800,
     base: { bg: QMO.ink, fg: QMO.mist, muted: QMO.stone, card: QMO.raised, line: QMO.lineDark, accentText: QMO.yellow },
     alt: { bg: QMO.raised, fg: QMO.mist, muted: QMO.stone, card: QMO.ink, line: QMO.lineDark, accentText: QMO.yellow },
-    light: { bg: "#FFFFFF", fg: QMO.ink, muted: QMO.slate, card: QMO.mist, line: QMO.line, accentText: QMO.cueText },
-    mist: { bg: QMO.mist, fg: QMO.ink, muted: QMO.slate, card: "#FFFFFF", line: QMO.line, accentText: QMO.cueText },
-    yellow: { bg: QMO.yellow, fg: QMO.ink, muted: "#3a3000", card: QMO.ink, line: "rgba(11,11,12,0.2)", accentText: QMO.ink },
+    light: { bg: "#FFFFFF", fg: QMO.ink, muted: QMO.slate, card: QMO.mist, line: QMO.line, accentText: QMO.ink, hl: true },
+    mist: { bg: QMO.mist, fg: QMO.ink, muted: QMO.slate, card: "#FFFFFF", line: QMO.line, accentText: QMO.ink, hl: true },
+    yellow: { bg: QMO.yellow, fg: QMO.ink, muted: "#1a1a1a", card: QMO.ink, line: "rgba(11,11,12,0.2)", accentText: QMO.ink },
   },
   grdr: {
     id: "grdr", accent: GRDR.cyan, accentInk: GRDR.bg, radius: "6px", btnRadius: "2px",
@@ -46,7 +46,7 @@ export function BrandRoot({ theme, className = "", children }) {
   const th = THEMES[theme];
   return (
     <Ctx.Provider value={th}>
-      <div className={`hide-floating-cta relative min-h-screen overflow-x-hidden ${className}`} style={{ background: th.base.bg, color: th.base.fg, fontFamily: th.body }}>
+      <div className={`hide-floating-cta relative min-h-screen overflow-x-clip ${className}`} style={{ background: th.base.bg, color: th.base.fg, fontFamily: th.body }}>
         {children}
       </div>
     </Ctx.Provider>
@@ -69,7 +69,7 @@ export function Band({ tone = "base", id, children, className = "", pad = "py-20
   const t = th[tone];
   return (
     <ToneCtx.Provider value={t}>
-      <section id={id} className={`relative overflow-hidden px-6 md:px-16 ${pad} ${className}`} style={{ background: t.bg, color: t.fg }}>
+      <section id={id} className={`relative overflow-clip px-6 md:px-16 ${pad} ${className}`} style={{ background: t.bg, color: t.fg }}>
         <div className="relative z-10 mx-auto max-w-6xl">{children}</div>
       </section>
     </ToneCtx.Provider>
@@ -80,11 +80,13 @@ export function Eyebrow({ children, center }) {
   const th = useTheme();
   const t = useTone();
   return (
-    <p
-      className={`mb-4 text-[12px] md:text-[13px] uppercase ${center ? "text-center" : ""}`}
-      style={{ color: t.accentText, fontFamily: th.body, fontWeight: 600, letterSpacing: th.id === "grdr" ? "0.22em" : "0.14em" }}
-    >
-      {children}
+    <p className={`mb-4 ${center ? "text-center" : ""}`}>
+      <span
+        className="inline-block text-[12px] md:text-[13px] uppercase"
+        style={{ color: t.accentText, fontFamily: th.body, fontWeight: 600, letterSpacing: th.id === "grdr" ? "0.22em" : "0.14em", ...(t.hl ? { background: QMO.yellow, padding: "3px 10px", borderRadius: 6 } : null) }}
+      >
+        {children}
+      </span>
     </p>
   );
 }
@@ -97,7 +99,7 @@ export function H2({ eyebrow, title, sub, center, className = "" }) {
       {eyebrow && <Eyebrow center={center}>{eyebrow}</Eyebrow>}
       <h2 className={`text-3xl md:text-5xl leading-[1.05] tracking-tight ${center ? "mx-auto" : ""} max-w-4xl`} style={{ fontFamily: th.head, fontWeight: th.headWeight }}>
         {title.split(" ").map((w, i) => (
-          <span key={i} style={w.startsWith("^") ? { color: t.accentText } : undefined}>{w.replace(/^\^/, "")}{" "}</span>
+          <span key={i} style={w.startsWith("^") ? (t.hl ? { backgroundImage: `linear-gradient(transparent 62%, ${QMO.yellow} 62%)`, boxDecorationBreak: "clone", WebkitBoxDecorationBreak: "clone" } : { color: t.accentText }) : undefined}>{w.replace(/^\^/, "")}{" "}</span>
         ))}
       </h2>
       {sub && <p className={`mt-5 max-w-2xl text-base md:text-lg leading-relaxed ${center ? "mx-auto" : ""}`} style={{ color: t.muted }}>{sub}</p>}
@@ -114,17 +116,32 @@ export function Card({ children, className = "", featured = false, style }) {
   return <div className={`h-full p-7 md:p-8 ${className}`} style={{ borderRadius: th.radius, ...s, ...style }}>{children}</div>;
 }
 
-// Buttons: Qmo = rounded rectangle, Grdr = square corners (as on each product's own site).
+// Buttons: Qmo = rounded rectangle, hover swaps fill and text (no lift); Grdr = square corners.
 export function BrandBtn({ href, children, variant = "solid", external, product, className = "", onClick }) {
   const th = useTheme();
   const t = useTone();
   const solid = variant === "solid";
-  const style = {
+  const qmo = th.id === "qmo";
+  const ghostBorder = t.line === "#E3E5E2" ? "#C9CCC8" : "rgba(255,255,255,0.28)";
+  let style = {
     borderRadius: th.btnRadius, fontFamily: th.body, fontWeight: 600,
     background: solid ? th.accent : "transparent", color: solid ? th.accentInk : t.fg,
-    border: solid ? `1px solid ${th.accent}` : `1px solid ${t.line === "#E3E5E2" ? "#C9CCC8" : "rgba(255,255,255,0.28)"}`,
+    border: solid ? `1px solid ${th.accent}` : `1px solid ${ghostBorder}`,
   };
-  const cls = `inline-flex items-center justify-center px-7 py-3.5 text-[15px] transition-all duration-200 hover:-translate-y-0.5 hover:opacity-90 ${className}`;
+  let cls = `inline-flex items-center justify-center px-7 py-3.5 text-[15px] transition-all duration-200 hover:-translate-y-0.5 hover:opacity-90 ${className}`;
+  if (qmo) {
+    // fill <-> text swap on hover, driven by CSS variables
+    const fill = solid ? th.accent : "transparent";
+    const text = solid ? th.accentInk : t.fg;
+    const onYellow = t === th.yellow;
+    const vars = onYellow
+      ? { "--b": QMO.ink, "--f": QMO.yellow, "--bh": QMO.yellow, "--fh": QMO.ink, "--bd": QMO.ink }
+      : solid
+        ? { "--b": fill, "--f": text, "--bh": QMO.ink, "--fh": QMO.yellow, "--bd": QMO.yellow }
+        : { "--b": "transparent", "--f": text, "--bh": t.fg, "--fh": t.bg, "--bd": ghostBorder };
+    style = { ...style, ...vars, background: "var(--b)", color: "var(--f)", border: "1.5px solid var(--bd)" };
+    cls = `qmo-btn inline-flex items-center justify-center px-7 py-3.5 text-[15px] transition-colors duration-200 hover:!bg-[var(--bh)] hover:!text-[var(--fh)] ${className}`;
+  }
   if (external) {
     return (
       <a href={withUtm(href)} target="_blank" rel="noopener noreferrer" className={cls} style={style}
@@ -215,7 +232,7 @@ function FaqList({ faqs, open, setOpen, th }) {
           <div key={f.q} className="border-b last:border-b-0" style={{ borderColor: t.line }}>
             <button className="flex w-full items-center justify-between gap-6 py-6 text-left" aria-expanded={isOpen} aria-controls={`faq-${th.id}-${i}`} onClick={() => setOpen(isOpen ? -1 : i)}>
               <span className="text-lg md:text-xl" style={{ fontFamily: th.head, fontWeight: th.id === "qmo" ? 800 : 700 }}>{f.q}</span>
-              <Plus className="h-5 w-5 shrink-0 transition-transform duration-200" style={{ color: t.accentText, transform: isOpen ? "rotate(45deg)" : "none" }} />
+              <Plus className="h-5 w-5 shrink-0 transition-transform duration-200" style={{ color: t.hl ? QMO.ink : t.accentText, transform: isOpen ? "rotate(45deg)" : "none" }} />
             </button>
             <div id={`faq-${th.id}-${i}`} role="region" className="grid transition-all duration-[250ms]" style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}>
               <div className="overflow-hidden">

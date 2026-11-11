@@ -4,9 +4,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { Target, GitBranch, Wrench, Zap, Database } from "lucide-react";
+import CoreServices from "./CoreServices";
 import {
   GridBackdrop, GridField, Marked, MeshHeroBg, SplitLetters, Btn, Reveal, Section, SectionTitle, WhiteSection, WhiteTitle,
-  NumDot, SwipeSlider, ProductTieIn, CtaBand, MINT, CORAL,
+  NumDot, ProductTieIn, CtaBand, MINT, CORAL,
 } from "./ui";
 
 const RadialOrbitalTimeline = dynamic(() => import("@/components/ui/radial-orbital-timeline"), { ssr: false });
@@ -18,14 +19,8 @@ const meets = [
   { tag: "Live pipeline", title: "Applied to deals in flight now", body: "We work on your actual open opportunities, not hypothetical case studies." },
 ];
 
-const playbook = [
-  { title: "Playbooks + Talk Tracks", d: "Cold call, discovery and demo talk tracks built around your buyers and embedded in the way your reps already work." },
-  { title: "Objection Handling + Battlecards", d: "Guides and battlecards your reps can use mid-call, written from the pushback your team really hears." },
-  { title: "Handoff Design", d: "SDR to AE to CS handoffs defined end to end, so context travels with the deal." },
-  { title: "Pipeline Rituals", d: "Weekly deal review, next-step discipline and stalled-opportunity triage, so pipeline meetings become execution sessions." },
-  { title: "Call Review Systems", d: "The review cadence, scorecards and feedback loops so coaching does not depend on who has time that week." },
-  { title: "Enablement Assets", d: "Playbooks, messaging frameworks and one-pagers built around your buyers and kept where reps will find them." },
-];
+
+const nowMs = () => Date.now();
 
 const stages = [
   { role: "SDR", title: "SDR hands off ^with ^the ^full ^picture", body: "The pain, the trigger and who else is involved travel with the meeting, so the AE never opens cold.", gets: ["Pain in the buyer's words", "Who else is involved", "What was promised"] },
@@ -181,7 +176,7 @@ function Handoffs() {
       const y = window.scrollY;
       const first = pos(0), last = pos(n - 1);
       const dir = e.deltaY > 0 ? 1 : -1;
-      const now = Date.now();
+      const now = nowMs();
       const pinned = y >= first - 2 && y <= last + 2;
       if (!pinned) return;
       if ((dir === 1 && y >= last - 2) || (dir === -1 && y <= first + 2)) return;
@@ -200,7 +195,7 @@ function Handoffs() {
 
   const jump = (k) => {
     const { pos } = geo();
-    lock.current = Date.now() + 900;
+    lock.current = nowMs() + 900;
     window.scrollTo({ top: pos(k), behavior: "smooth" });
   };
 
@@ -252,23 +247,6 @@ function Handoffs() {
         </div>
       </div>
     </section>
-  );
-}
-
-function Playbook() {
-  return (
-    <WhiteSection tone="grey">
-      <WhiteTitle eyebrow="Core services" title="What We Build Into ^Your Process" sub="Swipe through the playbook pieces your team gets." />
-      <SwipeSlider dark={false} label="Process services">
-        {playbook.map((p, i) => (
-          <div key={p.title} className={`h-full min-h-[300px] rounded-3xl border p-7 flex flex-col select-none ${i === 0 ? "bg-black border-black text-white" : "bg-white border-black/10 text-black"}`}>
-            <NumDot n={i + 1} variant={i === 0 ? "mint" : "black"} />
-            <h3 className="mt-8 text-2xl font-black tracking-tight leading-tight">{p.title}</h3>
-            <p className={`mt-3 font-body text-base leading-relaxed ${i === 0 ? "text-white/85" : "text-[#5A5A5A]"}`}>{p.d}</p>
-          </div>
-        ))}
-      </SwipeSlider>
-    </WhiteSection>
   );
 }
 
@@ -341,7 +319,7 @@ export default function ProcessClient() {
       <Hero />
       <Meets />
       <Handoffs />
-      <Playbook />
+      <CoreServices page="process" id="core-services" headline="Ten Pieces Of Your Sales Engine" />
       <div className="relative">
         <GridField />
         <div className="relative">

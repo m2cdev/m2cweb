@@ -161,7 +161,7 @@ function Who() {
 
 function FinalCta() {
   return (
-    <section className="relative overflow-hidden px-6 py-20 md:py-28 text-center" style={{ background: GRDR.bg }}>
+    <section data-seamless-end className="relative overflow-hidden px-6 py-20 md:py-28 text-center" style={{ background: `linear-gradient(180deg, ${GRDR.bg} 40%, #000 100%)` }}>
       <Grid fade="radial" opacity={0.04} />
       <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2" style={{ background: `radial-gradient(closest-side, ${GRDR.cyan}22, transparent)` }} />
       <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center">

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import CoreServices from "./CoreServices";
 import {
   GlowHeroBg, GridField, Btn, Reveal, Section, SectionTitle, WhiteSection, WhiteTitle,
   NumDot, CtaBand, MINT, CORAL,
@@ -180,6 +181,7 @@ export default function PlatformsClient() {
         </div>
       </div>
       <Systems />
+      <CoreServices page="platforms" id="core-services" headline="Ten Ways We Fill The Gap In Your Stack" />
       <Section tone="dark">
         <SectionTitle eyebrow="Product Portfolio" title="Some Builds Became ^Products." sub="Both sit on top of your existing CRM." />
         <ProductStrip showHeading={false} />

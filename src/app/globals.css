@@ -107,3 +107,8 @@
 .animate-spotlight {
   animation: spotlight 2s ease 0.75s 1 forwards;
 }
+/* Product pages: the closing section runs straight into the footer with no gap. */
+main:has([data-seamless-end]) > footer { border-top-color: transparent; padding-top: 3rem; }
+@keyframes qmo-marquee { to { transform: translateX(-25%); } }
+.qmo-marquee { animation: qmo-marquee 28s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .qmo-marquee { animation: none; } }

@@ -4,23 +4,12 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion, useScroll, useSpring, useTransform, useReducedMotion, useMotionValueEvent, useInView } from "framer-motion";
+import CoreServices from "./CoreServices";
 import {
   WaveHeroBg, SplitLetters, Btn, Reveal, Section, SectionTitle, WhiteSection, WhiteTitle,
   NumDot, SwipeSlider, CtaBand, QmoMark, MINT, CORAL, QMO_YELLOW,
 } from "./ui";
 
-const services = [
-  { title: "1:1 Rep Coaching", d: "Each rep gets full attention on their own gaps, backed by real call and deal data." },
-  { title: "Group Training Sessions", d: "Recurring skill building on discovery, objections and closing, as a team." },
-  { title: "Deal Coaching", d: "Live, deal specific coaching on the opportunities actually in the pipeline." },
-  { title: "Leadership Alignment", d: "Working sessions with sales leadership on coaching cadence, standards and performance." },
-  { title: "Compensation and Growth Strategy", d: "Comp plan and career path design built to drive the right rep behavior." },
-  { title: "New Rep Ramp and Onboarding", d: "A structured 30 day onboarding system so new hires sell like veterans faster." },
-  { title: "Objection Handling", d: "Drilling reps on their toughest objections until it is second nature." },
-  { title: "Manager Coaching and Enablement", d: "Equipping frontline managers to coach consistently, not just manage pipeline." },
-  { title: "Hiring and Interview Process Design", d: "A structured scorecard so you hire reps who actually ramp." },
-  { title: "Culture and Accountability Systems", d: "Standups, pipeline reviews and scorecards that keep the team accountable daily." },
-];
 
 const execution = [
   { n: "01", k: "In the room", title: "We coach on live pipeline", body: "Reps bring the deals they are working this week. We pick the next move together, then watch them make it.", after: "Reps leave with a next step, not a framework." },
@@ -57,37 +46,19 @@ function Hero() {
   );
 }
 
-function DeckSlide() {
-  return (
-    <WhiteSection className="!py-14 md:!py-20">
-      <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr] lg:gap-14 items-end mb-10 md:mb-12">
-        <WhiteTitle className="!mb-0" eyebrow={null} title="Ten ways we put coaching on the floor" sub="We partner with your reps at every stage of the deal cycle, from cold calling to closing deals." />
-        <Reveal delay={0.1}>
-          <Link href="/case-studies/pinecone" className="group relative block overflow-hidden rounded-[2rem] bg-black p-7 md:p-8 text-white">
-            <div className="absolute -top-20 -right-20 h-56 w-56 rounded-full blur-[80px] opacity-30" style={{ background: MINT }} />
-            <p className="relative text-[11px] font-black uppercase tracking-[0.3em]" style={{ color: MINT }}>Case study</p>
-            <h3 className="relative mt-3 text-2xl font-black tracking-tight">Sales Enablement Hub</h3>
-            <p className="relative mt-2 font-body text-[15px] text-white/80 leading-relaxed">The right content, surfaced at the right moment in every deal.</p>
-            <span className="relative mt-5 inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest" style={{ color: MINT }}>
-              Read the case study <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-            </span>
-          </Link>
-        </Reveal>
-      </div>
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-        {services.map((s, i) => (
-          <Reveal key={s.title} delay={(i % 5) * 0.06} y={12}>
-            <div className="h-full rounded-2xl border border-black/10 bg-[#F2F2F2] p-5 transition-colors hover:border-black/30">
-              <NumDot n={i + 1} className="!h-9 !w-9 !text-xs" />
-              <h3 className="mt-4 text-[15px] font-black leading-snug tracking-tight text-black">{s.title}</h3>
-              <p className="mt-2 font-body text-[13px] leading-relaxed text-[#5A5A5A]">{s.d}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-    </WhiteSection>
-  );
-}
+const caseStudyAside = (
+  <Reveal delay={0.1} className="md:w-[360px] shrink-0">
+    <Link href="/case-studies/pinecone" className="group relative block overflow-hidden rounded-[2rem] bg-black p-7 md:p-8 text-white">
+      <div className="absolute -top-20 -right-20 h-56 w-56 rounded-full blur-[80px] opacity-30" style={{ background: MINT }} />
+      <p className="relative text-[11px] font-black uppercase tracking-[0.3em]" style={{ color: MINT }}>Case study</p>
+      <h3 className="relative mt-3 text-2xl font-black tracking-tight">Sales Enablement Hub</h3>
+      <p className="relative mt-2 font-body text-[15px] text-white/80 leading-relaxed">The right content, surfaced at the right moment in every deal.</p>
+      <span className="relative mt-5 inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest" style={{ color: MINT }}>
+        Read the case study <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+      </span>
+    </Link>
+  </Reveal>
+);
 
 function Execution() {
   return (
@@ -221,7 +192,7 @@ export default function PeopleClient() {
   return (
     <div className="bg-black text-white">
       <Hero />
-      <DeckSlide />
+      <CoreServices page="people" id="core-services" headline="Ten Ways We Put Coaching On The Floor" aside={caseStudyAside} />
       <Execution />
       <Ramp />
       <LiveCoach />
