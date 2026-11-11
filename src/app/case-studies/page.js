@@ -17,7 +17,7 @@ const caseStudies = [
     description: "The right content never made it into the right conversation at the right time. Assets existed but were scattered, outdated, and impossible to surface during an active deal. We built a centralized Sales Enablement Hub where reps filter assets by deal stage, buyer persona, and use case in real time.",
     loomId: "8815fd477dcd444799521d13995e8442",
     thumbnail: "/images/case-studies/pinecone-loom.png",
-    color: "#62D2A2",
+    color: "#63D2A3",
   },
   {
     id: "signpost",
@@ -26,7 +26,7 @@ const caseStudies = [
     description: "Reps were cold calling blind - no way to know which accounts were actively in pain. We built a custom Signal Intelligence Engine that scraped public review data, scored every account across Fit, Demand, Comms Pain, and Growth, and pushed high-scoring leads directly into HubSpot with rep-facing briefs.",
     loomId: "7694a0c1e94d44cc875b8f75e7b4d0e7",
     thumbnail: "/images/case-studies/signpost-loom.png",
-    color: "#F96B6B",
+    color: "#FF6B6B",
   },
   {
     id: "qwilr",
@@ -35,7 +35,7 @@ const caseStudies = [
     description: "A California-based SaaS team had deals slow down the moment they left the demo stage. We designed a Trial-to-Close Engine: a guided playbook with give/get incentives, partnered with a Deal Accelerator Engine that monitored every active trial and flagged deals stalling beyond threshold points.",
     loomId: "09630646d94f4811a4186f9e879e4b7c",
     thumbnail: "/images/case-studies/qwilr-loom.png",
-    color: "#62D2A2",
+    color: "#63D2A3",
   },
 ];
 
@@ -128,7 +128,7 @@ export default function CaseStudies() {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8 }}
                 >
-                  <p className="inline-block px-4 py-1 rounded-full border border-[#62D2A2]/30 bg-[#62D2A2]/10 text-sm font-bold text-[#62D2A2] uppercase tracking-widest mb-6">
+                  <p className="inline-block px-4 py-1 rounded-full border border-[#63D2A3]/30 bg-[#63D2A3]/10 text-sm font-bold text-[#63D2A3] uppercase tracking-widest mb-6">
                     {cs.company}
                   </p>
                   <h2 className="text-xl md:text-5xl font-bold mb-8 tracking-tight leading-tight">
@@ -140,7 +140,7 @@ export default function CaseStudies() {
                   <div className="flex gap-4 flex-wrap">
                     <Link href={`/case-studies/${cs.id}`}>
                       <ShimmerButton
-                        shimmerColor="#62D2A2"
+                        shimmerColor="#63D2A3"
                         background="#050505"
                         className="h-12 px-8 rounded-full"
                         shimmerSize="0.1em"

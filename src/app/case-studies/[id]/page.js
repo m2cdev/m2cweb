@@ -12,7 +12,7 @@ const caseStudies = {
     title: "Sales Enablement Hub",
     category: "Sales Enablement",
     label: "Sales Enablement Hub",
-    color: "#62D2A2",
+    color: "#63D2A3",
     thumbnail: "/images/case-studies/pinecone-loom.png",
     loomId: "8815fd477dcd444799521d13995e8442",
     resultTitle: "Projected ROI and Impact",
@@ -35,7 +35,7 @@ const caseStudies = {
     title: "Signal Intelligence Engine",
     category: "Signal Intelligence",
     label: "Signal Intelligence Engine",
-    color: "#F96B6B",
+    color: "#FF6B6B",
     thumbnail: "/images/case-studies/signpost-loom.png",
     loomId: "7694a0c1e94d44cc875b8f75e7b4d0e7",
     resultTitle: "Projected ROI and Impact",
@@ -61,7 +61,7 @@ const caseStudies = {
     title: "Trial-to-Close Engine",
     category: "Trial Optimization",
     label: "Trial-to-Close Engine",
-    color: "#62D2A2",
+    color: "#63D2A3",
     thumbnail: "/images/case-studies/qwilr-loom.png",
     loomId: "09630646d94f4811a4186f9e879e4b7c",
     resultTitle: "Projected ROI and Impact",
@@ -115,10 +115,10 @@ function LoomEmbed({ loomId, thumbnail }) {
           )}
           {loomId && (
             <div className="relative z-10 flex flex-col items-center">
-              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-2xl group-hover/overlay:scale-110 group-hover/overlay:bg-[#62D2A2] group-hover/overlay:text-black transition-all duration-300">
+              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-2xl group-hover/overlay:scale-110 group-hover/overlay:bg-[#63D2A3] group-hover/overlay:text-black transition-all duration-300">
                 <Play fill="currentColor" size={28} />
               </div>
-              <p className="mt-4 text-xs font-black uppercase tracking-[0.3em] text-white group-hover/overlay:text-[#62D2A2] transition-colors">
+              <p className="mt-4 text-xs font-black uppercase tracking-[0.3em] text-white group-hover/overlay:text-[#63D2A3] transition-colors">
                 Watch Walkthrough
               </p>
             </div>
@@ -159,7 +159,7 @@ export default function CaseStudyPage() {
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_10%_50%,rgba(98,210,162,0.06)_0%,transparent_70%)]" />
           <div className="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden opacity-30">
-            <Waves strokeColor="#62D2A2" backgroundColor="transparent" className="w-full h-full" />
+            <Waves strokeColor="#63D2A3" backgroundColor="transparent" className="w-full h-full" />
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent" />
         </div>
@@ -171,7 +171,7 @@ export default function CaseStudyPage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="inline-block text-[11px] font-black tracking-[0.4em] text-[#62D2A2] uppercase mb-4">
+            <span className="inline-block text-[11px] font-black tracking-[0.4em] text-[#63D2A3] uppercase mb-4">
               {study.category}
             </span>
             <h1 className="text-4xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-8">
@@ -181,7 +181,7 @@ export default function CaseStudyPage() {
               {study.problem[0]}
             </p>
             <a href="#case-study">
-              <button className="bg-[#62D2A2] text-white px-6 py-3 md:px-10 md:py-4 font-black text-sm uppercase tracking-widest rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center gap-3">
+              <button className="bg-[#63D2A3] text-white px-6 py-3 md:px-10 md:py-4 font-black text-sm uppercase tracking-widest rounded-full hover:bg-white hover:text-black transition-all duration-300 flex items-center gap-3">
                 Read the Case Study
                 <ArrowRight className="w-4 h-4" />
               </button>
@@ -216,8 +216,8 @@ export default function CaseStudyPage() {
             transition={{ duration: 0.6 }}
           >
             <div className="flex items-center gap-4 mb-10">
-              <span className="text-sm font-black tracking-[0.35em] text-[#62D2A2] uppercase">The Problem</span>
-              <div className="h-px flex-1 bg-gradient-to-r from-[#62D2A2]/40 to-transparent" />
+              <span className="text-sm font-black tracking-[0.35em] text-[#63D2A3] uppercase">The Problem</span>
+              <div className="h-px flex-1 bg-gradient-to-r from-[#63D2A3]/40 to-transparent" />
             </div>
             <div className="space-y-6">
               {study.problem.map((para, i) => (
@@ -238,8 +238,8 @@ export default function CaseStudyPage() {
             transition={{ duration: 0.6 }}
           >
             <div className="flex items-center gap-4 mb-10">
-              <span className="text-sm font-black tracking-[0.35em] text-[#62D2A2] uppercase">The Build</span>
-              <div className="h-px flex-1 bg-gradient-to-r from-[#62D2A2]/40 to-transparent" />
+              <span className="text-sm font-black tracking-[0.35em] text-[#63D2A3] uppercase">The Build</span>
+              <div className="h-px flex-1 bg-gradient-to-r from-[#63D2A3]/40 to-transparent" />
             </div>
             <div className="space-y-6">
               {study.build.map((para, i) => (
@@ -259,8 +259,8 @@ export default function CaseStudyPage() {
               transition={{ duration: 0.6 }}
             >
               <div className="flex items-center gap-4 mb-6">
-                <span className="text-sm font-black tracking-[0.35em] text-[#62D2A2] uppercase">Walkthrough</span>
-                <div className="h-px flex-1 bg-gradient-to-r from-[#62D2A2]/40 to-transparent" />
+                <span className="text-sm font-black tracking-[0.35em] text-[#63D2A3] uppercase">Walkthrough</span>
+                <div className="h-px flex-1 bg-gradient-to-r from-[#63D2A3]/40 to-transparent" />
               </div>
               <div className="max-w-3xl mx-auto">
                 <LoomEmbed loomId={study.loomId} thumbnail={study.thumbnail} />
@@ -278,20 +278,20 @@ export default function CaseStudyPage() {
             transition={{ duration: 0.6 }}
           >
             <div className="flex items-center gap-4 mb-10">
-              <span className="text-sm font-black tracking-[0.35em] text-[#62D2A2] uppercase">{study.resultTitle}</span>
-              <div className="h-px flex-1 bg-gradient-to-r from-[#62D2A2]/40 to-transparent" />
+              <span className="text-sm font-black tracking-[0.35em] text-[#63D2A3] uppercase">{study.resultTitle}</span>
+              <div className="h-px flex-1 bg-gradient-to-r from-[#63D2A3]/40 to-transparent" />
             </div>
             <p className="text-lg md:text-3xl text-white font-body leading-relaxed mb-8 md:mb-12">
               {study.impact}
             </p>
             <div className="border border-white/[0.08] rounded-2xl overflow-hidden">
               <div className="px-6 py-4 border-b border-white/[0.08] bg-white/[0.02]">
-                <p className="text-[11px] font-black tracking-[0.3em] text-[#62D2A2] uppercase">Key Outcomes</p>
+                <p className="text-[11px] font-black tracking-[0.3em] text-[#63D2A3] uppercase">Key Outcomes</p>
               </div>
               <div className="divide-y divide-white/[0.06]">
                 {study.outcomes.map((outcome, i) => (
                   <div key={i} className="flex items-start gap-4 px-6 py-5">
-                    <CheckCircle className="w-5 h-5 text-[#62D2A2] shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-[#63D2A3] shrink-0 mt-0.5" />
                     <p className="text-white font-body text-sm md:text-xl">{outcome}</p>
                   </div>
                 ))}
@@ -308,14 +308,14 @@ export default function CaseStudyPage() {
             className="text-center py-16 border-t border-white/[0.06] hide-floating-cta"
           >
             <h3 className="text-2xl md:text-6xl font-black tracking-tighter mb-8 md:mb-10">
-              Let&apos;s Build Your <span className="text-[#62D2A2]">Motion.</span>
+              Let&apos;s Build Your <span className="text-[#63D2A3]">Motion.</span>
             </h3>
             <a
               href="/contact"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <button className="bg-[#62D2A2] text-white px-8 py-4 md:px-12 md:py-5 font-black text-sm uppercase tracking-widest rounded-full hover:bg-white hover:text-black transition-all duration-300">
+              <button className="bg-[#63D2A3] text-white px-8 py-4 md:px-12 md:py-5 font-black text-sm uppercase tracking-widest rounded-full hover:bg-white hover:text-black transition-all duration-300">
                 Book a Working Session
               </button>
             </a>
@@ -327,12 +327,12 @@ export default function CaseStudyPage() {
       {/* ── NEXT UP ──────────────────────────────────────────────────────── */}
       <section className="py-24 bg-white/[0.02] border-t border-white/[0.06]">
         <div className="container mx-auto px-6 md:px-16">
-          <p className="text-[11px] font-black tracking-[0.35em] text-[#62D2A2] uppercase mb-12">Next Up</p>
+          <p className="text-[11px] font-black tracking-[0.35em] text-[#63D2A3] uppercase mb-12">Next Up</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {nextStudyMap[id]?.map((key) => {
               const next = caseStudies[key];
               return (
-                <Link key={key} href={`/case-studies/${key}`} className="group relative rounded-2xl overflow-hidden border border-white/10 aspect-video hover:border-[#62D2A2]/30 transition-all duration-500">
+                <Link key={key} href={`/case-studies/${key}`} className="group relative rounded-2xl overflow-hidden border border-white/10 aspect-video hover:border-[#63D2A3]/30 transition-all duration-500">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={next.thumbnail}
@@ -341,10 +341,10 @@ export default function CaseStudyPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                   <div className="absolute bottom-0 left-0 p-6">
-                    <p className="text-[10px] font-black tracking-[0.3em] text-[#62D2A2] uppercase mb-2">{next.category}</p>
-                    <h4 className="text-xl md:text-2xl font-black text-white group-hover:text-[#62D2A2] transition-colors">{next.title}</h4>
+                    <p className="text-[10px] font-black tracking-[0.3em] text-[#63D2A3] uppercase mb-2">{next.category}</p>
+                    <h4 className="text-xl md:text-2xl font-black text-white group-hover:text-[#63D2A3] transition-colors">{next.title}</h4>
                   </div>
-                  <div className="absolute top-4 right-4 w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-[#62D2A2] group-hover:border-[#62D2A2] transition-all duration-300">
+                  <div className="absolute top-4 right-4 w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-[#63D2A3] group-hover:border-[#63D2A3] transition-all duration-300">
                     <ArrowRight className="w-4 h-4 text-white group-hover:text-black transition-colors" />
                   </div>
                 </Link>

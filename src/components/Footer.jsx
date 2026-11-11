@@ -7,7 +7,7 @@ import { Linkedin } from "lucide-react";
 import { isLegalPublished, legalDoc } from "@/content/legal/config.mjs";
 import { CookieSettingsButton } from "@/components/consent/CookieConsent";
 
-const linkClass = "text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm";
+const linkClass = "text-white/80 hover:text-[#63D2A3] transition-colors font-body text-sm";
 
 // Unpublished docs never render here. Privacy points at the existing /privacy
 // page until the new Privacy Policy is published, then follows the flag.
@@ -24,8 +24,8 @@ export default function Footer({ className = "" }) {
   return (
     <footer className={`bg-black border-t border-white/10 pt-12 md:pt-24 pb-8 md:pb-12 relative overflow-hidden ${className}`}>
       {/* Subtle brand gradients at the bottom */}
-      <div className="absolute bottom-0 left-0 w-full h-[500px] bg-[radial-gradient(circle_at_bottom_left,_rgba(98,210,162,0.18)_0%,_transparent_50%)] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-full h-[500px] bg-[radial-gradient(circle_at_bottom_right,_rgba(249,107,107,0.15)_0%,_transparent_50%)] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-full h-[500px] bg-[radial-gradient(circle_at_bottom_left,_rgba(99,210,163,0.18)_0%,_transparent_50%)] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-full h-[500px] bg-[radial-gradient(circle_at_bottom_right,_rgba(255,107,107,0.15)_0%,_transparent_50%)] pointer-events-none" />
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[300px] bg-[radial-gradient(circle_at_bottom,_rgba(255,255,255,0.03)_0%,_transparent_70%)] pointer-events-none" />
       
       <div className="container-custom px-6 md:px-12">
@@ -43,7 +43,7 @@ export default function Footer({ className = "" }) {
                 href="https://www.linkedin.com/company/map2close/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg bg-[#62D2A2]/10 flex items-center justify-center text-[#62D2A2] hover:bg-[#62D2A2] hover:text-black transition-all"
+                className="w-10 h-10 rounded-lg bg-[#63D2A3]/10 flex items-center justify-center text-[#63D2A3] hover:bg-[#63D2A3] hover:text-black transition-all"
               >
                 <Linkedin size={20} />
               </a>
@@ -54,12 +54,12 @@ export default function Footer({ className = "" }) {
           <div className="md:ml-auto">
             <h3 className="text-white font-black uppercase tracking-widest text-[10px] mb-8 opacity-50">Quick Links</h3>
             <ul className="space-y-4">
-              <li><Link href="/" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">Home</Link></li>
-              <li><Link href="/who-we-are" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">Who We Are</Link></li>
-              <li><Link href="/what-we-do" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">What We Do</Link></li>
-              <li><Link href="/products" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">Products</Link></li>
-              <li><Link href="/case-studies" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">Case Studies</Link></li>
-              <li><Link href="/pilot" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">The Pilot</Link></li>
+              <li><Link href="/" className="text-white/80 hover:text-[#63D2A3] transition-colors font-body text-sm">Home</Link></li>
+              <li><Link href="/who-we-are" className="text-white/80 hover:text-[#63D2A3] transition-colors font-body text-sm">Who We Are</Link></li>
+              <li><Link href="/what-we-do" className="text-white/80 hover:text-[#63D2A3] transition-colors font-body text-sm">What We Do</Link></li>
+              <li><Link href="/products" className="text-white/80 hover:text-[#63D2A3] transition-colors font-body text-sm">Products</Link></li>
+              <li><Link href="/case-studies" className="text-white/80 hover:text-[#63D2A3] transition-colors font-body text-sm">Case Studies</Link></li>
+              <li><Link href="/pilot" className="text-white/80 hover:text-[#63D2A3] transition-colors font-body text-sm">The Pilot</Link></li>
             </ul>
           </div>
 
@@ -91,12 +91,12 @@ export default function Footer({ className = "" }) {
             <h3 className="text-white font-black uppercase tracking-widest text-[10px] mb-8 opacity-50">Contact Info</h3>
             <ul className="space-y-4">
               <li>
-                <a href="tel:+19292983580" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">
+                <a href="tel:+19292983580" className="text-white/80 hover:text-[#63D2A3] transition-colors font-body text-sm">
                   (929) 298-3580
                 </a>
               </li>
               <li>
-                <a href="mailto:letsclose@map2close.com" className="text-white/80 hover:text-[#62D2A2] transition-colors font-body text-sm">
+                <a href="mailto:letsclose@map2close.com" className="text-white/80 hover:text-[#63D2A3] transition-colors font-body text-sm">
                   letsclose@map2close.com
                 </a>
               </li>

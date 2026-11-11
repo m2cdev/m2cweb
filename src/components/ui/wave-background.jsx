@@ -6,7 +6,7 @@ import { useIsLowTier } from '@/providers/DeviceTierProvider'
 
 export function Waves({
     className = "",
-    strokeColor = "#62D2A2",
+    strokeColor = "#63D2A3",
     backgroundColor = "#000000",
     pointerSize = 0.5
 }) {
@@ -25,7 +25,7 @@ export function Waves({
                     width: '100%',
                     height: '100%',
                     overflow: 'hidden',
-                    background: `linear-gradient(135deg, ${backgroundColor} 0%, rgba(98,210,162,0.06) 50%, ${backgroundColor} 100%)`,
+                    background: `linear-gradient(135deg, ${backgroundColor} 0%, rgba(99,210,163,0.06) 50%, ${backgroundColor} 100%)`,
                 }}
             />
         );

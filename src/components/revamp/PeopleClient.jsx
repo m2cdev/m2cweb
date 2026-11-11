@@ -36,13 +36,6 @@ function Hero() {
     <section className="relative min-h-[88vh] flex items-center pt-32 pb-20 px-6 md:px-16 overflow-hidden bg-black">
       <GridBackdrop />
       <div className="relative z-10 max-w-6xl mx-auto w-full">
-        <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-4 py-2">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping" style={{ background: CORAL }} />
-            <span className="relative inline-flex h-2.5 w-2.5 rounded-full" style={{ background: CORAL }} />
-          </span>
-          <span className="text-[11px] font-black uppercase tracking-[0.25em] text-white">People · Live session</span>
-        </div>
         <h1 className="text-4xl md:text-7xl lg:text-[5.5rem] font-black tracking-tighter leading-[0.98] text-white max-w-5xl [perspective:800px]">
           <SplitLetters text="Strategy is ^Easy. Execution is where Most Partners ^Skip." />
         </h1>
@@ -67,7 +60,6 @@ function DeckSlide() {
     <WhiteSection>
       <div className="grid gap-10 lg:grid-cols-[1.7fr_1fr] lg:gap-14 items-start">
         <div>
-          <CoralPill>Hands-on, not theory</CoralPill>
           <WhiteTitle className="!mt-5 !mb-10" eyebrow={null} title="Six ways we put coaching on the floor" sub="Pick one, or run the full program." />
           <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
             {services.map((s, i) => (
@@ -76,7 +68,7 @@ function DeckSlide() {
                   <NumDot n={i + 1} />
                   <div>
                     <h3 className="text-lg md:text-xl font-black tracking-tight text-black">{s.title}</h3>
-                    <p className="mt-1.5 font-body text-[15px] leading-relaxed text-[#5E5E5A]">{s.d}</p>
+                    <p className="mt-1.5 font-body text-[15px] leading-relaxed text-[#5A5A5A]">{s.d}</p>
                   </div>
                 </div>
               </Reveal>
@@ -117,7 +109,7 @@ function Execution() {
       <SectionTitle eyebrow="Swipe through" title="This Is What We Mean By ^Execution" sub="Five moments where the work happens, from the room to the rep's next call." />
       <SwipeSlider label="Execution moments">
         {execution.map((e) => (
-          <div key={e.n} className="group h-full min-h-[360px] rounded-3xl border border-white/10 bg-white/[0.03] p-7 flex flex-col transition-colors hover:border-[#62D2A2]/60 select-none">
+          <div key={e.n} className="group h-full min-h-[360px] rounded-3xl border border-white/10 bg-white/[0.03] p-7 flex flex-col transition-colors hover:border-[#63D2A3]/60 select-none">
             <div className="flex items-center justify-between">
               <span className="text-4xl font-black tracking-tighter" style={{ color: MINT }}>{e.n}</span>
               <span className="rounded-full border border-white/20 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-white">{e.k}</span>
@@ -145,7 +137,7 @@ function Ramp() {
           <WhiteTitle eyebrow="30 by 30" title="From first day to productive in ^30 days" sub="The ramp fills in as you scroll." />
           <div className="mt-2 flex items-baseline gap-3">
             <span className="text-7xl md:text-8xl font-black tracking-tighter text-black">30</span>
-            <span className="text-xl font-black text-[#5E5E5A]">days to productive</span>
+            <span className="text-xl font-black text-[#5A5A5A]">days to productive</span>
           </div>
         </div>
         <div ref={ref} className="relative pl-14">
@@ -155,11 +147,11 @@ function Ramp() {
             {ramp.map((r, i) => (
               <Reveal key={r.when} delay={0.05}>
                 <div className="relative">
-                  <NumDot n={i + 1} variant={i === ramp.length - 1 ? "black" : "mint"} className="absolute -left-14 top-0 ring-4 ring-[#F3F3F1]" />
+                  <NumDot n={i + 1} variant={i === ramp.length - 1 ? "black" : "mint"} className="absolute -left-14 top-0 ring-4 ring-white" />
                   <div className={i === ramp.length - 1 ? "rounded-3xl bg-black p-6 text-white" : "rounded-3xl border border-black/10 bg-white p-6"}>
-                    <p className="text-[11px] font-black uppercase tracking-[0.25em]" style={{ color: i === ramp.length - 1 ? MINT : "#12905D" }}>{r.when}</p>
+                    <p className="text-[11px] font-black uppercase tracking-[0.25em]" style={{ color: i === ramp.length - 1 ? MINT : "#63D2A3" }}>{r.when}</p>
                     <h3 className="mt-2 text-xl md:text-2xl font-black tracking-tight">{r.title}</h3>
-                    <p className={i === ramp.length - 1 ? "mt-2 font-body text-white/85" : "mt-2 font-body text-[#5E5E5A]"}>{r.body}</p>
+                    <p className={i === ramp.length - 1 ? "mt-2 font-body text-white/85" : "mt-2 font-body text-[#5A5A5A]"}>{r.body}</p>
                   </div>
                 </div>
               </Reveal>

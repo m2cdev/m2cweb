@@ -95,7 +95,7 @@ export default function FeatureCarousel() {
                 className={cn(
                   "flex items-center gap-4 px-5 py-4 rounded-2xl border transition-all duration-300 text-left w-full",
                   isActive
-                    ? "bg-[#62D2A2] border-[#62D2A2] text-white"
+                    ? "bg-[#63D2A3] border-[#63D2A3] text-white"
                     : "bg-[#0D0D0D] border-white/10 text-white/40"
                 )}
               >
@@ -115,7 +115,7 @@ export default function FeatureCarousel() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.3 }}
-            className="rounded-[2rem] bg-[#62D2A2] p-8 text-white"
+            className="rounded-[2rem] bg-[#63D2A3] p-8 text-white"
           >
             <div className="flex items-center gap-2 mb-6">
               <div className="w-2 h-2 rounded-full bg-white" />
@@ -123,7 +123,7 @@ export default function FeatureCarousel() {
                 Principle 0{currentIndex + 1}
               </span>
             </div>
-            <div className="bg-white text-[#62D2A2] px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.25em] w-fit mb-6">
+            <div className="bg-white text-[#63D2A3] px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.25em] w-fit mb-6">
               {active.label}
             </div>
             <h3 className="text-2xl font-black uppercase tracking-tight mb-5 leading-none">
@@ -138,7 +138,7 @@ export default function FeatureCarousel() {
         <motion.p
           animate={{ opacity: [0.4, 0.9, 0.4] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          className="mt-5 text-[12px] font-black uppercase tracking-[0.3em] text-[#62D2A2] text-center select-none"
+          className="mt-5 text-[12px] font-black uppercase tracking-[0.3em] text-[#63D2A3] text-center select-none"
         >
           ↑ Tap to explore
         </motion.p>
@@ -154,7 +154,7 @@ export default function FeatureCarousel() {
           <motion.p
             animate={{ opacity: [0.4, 0.8, 0.4] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-20 left-1/2 -translate-x-1/2 text-[13px] font-black uppercase tracking-[0.3em] text-[#62D2A2] z-50 select-none whitespace-nowrap"
+            className="absolute bottom-20 left-1/2 -translate-x-1/2 text-[13px] font-black uppercase tracking-[0.3em] text-[#63D2A3] z-50 select-none whitespace-nowrap"
           >
             ↑ Tap to explore
           </motion.p>
@@ -184,7 +184,7 @@ export default function FeatureCarousel() {
                     className={cn(
                       "relative flex items-center gap-6 px-10 py-6 rounded-2xl transition-all duration-700 text-left group border w-full max-w-md",
                       isActive
-                        ? "bg-[#62D2A2] text-white border-[#62D2A2] shadow-[0_20px_40px_rgba(98,210,162,0.15)] z-10"
+                        ? "bg-[#63D2A3] text-white border-[#63D2A3] shadow-[0_20px_40px_rgba(99,210,163,0.15)] z-10"
                         : "bg-transparent text-white/40 border-white/5 hover:border-white/10 hover:text-white"
                     )}
                   >
@@ -233,7 +233,7 @@ export default function FeatureCarousel() {
                     pointerEvents: isActive ? "auto" : "none",
                   }}
                   transition={{ type: "spring", stiffness: 260, damping: 25, mass: 0.8 }}
-                  className="absolute inset-0 rounded-[2.5rem] p-10 flex flex-col items-center justify-center border-2 border-white/10 bg-[#62D2A2] origin-center shadow-2xl text-center"
+                  className="absolute inset-0 rounded-[2.5rem] p-10 flex flex-col items-center justify-center border-2 border-white/10 bg-[#63D2A3] origin-center shadow-2xl text-center"
                 >
                   <AnimatePresence>
                     {isActive && (
@@ -243,7 +243,7 @@ export default function FeatureCarousel() {
                         exit={{ opacity: 0, scale: 0.95 }}
                         className="flex flex-col items-center justify-center text-white"
                       >
-                        <div className="bg-white text-[#62D2A2] px-5 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.25em] w-fit shadow-lg mb-10">
+                        <div className="bg-white text-[#63D2A3] px-5 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.25em] w-fit shadow-lg mb-10">
                           {feature.label}
                         </div>
                         <h3 className="text-5xl font-black text-white uppercase tracking-tight mb-8 leading-none">

@@ -53,9 +53,9 @@ export default function Home() {
             >
               <Link href="/contact">
                 <ShimmerButton
-                  shimmerColor="#62D2A2"
+                  shimmerColor="#63D2A3"
                   background="#000"
-                  className="h-12 px-8 md:h-16 md:px-12 rounded-2xl shadow-[0_0_40px_rgba(98,210,162,0.2)]"
+                  className="h-12 px-8 md:h-16 md:px-12 rounded-2xl shadow-[0_0_40px_rgba(99,210,163,0.2)]"
                 >
                   <span className="text-sm md:text-xl font-bold text-white tracking-tight">Find out how</span>
                 </ShimmerButton>
@@ -67,7 +67,6 @@ export default function Home() {
 
       {/* Problem Section - words animate in on entry, full sentence visible before 3D section */}
       <TextReveal
-        light
         greenWords={["Map2Close", "close"]}
         redWords={["process"]}
       >
@@ -114,14 +113,14 @@ export default function Home() {
       <section className="relative bg-black w-full flex flex-col items-center justify-center overflow-hidden hide-floating-cta">
         {/* Mobile CTA */}
         <div className="md:hidden w-full flex flex-col items-center text-center px-6 py-20">
-          <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,rgba(98,210,162,0.15),transparent_70%)] pointer-events-none" />
+          <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,rgba(99,210,163,0.15),transparent_70%)] pointer-events-none" />
           <div className="absolute inset-x-0 bottom-0 h-px bg-white/10" />
           <h2 className="text-4xl font-black mb-4 tracking-tighter text-white relative z-10">
             One Conversation. <br /> No <span className="text-primary">Commitment.</span>
           </h2>
           <p className="text-base text-white mb-8 font-body relative z-10">Stop guessing. Start closing.</p>
           <Link href="/contact" className="relative z-10">
-            <ShimmerButton className="h-12 px-8 rounded-2xl" shimmerColor="#62D2A2">
+            <ShimmerButton className="h-12 px-8 rounded-2xl" shimmerColor="#63D2A3">
               <span className="text-sm font-black uppercase tracking-widest text-white">Book a Working Session</span>
             </ShimmerButton>
           </Link>
@@ -142,7 +141,7 @@ export default function Home() {
               </h2>
               <p className="text-2xl text-white mb-8 font-body">Stop guessing. Start closing.</p>
               <Link href="/contact">
-                <ShimmerButton className="h-16 px-12 rounded-2xl" shimmerColor="#62D2A2">
+                <ShimmerButton className="h-16 px-12 rounded-2xl" shimmerColor="#63D2A3">
                   <span className="text-xl font-black uppercase tracking-widest text-white">Book a Working Session</span>
                 </ShimmerButton>
               </Link>

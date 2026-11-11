@@ -47,8 +47,8 @@
   background: rgba(0, 0, 0, 0.2);
 }
 
-.uiDot:nth-child(1) { background: #FF5F56; }
-.uiDot:nth-child(2) { background: #FFBD2E; }
+.uiDot:nth-child(1) { background: #FF6B6B; }
+.uiDot:nth-child(2) { background: #63D2A3; }
 .uiDot:nth-child(3) { background: #27C93F; }
 
 .uiUrlBar {
@@ -108,9 +108,9 @@
 }
 
 .activeNavItem {
-  background: rgba(255, 77, 90, 0.1) !important; /* Soft orange/salmon background */
+  background: rgba(255,107,107, 0.1) !important; /* Soft orange/salmon background */
   color: var(--accent-highlight) !important; /* Orange/salmon text */
-  border: 1px solid rgba(255, 77, 90, 0.2);
+  border: 1px solid rgba(255,107,107, 0.2);
 }
 
 .mainContent {
@@ -136,7 +136,7 @@
 
 .previewBox {
   background: var(--surface-2);
-  border: 1px dashed rgba(255, 77, 90, 0.3); /* Orange dashed border */
+  border: 1px dashed rgba(255,107,107, 0.3); /* Orange dashed border */
   border-radius: 12px;
   padding: 2.5rem;
   position: relative;

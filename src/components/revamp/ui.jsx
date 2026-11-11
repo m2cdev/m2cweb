@@ -6,8 +6,8 @@ import { motion, useInView, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export const MINT = "#62D2A2";
-export const CORAL = "#F96B6B";
+export const MINT = "#63D2A3";
+export const CORAL = "#FF6B6B";
 export const QMO_YELLOW = "#FFC801";
 export const GRDR_CYAN = "#00D1FF";
 
@@ -122,8 +122,8 @@ export function Btn({ href, children, external, variant = "primary", className =
   const base = "inline-flex items-center gap-3 px-8 py-4 rounded-full font-black text-xs md:text-sm uppercase tracking-widest transition-all duration-300";
   const styles =
     variant === "primary"
-      ? "bg-[#62D2A2] text-black hover:bg-white"
-      : "border border-white/20 text-white hover:border-[#62D2A2] hover:text-[#62D2A2]";
+      ? "bg-[#63D2A3] text-black hover:bg-white"
+      : "border border-white/20 text-white hover:border-[#63D2A3] hover:text-[#63D2A3]";
   const cls = cn(base, styles, className);
   if (external) {
     return (
@@ -218,7 +218,7 @@ export function ProductTieIn({ headline, body, cta = "See our products", href = 
             <h3 className="text-2xl md:text-4xl font-black tracking-tighter text-white mb-4">{headline}</h3>
             <p className="font-body text-base md:text-lg text-white leading-relaxed">{body}</p>
           </div>
-          <Link href={href} className="inline-flex shrink-0 items-center gap-3 text-xs font-black uppercase tracking-widest text-[#62D2A2] hover:text-white transition-colors">
+          <Link href={href} className="inline-flex shrink-0 items-center gap-3 text-xs font-black uppercase tracking-widest text-[#63D2A3] hover:text-white transition-colors">
             {cta} <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -230,7 +230,7 @@ export function ProductTieIn({ headline, body, cta = "See our products", href = 
 export function CtaBand({ headline, sub, primary, secondary, extra }) {
   return (
     <section className="relative px-6 py-20 md:py-32 text-center overflow-hidden bg-gradient-to-b from-black to-[#050505] hide-floating-cta">
-      <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,rgba(98,210,162,0.15),transparent_70%)] pointer-events-none" />
+      <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,rgba(99,210,163,0.15),transparent_70%)] pointer-events-none" />
       <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
         <h2 className="text-3xl md:text-7xl font-black tracking-tighter leading-[0.98] text-white mb-6">
           <Marked text={headline} />
@@ -292,11 +292,11 @@ export function SplitLetters({ text, className = "", delay = 0, stagger = 0.025 
 }
 
 // ---------- White section kit (deck pattern) ----------
-export const GREEN_ON_WHITE = "#12905D";
+export const GREEN_ON_WHITE = "#63D2A3";
 
 export function WhiteSection({ children, className = "", id, tone = "white" }) {
   return (
-    <section id={id} className={cn("relative px-6 md:px-16 py-16 md:py-28 overflow-hidden text-black", tone === "grey" ? "bg-[#F3F3F1]" : "bg-white", className)}>
+    <section id={id} className={cn("relative px-6 md:px-16 py-16 md:py-28 overflow-hidden text-black", tone === "grey" ? "bg-white" : "bg-white", className)}>
       <div className="relative z-10 max-w-6xl mx-auto">{children}</div>
     </section>
   );
@@ -314,7 +314,7 @@ export function WhiteTitle({ eyebrow, title, sub, center = false, className = ""
           return <span key={i} style={g ? { color: GREEN_ON_WHITE } : undefined}>{w.replace(/^[\^!]/, "")}{" "}</span>;
         })}
       </h2>
-      {sub && <p className={cn("mt-5 text-base md:text-xl text-[#5E5E5A] font-body leading-relaxed max-w-3xl", center && "mx-auto")}>{sub}</p>}
+      {sub && <p className={cn("mt-5 text-base md:text-xl text-[#5A5A5A] font-body leading-relaxed max-w-3xl", center && "mx-auto")}>{sub}</p>}
     </div>
   );
 }
@@ -344,7 +344,7 @@ export function LightCard({ children, dark = false, className = "", ...rest }) {
     <div
       className={cn(
         "rounded-3xl border p-7 md:p-8 transition-all duration-300",
-        dark ? "bg-black border-black text-white" : "bg-[#F4F4F2] border-black/10 text-black hover:border-black/30 hover:-translate-y-0.5",
+        dark ? "bg-black border-black text-white" : "bg-white border-black/10 text-black hover:border-black/30 hover:-translate-y-0.5",
         className
       )}
       {...rest}
@@ -402,10 +402,10 @@ export function SwipeSlider({ children, dark = true, label = "Slides" }) {
           <div className="absolute left-0 top-[-1px] h-[3px]" style={{ width: `${Math.max(8, p * 100)}%`, background: MINT, transition: "width 150ms" }} />
         </div>
         <div className="flex gap-2">
-          <button aria-label="Previous" onClick={() => by(-1)} className="h-10 w-10 rounded-full border flex items-center justify-center transition-colors hover:bg-[#62D2A2] hover:border-[#62D2A2] hover:text-black" style={{ borderColor: dark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.25)", color: col }}>
+          <button aria-label="Previous" onClick={() => by(-1)} className="h-10 w-10 rounded-full border flex items-center justify-center transition-colors hover:bg-[#63D2A3] hover:border-[#63D2A3] hover:text-black" style={{ borderColor: dark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.25)", color: col }}>
             <ArrowRight className="h-4 w-4 rotate-180" />
           </button>
-          <button aria-label="Next" onClick={() => by(1)} className="h-10 w-10 rounded-full border flex items-center justify-center transition-colors hover:bg-[#62D2A2] hover:border-[#62D2A2] hover:text-black" style={{ borderColor: dark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.25)", color: col }}>
+          <button aria-label="Next" onClick={() => by(1)} className="h-10 w-10 rounded-full border flex items-center justify-center transition-colors hover:bg-[#63D2A3] hover:border-[#63D2A3] hover:text-black" style={{ borderColor: dark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.25)", color: col }}>
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>

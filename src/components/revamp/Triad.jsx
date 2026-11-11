@@ -20,8 +20,8 @@ export default function Triad() {
       <svg viewBox="0 0 400 340" className="w-full h-auto" role="img" aria-label="People, Process and Platforms overlap">
         <defs>
           <radialGradient id="triad-glow">
-            <stop offset="0%" stopColor="#62D2A2" stopOpacity="0.55" />
-            <stop offset="100%" stopColor="#62D2A2" stopOpacity="0" />
+            <stop offset="0%" stopColor="#63D2A3" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="#63D2A3" stopOpacity="0" />
           </radialGradient>
         </defs>
         {circles.map((c, i) => (
@@ -32,7 +32,7 @@ export default function Triad() {
             transition={{ duration: reduce ? 0 : 0.9, ease: "easeInOut", delay: i * 0.05 }}
           >
             <Link href={c.href}>
-              <circle cx={c.cx} cy={c.cy} r="95" fill="rgba(98,210,162,0.04)" stroke="#62D2A2" strokeOpacity="0.7" strokeWidth="1.5" className="cursor-pointer transition-all hover:fill-[rgba(98,210,162,0.12)]" />
+              <circle cx={c.cx} cy={c.cy} r="95" fill="rgba(99,210,163,0.04)" stroke="#63D2A3" strokeOpacity="0.7" strokeWidth="1.5" className="cursor-pointer transition-all hover:fill-[rgba(99,210,163,0.12)]" />
             </Link>
           </motion.g>
         ))}

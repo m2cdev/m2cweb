@@ -96,7 +96,7 @@ export default function ContactPage() {
           >
             <div className="relative bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-2xl p-6 md:p-8 overflow-hidden">
               <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/20 rounded-full blur-[100px] opacity-50 pointer-events-none" />
-              <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-[#62D2A2]/20 rounded-full blur-[100px] opacity-50 pointer-events-none" />
+              <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-[#63D2A3]/20 rounded-full blur-[100px] opacity-50 pointer-events-none" />
 
               {formState === "success" ? (
                 <motion.div
@@ -200,7 +200,7 @@ export default function ContactPage() {
                       className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all resize-none" />
                   </div>
 
-                  <ShimmerButton type="submit" disabled={formState === "submitting"} className="w-full h-11 rounded-xl mt-1" shimmerColor="#62D2A2" background="#111">
+                  <ShimmerButton type="submit" disabled={formState === "submitting"} className="w-full h-11 rounded-xl mt-1" shimmerColor="#63D2A3" background="#111">
                     <span className="text-sm font-bold text-white uppercase tracking-widest">
                       {formState === "submitting" ? "Sending..." : "Let's Close"}
                     </span>

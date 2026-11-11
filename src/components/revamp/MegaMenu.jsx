@@ -8,13 +8,13 @@ import { cn } from "@/lib/utils";
 import { QmoMark, GrdrMark, QMO_YELLOW, GRDR_CYAN } from "./ui";
 
 const left = [
-  { name: "People", href: "/what-we-do/people", blurb: "Coaching, Cold Call Labs and manager enablement that changes how reps sell.", tint: "rgba(98,210,162,0.08)" },
-  { name: "Process", href: "/what-we-do/process", blurb: "Playbooks, handoffs and pipeline rituals your team can actually run.", tint: "rgba(98,210,162,0.08)" },
-  { name: "Platforms", href: "/what-we-do/platforms", blurb: "CRM, automation and custom builds wired around how deals move.", tint: "rgba(98,210,162,0.08)" },
+  { name: "People", href: "/what-we-do/people", blurb: "Coaching, Cold Call Labs and manager enablement that changes how reps sell.", tint: "rgba(99,210,163,0.08)" },
+  { name: "Process", href: "/what-we-do/process", blurb: "Playbooks, handoffs and pipeline rituals your team can actually run.", tint: "rgba(99,210,163,0.08)" },
+  { name: "Platforms", href: "/what-we-do/platforms", blurb: "CRM, automation and custom builds wired around how deals move.", tint: "rgba(99,210,163,0.08)" },
 ];
 const right = [
   { name: "Qmo", href: "/products/qmo", blurb: "Live AI coaching on every call, right inside your CRM.", tint: "rgba(255,200,1,0.10)", badge: "NEW", mark: <QmoMark className="h-4" />, color: QMO_YELLOW },
-  { name: "Grdr", href: "/products/grdr", blurb: "Grade every cold call and deal in seconds.", tint: "rgba(0,209,255,0.10)", mark: <GrdrMark className="text-base" />, color: GRDR_CYAN },
+  { name: "Grdr", href: "/products/grdr", blurb: "Grade every cold call and deal in seconds.", tint: "rgba(99,210,163,0.10)", mark: <GrdrMark className="text-base" />, color: GRDR_CYAN },
 ];
 
 const item = (reduce, i) => ({
@@ -40,7 +40,7 @@ function Row({ it, i, reduce, onNavigate }) {
         <span className="block">
           <span className="flex items-center gap-2 text-sm font-bold text-white">
             {it.mark || it.name}
-            {it.badge && <span className="rounded-full px-1.5 py-0.5 text-[9px] font-black tracking-wider text-white" style={{ background: "#F96B6B" }}>{it.badge}</span>}
+            {it.badge && <span className="rounded-full px-1.5 py-0.5 text-[9px] font-black tracking-wider text-white" style={{ background: "#FF6B6B" }}>{it.badge}</span>}
           </span>
           <span className="mt-1 block text-[13px] leading-snug text-white/70">{it.blurb}</span>
         </span>
@@ -81,7 +81,7 @@ export function MegaMenu({ open, setOpen, active, label, href }) {
       <div className="flex items-center">
         <Link
           href={href}
-          className={cn("text-sm font-medium transition-colors duration-300", active ? "text-primary" : "text-white hover:text-[#F96B6B]")}
+          className={cn("text-sm font-medium transition-colors duration-300", active ? "text-primary" : "text-white hover:text-[#FF6B6B]")}
         >
           {label}
         </Link>
@@ -112,15 +112,15 @@ export function MegaMenu({ open, setOpen, active, label, href }) {
           >
             <div className="grid w-[640px] max-w-[92vw] grid-cols-[1fr_auto_1fr] rounded-2xl border border-white/10 bg-black p-3 shadow-2xl">
               <div>
-                <p className="px-4 pb-2 pt-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#62D2A2]">The Map2Close Experience</p>
+                <p className="px-4 pb-2 pt-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#63D2A3]">The Map2Close Experience</p>
                 {left.map((it, i) => <Row key={it.name} it={it} i={i} reduce={reduce} onNavigate={() => setOpen(false)} />)}
-                <Link href="/what-we-do" onClick={() => setOpen(false)} className="mx-4 mt-3 mb-1 inline-block text-xs font-bold text-white/70 hover:text-[#62D2A2]">How it works together &rarr;</Link>
+                <Link href="/what-we-do" onClick={() => setOpen(false)} className="mx-4 mt-3 mb-1 inline-block text-xs font-bold text-white/70 hover:text-[#63D2A3]">How it works together &rarr;</Link>
               </div>
               <div className="mx-3 w-px bg-white/10" aria-hidden="true" />
               <div>
-                <p className="px-4 pb-2 pt-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#62D2A2]">Product Portfolio</p>
+                <p className="px-4 pb-2 pt-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#63D2A3]">Product Portfolio</p>
                 {right.map((it, i) => <Row key={it.name} it={it} i={i + left.length} reduce={reduce} onNavigate={() => setOpen(false)} />)}
-                <Link href="/products" onClick={() => setOpen(false)} className="mx-4 mt-3 mb-1 inline-block text-xs font-bold text-white/70 hover:text-[#62D2A2]">See all products &rarr;</Link>
+                <Link href="/products" onClick={() => setOpen(false)} className="mx-4 mt-3 mb-1 inline-block text-xs font-bold text-white/70 hover:text-[#63D2A3]">See all products &rarr;</Link>
               </div>
             </div>
           </motion.div>
@@ -150,9 +150,9 @@ export function MobileWhatWeDo({ label, href, pathname, onNavigate }) {
         <div className="ml-4 flex flex-col gap-6 border-l border-white/10 pl-6 my-2">
           {groups.map((g) => (
             <div key={g.title} className="flex flex-col gap-3">
-              <p className="text-[11px] font-black uppercase tracking-[0.2em] text-[#62D2A2]">{g.title}</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.2em] text-[#63D2A3]">{g.title}</p>
               {g.links.map((l) => (
-                <Link key={l.href + l.name} href={l.href} onClick={onNavigate} className="text-lg text-white/80 hover:text-[#F96B6B]">{l.name}</Link>
+                <Link key={l.href + l.name} href={l.href} onClick={onNavigate} className="text-lg text-white/80 hover:text-[#FF6B6B]">{l.name}</Link>
               ))}
             </div>
           ))}

@@ -131,9 +131,9 @@ export default function ServiceJunction({
         style={{
           opacity: 0,
           background: `
-            radial-gradient(ellipse 6% 18% at 50% 50%, rgba(180,255,220,0.95) 0%, rgba(98,210,162,0.85) 30%, transparent 100%),
-            radial-gradient(ellipse 20% 45% at 50% 50%, rgba(98,210,162,0.45) 0%, rgba(98,210,162,0.15) 50%, transparent 100%),
-            radial-gradient(ellipse 40% 80% at 50% 50%, rgba(98,210,162,0.12) 0%, transparent 100%)
+            radial-gradient(ellipse 6% 18% at 50% 50%, rgba(180,255,220,0.95) 0%, rgba(99,210,163,0.85) 30%, transparent 100%),
+            radial-gradient(ellipse 20% 45% at 50% 50%, rgba(99,210,163,0.45) 0%, rgba(99,210,163,0.15) 50%, transparent 100%),
+            radial-gradient(ellipse 40% 80% at 50% 50%, rgba(99,210,163,0.12) 0%, transparent 100%)
           `,
         }}
       />
@@ -193,7 +193,7 @@ export default function ServiceJunction({
               href={link} 
              >
                <ShimmerButton 
-                 shimmerColor="#62D2A2" 
+                 shimmerColor="#63D2A3" 
                  background="#050505" 
                  className="h-14 px-8 rounded-full"
                  shimmerSize="0.1em"

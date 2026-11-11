@@ -73,20 +73,20 @@ export function PilotHero() {
       <section className="relative w-full flex flex-col justify-center px-6 pt-28 pb-12 bg-[#0A0A0A] overflow-hidden">
         {/* Simple ambient glow - no canvas, no GSAP */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[340px] h-[340px] rounded-full bg-[#62D2A2]/10 blur-[100px]" />
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[340px] h-[340px] rounded-full bg-[#63D2A3]/10 blur-[100px]" />
         </div>
 
         <div className="relative z-10 max-w-lg">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-[1px] bg-[#62D2A2]/40" />
-            <span className="text-[10px] font-black tracking-[0.4em] text-[#62D2A2] uppercase font-mono">
+            <div className="w-8 h-[1px] bg-[#63D2A3]/40" />
+            <span className="text-[10px] font-black tracking-[0.4em] text-[#63D2A3] uppercase font-mono">
               THE PILOT PROGRAM
             </span>
           </div>
 
           <h1 className="text-5xl font-black tracking-tighter leading-[1.05] mb-6 text-white">
             <div>Prove It First.</div>
-            <div><span className="text-[#62D2A2]">Scale</span> What Works.</div>
+            <div><span className="text-[#63D2A3]">Scale</span> What Works.</div>
           </h1>
 
           <p className="text-base text-white leading-relaxed mb-10 font-body">
@@ -95,7 +95,7 @@ export function PilotHero() {
 
           <div className="flex flex-col gap-4">
             <ShimmerButton
-              shimmerColor="#62D2A2"
+              shimmerColor="#63D2A3"
               background="#111"
               className="h-12 px-8 rounded-full w-full"
               onClick={scrollToHowItWorks}
@@ -126,8 +126,8 @@ export function PilotHero() {
           <div ref={textRef} className={styles.contentWrapper}>
             <div className={styles.textBlock}>
               <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-[1px] bg-[#62D2A2]/40" />
-                <span className="text-[11px] font-black tracking-[0.4em] text-[#62D2A2] uppercase font-mono">
+                <div className="w-10 h-[1px] bg-[#63D2A3]/40" />
+                <span className="text-[11px] font-black tracking-[0.4em] text-[#63D2A3] uppercase font-mono">
                     THE PILOT PROGRAM
                 </span>
               </div>
@@ -135,7 +135,7 @@ export function PilotHero() {
               <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[1.05] mb-10 text-white">
                 <div>Prove It First.</div>
                 <div>
-                  <span className="text-[#62D2A2]">Scale</span> What Works.
+                  <span className="text-[#63D2A3]">Scale</span> What Works.
                 </div>
               </h1>
 
@@ -145,7 +145,7 @@ export function PilotHero() {
 
               <div className="flex flex-col sm:flex-row items-center gap-6 mb-8">
                 <ShimmerButton
-                  shimmerColor="#62D2A2"
+                  shimmerColor="#63D2A3"
                   background="#111"
                   className="h-16 px-10 rounded-full"
                   onClick={scrollToHowItWorks}
