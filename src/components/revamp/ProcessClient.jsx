@@ -149,7 +149,7 @@ function Meets() {
                   <span className={`rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] transition-colors ${on ? "text-white" : "text-black/60 border border-black/15"}`} style={on ? { background: CORAL } : undefined}>{m.tag}</span>
                 </div>
                 <h3 className="mt-7 text-2xl md:text-3xl font-black tracking-tight leading-tight">{m.title}</h3>
-                <p className={`mt-3 font-body text-base md:text-lg leading-relaxed transition-colors ${on ? "text-white/85" : "text-[#5C5C5C]"}`}>{m.body}</p>
+                <p className={`mt-3 font-body text-base md:text-lg leading-relaxed transition-colors ${on ? "text-white/85" : "text-[#5A5A5A]"}`}>{m.body}</p>
               </button>
             </Reveal>
           );
@@ -217,7 +217,7 @@ function Playbook() {
           <div key={p.title} className={`h-full min-h-[300px] rounded-3xl border p-7 flex flex-col select-none ${i === 0 ? "bg-black border-black text-white" : "bg-white border-black/10 text-black"}`}>
             <NumDot n={i + 1} variant={i === 0 ? "mint" : "black"} />
             <h3 className="mt-8 text-2xl font-black tracking-tight leading-tight">{p.title}</h3>
-            <p className={`mt-3 font-body text-base leading-relaxed ${i === 0 ? "text-white/85" : "text-[#5C5C5C]"}`}>{p.d}</p>
+            <p className={`mt-3 font-body text-base leading-relaxed ${i === 0 ? "text-white/85" : "text-[#5A5A5A]"}`}>{p.d}</p>
           </div>
         ))}
       </SwipeSlider>

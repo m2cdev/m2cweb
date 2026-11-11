@@ -22,7 +22,7 @@ function useConsentRaw() {
 }
 
 const buttonBase =
-  "rounded-lg px-4 py-2.5 text-sm font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#62D2A2]";
+  "rounded-lg px-4 py-2.5 text-sm font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#63D2A3]";
 
 /** Cookie banner (first visit) and settings panel (footer "Cookie settings"). */
 export function CookieBanner() {
@@ -68,7 +68,7 @@ export function CookieBanner() {
         <p className="mt-2 text-sm leading-relaxed text-white/80">
           We use essential cookies to run this site and remember your choice. Optional cookies are set only if you
           allow them. See our{" "}
-          <Link href="/legal/cookies" className="text-[#62D2A2] underline underline-offset-4">
+          <Link href="/legal/cookies" className="text-[#63D2A3] underline underline-offset-4">
             Cookie Notice
           </Link>
           .
@@ -81,7 +81,7 @@ export function CookieBanner() {
                 <span className="font-semibold">Essential</span>
                 <span className="block text-white/60">Required for the site to work. Always on.</span>
               </span>
-              <input type="checkbox" checked disabled aria-label="Essential cookies (always on)" className="h-4 w-4 accent-[#62D2A2]" />
+              <input type="checkbox" checked disabled aria-label="Essential cookies (always on)" className="h-4 w-4 accent-[#63D2A3]" />
             </li>
             {categories.map((c) => {
               const blocked = c.key === "advertising" && gpc;
@@ -97,7 +97,7 @@ export function CookieBanner() {
                     disabled={blocked}
                     checked={!blocked && draft[c.key] === true}
                     onChange={(e) => setDraft((d) => ({ ...d, [c.key]: e.target.checked }))}
-                    className="h-4 w-4 accent-[#62D2A2]"
+                    className="h-4 w-4 accent-[#63D2A3]"
                   />
                 </li>
               );
@@ -121,7 +121,7 @@ export function CookieBanner() {
               Customize
             </button>
           )}
-          <button type="button" onClick={() => save(all)} className={`${buttonBase} bg-[#62D2A2] text-black hover:bg-white`}>
+          <button type="button" onClick={() => save(all)} className={`${buttonBase} bg-[#63D2A3] text-black hover:bg-white`}>
             Accept all
           </button>
         </div>

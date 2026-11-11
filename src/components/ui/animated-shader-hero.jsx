@@ -360,17 +360,17 @@ const AnimatedShaderHero = ({
             {/* Trust Badge */}
             {trustBadge && (
             <div className="mb-12 animate-fade-in-down">
-                <div className="inline-flex items-center gap-2 px-6 py-3 bg-[#62D2A2]/10 backdrop-blur-md border border-[#62D2A2]/30 rounded-full text-sm">
+                <div className="inline-flex items-center gap-2 px-6 py-3 bg-[#63D2A3]/10 backdrop-blur-md border border-[#63D2A3]/30 rounded-full text-sm">
                 {trustBadge.icons && (
                     <div className="flex">
                     {trustBadge.icons.map((icon, index) => (
-                        <span key={index} className="text-[#62D2A2]">
+                        <span key={index} className="text-[#63D2A3]">
                         {icon}
                         </span>
                     ))}
                     </div>
                 )}
-                <span className="text-[#62D2A2] font-black uppercase tracking-widest">{trustBadge.text}</span>
+                <span className="text-[#63D2A3] font-black uppercase tracking-widest">{trustBadge.text}</span>
                 </div>
             </div>
             )}
@@ -381,7 +381,7 @@ const AnimatedShaderHero = ({
                 <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white animate-fade-in-up animation-delay-200 leading-[0.95]">
                 {headline.line1}
                 </h1>
-                <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-[#62D2A2] animate-fade-in-up animation-delay-400 leading-[0.95]">
+                <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-[#63D2A3] animate-fade-in-up animation-delay-400 leading-[0.95]">
                 {headline.line2}
                 </h1>
             </div>
@@ -399,7 +399,7 @@ const AnimatedShaderHero = ({
                 {buttons.primary && (
                     <button 
                     onClick={buttons.primary.onClick}
-                    className="px-10 py-4 bg-[#62D2A2] hover:bg-[#58bd92] text-black rounded-full font-black text-sm uppercase tracking-widest transition-all duration-300 hover:scale-105 shadow-[0_0_40px_rgba(98,210,162,0.2)]"
+                    className="px-10 py-4 bg-[#63D2A3] hover:bg-[#58bd92] text-black rounded-full font-black text-sm uppercase tracking-widest transition-all duration-300 hover:scale-105 shadow-[0_0_40px_rgba(99,210,163,0.2)]"
                     >
                     {buttons.primary.text}
                     </button>

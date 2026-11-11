@@ -17,7 +17,7 @@ const caseStudies = [
     description: "The right content never made it into the right conversation at the right time. Assets existed but were scattered, outdated, and impossible to surface during an active deal. We built a centralized Sales Enablement Hub where reps filter assets by deal stage, buyer persona, and use case in real time.",
     loomId: "8815fd477dcd444799521d13995e8442",
     thumbnail: "/images/case-studies/sales-enablement-hub-loom.png",
-    color: "#62D2A2",
+    color: "#63D2A3",
   },
   {
     id: "signal-intelligence-engine",
@@ -26,7 +26,7 @@ const caseStudies = [
     description: "Reps were cold calling blind - no way to know which accounts were actively in pain. We built a custom Signal Intelligence Engine that scraped public review data, scored every account across Fit, Demand, Comms Pain, and Growth, and pushed high-scoring leads directly into HubSpot with rep-facing briefs.",
     loomId: "7694a0c1e94d44cc875b8f75e7b4d0e7",
     thumbnail: "/images/case-studies/signal-intelligence-engine-loom.png",
-    color: "#F96B6B",
+    color: "#FF6B6B",
   },
   {
     id: "trial-to-close-engine",
@@ -35,7 +35,7 @@ const caseStudies = [
     description: "A California-based SaaS team had deals slow down the moment they left the demo stage. We designed a Trial-to-Close Engine: a guided playbook with give/get incentives, partnered with a Deal Accelerator Engine that monitored every active trial and flagged deals stalling beyond threshold points.",
     loomId: "09630646d94f4811a4186f9e879e4b7c",
     thumbnail: "/images/case-studies/trial-to-close-engine-loom.png",
-    color: "#62D2A2",
+    color: "#63D2A3",
   },
 ];
 
@@ -118,9 +118,9 @@ export default function CaseStudies() {
       <div className="relative z-10 bg-white text-black pb-28 md:pb-40 pt-16 md:pt-28 px-6 md:px-12">
        <div className="max-w-[1400px] mx-auto">
         <div className="mb-12 md:mb-20">
-          <p className="mb-4 text-[12px] md:text-[13px] font-black uppercase tracking-[0.3em] text-[#12905D]">Case studies</p>
-          <h2 className="text-3xl md:text-6xl font-black tracking-tighter leading-[1.02] text-black max-w-4xl">Real problems. <span className="text-[#12905D]">Real builds.</span></h2>
-          <p className="mt-5 text-base md:text-xl text-[#5E5E5A] font-body max-w-3xl">Three systems we built inside live revenue motions.</p>
+          <p className="mb-4 text-[12px] md:text-[13px] font-black uppercase tracking-[0.3em] text-[#63D2A3]">Case studies</p>
+          <h2 className="text-3xl md:text-6xl font-black tracking-tighter leading-[1.02] text-black max-w-4xl">Real problems. <span className="text-[#63D2A3]">Real builds.</span></h2>
+          <p className="mt-5 text-base md:text-xl text-[#5A5A5A] font-body max-w-3xl">Three systems we built inside live revenue motions.</p>
         </div>
         <div className="space-y-20 md:space-y-40">
           {caseStudies.map((cs, index) => (
@@ -131,19 +131,19 @@ export default function CaseStudies() {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8 }}
                 >
-                  <p className="inline-block px-4 py-1.5 rounded-full bg-[#F96B6B] text-[11px] font-black text-white uppercase tracking-[0.18em] mb-6">
+                  <p className="inline-block px-4 py-1.5 rounded-full bg-[#FF6B6B] text-[11px] font-black text-white uppercase tracking-[0.18em] mb-6">
                     {cs.company}
                   </p>
                   <h2 className="text-2xl md:text-5xl font-black mb-8 tracking-tight leading-tight text-black">
                     {cs.title}
                   </h2>
-                  <p className="text-sm md:text-lg text-[#4A4A46] font-body leading-relaxed mb-8 md:mb-10">
+                  <p className="text-sm md:text-lg text-[#444444] font-body leading-relaxed mb-8 md:mb-10">
                     {cs.description}
                   </p>
                   <div className="flex gap-4 flex-wrap">
                     <Link href={`/case-studies/${cs.id}`}>
                       <ShimmerButton
-                        shimmerColor="#62D2A2"
+                        shimmerColor="#63D2A3"
                         background="#000"
                         className="h-12 px-8 rounded-full"
                         shimmerSize="0.1em"

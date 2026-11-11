@@ -48,6 +48,7 @@ type Phase = {
   pStart: number;
   pEnd: number;
   pFix?: number;
+  services?: string[];
   type: "intro" | "leak" | "outro";
   pipeZ?: number;
 };
@@ -63,47 +64,38 @@ const PHASES: Phase[] = [
   },
   {
     id: 1,
-    label: "Broken sales motions that stall your momentum.",
-    sub: "Leaking revenue → Process",
-    solution: "Diagnose",
-    solutionSub: "We audit your full sales motion and identify where deals are breaking down.",
+    label: "People",
+    sub: "Reps who skip the basics, deals that stall, and managers with no time to coach.",
+    solution: "People",
+    solutionSub: "Coaching that changes how your reps sell.",
+    services: ["Live deal coaching", "Cold Call Labs", "1-1 coaching and group training", "Manager enablement and rep ramp"],
     pStart: 0.08,
-    pEnd: 0.26,
+    pEnd: 0.33,
     pFix: 0.124,
     type: "leak",
     pipeZ: 70,
   },
   {
     id: 2,
-    label: "Marketing & Sales initiatives working in silos.",
-    sub: "Broken alignment → People",
-    solution: "Build",
-    solutionSub: "We prototype the solution and pressure test it with your team at no cost.",
-    pStart: 0.26,
-    pEnd: 0.45,
-    pFix: 0.309,
+    label: "Process",
+    sub: "No shared playbook, messy handoffs, and follow-ups that fall through the cracks.",
+    solution: "Process",
+    solutionSub: "Playbooks and rituals your team can actually run.",
+    services: ["Talk tracks and objection handling", "SDR to AE to CS handoffs", "Pipeline rituals and call reviews", "90-day pilot with one measurable outcome"],
+    pStart: 0.33,
+    pEnd: 0.56,
+    pFix: 0.402,
     type: "leak",
-    pipeZ: 10,
+    pipeZ: -20,
   },
   {
     id: 3,
-    label: "Follow-ups that fall through the cracks.",
-    sub: "Missed pipeline → Process",
-    solution: "Pilot",
-    solutionSub: "90-day engagement. One measurable outcome. If we don't hit it, we keep working, a risk-free POC.",
-    pStart: 0.45,
-    pEnd: 0.63,
-    pFix: 0.494,
-    type: "leak",
-    pipeZ: -50,
-  },
-  {
-    id: 4,
-    label: "Processes that become more inefficient as you get bigger.",
-    sub: "Diminishing returns → Platforms",
-    solution: "Scale",
-    solutionSub: "Once we prove it works, we build it out. Full solution, no limits.",
-    pStart: 0.63,
+    label: "Platforms",
+    sub: "A stack that fights how deals move, and tools that can't keep up as you grow.",
+    solution: "Platforms",
+    solutionSub: "A stack wired around how deals move.",
+    services: ["CRM setup and workflow automation", "Tech stack integration", "Custom builds for what your stack can't do", "Qmo and Grdr, our own products"],
+    pStart: 0.56,
     pEnd: 0.85,
     pFix: 0.679,
     type: "leak",
@@ -119,7 +111,7 @@ const PHASES: Phase[] = [
   },
 ];
 
-type LeakPhase = Phase & { pipeZ: number; pFix: number; solution: string; solutionSub: string };
+type LeakPhase = Phase & { pipeZ: number; pFix: number; solution: string; solutionSub: string; services: string[] };
 const LEAK_PHASES = PHASES.filter((p) => p.type === "leak") as LeakPhase[];
 const LEAK_COUNT = LEAK_PHASES.length;
 
@@ -139,7 +131,7 @@ const OUTRO_SWEEP_END_Z = -168;
 
 const PIPE_Y = -2.5;
 const PIPE_R = 2.8;
-const PIPE_ZONES = [120, 70, 10, -50, -110, -165];
+const PIPE_ZONES = [120, 70, -20, -110, -165];
 const PIN_Y = PIPE_Y + 11.5;
 const LABEL_OFFSET = new THREE.Vector3(3.1, 2.1, 0);
 const LABEL_DISTANCE_FACTOR = 22;
@@ -301,8 +293,8 @@ const ContourGrid = memo(function ContourGrid() {
 // LIGHTS - all permanent, intensity animated. Never mounted/unmounted.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const COLOR_RED = new THREE.Color("#F96B6B");
-const COLOR_GREEN = new THREE.Color("#62D2A2");
+const COLOR_RED = new THREE.Color("#FF6B6B");
+const COLOR_GREEN = new THREE.Color("#63D2A3");
 
 function LeakLights({ fsRef }: { fsRef: React.MutableRefObject<FrameState> }) {
   const refs = useRef<(THREE.PointLight | null)[]>(new Array(LEAK_COUNT).fill(null));
@@ -339,7 +331,7 @@ function LeakLights({ fsRef }: { fsRef: React.MutableRefObject<FrameState> }) {
             refs.current[i] = l;
           }}
           position={[0, PIPE_Y + 5, phase.pipeZ]}
-          color="#F96B6B"
+          color="#FF6B6B"
           intensity={0}
           distance={34}
         />
@@ -387,7 +379,7 @@ const patchGeo = new THREE.CylinderGeometry(PIPE_R + 0.8, PIPE_R + 0.8, 7, 28);
 const crackOuterGeo = new THREE.CylinderGeometry(PIPE_R + 0.12, PIPE_R + 0.12, 5.5, 28, 1, true);
 const crackRingGeo = new THREE.TorusGeometry(PIPE_R + 0.3, 0.35, 10, 32);
 
-const SEG_HEALTHY = { color: new THREE.Color("#2daa72"), emissive: new THREE.Color("#0d4028"), intensity: 0.8 };
+const SEG_HEALTHY = { color: new THREE.Color("#63D2A3"), emissive: new THREE.Color("#0d4028"), intensity: 0.8 };
 const SEG_LEAKING = { color: new THREE.Color("#416358"), emissive: new THREE.Color("#1a3a30"), intensity: 0.28 };
 
 function Pipeline({ fsRef }: { fsRef: React.MutableRefObject<FrameState> }) {
@@ -447,7 +439,7 @@ function Pipeline({ fsRef }: { fsRef: React.MutableRefObject<FrameState> }) {
               ref={(m) => {
                 segMats.current[i] = m;
               }}
-              color="#2daa72"
+              color="#63D2A3"
               emissive="#0d4028"
               emissiveIntensity={0.8}
               roughness={0.28}
@@ -467,7 +459,7 @@ function Pipeline({ fsRef }: { fsRef: React.MutableRefObject<FrameState> }) {
             geometry={patchGeo}
             visible={false}
           >
-            <meshStandardMaterial color="#62D2A2" emissive="#42D2A2" emissiveIntensity={3} roughness={0.12} metalness={0.92} />
+            <meshStandardMaterial color="#63D2A3" emissive="#42D2A2" emissiveIntensity={3} roughness={0.12} metalness={0.92} />
           </mesh>
           {/* Crack sleeve + hot ring (shown while leaking) */}
           <group
@@ -479,7 +471,7 @@ function Pipeline({ fsRef }: { fsRef: React.MutableRefObject<FrameState> }) {
             <mesh geometry={crackOuterGeo}>
               <meshStandardMaterial
                 color="#c0392b"
-                emissive="#F96B6B"
+                emissive="#FF6B6B"
                 emissiveIntensity={2.5}
                 roughness={0.35}
                 metalness={0.6}
@@ -493,8 +485,8 @@ function Pipeline({ fsRef }: { fsRef: React.MutableRefObject<FrameState> }) {
                 ref={(m) => {
                   ringMats.current[i] = m;
                 }}
-                color="#FF2222"
-                emissive="#FF2222"
+                color="#FF6B6B"
+                emissive="#FF6B6B"
                 emissiveIntensity={2}
                 roughness={0.08}
                 metalness={0.1}
@@ -562,7 +554,7 @@ function LeakDrips({ phase, fsRef }: { phase: LeakPhase; fsRef: React.MutableRef
 
   return (
     <points ref={ref} geometry={geo} position={[0, PIPE_Y, phase.pipeZ]} visible={false}>
-      <pointsMaterial color="#FF4040" size={0.16} transparent opacity={0.85} sizeAttenuation />
+      <pointsMaterial color="#FF6B6B" size={0.16} transparent opacity={0.85} sizeAttenuation />
     </points>
   );
 }
@@ -573,8 +565,8 @@ function LeakDrips({ phase, fsRef }: { phase: LeakPhase; fsRef: React.MutableRef
 
 const PIN_SPHERE_GEO = new THREE.SphereGeometry(0.9, 20, 20);
 const PIN_CONE_GEO = new THREE.ConeGeometry(0.62, 2.0, 16);
-const PIN_RED = { color: new THREE.Color("#F96B6B"), emissive: new THREE.Color("#cc3333"), intensity: 4.0 };
-const PIN_GREEN = { color: new THREE.Color("#62D2A2"), emissive: new THREE.Color("#3dbd8a"), intensity: 3.5 };
+const PIN_RED = { color: new THREE.Color("#FF6B6B"), emissive: new THREE.Color("#FF6B6B"), intensity: 4.0 };
+const PIN_GREEN = { color: new THREE.Color("#63D2A3"), emissive: new THREE.Color("#3dbd8a"), intensity: 3.5 };
 
 function LeakPins({ fsRef }: { fsRef: React.MutableRefObject<FrameState> }) {
   const isMobile = useIsMobileViewport();
@@ -627,8 +619,8 @@ function LeakPins({ fsRef }: { fsRef: React.MutableRefObject<FrameState> }) {
               ref={(m) => {
                 sphereMats.current[i] = m;
               }}
-              color="#F96B6B"
-              emissive="#cc3333"
+              color="#FF6B6B"
+              emissive="#FF6B6B"
               emissiveIntensity={4.0}
               roughness={0.1}
               metalness={0.2}
@@ -639,8 +631,8 @@ function LeakPins({ fsRef }: { fsRef: React.MutableRefObject<FrameState> }) {
               ref={(m) => {
                 coneMats.current[i] = m;
               }}
-              color="#F96B6B"
-              emissive="#cc3333"
+              color="#FF6B6B"
+              emissive="#FF6B6B"
               emissiveIntensity={3.0}
               roughness={0.1}
               metalness={0.2}
@@ -730,11 +722,11 @@ function M2CLeader({ fsRef }: { fsRef: React.MutableRefObject<FrameState> }) {
       <group ref={ref}>
         <mesh>
           <circleGeometry args={[2.8, 64]} />
-          <meshBasicMaterial color="#62D2A2" transparent opacity={0.04} side={THREE.DoubleSide} />
+          <meshBasicMaterial color="#63D2A3" transparent opacity={0.04} side={THREE.DoubleSide} />
         </mesh>
         <mesh position={[0, 0, 0.005]}>
           <circleGeometry args={[1.9, 64]} />
-          <meshBasicMaterial color="#62D2A2" transparent opacity={0.12} side={THREE.DoubleSide} />
+          <meshBasicMaterial color="#63D2A3" transparent opacity={0.12} side={THREE.DoubleSide} />
         </mesh>
         <mesh position={[0, 0, 0.01]}>
           <circleGeometry args={[1.35, 64]} />
@@ -742,7 +734,7 @@ function M2CLeader({ fsRef }: { fsRef: React.MutableRefObject<FrameState> }) {
         </mesh>
       </group>
       {/* Light lives outside the toggled group so the light count never changes */}
-      <pointLight ref={lightRef} color="#62D2A2" intensity={25} distance={25} />
+      <pointLight ref={lightRef} color="#63D2A3" intensity={25} distance={25} />
     </>
   );
 }
@@ -867,7 +859,7 @@ function Scene({
     <>
       <ambientLight intensity={0.22} color="#d0f0e0" />
       <directionalLight position={[20, 45, 15]} intensity={0.6} color="#c8ead8" />
-      <pointLight position={[0, 30, -60]} color="#62D2A2" intensity={22} distance={120} />
+      <pointLight position={[0, 30, -60]} color="#63D2A3" intensity={22} distance={120} />
       <AtmosphericLight fsRef={fsRef} />
       <LeakLights fsRef={fsRef} />
 
@@ -983,42 +975,24 @@ function PinLabel({
     >
       {solved ? (
         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-          <span style={{ fontSize: "clamp(12px, 2vw, 18px)", letterSpacing: "0.22em", textTransform: "uppercase", color: "#62D2A2", fontFamily: "monospace", fontWeight: 700 }}>
-            ✓ sealed
+          <span style={{ fontSize: "clamp(12px, 2vw, 18px)", letterSpacing: "0.22em", textTransform: "uppercase", color: "#63D2A3", fontFamily: "monospace", fontWeight: 700 }}>
+            ✓ Fixed
           </span>
           <span style={{ fontSize: "clamp(20px, 4.2vw, 35px)", fontWeight: 800, color: "#ffffff", lineHeight: 1.05 }}>{phase.solution}</span>
           <span style={{ fontSize: "clamp(15px, 3.2vw, 28px)", color: "rgba(255,255,255,0.86)", lineHeight: 1.2, fontWeight: 600 }}>{phase.solutionSub}</span>
-          {phase.id === 2 && (
-            <div style={{ marginTop: "24px", display: "flex", flexDirection: "row", gap: "32px", width: "100%" }}>
-              <div style={{ background: "rgba(14, 40, 30, 0.85)", borderLeft: "3px solid #62D2A2", padding: "16px 20px", width: "300px", borderRadius: "0 12px 12px 0" }}>
-                <h4 style={{ color: "#ffffff", fontSize: "18px", fontWeight: 900, marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Rep Enablement</h4>
-                <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.9)", lineHeight: 1.5, fontWeight: 500 }}>Transforming reps into surgical deal-closers with repeatable playbooks.</p>
-              </div>
-              <div style={{ background: "rgba(20, 28, 26, 0.85)", borderLeft: "3px solid rgba(255,255,255,0.4)", padding: "16px 20px", width: "350px", borderRadius: "0 12px 12px 0", pointerEvents: "auto" }}>
-                <h4 style={{ color: "#ffffff", fontSize: "18px", fontWeight: 900, marginBottom: "4px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Rev Ops</h4>
-                <div style={{ height: "1px", background: "rgba(255,255,255,0.2)", margin: "12px 0" }} />
-                <div style={{ marginBottom: "16px" }}>
-                  <p style={{ fontSize: "16px", color: "#fff", fontWeight: 800, marginBottom: "4px" }}>Existing Tech Stack</p>
-                  <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.7)", marginBottom: "8px", lineHeight: 1.4 }}>Optimizing CRM for speed.</p>
-                  <a href="/what-we-do/platforms" style={{ fontSize: "13px", color: "#62D2A2", fontWeight: 900, textDecoration: "none", borderBottom: "1px solid rgba(98, 210, 162, 0.3)" }}>
-                    VIEW IMPLEMENTATION →
-                  </a>
-                </div>
-                <div>
-                  <p style={{ fontSize: "16px", color: "#fff", fontWeight: 800, marginBottom: "4px" }}>Custom Tools</p>
-                  <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.7)", marginBottom: "8px", lineHeight: 1.4 }}>Bespoke software solutions.</p>
-                  <a href="/what-we-do/platforms#custom-builds" style={{ fontSize: "13px", color: "#62D2A2", fontWeight: 900, textDecoration: "none", borderBottom: "1px solid rgba(98, 210, 162, 0.3)" }}>
-                    VIEW BUILDOUTS →
-                  </a>
-                </div>
-              </div>
-            </div>
-          )}
+          <ul style={{ margin: "8px 0 0", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
+            {phase.services.map((svc) => (
+              <li key={svc} style={{ display: "flex", alignItems: "center", gap: "12px", fontSize: "clamp(14px, 2.4vw, 20px)", color: "#ffffff", fontWeight: 600 }}>
+                <span style={{ color: "#63D2A3", fontWeight: 900 }}>✓</span>
+                {svc}
+              </li>
+            ))}
+          </ul>
         </div>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-          <span style={{ fontSize: "clamp(12px, 2vw, 18px)", letterSpacing: "0.22em", textTransform: "uppercase", color: "#F96B6B", fontFamily: "monospace", fontWeight: 700 }}>
-            ● leak detected
+          <span style={{ fontSize: "clamp(12px, 2vw, 18px)", letterSpacing: "0.22em", textTransform: "uppercase", color: "#FF6B6B", fontFamily: "monospace", fontWeight: 700 }}>
+            Before Map2Close
           </span>
           <span style={{ fontSize: "clamp(20px, 4.2vw, 35px)", fontWeight: 800, color: "#ffffff", lineHeight: 1.05 }}>{phase.label}</span>
           <span style={{ fontSize: "clamp(15px, 3.2vw, 28px)", color: "rgba(255,255,255,0.78)", lineHeight: 1.2, fontWeight: 600 }}>{phase.sub}</span>
@@ -1051,7 +1025,7 @@ function StoryOverlay({ sv }: { sv: MotionValue<number> }) {
         <div className="absolute inset-x-0 rounded-full" style={{ width: 2, height: "100%", background: "rgba(255,255,255,0.07)", left: "50%", transform: "translateX(-50%)" }} />
         <motion.div
           className="absolute rounded-full"
-          style={{ width: 2, top: 0, height: fillHeight, background: "linear-gradient(to bottom, rgba(249,107,107,0.6), #62D2A2)", left: "50%", transform: "translateX(-50%)" }}
+          style={{ width: 2, top: 0, height: fillHeight, background: "linear-gradient(to bottom, rgba(255,107,107,0.6), #63D2A3)", left: "50%", transform: "translateX(-50%)" }}
         />
         {RAIL_POINTS.map((pt, i) => {
           const passed = (dotState & (1 << (i * 2))) !== 0;
@@ -1063,8 +1037,8 @@ function StoryOverlay({ sv }: { sv: MotionValue<number> }) {
                   width: 8,
                   height: 8,
                   borderRadius: "50%",
-                  background: fixed ? "#62D2A2" : passed ? "#F96B6B" : "rgba(255,255,255,0.15)",
-                  boxShadow: fixed ? "0 0 10px #62D2A2" : passed ? "0 0 10px #F96B6B" : "none",
+                  background: fixed ? "#63D2A3" : passed ? "#FF6B6B" : "rgba(255,255,255,0.15)",
+                  boxShadow: fixed ? "0 0 10px #63D2A3" : passed ? "0 0 10px #FF6B6B" : "none",
                   transition: "background 0.5s, box-shadow 0.5s",
                 }}
               />
@@ -1091,7 +1065,7 @@ function LeakCounter({ sv }: { sv: MotionValue<number> }) {
                 <div
                   key={i}
                   className="w-8 h-0.5 rounded-full transition-all duration-700"
-                  style={{ background: i < fixed ? "#62D2A2" : "rgba(255,255,255,0.1)", boxShadow: i < fixed ? "0 0 8px #62D2A2" : "none" }}
+                  style={{ background: i < fixed ? "#63D2A3" : "rgba(255,255,255,0.1)", boxShadow: i < fixed ? "0 0 8px #63D2A3" : "none" }}
                 />
               ))}
             </div>
@@ -1117,7 +1091,7 @@ function FixesOverview({ sv }: { sv: MotionValue<number> }) {
             className="absolute inset-0 z-30 flex items-center justify-center p-6 md:p-12 pointer-events-none"
           >
             <div className="w-full max-w-4xl text-center flex flex-col items-center">
-              <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-[#62D2A2] text-xs font-black uppercase tracking-[0.4em] mb-4">
+              <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-[#63D2A3] text-xs font-black uppercase tracking-[0.4em] mb-4">
                 We&apos;re essentially plumbers for your pipeline
               </motion.p>
               <motion.h3
@@ -1127,7 +1101,7 @@ function FixesOverview({ sv }: { sv: MotionValue<number> }) {
                 className="text-white text-4xl md:text-7xl font-black leading-[1.0] tracking-tighter mb-6 drop-shadow-2xl"
               >
                 If there&apos;s a leak, <br />
-                <span className="text-[#62D2A2]">We Fix it.</span>
+                <span className="text-[#63D2A3]">We Fix it.</span>
               </motion.h3>
               <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="text-white text-xl md:text-2xl font-bold tracking-tight mb-12">
                 And Prove that we can before you commit
@@ -1135,8 +1109,8 @@ function FixesOverview({ sv }: { sv: MotionValue<number> }) {
               <div className="flex flex-col gap-6 w-fit mx-auto items-start mb-16">
                 {LEAK_PHASES.map((phase, i) => (
                   <motion.div key={phase.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 + i * 0.08 }} className="flex items-center gap-5">
-                    <div className="w-8 h-8 rounded-full bg-[#62D2A2]/10 border border-[#62D2A2]/30 flex items-center justify-center shrink-0">
-                      <span className="text-[#62D2A2] text-sm font-black">✓</span>
+                    <div className="w-8 h-8 rounded-full bg-[#63D2A3]/10 border border-[#63D2A3]/30 flex items-center justify-center shrink-0">
+                      <span className="text-[#63D2A3] text-sm font-black">✓</span>
                     </div>
                     <p className="text-white text-2xl md:text-3xl font-extrabold tracking-tight">{phase.solution}</p>
                   </motion.div>
@@ -1144,7 +1118,7 @@ function FixesOverview({ sv }: { sv: MotionValue<number> }) {
               </div>
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="pointer-events-auto">
                 <a href="/pilot">
-                  <button className="bg-[#62D2A2] text-white px-12 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:bg-[#F96B6B] hover:text-white transition-all duration-300 shadow-[0_0_50px_rgba(98,210,162,0.3)] hover:shadow-[0_0_50px_rgba(249,107,107,0.4)] transform hover:-translate-y-1">
+                  <button className="bg-[#63D2A3] text-white px-12 py-5 rounded-full font-black text-sm uppercase tracking-[0.2em] hover:bg-[#FF6B6B] hover:text-white transition-all duration-300 shadow-[0_0_50px_rgba(99,210,163,0.3)] hover:shadow-[0_0_50px_rgba(255,107,107,0.4)] transform hover:-translate-y-1">
                     How our Pilot Program Works
                   </button>
                 </a>
@@ -1171,7 +1145,7 @@ function MobilePhaseOverlay({ sv }: { sv: MotionValue<number> }) {
   if (key < 0) return null;
   const active = LEAK_PHASES[key >> 1];
   const isSolved = (key & 1) === 1;
-  const color = isSolved ? "#62D2A2" : "#F96B6B";
+  const color = isSolved ? "#63D2A3" : "#FF6B6B";
 
   return (
     <AnimatePresence mode="wait">
@@ -1185,13 +1159,13 @@ function MobilePhaseOverlay({ sv }: { sv: MotionValue<number> }) {
       >
         <div style={{ textAlign: "center", maxWidth: "280px" }}>
           <span style={{ fontSize: "10px", letterSpacing: "0.25em", textTransform: "uppercase", color, fontFamily: "monospace", fontWeight: 700, display: "block", marginBottom: "8px", textShadow: "0 1px 6px rgba(0,0,0,0.9)" }}>
-            {isSolved ? "✓ sealed" : "● leak detected"}
+            {isSolved ? "✓ Fixed" : "Before Map2Close"}
           </span>
           <span style={{ fontSize: "22px", fontWeight: 800, color: "#ffffff", lineHeight: 1.1, display: "block", marginBottom: "6px", textShadow: "0 2px 12px rgba(0,0,0,1), 0 1px 4px rgba(0,0,0,0.9)" }}>
             {isSolved ? active.solution : active.label}
           </span>
           <span style={{ fontSize: "13px", color: "#ffffff", lineHeight: 1.45, fontWeight: 500, display: "block", textShadow: "0 1px 8px rgba(0,0,0,1), 0 1px 3px rgba(0,0,0,0.9)", opacity: 0.85 }}>
-            {isSolved ? active.solutionSub : active.sub}
+            {isSolved ? active.services.join(" · ") : active.sub}
           </span>
         </div>
       </motion.div>

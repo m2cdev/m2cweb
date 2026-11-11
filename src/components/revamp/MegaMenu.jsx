@@ -14,7 +14,7 @@ const left = [
 ];
 const right = [
   { name: "Qmo", href: "/products/qmo", blurb: "Live AI coaching on every call, right inside your CRM.", tint: "rgba(255,200,1,0.10)", badge: "NEW", mark: <QmoMark className="h-4" />, color: QMO_YELLOW },
-  { name: "Grdr", href: "/products/grdr", blurb: "Grade every cold call and deal in seconds.", tint: "rgba(0,209,255,0.10)", mark: <GrdrMark className="text-base" />, color: GRDR_CYAN },
+  { name: "Grdr", href: "/products/grdr", blurb: "Grade every cold call and deal in seconds.", tint: "rgba(99,210,163,0.10)", mark: <GrdrMark className="text-base" />, color: GRDR_CYAN },
 ];
 
 const item = (reduce, i) => ({

@@ -141,7 +141,7 @@ const GLSLHills = ({ width = '100vw', height = '100vh', cameraZ = 125, planeSize
 
               void main(void) {
                 float opacity = (96.0 - length(vPosition)) / 256.0 * 0.6;
-                vec3 color = vec3(0.384, 0.824, 0.635); // Map2Close M2C specific branding color #62D2A2
+                vec3 color = vec3(0.384, 0.824, 0.635); // Map2Close M2C specific branding color #63D2A3
                 gl_FragColor = vec4(color, opacity);
               }
             `,

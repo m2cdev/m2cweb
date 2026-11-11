@@ -95,7 +95,7 @@ export default function Navbar() {
                   "text-sm font-medium transition-colors duration-300",
                   (link.href === '/' ? pathname === '/' : pathname.startsWith(link.href))
                     ? "text-primary" 
-                    : "text-white hover:text-[#F96B6B]"
+                    : "text-white hover:text-[#FF6B6B]"
                 )}
               >
                 {link.name}
@@ -114,7 +114,7 @@ export default function Navbar() {
                           "block px-4 py-3 text-sm rounded-lg transition-colors duration-300",
                           pathname === item.href 
                             ? "text-primary bg-white/5" 
-                            : "text-white/70 hover:text-[#F96B6B] hover:bg-white/5"
+                            : "text-white/70 hover:text-[#FF6B6B] hover:bg-white/5"
                         )}
                       >
                         {item.name}
@@ -132,7 +132,7 @@ export default function Navbar() {
         <div className="hidden md:block">
           <Link href="/contact">
             <ShimmerButton 
-              shimmerColor="#62D2A2" 
+              shimmerColor="#63D2A3" 
               background="#111" 
               className="h-10 px-6 rounded-full"
               shimmerSize="0.1em"
@@ -173,7 +173,7 @@ export default function Navbar() {
                       "text-2xl font-bold transition-colors duration-300",
                       (link.href === '/' ? pathname === '/' : pathname.startsWith(link.href))
                         ? "text-primary"
-                        : "text-white hover:text-[#F96B6B]"
+                        : "text-white hover:text-[#FF6B6B]"
                     )}
                   >
                     {link.name}
@@ -189,7 +189,7 @@ export default function Navbar() {
                             "text-lg transition-colors duration-300",
                             pathname === item.href
                               ? "text-primary"
-                              : "text-white/70 hover:text-[#F96B6B]"
+                              : "text-white/70 hover:text-[#FF6B6B]"
                           )}
                         >
                           {item.name}
@@ -203,7 +203,7 @@ export default function Navbar() {
             </div>
             <div className="mt-8 pt-8 border-t border-white/10">
               <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-                <ShimmerButton className="w-full h-14 rounded-xl" shimmerColor="#62D2A2">
+                <ShimmerButton className="w-full h-14 rounded-xl" shimmerColor="#63D2A3">
                   <span className="text-lg font-bold">Book a Working Session</span>
                 </ShimmerButton>
               </Link>

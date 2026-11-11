@@ -12,7 +12,7 @@ const Example = ({ cards }) => {
     <div className="bg-black py-20 relative overflow-hidden">
       <div className="px-6 md:px-[10%] mb-12">
         <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter">
-          Outcomes <span style={{ color: '#F96B6B' }}>Over Optics.</span>
+          Outcomes <span style={{ color: '#FF6B6B' }}>Over Optics.</span>
         </h2>
         <p className="text-white font-bold mt-4 text-lg">Don&apos;t take our word for it.</p>
       </div>
@@ -95,7 +95,7 @@ const HorizontalScrollCarousel = ({ cards = [] }) => {
         }}
         className="pointer-events-none absolute z-50 hidden md:flex flex-col items-center justify-center"
       >
-        <div className="flex flex-col items-center justify-center bg-primary text-black w-32 h-32 rounded-full shadow-[0_0_50px_rgba(98,210,162,0.6)] backdrop-blur-md border-2 border-white/20">
+        <div className="flex flex-col items-center justify-center bg-primary text-black w-32 h-32 rounded-full shadow-[0_0_50px_rgba(99,210,163,0.6)] backdrop-blur-md border-2 border-white/20">
           <div className="flex items-center justify-center gap-2">
             <ArrowLeft size={16} strokeWidth={4} />
             <div className="relative h-12 w-12 flex items-center justify-center">

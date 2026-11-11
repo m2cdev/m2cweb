@@ -24,7 +24,7 @@ export const BackgroundAura = () => {
           repeat: Infinity,
           ease: "linear",
         }}
-        className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-[#62D2A2]/10 blur-[120px]"
+        className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-[#63D2A3]/10 blur-[120px]"
       />
       
       <motion.div
@@ -38,7 +38,7 @@ export const BackgroundAura = () => {
           repeat: Infinity,
           ease: "linear",
         }}
-        className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-[#F96B6B]/10 blur-[130px]"
+        className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-[#FF6B6B]/10 blur-[130px]"
       />
 
       <motion.div
@@ -72,7 +72,7 @@ export const BackgroundAura = () => {
               height: `${i * 350}px`,
               marginTop: `-${i * 175}px`, // Dome effect: half-circle from top
               borderWidth: `${8 + i * 4}px`,
-              borderColor: i % 2 === 0 ? "rgba(98, 210, 162, 0.05)" : "rgba(255, 255, 255, 0.03)",
+              borderColor: i % 2 === 0 ? "rgba(99,210,163, 0.05)" : "rgba(255, 255, 255, 0.03)",
               filter: "blur(4px)",
             }}
           />

@@ -113,7 +113,7 @@ function Approach() {
                 <NumDot n={i + 1} variant={i === 0 ? "mint" : "black"} />
                 <div>
                   <h3 className="text-xl md:text-2xl font-black tracking-tight">{a.title}</h3>
-                  <p className={`mt-2 font-body text-base leading-relaxed ${i === 0 ? "text-white/85" : "text-[#5C5C5C]"}`}>{a.body}</p>
+                  <p className={`mt-2 font-body text-base leading-relaxed ${i === 0 ? "text-white/85" : "text-[#5A5A5A]"}`}>{a.body}</p>
                 </div>
               </li>
             </Reveal>

@@ -70,7 +70,7 @@ function DeckSlide() {
                   <NumDot n={i + 1} />
                   <div>
                     <h3 className="text-lg md:text-xl font-black tracking-tight text-black">{s.title}</h3>
-                    <p className="mt-1.5 font-body text-[15px] leading-relaxed text-[#5C5C5C]">{s.d}</p>
+                    <p className="mt-1.5 font-body text-[15px] leading-relaxed text-[#5A5A5A]">{s.d}</p>
                   </div>
                 </div>
               </Reveal>
@@ -139,7 +139,7 @@ function Ramp() {
           <WhiteTitle eyebrow="30 by 30" title="From first day to productive in ^30 days" sub="The ramp fills in as you scroll." />
           <div className="mt-2 flex items-baseline gap-3">
             <span className="text-7xl md:text-8xl font-black tracking-tighter text-black">30</span>
-            <span className="text-xl font-black text-[#5C5C5C]">days to productive</span>
+            <span className="text-xl font-black text-[#5A5A5A]">days to productive</span>
           </div>
         </div>
         <div ref={ref} className="relative pl-14">
@@ -153,7 +153,7 @@ function Ramp() {
                   <div className={i === ramp.length - 1 ? "rounded-3xl bg-black p-6 text-white" : "rounded-3xl border border-black/10 bg-white p-6"}>
                     <p className="text-[11px] font-black uppercase tracking-[0.25em]" style={{ color: i === ramp.length - 1 ? MINT : "#63D2A3" }}>{r.when}</p>
                     <h3 className="mt-2 text-xl md:text-2xl font-black tracking-tight">{r.title}</h3>
-                    <p className={i === ramp.length - 1 ? "mt-2 font-body text-white/85" : "mt-2 font-body text-[#5C5C5C]"}>{r.body}</p>
+                    <p className={i === ramp.length - 1 ? "mt-2 font-body text-white/85" : "mt-2 font-body text-[#5A5A5A]"}>{r.body}</p>
                   </div>
                 </div>
               </Reveal>

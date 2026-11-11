@@ -117,7 +117,7 @@
   fill: none;
   stroke: var(--accent-primary);
   stroke-width: 4;
-  filter: drop-shadow(0 0 10px rgba(0, 255, 194, 0.5));
+  filter: drop-shadow(0 0 10px rgba(99,210,163, 0.5));
 }
 
 .node {
@@ -127,10 +127,10 @@
 }
 
 .nodeClosedWon {
-  fill: rgba(0, 255, 194, 0.2);
+  fill: rgba(99,210,163, 0.2);
   stroke: var(--accent-primary);
   stroke-width: 3;
-  filter: drop-shadow(0 0 15px rgba(0, 255, 194, 0.4));
+  filter: drop-shadow(0 0 15px rgba(99,210,163, 0.4));
 }
 
 .nodeText {

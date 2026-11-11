@@ -67,7 +67,7 @@ export default function FloatingCTA() {
           <Link href="/contact">
             <ShimmerButton
               className="shadow-2xl hover:scale-105 transition-transform"
-              shimmerColor="#62D2A2"
+              shimmerColor="#63D2A3"
               background="#000000"
               shimmerSize="0.1em"
             >

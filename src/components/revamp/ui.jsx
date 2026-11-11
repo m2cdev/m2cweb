@@ -229,7 +229,7 @@ export function ProductTieIn({ headline, body, cta = "See our products", href = 
 export function CtaBand({ headline, sub, primary, secondary, extra }) {
   return (
     <section className="relative px-6 py-20 md:py-32 text-center overflow-hidden bg-gradient-to-b from-black to-[#050505] hide-floating-cta">
-      <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,rgba(98,210,162,0.15),transparent_70%)] pointer-events-none" />
+      <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,rgba(99,210,163,0.15),transparent_70%)] pointer-events-none" />
       <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
         <h2 className="text-3xl md:text-7xl font-black tracking-tighter leading-[0.98] text-white mb-6">
           <Marked text={headline} />
@@ -313,7 +313,7 @@ export function WhiteTitle({ eyebrow, title, sub, center = false, className = ""
           return <span key={i} style={g ? { color: GREEN_ON_WHITE } : undefined}>{w.replace(/^[\^!]/, "")}{" "}</span>;
         })}
       </h2>
-      {sub && <p className={cn("mt-5 text-base md:text-xl text-[#5C5C5C] font-body leading-relaxed max-w-3xl", center && "mx-auto")}>{sub}</p>}
+      {sub && <p className={cn("mt-5 text-base md:text-xl text-[#5A5A5A] font-body leading-relaxed max-w-3xl", center && "mx-auto")}>{sub}</p>}
     </div>
   );
 }

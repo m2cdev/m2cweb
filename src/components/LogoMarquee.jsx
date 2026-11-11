@@ -23,9 +23,9 @@ export const LogoMarquee = ({ light = false }) => {
       <div className="container-custom mb-16 text-center">
         <h2 className={cn("text-3xl md:text-5xl font-black tracking-tighter mb-4", light ? "text-black" : "text-white")}>
           Trusted by Leading Brands <br />
-          <span className={light ? "text-[#12905D]" : "text-primary"}>Worldwide</span>
+          <span className={light ? "text-[#63D2A3]" : "text-primary"}>Worldwide</span>
         </h2>
-        <p className={cn("font-bold tracking-[0.3em] uppercase text-xs", light ? "text-[#5E5E5A]" : "text-white")}>From Growth-Stage to Enterprise</p>
+        <p className={cn("font-bold tracking-[0.3em] uppercase text-xs", light ? "text-[#5A5A5A]" : "text-white")}>From Growth-Stage to Enterprise</p>
       </div>
       
       <div className="relative flex overflow-hidden group">
@@ -38,7 +38,7 @@ export const LogoMarquee = ({ light = false }) => {
               rel="noopener noreferrer"
               className={cn("flex items-center justify-center px-10 transition-all duration-500 grayscale hover:grayscale-0 hover:opacity-100 scale-100 hover:scale-110", light ? "opacity-70" : "opacity-40")}
             >
-              <div className="relative h-12 w-32 transition-all duration-500 hover:drop-shadow-[0_0_20px_rgba(98,210,162,0.3)]">
+              <div className="relative h-12 w-32 transition-all duration-500 hover:drop-shadow-[0_0_20px_rgba(99,210,163,0.3)]">
                 <Image
                   src={brand.logo}
                   alt={brand.name}

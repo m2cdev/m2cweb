@@ -56,5 +56,5 @@
 .ctaButton:hover {
   transform: translateY(-4px);
   background: var(--accent-primary);
-  box-shadow: 0 10px 30px rgba(0, 255, 194, 0.3);
+  box-shadow: 0 10px 30px rgba(99,210,163, 0.3);
 }

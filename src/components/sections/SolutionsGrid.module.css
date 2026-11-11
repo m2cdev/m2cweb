@@ -34,13 +34,13 @@
 .card:hover {
   transform: translateY(-8px);
   background: var(--surface-2);
-  border-color: rgba(0, 255, 194, 0.2);
+  border-color: rgba(99,210,163, 0.2);
 }
 
 .iconWrapper {
   width: 64px;
   height: 64px;
-  background: rgba(0, 255, 194, 0.1);
+  background: rgba(99,210,163, 0.1);
   color: var(--accent-primary);
   border-radius: 16px;
   display: flex;

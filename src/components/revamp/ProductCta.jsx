@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { trackProductCta, withUtm } from "./track";
 
 // External product CTA: opens in a new tab with UTMs and fires product_cta_click.
-export default function ProductCta({ product, href, children, variant = "solid", accent = "#62D2A2", textOnAccent = "#000", className = "" }) {
+export default function ProductCta({ product, href, children, variant = "solid", accent = "#63D2A3", textOnAccent = "#000", className = "" }) {
   const style =
     variant === "solid"
       ? { background: accent, color: textOnAccent }

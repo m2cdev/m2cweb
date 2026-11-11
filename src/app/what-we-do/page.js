@@ -54,19 +54,19 @@ export default function WhatWeDo() {
         <div className="grid gap-6 md:grid-cols-3">
           {pillars.map((p, i) => (
             <Reveal key={p.label} delay={i * 0.1}>
-              <Link href={p.href} className="group block h-full rounded-3xl border border-white/10 bg-white/[0.02] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#62D2A2]/60 hover:shadow-[0_0_40px_rgba(98,210,162,0.12)]">
-                <span className="text-sm font-black tracking-widest text-[#62D2A2]">{String(i + 1).padStart(2, "0")}</span>
+              <Link href={p.href} className="group block h-full rounded-3xl border border-white/10 bg-white/[0.02] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#63D2A3]/60 hover:shadow-[0_0_40px_rgba(99,210,163,0.12)]">
+                <span className="text-sm font-black tracking-widest text-[#63D2A3]">{String(i + 1).padStart(2, "0")}</span>
                 <h3 className="mt-4 text-3xl font-black tracking-tight text-white">{p.label}</h3>
                 <p className="mt-3 font-body text-lg text-white">{p.promise}</p>
                 <ul className="mt-6 space-y-3">
                   {p.points.map((pt) => (
                     <li key={pt} className="flex gap-3 font-body text-base text-white/90">
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#62D2A2]" />
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#63D2A3]" />
                       {pt}
                     </li>
                   ))}
                 </ul>
-                <span className="mt-8 inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#62D2A2]">
+                <span className="mt-8 inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#63D2A3]">
                   Explore <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </span>
               </Link>
@@ -78,7 +78,7 @@ export default function WhatWeDo() {
       <Section tone="dark">
         <ProductStrip />
         <div className="mt-8">
-          <Link href="/products" className="text-xs font-black uppercase tracking-widest text-[#62D2A2] hover:text-white transition-colors">See all products &rarr;</Link>
+          <Link href="/products" className="text-xs font-black uppercase tracking-widest text-[#63D2A3] hover:text-white transition-colors">See all products &rarr;</Link>
         </div>
       </Section>
 

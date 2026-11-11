@@ -40,7 +40,7 @@ export default function ProductsHub() {
                   <CoralPill>{c.tag}</CoralPill>
                 </div>
                 <h3 className="text-2xl md:text-4xl font-black tracking-tight">{c.line}</h3>
-                <p className={`mt-3 font-body text-base md:text-lg ${c.dark ? "text-white/80" : "text-[#5C5C5C]"}`}>{c.who}</p>
+                <p className={`mt-3 font-body text-base md:text-lg ${c.dark ? "text-white/80" : "text-[#5A5A5A]"}`}>{c.who}</p>
                 <span className="mt-8 inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest" style={{ color: c.dark ? c.color : "#63D2A3" }}>
                   See {c.href.endsWith("qmo") ? "Qmo" : "Grdr"} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>

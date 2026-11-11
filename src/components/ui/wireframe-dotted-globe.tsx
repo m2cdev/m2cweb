@@ -140,7 +140,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
       context.arc(containerWidth / 2, containerHeight / 2, currentScale, 0, 2 * Math.PI)
       context.fillStyle = "transparent"
       context.fill()
-      context.strokeStyle = "rgba(98, 210, 162, 0.4)" // Mint outline
+      context.strokeStyle = "rgba(99,210,163, 0.4)" // Mint outline
       context.lineWidth = 1 * scaleFactor
       context.stroke()
 
@@ -149,7 +149,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
         const graticule = d3.geoGraticule()
         context.beginPath()
         path(graticule())
-        context.strokeStyle = "#62D2A2"
+        context.strokeStyle = "#63D2A3"
         context.lineWidth = 0.5 * scaleFactor
         context.globalAlpha = 0.15
         context.stroke()
@@ -160,7 +160,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
         landFeatures.features.forEach((feature: any) => {
           path(feature)
         })
-        context.strokeStyle = "#62D2A2"
+        context.strokeStyle = "#63D2A3"
         context.lineWidth = 0.8 * scaleFactor
         context.globalAlpha = 0.4
         context.stroke()
@@ -178,7 +178,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
           ) {
             context.beginPath()
             context.arc(projected[0], projected[1], 1 * scaleFactor, 0, 2 * Math.PI)
-            context.fillStyle = "#62D2A2"
+            context.fillStyle = "#63D2A3"
             context.fill()
           }
         })

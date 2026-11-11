@@ -33,8 +33,8 @@ function WordReveal({ text, className }) {
   };
 
   const getColor = (word) => {
-    if (word.startsWith("^")) return "#62D2A2"; // Mint/Green
-    if (word.startsWith("!")) return "#F96B6B"; // Coral/Red
+    if (word.startsWith("^")) return "#63D2A3"; // Mint/Green
+    if (word.startsWith("!")) return "#FF6B6B"; // Coral/Red
     return "inherit";
   };
 
@@ -212,15 +212,15 @@ export default function ServiceSubpageLayout({
             >
             <div>
               <div className="mb-7 flex items-center gap-3">
-                <div className="h-px w-6 bg-[#62D2A2]" />
-                <span className="text-[14px] font-bold uppercase tracking-[0.18em] text-[#62D2A2]">
+                <div className="h-px w-6 bg-[#63D2A3]" />
+                <span className="text-[14px] font-bold uppercase tracking-[0.18em] text-[#63D2A3]">
                   HOW IT WORKS
                 </span>
               </div>
 
               <h2 className="max-w-[660px] text-[28px] md:text-[52px] font-bold leading-[1.08] text-white">
                 The Methodology Meets{" "}
-                <span className="text-[#62D2A2]">Your Motion</span>
+                <span className="text-[#63D2A3]">Your Motion</span>
               </h2>
 
               <p className="mt-7 max-w-[660px] text-[16px] md:text-[22px] leading-[1.65] text-white">
@@ -240,7 +240,7 @@ export default function ServiceSubpageLayout({
                       className={cn(
                         "rounded-[100px] border px-5 py-2 text-[15px] cursor-default select-none transition-all duration-200",
                         activeFramework === pill.label
-                          ? "border-[#62D2A2] bg-[#62D2A21a] text-[#62D2A2]"
+                          ? "border-[#63D2A3] bg-[#63D2A31a] text-[#63D2A3]"
                           : "border-[#2a2a2a] bg-[#161616] text-white hover:border-white/20"
                       )}
                     >
@@ -257,7 +257,7 @@ export default function ServiceSubpageLayout({
             <div className="relative">
               <svg
                 aria-hidden="true"
-                className="absolute right-0 top-0 h-[120px] w-[120px] text-[#62D2A2]"
+                className="absolute right-0 top-0 h-[120px] w-[120px] text-[#63D2A3]"
                 viewBox="0 0 120 120"
                 style={{ opacity: 0.12 }}
               >
@@ -282,7 +282,7 @@ export default function ServiceSubpageLayout({
                     className={cn(
                       "border-l-2 px-6 py-5 transition-colors duration-300",
                       activeMethodology === card.number
-                        ? "border-l-[#62D2A2] bg-[#0f1a15]"
+                        ? "border-l-[#63D2A3] bg-[#0f1a15]"
                         : "border-l-[#2a2a2a] bg-[#141414]"
                     )}
                   >
@@ -290,7 +290,7 @@ export default function ServiceSubpageLayout({
                     <h3
                       className={cn(
                         "mt-2 text-[18px] font-semibold transition-colors duration-300",
-                        activeMethodology === card.number ? "text-[#62D2A2]" : "text-white"
+                        activeMethodology === card.number ? "text-[#63D2A3]" : "text-white"
                       )}
                     >
                       {card.title}
@@ -330,7 +330,7 @@ export default function ServiceSubpageLayout({
             }}
             className="pointer-events-none absolute z-50 hidden md:flex flex-col items-center justify-center"
           >
-            <div className="flex flex-col items-center justify-center bg-primary text-black w-32 h-32 rounded-full shadow-[0_0_50px_rgba(98,210,162,0.6)] backdrop-blur-md border-2 border-white/20">
+            <div className="flex flex-col items-center justify-center bg-primary text-black w-32 h-32 rounded-full shadow-[0_0_50px_rgba(99,210,163,0.6)] backdrop-blur-md border-2 border-white/20">
               <div className="flex items-center justify-center gap-2">
                 <ArrowLeft size={16} strokeWidth={4} />
                 <div className="relative h-12 w-12 flex items-center justify-center">
@@ -525,13 +525,13 @@ export default function ServiceSubpageLayout({
               <>
                 {ctaPrimaryIsExternal ? (
                   <a href={ctaPrimaryLink} target="_blank" rel="noopener noreferrer">
-                    <ShimmerButton shimmerColor="#62D2A2" background="#111" className="h-14 px-8 rounded-full">
+                    <ShimmerButton shimmerColor="#63D2A3" background="#111" className="h-14 px-8 rounded-full">
                       <span className="text-sm font-black text-white uppercase tracking-widest">{ctaPrimaryText}</span>
                     </ShimmerButton>
                   </a>
                 ) : (
                   <Link href={ctaPrimaryLink}>
-                    <ShimmerButton shimmerColor="#62D2A2" background="#111" className="h-14 px-8 rounded-full">
+                    <ShimmerButton shimmerColor="#63D2A3" background="#111" className="h-14 px-8 rounded-full">
                       <span className="text-sm font-black text-white uppercase tracking-widest">{ctaPrimaryText}</span>
                     </ShimmerButton>
                   </Link>

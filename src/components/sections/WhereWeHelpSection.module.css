@@ -38,7 +38,7 @@
 .stageCard:hover {
   transform: translateY(-5px);
   background: var(--surface-2);
-  border-color: rgba(0, 255, 194, 0.3);
+  border-color: rgba(99,210,163, 0.3);
 }
 
 .stageHeader {
@@ -54,7 +54,7 @@
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background: rgba(0, 255, 194, 0.1);
+  background: rgba(99,210,163, 0.1);
   color: var(--accent-primary);
   display: flex;
   align-items: center;
@@ -97,8 +97,8 @@
   margin: 0 auto;
   padding: 2rem;
   border-radius: 16px;
-  background: rgba(0, 255, 194, 0.05);
-  border: 1px solid rgba(0,255,194,0.1);
+  background: rgba(99,210,163, 0.05);
+  border: 1px solid rgba(99,210,163,0.1);
 }
 
 .engineText {
