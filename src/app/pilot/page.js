@@ -46,7 +46,7 @@ export default function Pilot() {
         <div className="relative mx-auto max-w-6xl">
           <Reveal>
             <p className="mb-4 text-[12px] md:text-[13px] font-black uppercase tracking-[0.3em]" style={{ color: MINT }}>The pilot</p>
-            <h2 className="max-w-4xl text-4xl md:text-7xl font-black tracking-tighter leading-[0.98]">Small scope. <span style={{ color: MINT }}>Real signal.</span></h2>
+            <h2 className="max-w-4xl text-4xl md:text-7xl font-black tracking-tighter leading-[0.98]">One focus area. 90 days. <span style={{ color: MINT }}>A clear answer.</span></h2>
             <p className="mt-6 max-w-3xl text-base md:text-xl text-white/70 font-body">A fixed-term engagement built to prove the motion works.</p>
           </Reveal>
 
@@ -117,7 +117,7 @@ export default function Pilot() {
       </section>
 
       {/* Final CTA */}
-      <div className="pt-16 pb-10 md:pt-32 md:pb-16 relative flex items-center justify-center min-h-[30vh] md:min-h-[45vh] overflow-hidden text-center hide-floating-cta">
+      <div className="pt-16 pb-24 md:pt-32 md:pb-44 relative flex items-center justify-center min-h-[40vh] md:min-h-[60vh] overflow-hidden text-center hide-floating-cta">
         <BackgroundBeams className="opacity-60" />
         <div className="relative z-10 px-6 max-w-4xl mx-auto flex flex-col items-center">
           <h2 className="text-3xl md:text-7xl font-black tracking-tighter mb-6 text-white drop-shadow-2xl">
