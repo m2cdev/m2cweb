@@ -129,7 +129,7 @@ export default function Home() {
         </div>
 
         {/* Desktop Lamp */}
-        <div className="hidden md:block w-full h-[calc(100vh-18rem)] overflow-hidden">
+        <div className="hidden md:block w-full h-[calc(100vh-18rem)] overflow-hidden pb-24 bg-black">
           <LampContainer>
             <motion.div
               initial={{ opacity: 0.5, y: 100 }}

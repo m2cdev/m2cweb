@@ -3,7 +3,6 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import FloatingCTA from "@/components/FloatingCTA";
 import Footer from "@/components/Footer";
-import FlushFooter from "@/components/layout/FlushFooter";
 import { CookieBanner, ConsentScripts } from "@/components/consent/CookieConsent";
 
 const outfit = Outfit({ 
@@ -96,7 +95,6 @@ export default function RootLayout({ children }) {
           <SmoothScrollProvider>
             <main className="relative z-10 min-h-screen">
               {children}
-              <FlushFooter />
               <Footer className="relative z-50" />
             </main>
           </SmoothScrollProvider>

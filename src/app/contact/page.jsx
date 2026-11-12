@@ -61,7 +61,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="flex flex-col w-full min-h-screen bg-black pb-6">
+    <div className="flex flex-col w-full min-h-screen bg-black pb-20 md:pb-24">
       <FluidParticlesBackground
         particleCount={1500}
         noiseIntensity={0.001}

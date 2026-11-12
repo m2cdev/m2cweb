@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import dynamic from "next/dynamic";
 import { Target, GitBranch, Wrench, Zap, Database } from "lucide-react";
 import CoreServices from "./CoreServices";
@@ -251,13 +251,21 @@ function Handoffs() {
 }
 
 function RunIt() {
+  // The dot follows how far the visitor has scrolled through the steps. No pinning:
+  // the page scrolls normally and the dot moves back up when scrolling up.
+  const stepsRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: stepsRef, offset: ["start 85%", "end 35%"] });
+  // desktop: from the centre of step 1 to the centre of step 4 (columns are 25% wide with a 20px gap, nodes are 40px)
+  const dotLeft = useTransform(scrollYProgress, (p) => `calc(${(Math.min(1, Math.max(0, p)) * 75).toFixed(2)}% + ${(20 + 15 * Math.min(1, Math.max(0, p))).toFixed(2)}px)`);
+  // mobile: from step 1 down to step 4
+  const dotTop = useTransform(scrollYProgress, (p) => `calc(${(Math.min(1, Math.max(0, p)) * 100).toFixed(2)}% - ${(Math.min(1, Math.max(0, p)) * 110).toFixed(1)}px)`);
   return (
     <section className="relative overflow-hidden px-6 md:px-16 py-16 md:py-28 bg-[#020a06]">
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         <div className="absolute -top-40 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full blur-[160px] opacity-[0.22]" style={{ background: `radial-gradient(circle, ${MINT}, transparent 70%)` }} />
         <div className="absolute -bottom-52 -right-32 h-[520px] w-[520px] rounded-full blur-[150px] opacity-[0.14]" style={{ background: `radial-gradient(circle, ${MINT}, transparent 70%)` }} />
       </div>
-      <div className="relative z-10 max-w-6xl mx-auto">
+      <div className="relative z-10 max-w-6xl mx-auto" ref={stepsRef}>
         <SectionTitle eyebrow="How we run it" title="Four Steps, ^Live Pipeline." />
         {/* desktop: one thin line, four nodes, a pulse travelling through */}
         <div className="hidden md:block relative">
@@ -272,10 +280,8 @@ function RunIt() {
             aria-hidden="true"
           />
           <motion.span
-            className="absolute top-[16px] h-[7px] w-[7px] rounded-full"
-            style={{ background: MINT, boxShadow: `0 0 14px 3px ${MINT}` }}
-            animate={{ left: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: "linear", repeatDelay: 0.6 }}
+            className="absolute top-[16px] z-20 h-[7px] w-[7px] -ml-[3.5px] rounded-full"
+            style={{ left: dotLeft, background: MINT, boxShadow: `0 0 14px 3px ${MINT}` }}
             aria-hidden="true"
           />
           <div className="relative grid grid-cols-4 gap-5">
@@ -295,6 +301,12 @@ function RunIt() {
         {/* mobile: vertical line */}
         <div className="md:hidden relative">
           <div className="absolute left-[19px] top-2 bottom-2 w-px bg-white/15" aria-hidden="true" />
+          <div className="absolute left-0 top-5 bottom-5 w-10 z-20 pointer-events-none" aria-hidden="true">
+            <motion.span
+              className="absolute left-[16px] h-[7px] w-[7px] -mt-[3px] rounded-full"
+              style={{ top: dotTop, background: MINT, boxShadow: `0 0 14px 3px ${MINT}` }}
+            />
+          </div>
           <div className="relative space-y-5">
             {runIt.map((s, i) => (
               <Reveal key={s.title} delay={0.05}>

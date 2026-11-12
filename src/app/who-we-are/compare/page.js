@@ -331,7 +331,7 @@ export default function ComparePage() {
 
 
       {/* ── Bottom CTA ───────────────────────────────────────────────── */}
-      <section className="container-custom pt-16 pb-10 md:pt-40 md:pb-16 text-center hide-floating-cta border-t border-white/10">
+      <section className="container-custom pt-16 pb-24 md:pt-40 md:pb-40 text-center hide-floating-cta border-t border-white/10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

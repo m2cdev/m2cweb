@@ -148,7 +148,7 @@ export default function RevenueEngineCaseStudy() {
         <div className="absolute inset-0 pointer-events-none z-0">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_0%,#000_20%,transparent_100%)]" />
         </div>
-        <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-16 py-20 space-y-20">
+        <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-16 pt-20 pb-28 md:pb-40 space-y-20">
 
           {/* NUMBERS */}
           <motion.section {...reveal}>

@@ -311,7 +311,7 @@ export default function CaseStudyPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center pt-16 pb-8 border-t border-white/[0.06] hide-floating-cta"
+            className="text-center pt-16 pb-24 md:pb-32 border-t border-white/[0.06] hide-floating-cta"
           >
             <h3 className="text-2xl md:text-6xl font-black tracking-tighter mb-8 md:mb-10">
               Let&apos;s Build Your <span className="text-[#63D2A3]">Motion.</span>

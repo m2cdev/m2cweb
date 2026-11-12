@@ -107,7 +107,7 @@
 .animate-spotlight {
   animation: spotlight 2s ease 0.75s 1 forwards;
 }
-/* Every page: the closing section runs straight into the footer with no gap. */
+/* Every page: the closing section carries its own bottom padding and background all the way to the footer. */
 main > footer { border-top-width: 0 !important; padding-top: 3rem !important; }
 @media (min-width: 768px) { main > footer { padding-top: 4rem !important; } }
 @keyframes qmo-marquee { to { transform: translateX(-25%); } }

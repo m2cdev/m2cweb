@@ -248,7 +248,7 @@ export function ProductTieIn({ headline, body, cta = "See our products", href = 
 
 export function CtaBand({ headline, sub, primary, secondary, extra }) {
   return (
-    <section data-seamless-end className="relative px-6 pt-20 pb-12 md:pt-32 md:pb-16 text-center overflow-hidden bg-black hide-floating-cta">
+    <section data-seamless-end className="relative px-6 pt-20 pb-24 md:pt-32 md:pb-40 text-center overflow-hidden bg-black hide-floating-cta">
       <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,rgba(99,210,163,0.15),transparent_70%)] pointer-events-none" />
       <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
         <h2 className="text-3xl md:text-7xl font-black tracking-tighter leading-[0.98] text-white mb-6">

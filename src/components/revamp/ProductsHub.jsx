@@ -49,7 +49,7 @@ export default function ProductsHub() {
           ))}
         </div>
       </WhiteSection>
-      <section className="relative px-6 pt-20 pb-12 md:pt-28 md:pb-16 text-center overflow-hidden bg-black hide-floating-cta">
+      <section className="relative px-6 pt-20 pb-24 md:pt-28 md:pb-40 text-center overflow-hidden bg-black hide-floating-cta">
         <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,rgba(99,210,163,0.15),transparent_70%)] pointer-events-none" />
         <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
           <h2 className="text-3xl md:text-6xl font-black tracking-tighter text-white mb-6">Want Help Running Them?</h2>
