@@ -336,17 +336,6 @@ export default function PilotFlight() {
         )}
       </div>
 
-      {/* progress */}
-      {!mobile && (
-        <div className="absolute left-0 right-0 bottom-7 z-20 px-[5vw] flex items-center gap-5">
-          <span className="text-[11px] font-black uppercase tracking-[0.25em] text-white/60">Kickoff</span>
-          <div className="relative h-[3px] flex-1 rounded-full bg-white/15 overflow-hidden">
-            <div ref={(e) => (refs.current.bar = e)} className="absolute inset-0 origin-left" style={{ background: `linear-gradient(90deg, ${MINT}, ${CORAL})`, transform: "scaleX(0)" }} />
-          </div>
-          <span className="text-[11px] font-black uppercase tracking-[0.25em] text-white/60">Decision</span>
-          <span ref={(e) => (refs.current.count = e)} className="ml-2 text-sm font-black tabular-nums" style={{ color: MINT }}>01 / 04</span>
-        </div>
-      )}
       <style>{`
         @keyframes pilotStreak { 0%,100% { opacity: .9; transform: translateX(0) } 50% { opacity: .45; transform: translateX(-8px) } }
         .pilot-streaks { animation: pilotStreak 0.9s ease-in-out infinite; }
