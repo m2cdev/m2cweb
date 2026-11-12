@@ -62,14 +62,14 @@ export default function Pilot() {
           <div className="mt-10 md:mt-14 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
             <Reveal>
               <div className="h-full rounded-3xl border border-white/15 bg-[#0c0c0c] p-7 md:p-12">
-                <span className="mb-6 inline-block rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-black" style={{ background: CORAL }}>Scoping</span>
+                <span className="mb-5 block text-xs font-black uppercase tracking-[0.18em]" style={{ color: CORAL }}>Scoping</span>
                 <h3 className="mb-5 text-2xl md:text-4xl font-black tracking-tighter">Hyper-Focused Scope</h3>
                 <p className="text-base md:text-lg leading-relaxed text-white/75 font-body">We don&apos;t try to boil the ocean. The pilot targets a specific, high-friction area of your pipeline where we can prove momentum inside a measurable 90-day window. We define that outcome together before we start.</p>
               </div>
             </Reveal>
             <Reveal delay={0.1}>
               <div className="h-full rounded-3xl p-7 md:p-12 text-black" style={{ background: MINT }}>
-                <span className="mb-6 inline-block rounded-full bg-black px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.18em]" style={{ color: MINT }}>De-Risked</span>
+                <span className="mb-5 block text-xs font-black uppercase tracking-[0.18em]" style={{ color: MINT }}>De-Risked</span>
                 <h3 className="mb-5 text-2xl md:text-4xl font-black tracking-tighter">No Long-Term Commitment.</h3>
                 <p className="text-base md:text-lg leading-relaxed font-body font-medium text-black/85">We hate standard agency retainers. The pilot is a fixed-term engagement designed to prove our value. If you don&apos;t see the right signal, we shake hands and walk away. If you do, we scale.</p>
               </div>
