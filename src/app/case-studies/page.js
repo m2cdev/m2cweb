@@ -37,6 +37,14 @@ const caseStudies = [
     thumbnail: "/images/case-studies/qwilr-loom.png",
     color: "#63D2A3",
   },
+  {
+    id: "revenue-engine",
+    company: "Sales + BD Revamp",
+    title: "Revenue Engine",
+    description: "A 10-brand group had 30+ reps across 3 offices, no centralized system, and lead gen and sales working in silos. Map2Close rebuilt the motion with CRM architecture, sales coaching, role and comp design, rep recruiting and onboarding, and custom AI tooling. In the first 90 days pipeline grew 5.5x and demos booked went from 288 to 683.",
+    thumbnail: "/images/case-studies/revenue-engine-thumbnail.png",
+    color: "#63D2A3",
+  },
 ];
 
 const LoomEmbed = ({ loomId, color, thumbnail }) => {
@@ -158,7 +166,13 @@ export default function CaseStudies() {
                 transition={{ duration: 0.8 }}
                 className={index % 2 === 1 ? "lg:order-1" : ""}
               >
-                <LoomEmbed loomId={cs.loomId} color={cs.color} thumbnail={cs.thumbnail} />
+                {cs.loomId ? (
+                  <LoomEmbed loomId={cs.loomId} color={cs.color} thumbnail={cs.thumbnail} />
+                ) : (
+                  <Link href={`/case-studies/${cs.id}`} className="relative block w-full aspect-video rounded-3xl overflow-hidden bg-black border border-white/10 shadow-2xl group/card">
+                    <img src={cs.thumbnail} alt="Revenue Engine results: 5.5x pipeline growth, 288 to 683 demos booked" className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-700" />
+                  </Link>
+                )}
               </motion.div>
             </section>
           ))}

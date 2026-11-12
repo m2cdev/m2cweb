@@ -52,7 +52,7 @@ export function Waves({ className = "", color = MINT, flip = false }) {
 }
 
 export function GridBackdrop({ glow = MINT, strong = false }) {
-  const line = strong ? "rgba(99,210,163,0.16)" : "rgba(255,255,255,0.03)";
+  const line = strong ? "rgba(99,210,163,0.06)" : "rgba(255,255,255,0.015)";
   return (
     <div className="absolute inset-0 pointer-events-none -z-0 overflow-hidden" aria-hidden="true">
       <div
@@ -71,7 +71,7 @@ export function GridField({ glow = MINT, className = "" }) {
     <div className={cn("absolute inset-0 pointer-events-none overflow-hidden bg-black", className)} aria-hidden="true">
       <div
         className="absolute inset-0 bg-[size:64px_64px] [mask-image:linear-gradient(to_bottom,transparent,#000_8%,#000_92%,transparent)]"
-        style={{ backgroundImage: "linear-gradient(rgba(99,210,163,0.14) 1px,transparent 1px),linear-gradient(90deg,rgba(99,210,163,0.14) 1px,transparent 1px)" }}
+        style={{ backgroundImage: "linear-gradient(rgba(99,210,163,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(99,210,163,0.05) 1px,transparent 1px)" }}
       />
       {[["-top-32 -right-40", 0.34], ["top-[38%] -left-56", 0.26], ["bottom-0 -right-48", 0.30]].map(([pos, o], i) => (
         <div key={i} className={cn("absolute w-[720px] h-[720px] rounded-full blur-[150px]", pos)} style={{ opacity: o, background: `radial-gradient(circle, ${glow}, transparent 70%)` }} />

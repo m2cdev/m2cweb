@@ -67,7 +67,7 @@ function Stack() {
   const [i, setI] = useState(0);
   const cur = implementation[i];
   return (
-    <section className="sticky top-0 z-0 h-screen overflow-hidden bg-black px-6 md:px-16 pt-20 flex items-center" aria-label="Implementations">
+    <section className="relative overflow-hidden bg-black px-6 md:px-16 py-20 md:py-28 flex items-center" aria-label="Implementations">
       <GridField />
       <div className="relative z-10 w-full max-w-6xl mx-auto">
       <SectionTitle eyebrow="Implementations" title="Everything ^Connected. Everything ^Automated." />
@@ -80,14 +80,14 @@ function Stack() {
               aria-selected={k === i}
               onClick={() => setI(k)}
               onMouseEnter={() => setI(k)}
-              className={`group relative shrink-0 text-left rounded-2xl border px-5 py-4 transition-all duration-300 ${k === i ? "border-[#63D2A3] bg-[#63D2A3]/10" : "border-white/10 hover:border-white/30"}`}
+              className={`group relative shrink-0 text-left rounded-2xl border px-5 py-4 transition-all duration-300 ${k === i ? "border-[#63D2A3] bg-[#0b1f17]" : "border-white/15 bg-[#0e0e0e] hover:border-white/40"}`}
             >
               <span className="font-mono text-xs font-black tracking-widest" style={{ color: MINT }}>{String(k + 1).padStart(2, "0")}</span>
               <span className="ml-3 text-base md:text-lg font-black text-white whitespace-nowrap lg:whitespace-normal">{t.title}</span>
             </button>
           ))}
         </div>
-        <div className="relative rounded-3xl border border-white/10 bg-[#0e0e0e] p-8 md:p-10 min-h-[220px]" role="tabpanel">
+        <div className="relative rounded-3xl border border-white/10 bg-[#0e0e0e] p-8 md:p-10 min-h-[220px] shadow-[0_0_0_1px_#0e0e0e]" role="tabpanel">
           <AnimatePresence mode="wait">
             <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3 }}>
               <h3 className="text-2xl md:text-4xl font-black tracking-tight text-white">{cur.title}</h3>
@@ -171,11 +171,8 @@ export default function PlatformsClient() {
   return (
     <div className="bg-black text-white">
       <div className="relative bg-black">
+        <Hero />
         <Stack />
-        <div className="relative z-10 -mt-[100vh] bg-black">
-          <Hero />
-        </div>
-        <div className="h-[70vh]" aria-hidden="true" />
         <div className="relative z-10 bg-white">
           <Approach />
         </div>

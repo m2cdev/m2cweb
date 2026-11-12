@@ -212,7 +212,7 @@ export default function FeatureCarousel() {
 
         {/* Right Side Content */}
         <div className="flex-1 h-full relative bg-[#050505] flex items-center justify-center py-16 px-10 overflow-hidden border-l border-white/10">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:32px_32px] opacity-20" />
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:32px_32px] opacity-20" />
           <div className="relative w-full max-w-[480px] aspect-[4/5] flex items-center justify-center">
             {FEATURES.map((feature, index) => {
               const status = getCardStatus(index);

@@ -87,9 +87,15 @@ const caseStudies = {
 };
 
 const nextStudyMap = {
-  pinecone: ["signpost", "qwilr"],
-  signpost: ["pinecone", "qwilr"],
-  qwilr: ["pinecone", "signpost"],
+  pinecone: ["signpost", "qwilr", "revenue-engine"],
+  signpost: ["pinecone", "qwilr", "revenue-engine"],
+  qwilr: ["pinecone", "signpost", "revenue-engine"],
+};
+
+const revenueEngineCard = {
+  title: "Revenue Engine",
+  category: "Sales + BD Revamp",
+  thumbnail: "/images/case-studies/revenue-engine-thumbnail.png",
 };
 
 function LoomEmbed({ loomId, thumbnail }) {
@@ -203,7 +209,7 @@ export default function CaseStudyPage() {
       <article id="case-study" className="relative">
         {/* Subtle grid bg */}
         <div className="absolute inset-0 pointer-events-none z-0">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_0%,#000_20%,transparent_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_0%,#000_20%,transparent_100%)]" />
         </div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-16 py-24 space-y-24">
@@ -328,9 +334,9 @@ export default function CaseStudyPage() {
       <section className="py-24 bg-[#0e0e0e] border-t border-white/[0.06]">
         <div className="container mx-auto px-6 md:px-16">
           <p className="text-[11px] font-black tracking-[0.35em] text-[#63D2A3] uppercase mb-12">Next Up</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {nextStudyMap[id]?.map((key) => {
-              const next = caseStudies[key];
+              const next = key === "revenue-engine" ? revenueEngineCard : caseStudies[key];
               return (
                 <Link key={key} href={`/case-studies/${key}`} className="group relative rounded-2xl overflow-hidden border border-white/10 aspect-video hover:border-[#63D2A3]/30 transition-all duration-500">
                   {/* eslint-disable-next-line @next/next/no-img-element */}

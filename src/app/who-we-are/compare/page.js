@@ -151,7 +151,7 @@ export default function ComparePage() {
       {/* ── Horizontal Comparison Section ───────────────────────────────────────── */}
       <div className="w-full py-32 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none -z-10">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_10%,transparent_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_10%,transparent_100%)]" />
           <div className="absolute left-10 top-10 w-1.5 h-1.5 rounded-full bg-white/20 hidden md:block" />
           <div className="absolute right-10 top-10 w-1.5 h-1.5 rounded-full bg-white/20 hidden md:block" />
           <div className="absolute left-10 bottom-10 w-1.5 h-1.5 rounded-full bg-white/20 hidden md:block" />
@@ -257,7 +257,7 @@ export default function ComparePage() {
       {/* ── Vertical Comparison Section ───────────────────────────────────── */}
       <div className="w-full py-24 relative overflow-hidden border-t border-white/[0.06]">
         <div className="absolute inset-0 pointer-events-none -z-10">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,#000_10%,transparent_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,#000_10%,transparent_100%)]" />
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-64 bg-[radial-gradient(ellipse_at_top,rgba(99,210,163,0.06),transparent_70%)]" />
         </div>
 

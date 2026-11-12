@@ -17,6 +17,7 @@ export default function sitemap() {
     { url: `${base}/case-studies/pinecone`, lastModified, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/case-studies/signpost`, lastModified, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/case-studies/qwilr`, lastModified, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${base}/case-studies/revenue-engine`, lastModified, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/pilot`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/how-we-compare`, lastModified, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/contact`, lastModified, changeFrequency: "monthly", priority: 0.9 },

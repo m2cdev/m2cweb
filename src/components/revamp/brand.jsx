@@ -248,7 +248,7 @@ function FaqList({ faqs, open, setOpen, th }) {
 
 // Faint square grid used behind dark heroes (both product sites use it).
 export function Grid({ opacity = 0.05, fade = "bottom" }) {
-  const line = `rgba(255,255,255,${opacity})`;
+  const line = `rgba(255,255,255,${opacity * 0.5})`;
   const mask = fade === "bottom" ? "linear-gradient(to bottom, #000 45%, transparent 95%)" : "radial-gradient(ellipse 80% 70% at 50% 30%, #000 20%, transparent 100%)";
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{ backgroundImage: `linear-gradient(${line} 1px, transparent 1px), linear-gradient(90deg, ${line} 1px, transparent 1px)`, backgroundSize: "64px 64px", backgroundPosition: "center top", maskImage: mask, WebkitMaskImage: mask }} />

@@ -22,6 +22,7 @@ const navLinks = [
     { name: "Signal Intelligence Engine", href: "/case-studies/signpost" },
     { name: "Sales Enablement Hub", href: "/case-studies/pinecone" },
     { name: "Trial-to-Close Engine", href: "/case-studies/qwilr" },
+    { name: "Revenue Engine", href: "/case-studies/revenue-engine" },
   ]},
   { name: "The Pilot", href: "/pilot" },
 ];

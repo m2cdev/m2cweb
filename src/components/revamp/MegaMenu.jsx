@@ -111,7 +111,6 @@ export function MegaMenu({ open, setOpen, active, label, href }) {
               <div>
                 <p className="px-4 pb-2 pt-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#63D2A3]">Product Portfolio</p>
                 {right.map((it, i) => <Row key={it.name} it={it} i={i + left.length} reduce={reduce} onNavigate={() => setOpen(false)} />)}
-                <Link href="/products" onClick={() => setOpen(false)} className="mx-4 mt-3 mb-1 inline-block text-xs font-bold text-white/70 hover:text-[#63D2A3]">See all products &rarr;</Link>
               </div>
             </div>
           </motion.div>
@@ -125,7 +124,7 @@ export function MobileWhatWeDo({ label, href, pathname, onNavigate }) {
   const [open, setOpen] = useState(false);
   const groups = [
     { title: "The Map2Close Experience", links: left.map((l) => ({ name: l.name, href: l.href })) },
-    { title: "Product Portfolio", links: [{ name: "Qmo", href: "/products/qmo" }, { name: "Grdr", href: "/products/grdr" }, { name: "See all products", href: "/products" }] },
+    { title: "Product Portfolio", links: [{ name: "Qmo", href: "/products/qmo" }, { name: "Grdr", href: "/products/grdr" }] },
   ];
   return (
     <div className="flex flex-col gap-2">

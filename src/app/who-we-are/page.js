@@ -105,7 +105,6 @@ export default function WhoWeAre() {
         <PhilosophySpinner />
       </div>
 
-      <div className="h-8" />
     </div>
   );
 }

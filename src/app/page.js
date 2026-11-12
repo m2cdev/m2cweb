@@ -17,6 +17,7 @@ const caseStudiesData = [
   { id: "pinecone", title: "Sales Enablement Hub", subtitle: "The right content, surfaced at the right moment in every deal.", url: "/images/pinecone-homepage.png", category: "Sales Enablement" },
   { id: "signpost", title: "Signal Intelligence Engine", subtitle: "Public review data, scored and pushed straight into HubSpot.", url: "/images/signpost-homepage.png", category: "Signal Intelligence" },
   { id: "qwilr", title: "Trial-to-Close Engine", subtitle: "A guided trial motion that ends post-demo deal drift.", url: "/images/qwilr-homepage.png", category: "Trial Optimization" },
+  { id: "revenue-engine", title: "Revenue Engine", subtitle: "5.5x pipeline and 683 demos in 90 days for a 10-brand group.", url: "/images/revenue-engine-homepage.png", category: "Sales + BD Revamp" },
 ];
 
 
@@ -128,7 +129,7 @@ export default function Home() {
         </div>
 
         {/* Desktop Lamp */}
-        <div className="hidden md:block w-full h-screen">
+        <div className="hidden md:block w-full h-[calc(100vh-18rem)] overflow-hidden">
           <LampContainer>
             <motion.div
               initial={{ opacity: 0.5, y: 100 }}

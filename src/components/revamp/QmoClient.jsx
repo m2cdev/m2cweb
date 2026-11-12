@@ -446,7 +446,7 @@ function Trial() {
 
 function FinalCta() {
   const reduce = useReducedMotion();
-  const line = "rgba(255,200,1,0.16)";
+  const line = "rgba(255,200,1,0.06)";
   return (
     <section data-seamless-end className="relative overflow-hidden px-6 pt-20 pb-28 md:pt-28 md:pb-36 text-center" style={{ background: `linear-gradient(180deg, ${QMO.ink} 0%, #17130a 55%, #000 100%)` }}>
       <motion.div
