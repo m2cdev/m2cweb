@@ -359,7 +359,8 @@ export default function PhilosophySpinner() {
         </div>
       </div>
       
-      {/* Spacer to guarantee clear reading and unpin release */}
+      {/* Once the pin releases, the closing text hangs below the pinned frame on shorter screens: give it its own dark room before the footer. */}
+      <div aria-hidden className="w-full bg-[#050505]" style={{ height: 'clamp(260px, 36vh, 420px)' }} />
     </>
   );
 }
