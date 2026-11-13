@@ -439,7 +439,7 @@ export function SwipeSlider({ children, dark = true, label = "Slides" }) {
         }}
         onPointerUp={() => { drag.current.down = false; if (ref.current) ref.current.style.scrollSnapType = ""; }}
         onPointerLeave={() => { drag.current.down = false; if (ref.current) ref.current.style.scrollSnapType = ""; }}
-        className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 -mx-6 px-6 md:mx-0 md:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing"
+        className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 -mx-6 px-6 md:mx-0 md:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing md:cursor-none md:active:cursor-none md:[&_*]:cursor-none"
         tabIndex={0}
       >
         {React.Children.map(children, (c) => (
