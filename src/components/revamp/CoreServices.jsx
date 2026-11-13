@@ -13,8 +13,8 @@ export default function CoreServices({ page, id, headline = "Core Services", hig
     <WhiteSection id={id}>
       <div className="mb-8 md:mb-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
         <div className="max-w-3xl">
-          <CoralPill>{pill}</CoralPill>
-          <h2 className="mt-5 text-3xl md:text-5xl font-black tracking-tighter leading-[1.04] text-black">
+          {pill && <CoralPill>{pill}</CoralPill>}
+          <h2 className={`${pill ? "mt-5 " : ""}text-3xl md:text-5xl font-black tracking-tighter leading-[1.04] text-black`}>
             {headline}
           </h2>
           <p className="mt-4 text-base md:text-lg text-[#5A5A5A] font-body leading-relaxed">{intro}</p>

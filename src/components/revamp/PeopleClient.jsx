@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { motion, useScroll, useSpring, useTransform, useReducedMotion, useMotionValueEvent, useInView } from "framer-motion";
+import { motion, animate, useScroll, useSpring, useTransform, useReducedMotion, useInView } from "framer-motion";
 import CoreServices from "./CoreServices";
 import {
   WaveHeroBg, SplitLetters, Btn, Reveal, Section, SectionTitle, WhiteSection, WhiteTitle,
@@ -84,11 +84,14 @@ function Execution() {
 function Ramp() {
   const ref = useRef(null);
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 85%", "center 45%"] });
-  const p = useSpring(scrollYProgress, { stiffness: 80, damping: 22, mass: 0.6 });
-  const width = useTransform(p, [0, 1], ["100%", "33.333%"]);
+  const inView = useInView(ref, { once: true, amount: 0.4 });
   const [days, setDays] = useState(reduce ? 30 : 90);
-  useMotionValueEvent(p, "change", (v) => setDays(Math.round(90 - Math.min(1, Math.max(0, v)) * 60)));
+  useEffect(() => {
+    if (reduce || !inView) return;
+    const c = animate(90, 30, { duration: 1.8, ease: "easeOut", onUpdate: (v) => setDays(Math.round(v)) });
+    return () => c.stop();
+  }, [inView, reduce]);
+  const pct = 100 - ((90 - days) / 60) * (100 - 33.333);
   const done = days <= 30;
   return (
     <WhiteSection tone="grey" className="!py-14 md:!py-20">
@@ -107,7 +110,7 @@ function Ramp() {
           </div>
           <div className="relative h-14 md:h-16 rounded-full bg-[#F2F2F2] border border-black/10 overflow-hidden">
             <div className="absolute inset-y-0 right-0 w-2/3 flex items-center justify-center text-[11px] font-black uppercase tracking-[0.25em]" style={{ color: CORAL, backgroundImage: `repeating-linear-gradient(135deg, rgba(255,107,107,0.14) 0 8px, transparent 8px 16px)` }}>Time we take out</div>
-            <motion.div className="absolute inset-y-0 left-0 rounded-full flex items-center justify-end pr-5 text-sm md:text-base font-black text-black" style={{ width: reduce ? "33.333%" : width, background: MINT }}>
+            <motion.div className="absolute inset-y-0 left-0 rounded-full flex items-center justify-end pr-5 text-sm md:text-base font-black text-black" style={{ width: `${pct}%`, background: MINT }}>
               {days <= 33 ? "Day 30" : `Day ${days}`}
             </motion.div>
           </div>

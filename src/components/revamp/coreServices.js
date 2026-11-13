@@ -34,7 +34,6 @@ export const CORE_SERVICES = {
     ],
   },
   platforms: {
-    pill: "Fill the Gap, Not the App",
     intro: "We optimize the stack you already have and add the features it is missing.",
     items: [
       ["CRM Optimization", "Cleaning up and configuring the CRM you already pay for, HubSpot or Salesforce."],

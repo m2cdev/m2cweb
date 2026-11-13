@@ -106,7 +106,6 @@ function Approach() {
     <WhiteSection id="custom-builds" className="!py-14 md:!py-20">
       <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
         <WhiteTitle className="!mb-0" eyebrow="Custom builds" title="Every Build Starts With A ^Problem" sub="Systems we build inside real revenue motions." />
-        <p className="text-sm font-black uppercase tracking-[0.25em]" style={{ color: CORAL }}>Built in 30</p>
       </div>
       <div className="relative">
         <div className="absolute left-0 right-0 top-[22px] hidden h-px bg-[#0e0e0e] lg:block" aria-hidden="true" />
