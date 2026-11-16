@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { ArrowRight, Link, Zap } from "lucide-react";
+import { ArrowLeft, ArrowRight, Link, Zap } from "lucide-react";
 
 export default function RadialOrbitalTimeline({ timelineData }) {
   const [expandedItems, setExpandedItems] = useState({});
@@ -148,11 +148,12 @@ export default function RadialOrbitalTimeline({ timelineData }) {
               click
             </div>
             {/* Clipped circle with icon */}
-            <div className="w-14 h-14 rounded-full bg-black border border-white/30 flex items-center justify-center overflow-hidden shadow-[0_0_30px_rgba(99,210,163,0.25)]">
+            {/* Mint disc with the black mark, like the swipe icon: the PNG is black art on white, so multiply drops the white. */}
+            <div className="w-14 h-14 rounded-full bg-[#63D2A3] border border-white/30 flex items-center justify-center overflow-hidden shadow-[0_0_30px_rgba(99,210,163,0.45)]">
               <img
                 src="/m2c-icon.png"
                 alt="M2C Icon"
-                className="w-10 h-10 object-contain invert brightness-200 group-hover:scale-110 transition-transform duration-200"
+                className="w-9 h-9 object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-200"
               />
             </div>
           </div>
@@ -240,14 +241,17 @@ export default function RadialOrbitalTimeline({ timelineData }) {
                           <div className="flex flex-wrap gap-1">
                             {item.relatedIds.map((relatedId) => {
                               const relatedItem = timelineData.find((i) => i.id === relatedId);
+                              // An earlier step is a step back: its arrow points left, before the name.
+                              const back = relatedId < item.id;
                               return (
                                 <button
                                   key={relatedId}
                                   className="flex items-center gap-1 px-2 py-1 text-[10px] rounded border border-white/10 bg-white/5 hover:bg-[#63D2A3]/10 hover:border-[#63D2A3]/30 text-white/50 hover:text-[#63D2A3] transition-all"
                                   onClick={(e) => { e.stopPropagation(); toggleItem(relatedId); }}
                                 >
+                                  {back && <ArrowLeft size={8} />}
                                   {relatedItem?.title}
-                                  <ArrowRight size={8} />
+                                  {!back && <ArrowRight size={8} />}
                                 </button>
                               );
                             })}
