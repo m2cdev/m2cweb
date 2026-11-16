@@ -6,7 +6,14 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Check } from "lucide-react";
 import { QmoMark, GrdrMark } from "@/components/revamp/ui";
 
-if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+  // Phones: the address bar showing and hiding must not re-measure the pinned flight mid-scroll.
+  ScrollTrigger.config({ ignoreMobileResize: true });
+}
+
+/** Mobile: the compact title sits above the flight inside the pinned screen. */
+const MOBILE_TITLE_H = 168;
 
 const MINT = "#63D2A3";
 const CORAL = "#FF6B6B";
@@ -113,7 +120,9 @@ export default function PilotFlight() {
     const measure = () => {
       const vw = window.innerWidth;
       const mobile = vw < 768;
-      const H = mobile ? 640 : Math.max(620, window.innerHeight);
+      // Mobile pins like desktop (Youssef 2026-11-16: it scrolled past the flight): the title plus the flight fill one screen.
+      const screenH = window.innerHeight;
+      const H = mobile ? Math.max(520, screenH - MOBILE_TITLE_H) : Math.max(620, screenH);
       const cardW = mobile ? Math.min(vw * 0.82, 360) : Math.min(Math.max(vw * 0.27, 350), 450);
       const gap = cardW + (mobile ? 28 : 64);
       const introW = mobile ? 24 : Math.max(vw * 0.4, 480);
@@ -121,11 +130,18 @@ export default function PilotFlight() {
       const xs = STEPS.map((_, i) => x0 + i * gap);
       const tail = mobile ? 36 : vw * 0.2;
       const W = xs[xs.length - 1] + cardW / 2 + tail;
-      setGeo({ vw, H, mobile, cardW, xs, W, introW });
+      setGeo({ vw, H, mobile, cardW, xs, W, introW, screenH });
     };
     measure();
     let t;
-    const onResize = () => { clearTimeout(t); t = setTimeout(measure, 120); };
+    let lastW = window.innerWidth;
+    // Only a width change re-measures (rotation, window resize), never the phone's address bar.
+    const onResize = () => {
+      if (window.innerWidth === lastW && window.innerWidth < 768) return;
+      lastW = window.innerWidth;
+      clearTimeout(t);
+      t = setTimeout(measure, 120);
+    };
     window.addEventListener("resize", onResize);
     return () => { window.removeEventListener("resize", onResize); clearTimeout(t); };
   }, []);
@@ -146,7 +162,7 @@ export default function PilotFlight() {
       const px = scrollX + planeScreen;
       const py = yAt(px);
       const ang = (Math.atan(slopeAt(px)) * 180) / Math.PI;
-      if (!mobile && trackRef.current) trackRef.current.style.transform = `translate3d(${-scrollX}px,0,0)`;
+      if (trackRef.current) trackRef.current.style.transform = `translate3d(${-scrollX}px,0,0)`;
       if (r.plane) r.plane.setAttribute("transform", `translate(${px} ${py}) rotate(${ang}) scale(0.95) translate(-60 -30)`);
       if (r.clip) r.clip.setAttribute("width", Math.max(0, px));
       if (r.wave) r.wave.style.transform = `translate3d(${scrollX * 0.5}px,0,0)`;
@@ -172,7 +188,7 @@ export default function PilotFlight() {
       if (r.count) r.count.textContent = `${String(Math.max(1, reached)).padStart(2, "0")} / 04`;
     };
 
-    if (!mobile) {
+    {
       const proxy = { p: 0 };
       render(0, 0);
       const ctx = gsap.context(() => {
@@ -183,7 +199,8 @@ export default function PilotFlight() {
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top top",
-            end: () => `+=${Math.round((W - vw) * 1.05)}`,
+            // Phones get more scroll per step so each card can be read as the plane passes it.
+            end: () => `+=${Math.round((W - vw) * (mobile ? 1.6 : 1.05))}`,
             pin: true,
             pinSpacing: true,
             scrub: 0.6,
@@ -195,39 +212,25 @@ export default function PilotFlight() {
       const rf = setTimeout(() => ScrollTrigger.refresh(), 100);
       return () => { clearTimeout(rf); ctx.revert(); };
     }
-
-    // Mobile: native horizontal swipe, the plane follows the scroll position.
-    const el = viewportRef.current;
-    const onScroll = () => {
-      const max = Math.max(1, el.scrollWidth - el.clientWidth);
-      render(el.scrollLeft / max, el.scrollLeft);
-    };
-    render(0, 0);
-    el.addEventListener("scroll", onScroll, { passive: true });
-    return () => el.removeEventListener("scroll", onScroll);
   }, [geo]);
 
   const H = geo ? geo.H : 700;
   const mobile = geo ? geo.mobile : false;
 
   return (
-    <section ref={sectionRef} id="how-it-works" className="relative bg-black text-white overflow-hidden hide-floating-cta" style={{ height: mobile ? "auto" : "100vh", minHeight: mobile ? 0 : 620 }}>
+    <section ref={sectionRef} id="how-it-works" className="relative bg-black text-white overflow-hidden hide-floating-cta" style={{ height: mobile && geo ? geo.screenH : "100vh", minHeight: mobile ? 0 : 620 }}>
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_85%_0%,rgba(99,210,163,0.20),transparent_55%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_0%_100%,rgba(255,107,107,0.10),transparent_50%)]" />
 
       {mobile && (
-        <div className="relative z-10 px-6 pt-16 pb-6">
-          <p className="mb-3 text-[12px] font-black uppercase tracking-[0.3em]" style={{ color: MINT }}>Timeline</p>
-          <h2 className="text-4xl font-black tracking-tighter leading-[1.02]">Four steps across <span style={{ color: MINT }}>90 days</span></h2>
-          <p className="mt-4 text-base text-white/70 font-body">Swipe through the flight. Qmo and Grdr come in where the work needs them.</p>
+        <div className="relative z-10 px-6 pt-[76px]" style={{ height: MOBILE_TITLE_H }}>
+          <p className="mb-2 text-[12px] font-black uppercase tracking-[0.3em]" style={{ color: MINT }}>Timeline</p>
+          <h2 className="text-3xl font-black tracking-tighter leading-[1.02]">Four steps across <span style={{ color: MINT }}>90 days</span></h2>
+          <p className="mt-2 text-[13px] text-white/60 font-body">Keep scrolling and follow the flight.</p>
         </div>
       )}
 
-      <div
-        ref={viewportRef}
-        className={mobile ? "relative overflow-x-auto overflow-y-hidden snap-x snap-mandatory pb-8" : "relative h-full overflow-hidden"}
-        style={mobile ? { scrollbarWidth: "none" } : undefined}
-      >
+      <div ref={viewportRef} className="relative overflow-hidden" style={{ height: mobile ? H : "100%" }}>
         {geo && (
           <div ref={trackRef} className="relative will-change-transform" style={{ width: geo.W, height: H }}>
             {/* parallax contour lines */}
@@ -304,8 +307,8 @@ export default function PilotFlight() {
               <div
                 key={s.n}
                 ref={(e) => (refs.current.cards[i] = e)}
-                className="absolute z-10 rounded-3xl border bg-[#0b0b0b]/95 p-5 md:p-7 snap-center"
-                style={{ left: geo.xs[i] - geo.cardW / 2, top: H * (mobile ? 0.3 : 0.31), width: geo.cardW, borderColor: "rgba(255,255,255,0.1)", opacity: 0.3, scrollSnapAlign: "center" }}
+                className="absolute z-10 rounded-3xl border bg-[#0b0b0b]/95 p-4 md:p-7"
+                style={{ left: geo.xs[i] - geo.cardW / 2, top: H * (mobile ? 0.3 : 0.31), width: geo.cardW, borderColor: "rgba(255,255,255,0.1)", opacity: 0.3 }}
               >
                 <div className="flex items-center gap-3 mb-3">
                   <span className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-black text-black" style={{ background: MINT }}>{s.n}</span>
